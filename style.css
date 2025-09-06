@@ -1,0 +1,118 @@
+/* Reset & Font */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Fluid Animated Gradient Background (Light Brown Theme) */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(270deg, #3e2f1c, #6e4b28, #a97449, #6e4b28);
+  background-size: 600% 600%;
+  animation: gradientFlow 25s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Navigation */
+header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 40px;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(6px);
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f5deb3; /* wheat tone */
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #f5deb3;
+  text-shadow: 0 0 10px #deb887;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #eee;
+}
+
+/* Sections */
+.content-section {
+  padding: 60px 20px;
+  margin: 30px auto;
+  max-width: 900px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.content-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(222, 184, 135, 0.4); /* burlywood glow */
+}
+
+.content-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: #f5deb3;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.7);
+  font-size: 0.9rem;
+  color: #ddd;
+}
