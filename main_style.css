@@ -86,9 +86,10 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* No glow on hover */
+/* Thin white outline on hover (no glow) */
 .project-item:hover {
   transform: translateY(-5px);
+  border-color: #ffffff;
 }
 
 .project-title {
@@ -127,9 +128,10 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* No glow on hover */
+/* Thin white outline on hover (no glow) */
 .about:hover {
   transform: translateY(-5px);
+  border-color: #ffffff;
 }
 
 /* Footer */
