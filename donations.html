@@ -16,7 +16,7 @@
   </div>
 
   <!-- Hamburger Icon -->
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
     <span></span>
     <span></span>
     <span></span>
@@ -27,7 +27,7 @@
     <section class="hero">
       <h1>Support a Cause 💙</h1>
       <p class="tagline">Together we can make a difference</p>
-      <p>
+      <p class="lead">
         I’m raising funds for three important causes: <strong>Gaza Relief</strong>, <strong>Team Water</strong>, and <strong>Global Green</strong>.  
         Your support can directly help people in need and contribute to a better world.
       </p>
@@ -36,6 +36,7 @@
     <!-- Donation Info Section -->
     <section class="cards">
       <h2>Donation Methods</h2>
+
       <div class="card">
         <p class="project-title">Sadapay</p>
         <p class="project-desc">Send donations via Sadapay at:</p>
@@ -53,7 +54,7 @@
     <section class="about">
       <h2>Why Donate?</h2>
       <p>
-        Every rupee counts — whether it’s for food, water, shelter, or green initiatives, your donation brings us closer to a brighter future.  
+        Every rupee counts — whether it’s for food, water, shelter, or green initiatives. Your donation brings us closer to a brighter future.  
         Thank you for standing with humanity. 💚
       </p>
     </section>
@@ -65,12 +66,31 @@
   </div>
 
   <script>
+    // toggle sidebar + hamburger active state
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
 
     hamburger.addEventListener("click", () => {
       sidebar.classList.toggle("open");
       hamburger.classList.toggle("active");
+    });
+
+    // accessibility: allow Enter key to toggle
+    hamburger.addEventListener("keydown", (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        sidebar.classList.toggle("open");
+        hamburger.classList.toggle("active");
+      }
+    });
+
+    // optional: close sidebar when clicking outside it on small screens
+    document.addEventListener('click', (e) => {
+      const isClickInside = sidebar.contains(e.target) || hamburger.contains(e.target);
+      if (!isClickInside && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
     });
   </script>
 </body>
