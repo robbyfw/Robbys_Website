@@ -7,24 +7,51 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #0b0f14; /* base fallback */
+  background: #071426;
   color: #e8eef6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.45;
+  overflow-y: auto; /* allow natural scrolling */
 }
 
-/* ---------- soft animated background (less bright) ---------- */
+/* ---------- animated layered background (blobs + gradient) ---------- */
 .bg-anim {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(120deg, #071426 10%, #102035 40%, #1a2b3d 70%);
+  background: linear-gradient(120deg, #071426 10%, #102035 40%, #0b2942 70%);
   background-size: 240% 240%;
-  filter: blur(36px) saturate(0.95);
-  opacity: 0.92;
+  filter: blur(28px) saturate(.98);
+  opacity: 0.95;
   animation: bgMove 28s linear infinite;
   pointer-events: none;
+}
+
+/* decorative animated blobs using pseudo elements */
+.bg-anim::before,
+.bg-anim::after {
+  content: "";
+  position: absolute;
+  width: 60vmax; height: 60vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.22;
+  transform: translate(-10%, -30%);
+  mix-blend-mode: screen;
+  animation: floatMove 14s ease-in-out infinite;
+}
+.bg-anim::before {
+  left: -20%;
+  top: -30%;
+  background: radial-gradient(circle at 30% 30%, rgba(81, 46, 154, 0.75), transparent 40%);
+  animation-duration: 18s;
+}
+.bg-anim::after {
+  right: -30%;
+  bottom: -10%;
+  background: radial-gradient(circle at 70% 70%, rgba(14, 165, 233, 0.6), transparent 40%);
+  animation-duration: 22s;
 }
 
 @keyframes bgMove {
@@ -32,31 +59,26 @@ html, body {
   50%  { background-position: 100% 50%; }
   100% { background-position:   0% 50%; }
 }
-
-/* faint decorative floating shapes */
-.bg-anim::after {
-  content: "";
-  position: absolute;
-  inset: -10% -20%;
-  background:
-    radial-gradient(closest-side, rgba(38,86,128,0.10), transparent 60%),
-    radial-gradient(closest-side, rgba(80,54,120,0.07), transparent 60%);
-  transform: translateY(-10%);
-  filter: blur(40px);
+@keyframes floatMove {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8%) scale(1.06); }
+  100% { transform: translateY(0) scale(1); }
 }
 
+/* subtle overlay texture */
+.bg-anim::marker { display: none; }
+
 /* ---------- global text outline (every text) ---------- */
-/* -webkit-text-stroke works in Chromium/Safari, text-shadow improves cross-browser outline */
+/* Use subtle dark stroke and shadow for cross-browser readability */
 :root {
   --outline-color: rgba(0,0,0,0.55);
   --soft-text: #dfe9f3;
 }
 * {
-  /* subtle dark stroke for readability on dark background */
   -webkit-text-stroke: 0.45px var(--outline-color);
   text-shadow:
     0 1px 0 rgba(255,255,255,0.02),
-    0 2px 6px rgba(0,0,0,0.6);
+    0 2px 6px rgba(0,0,0,0.55);
 }
 
 /* ---------- main container ---------- */
@@ -72,33 +94,28 @@ html, body {
   margin: 0 auto;
 }
 
-/* ensure native scrolling behavior if content grows */
-html, body { overflow-y: auto; }
-
 /* ---------- hero / intro ---------- */
 .hero {
   width: 100%;
   max-width: 860px;
   text-align: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 16px;
-  padding: clamp(20px, 3.2vw, 36px);
-  backdrop-filter: blur(8px) saturate(1.05);
-  box-shadow: 0 8px 30px rgba(6,12,20,0.55);
+  border-radius: 14px;
+  padding: clamp(18px, 3.2vw, 28px);
+  backdrop-filter: blur(6px) saturate(1.03);
+  box-shadow: 0 8px 28px rgba(6,12,20,0.55);
 }
 
 /* logo / title */
 .logo {
   margin: 0;
   font-weight: 900;
-  font-size: clamp(28px, 6vw, 56px);
-  letter-spacing: 1.4px;
-  /* subtle gradient fill + keep outline legible */
+  font-size: clamp(28px, 6vw, 48px);
+  letter-spacing: 1.2px;
   background: linear-gradient(90deg, #f7e8c9 0%, #ffd6a5 40%, #ffd6a5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* keep a crisp stroke for the logo */
   -webkit-text-stroke: 0.6px var(--outline-color);
   margin-bottom: 6px;
 }
@@ -109,30 +126,30 @@ html, body { overflow-y: auto; }
   font-weight: 600;
   font-size: clamp(12px, 2vw, 14px);
   text-transform: uppercase;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.4px;
   opacity: 0.95;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 /* intro paragraph */
 .intro {
-  margin: 0 auto 18px;
+  margin: 0 auto 12px;
   color: var(--soft-text);
   font-size: clamp(14px, 2.2vw, 18px);
   max-width: 820px;
 }
 
-/* controls */
+/* ---------- actions (single CTA) ---------- */
 .actions {
   display: flex;
   gap: 12px;
   justify-content: center;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 10px;
   flex-wrap: wrap;
 }
 
-/* primary CTA (modern glassy gradient button) */
+/* primary CTA (glassy gradient button) */
 .cta {
   display: inline-flex;
   align-items: center;
@@ -143,10 +160,10 @@ html, body { overflow-y: auto; }
   font-size: 15px;
   text-decoration: none;
   color: white;
-  background: linear-gradient(135deg, rgba(110,64,204,0.95), rgba(50,151,255,0.95));
+  background: linear-gradient(135deg, rgba(120,60,220,0.95), rgba(30,170,230,0.95));
   box-shadow:
-    0 6px 20px rgba(30,40,60,0.5),
-    0 0 30px rgba(80,60,200,0.07);
+    0 8px 26px rgba(20,30,50,0.6),
+    0 0 30px rgba(60,40,180,0.06);
   border: 1px solid rgba(255,255,255,0.06);
   transition: transform .18s ease, box-shadow .18s ease;
   -webkit-tap-highlight-color: transparent;
@@ -155,35 +172,22 @@ html, body { overflow-y: auto; }
 .cta:focus {
   transform: translateY(-4px) scale(1.02);
   box-shadow:
-    0 10px 28px rgba(30,40,60,0.6),
-    0 0 40px rgba(80,60,200,0.12);
+    0 12px 36px rgba(20,30,50,0.65),
+    0 0 46px rgba(60,40,180,0.12);
   outline: none;
 }
-
-/* secondary link */
-.secondary {
-  padding: 10px 18px;
-  color: #d7e6ff;
-  background: transparent;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
-  opacity: 0.95;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.secondary:hover { transform: translateY(-3px); }
 
 /* ---------- cards / projects ---------- */
 .cards {
   width: 100%;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
   border-radius: 12px;
-  padding: 20px;
+  padding: 14px;
   box-shadow: 0 6px 18px rgba(6,12,20,0.45);
 }
 .cards h2 {
   margin: 0 0 8px 0;
-  font-size: clamp(18px, 3vw, 22px);
+  font-size: clamp(18px, 3vw, 20px);
 }
 .cards ul {
   margin: 8px 0 0 0;
@@ -192,17 +196,22 @@ html, body { overflow-y: auto; }
   color: #dbe8fb;
 }
 .cards li {
-  padding: 8px 6px;
+  padding: 10px 8px;
   font-size: clamp(14px, 2vw, 16px);
   border-left: 3px solid rgba(255,255,255,0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+.cards li.upcoming { color: rgba(220,230,255,0.65); opacity: 0.7; font-style: italic; }
+.cards li .link-inline { color: #cfe9ff; text-decoration: underline; font-weight: 700; }
 
 /* ---------- about ---------- */
 .about {
   width: 100%;
   text-align: left;
   background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-  padding: 18px;
+  padding: 14px;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(6,12,20,0.42);
 }
@@ -219,16 +228,16 @@ html, body { overflow-y: auto; }
 /* ---------- responsive tweaks ---------- */
 @media (max-width: 820px) {
   .container { padding-left: 6vw; padding-right: 6vw; }
-  /* vertical centering can be problematic on small screens when content is taller */
   .container { justify-content: flex-start; padding-top: clamp(28px, 8vh, 48px); padding-bottom: 48px; }
-  .hero { padding: clamp(16px, 4vw, 24px); }
+  .hero { padding: clamp(14px, 4vw, 20px); }
 }
 
 @media (max-width: 480px) {
   .logo { font-size: 30px; }
   .intro { font-size: 14px; }
-  .cta { padding: 12px 18px; width: 100%; justify-content:center; }
+  .cta { padding: 12px 16px; width: 100%; justify-content:center; }
   .actions { gap: 8px; }
-  .cards, .about { padding: 14px; }
+  .cards, .about { padding: 12px; }
   .container { padding-left: 6vw; padding-right: 6vw; }
+  .cards li { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
