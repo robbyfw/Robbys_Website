@@ -34,20 +34,22 @@
       </p>
     </section>
 
-    <!-- Donation Info Section -->
-    <section class="cards">
+    <!-- Donation Methods -->
+    <section class="donation-methods">
       <h2>Donation Methods</h2>
 
-      <div class="card">
-        <p class="project-title">Sadapay</p>
-        <p class="project-desc">Send donations via Sadapay at:</p>
-        <p class="account-number">📱 03140170570</p>
-      </div>
+      <div class="donation-row">
+        <div class="card">
+          <p class="project-title">Sadapay</p>
+          <p class="project-desc">Send donations via Sadapay at:</p>
+          <p class="account-number">📱 03140170570</p>
+        </div>
 
-      <div class="card">
-        <p class="project-title">Easypaisa</p>
-        <p class="project-desc">Send donations via Easypaisa at:</p>
-        <p class="account-number">📱 03140170570</p>
+        <div class="card">
+          <p class="project-title">Easypaisa</p>
+          <p class="project-desc">Send donations via Easypaisa at:</p>
+          <p class="account-number">📱 03140170570</p>
+        </div>
       </div>
     </section>
 
@@ -67,7 +69,6 @@
   </div>
 
   <script>
-    // toggle sidebar + hamburger active state
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
 
@@ -76,7 +77,6 @@
       hamburger.classList.toggle("active");
     });
 
-    // accessibility: allow Enter/Space key to toggle
     hamburger.addEventListener("keydown", (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -85,7 +85,6 @@
       }
     });
 
-    // optional: close sidebar when clicking outside
     document.addEventListener('click', (e) => {
       const isClickInside = sidebar.contains(e.target) || hamburger.contains(e.target);
       if (!isClickInside && sidebar.classList.contains('open')) {
