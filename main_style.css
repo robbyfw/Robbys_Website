@@ -1,4 +1,4 @@
-/* Background with moving gradient (water-like) */
+/* Softer Gradient Background */
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow-x: hidden;
   color: #fff;
 }
 
@@ -15,11 +15,11 @@ body {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: linear-gradient(270deg, #6a11cb, #2575fc, #43e97b, #38f9d7);
+  background: linear-gradient(270deg, #1e3c72, #2a5298, #0f2027, #203a43, #2c5364);
   background-size: 800% 800%;
-  animation: gradientFlow 20s ease infinite;
+  animation: gradientFlow 25s ease infinite;
   z-index: -1;
-  filter: blur(40px);
+  filter: blur(50px);
 }
 
 @keyframes gradientFlow {
@@ -28,43 +28,49 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Glassmorphism container */
+/* Glassmorphism Container */
 .container {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   padding: 40px;
-  max-width: 700px;
+  max-width: 850px;
   text-align: center;
-  backdrop-filter: blur(15px);
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0px 8px 35px rgba(0, 0, 0, 0.4);
 }
 
-/* Logo */
+/* Gradient + Outline Logo */
 .logo {
-  font-size: 3.5em;
+  font-size: 3.8em;
   font-weight: 900;
   margin: 0;
   letter-spacing: 2px;
   background: linear-gradient(90deg, #ffecd2, #fcb69f, #ff9a9e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
 }
 
-/* Tagline */
+/* Tagline with outline */
 .tagline {
-  font-size: 1.1em;
+  font-size: 1.2em;
   letter-spacing: 2px;
   text-transform: uppercase;
-  opacity: 0.9;
   margin-bottom: 25px;
+  -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
 }
 
-/* Intro text */
+/* Intro Text */
 .intro {
   font-size: 1.1em;
-  line-height: 1.6;
+  line-height: 1.7;
   margin-bottom: 40px;
-  color: #f5f5f5;
+  color: #f0f0f0;
+}
+
+.highlight {
+  color: #ffde59;
+  font-weight: 600;
 }
 
 /* Fancy Button */
@@ -82,13 +88,42 @@ body {
 }
 
 .btn:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px) scale(1.07);
   box-shadow: 0px 6px 25px rgba(255, 0, 100, 0.6);
+}
+
+/* About + Projects Sections */
+section {
+  margin-top: 50px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
+}
+
+section p, section ul {
+  font-size: 1.05em;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li::before {
+  content: "✦ ";
+  color: #ffde59;
 }
 
 /* Footer */
 footer {
-  margin-top: 40px;
-  font-size: 0.8em;
+  margin-top: 50px;
+  font-size: 0.85em;
   opacity: 0.7;
+  text-align: center;
 }
