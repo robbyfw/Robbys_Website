@@ -83,13 +83,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Glow on hover (white) */
+/* No glow on hover */
 .project-item:hover {
-  border-color: #ffffff;
-  box-shadow: 0 0 15px #ffffff, 0 0 30px rgba(255, 255, 255, 0.4);
   transform: translateY(-5px);
 }
 
@@ -126,13 +124,11 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Glow on hover (white) for About */
+/* No glow on hover */
 .about:hover {
-  border-color: #ffffff;
-  box-shadow: 0 0 15px #ffffff, 0 0 30px rgba(255, 255, 255, 0.4);
   transform: translateY(-5px);
 }
 
