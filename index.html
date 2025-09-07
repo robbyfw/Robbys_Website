@@ -51,78 +51,10 @@
       </p>
     </section>
 
-    <!-- Suggestion / Commit a change -->
-    <section class="suggestion">
-      <h2>Submit a suggestion / Commit a change</h2>
-      <p class="small">Found a typo or want to improve something? Write it below and click <strong>Commit a change</strong>. Your suggestion will be downloaded as a file so you can attach it to an email or keep a local record.</p>
-
-      <form id="suggestion-form" novalidate>
-        <label for="suggestion-text" class="visually-hidden">Suggestion</label>
-        <textarea id="suggestion-text" placeholder="Describe your suggestion or change here..." rows="5" required></textarea>
-
-        <div class="suggestion-actions">
-          <button type="submit" class="btn commit">Commit a change</button>
-          <button type="button" id="copy-btn" class="btn">Copy</button>
-          <span id="suggestion-msg" role="status" aria-live="polite"></span>
-        </div>
-      </form>
-    </section>
-
     <!-- Footer -->
     <footer class="site-footer">
       <p>© 2025 Muhammad Asim (Robby) • Built with 💙</p>
     </footer>
   </div>
-
-  <script>
-    // Suggestion commit handler — downloads a text file with the suggestion
-    (function () {
-      const form = document.getElementById('suggestion-form');
-      const textarea = document.getElementById('suggestion-text');
-      const msg = document.getElementById('suggestion-msg');
-      const copyBtn = document.getElementById('copy-btn');
-
-      function showMessage(text, timeout = 3500) {
-        msg.textContent = text;
-        setTimeout(() => {
-          if (msg.textContent === text) msg.textContent = '';
-        }, timeout);
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const value = textarea.value.trim();
-        if (!value) {
-          showMessage('Please write a suggestion before committing.');
-          return;
-        }
-
-        const filename = `suggestion-${new Date().toISOString().replace(/[:.]/g,'-')}.txt`;
-        const blob = new Blob([value], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-
-        showMessage('Suggestion downloaded. Thank you!');
-        textarea.value = '';
-      });
-
-      copyBtn.addEventListener('click', async function () {
-        const value = textarea.value.trim();
-        if (!value) { showMessage('Nothing to copy — write something first.'); return; }
-        try {
-          await navigator.clipboard.writeText(value);
-          showMessage('Copied to clipboard.');
-        } catch (err) {
-          showMessage('Copy failed — your browser may block clipboard access.');
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
