@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Robby's Website</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Robby — Projects & History</title>
   <link rel="stylesheet" href="main_style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="background"></div>
-  <div class="container">
-    <h1 class="logo">Robby's World</h1>
-    <p class="tagline">Creativity • History • Innovation</p>
+  <div class="bg-anim" aria-hidden="true"></div>
 
-    <p class="intro">
-      Hi, I’m <span class="highlight">Muhammad Asim</span>, also widely known as <span class="highlight">Robby</span>.  
-      I create <b>web projects</b> to share knowledge and design experiences.  
-      From exploring the <span class="highlight">history of places</span> to building sites for <span class="highlight">organizations</span>,  
-      this is my little corner of the web where my ideas come to life.
-    </p>
+  <main class="container" role="main">
+    <header class="hero">
+      <h1 class="logo">Robby</h1>
+      <p class="tagline">Creativity · History · Web Design</p>
 
-    <a href="sukho_history/" class="btn">📖 Read Sukho History</a>
+      <p class="intro">
+        Hi — I’m <strong>Muhammad Asim</strong> (Robby). I build clean, interactive websites: history pages, school & organization sites, and creative experiments.  
+        This space shows my projects and what I’m learning.
+      </p>
 
-    <section>
-      <h2>🌍 What I Do</h2>
-      <p>I love experimenting with different kinds of web projects:</p>
+      <div class="actions">
+        <a class="cta" href="sukho_history/">📖 Explore Sukho History</a>
+        <a class="secondary" href="#projects">✨ Projects</a>
+      </div>
+    </header>
+
+    <section id="projects" class="cards">
+      <h2>Featured Projects</h2>
       <ul>
-        <li>📜 History websites that preserve stories of places</li>
-        <li>🏛️ Websites for schools, organizations, and communities</li>
-        <li>💡 Creative experiments with design & animations</li>
+        <li><strong>Sukho History</strong> — Village history site (first project)</li>
+        <li><strong>School Pages</strong> — Simple informative sites for school projects</li>
+        <li><strong>Design Experiments</strong> — Animations & UI experiments</li>
       </ul>
     </section>
 
-    <section>
-      <h2>🚀 My Vision</h2>
-      <p>
-        I want to make websites that are not only <span class="highlight">useful</span>  
-        but also <span class="highlight">beautiful & interactive</span>.  
-        Every project is a new step toward learning and sharing.
-      </p>
+    <section id="about" class="about">
+      <h2>About</h2>
+      <p>I’m 15 and learning every day — I love mixing design, code, and storytelling to make things people enjoy using. Expect more history sites and useful small projects here.</p>
     </section>
 
-    <footer>
-      © 2025 Robby • Built with passion and creativity
+    <footer class="site-footer">
+      <small>© 2025 Muhammad Asim (Robby) • Built with 💙</small>
     </footer>
-  </div>
+  </main>
 </body>
 </html>
