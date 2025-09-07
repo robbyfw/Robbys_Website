@@ -1,20 +1,16 @@
-/* donations_style.css - dark moving water background, compact layout */
-
-/* Reset + base */
+/* Base Reset */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html,body { height: 100%; }
+html, body { height: 100%; }
 body {
   font-family: 'Poppins', sans-serif;
   color: #eaeaea;
-  line-height: 1.6;
   background: linear-gradient(120deg, #0b0b0c, #141416, #0f0f11);
   background-size: 300% 300%;
   animation: gradientMove 18s ease infinite;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* Background Animation */
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -34,14 +30,12 @@ body {
   z-index: 1200;
 }
 .sidebar.open { left: 0; }
-
 .sidebar a {
   display: block;
   padding: 12px 18px;
   color: #ddd;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.18s ease, color 0.18s ease;
 }
 .sidebar a:hover,
 .sidebar a.active {
@@ -64,10 +58,7 @@ body {
   height: 36px;
   background: transparent;
   border-radius: 8px;
-  transition: background 0.18s;
 }
-.hamburger:hover { background: rgba(255,255,255,0.02); }
-
 .hamburger span {
   display: block;
   width: 26px;
@@ -75,7 +66,6 @@ body {
   background: #efefef;
   border-radius: 2px;
   margin: 4px 0;
-  transition: transform 0.28s ease, opacity 0.2s ease;
 }
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
@@ -96,7 +86,7 @@ body {
   padding: 80px 12px 40px;
 }
 
-/* Hero */
+/* Hero Section */
 .hero {
   text-align: center;
   margin-bottom: 18px;
@@ -104,8 +94,8 @@ body {
 .hero h1 {
   font-size: 2.2rem;
   font-weight: 800;
-  margin-bottom: 8px;
   color: #fff;
+  margin-bottom: 8px;
 }
 .tagline {
   color: #cfcfcf;
@@ -118,30 +108,31 @@ body {
   margin: 0 auto;
 }
 
-/* Cards section */
-.cards {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px; /* Increased gap for spacing between Sadapay and Easypaisa */
-  align-items: start;
-}
-.cards h2 {
-  grid-column: 1 / -1;
+/* Donation Methods Title */
+.donation-methods h2 {
   text-align: center;
-  margin-bottom: 6px;
   color: #fff;
   font-size: 1.4rem;
+  margin-bottom: 16px;
 }
 
-/* Individual card */
+/* Donation Row */
+.donation-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+/* Card */
 .card {
+  flex: 1 1 48%;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
   padding: 14px;
   border-radius: 10px;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-  text-align: left;
+  transition: 0.22s ease;
   color: #eaeaea;
 }
 .card:hover {
@@ -150,12 +141,11 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 14px rgba(255,255,255,0.06);
 }
 
-/* Card text */
 .project-title {
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 6px;
   color: #fff;
+  margin-bottom: 6px;
 }
 .project-desc {
   color: #cfcfcf;
@@ -168,14 +158,12 @@ body {
   font-size: 1.05rem;
 }
 
-/* About */
+/* About Section */
 .about {
-  margin-top: 18px;
   background: rgba(255,255,255,0.02);
   padding: 14px;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.04);
-  transition: box-shadow 0.22s, border-color 0.22s;
 }
 .about:hover {
   border-color: rgba(255,255,255,0.85);
@@ -199,20 +187,12 @@ body {
   font-size: 0.92rem;
 }
 
-/* Responsive tweaks */
+/* Responsive */
 @media (max-width: 640px) {
-  .container {
-    padding: 70px 12px 30px;
+  .donation-row {
+    flex-direction: column;
   }
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-  .hamburger {
-    left: 12px;
-    top: 12px;
-  }
-  .sidebar {
-    width: 200px;
-    left: -200px;
+  .card {
+    flex: 1 1 100%;
   }
 }
