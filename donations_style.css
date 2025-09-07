@@ -1,180 +1,98 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* donations.css (compact version) */
 
+/* General Styles */
 body {
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  line-height: 1.6;
-  overflow-x: hidden;
-  background: radial-gradient(circle at 20% 20%, #1a1a1a, #000000);
-  background-size: 400% 400%;
-  animation: waterFlow 12s ease infinite;
-}
-
-@keyframes waterFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -250px;
-  width: 250px;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  padding-top: 60px;
-  transition: 0.3s;
-  z-index: 1000;
-}
-
-.sidebar.open {
-  left: 0;
-}
-
-.sidebar a {
-  display: block;
-  padding: 15px 25px;
-  text-decoration: none;
-  font-weight: 600;
-  color: white;
-  transition: background 0.3s;
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-  background: #444;
-}
-
-/* Hamburger */
-.hamburger {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-  z-index: 1100;
-}
-
-.hamburger span {
-  display: block;
-  width: 30px;
-  height: 4px;
-  margin: 6px;
-  background: white;
-  transition: 0.3s;
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  line-height: 1.5;
 }
 
 /* Container */
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 100px 20px 50px;
+  width: 90%;
+  max-width: 1000px; /* smaller max-width */
+  margin: auto;
+  padding: 15px;
 }
 
 /* Hero Section */
 .hero {
   text-align: center;
-  margin-bottom: 50px;
+  padding: 40px 15px; /* reduced from 60px */
 }
 
 .hero h1 {
-  font-size: 3rem;
-  margin-bottom: 15px;
+  font-size: 2.2rem; /* reduced from 3rem */
+  margin-bottom: 10px;
 }
 
-.tagline {
-  font-weight: 600;
+.hero p {
+  font-size: 1rem; /* reduced from 1.2rem */
+  color: #666;
   margin-bottom: 20px;
-  color: #ddd;
 }
 
 /* Cards Section */
-.cards h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-align: center;
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* slightly smaller */
+  gap: 15px; /* reduced spacing */
+  margin: 25px 0; /* reduced from 40px */
 }
 
-.project-list {
-  list-style: none;
-}
-
-.project-item {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
+.card {
+  background: #fff;
+  padding: 15px; /* reduced padding */
   border-radius: 12px;
-  margin-bottom: 20px;
-  transition: border 0.3s, box-shadow 0.3s;
-  border: 2px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.project-item:hover {
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.project-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.project-desc {
-  color: #ccc;
-  margin-bottom: 10px;
-}
-
-.account-number {
-  font-size: 1.2rem;
-  font-weight: bold;
+/* Button */
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 16px; /* smaller button */
+  background: #4CAF50;
   color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  background: #45a049;
 }
 
 /* About Section */
 .about {
-  margin-top: 50px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 25px;
-  border-radius: 12px;
   text-align: center;
-  border: 2px solid transparent;
-  transition: border 0.3s, box-shadow 0.3s;
-}
-
-.about:hover {
-  border: 2px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+  padding: 30px 15px; /* reduced padding */
 }
 
 .about h2 {
-  font-size: 2rem;
-  margin-bottom: 15px;
+  font-size: 1.6rem; /* smaller heading */
+  margin-bottom: 12px;
 }
 
 .about p {
-  color: #ccc;
-  font-size: 1.1rem;
+  color: #555;
+  font-size: 1rem;
 }
 
 /* Footer */
-.site-footer {
+.footer {
   text-align: center;
-  margin-top: 60px;
-  color: #aaa;
+  padding: 15px;
+  background: #333;
+  color: #fff;
+  margin-top: 25px;
+  font-size: 0.85rem; /* smaller footer text */
 }
