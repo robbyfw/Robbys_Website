@@ -1,277 +1,117 @@
-/* ---------- Reset & essentials ---------- */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-html, body {
-  height: 100%;
+/* Animated light pink + white gradient background */
+body {
   margin: 0;
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #fff;
-  color: #ffffff; /* global text color: white */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.45;
-  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #fff0f6, #ffe6f0, #ffffff, #ffeaf5);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+  color: #fff;
+  text-align: center;
 }
 
-/* ---------- Light pink + white animated background ---------- */
-.bg-anim {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(120deg, #ffffff 0%, #fff6f8 30%, #ffeaf2 60%, #fff0f6 100%);
-  background-size: 240% 240%;
-  filter: blur(14px) saturate(1.02);
-  opacity: 1;
-  animation: bgMove 22s ease-in-out infinite;
-  pointer-events: none;
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* gentle decorative blobs for depth */
-.bg-anim::before,
-.bg-anim::after {
-  content: "";
-  position: absolute;
-  width: 60vmax; height: 60vmax;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.18;
-  mix-blend-mode: screen;
-  animation: floatMove 18s ease-in-out infinite;
-}
-.bg-anim::before {
-  left: -25%;
-  top: -30%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,170,195,0.85), transparent 35%);
-}
-.bg-anim::after {
-  right: -28%;
-  bottom: -10%;
-  background: radial-gradient(circle at 70% 70%, rgba(255,210,235,0.55), transparent 36%);
+/* Black outline for all text */
+h1, h2, p, a, span, footer, .tagline, .project-title, .project-desc {
+  color: #fff;
+  -webkit-text-stroke: 0.6px black; /* thin black outline */
 }
 
-@keyframes bgMove {
-  0%   { background-position:   0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position:   0% 50%; }
-}
-@keyframes floatMove {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-6%) scale(1.02); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-/* ---------- subtle black outline for ALL text ---------- */
-/* Very small stroke + small multi-directional shadows for cross-browser outline */
-:root {
-  --outline-color: #000000;
-}
-* {
-  -webkit-text-stroke: 0.35px var(--outline-color); /* very small black stroke */
-  text-shadow:
-    -0.5px -0.5px 0 var(--outline-color),
-     0.5px -0.5px 0 var(--outline-color),
-    -0.5px  0.5px 0 var(--outline-color),
-     0.5px  0.5px 0 var(--outline-color);
-  /* keep further shadows minimal so outline stays subtle */
-}
-
-/* ---------- main container ---------- */
+/* Container */
 .container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* center on larger screens */
-  align-items: center;
-  padding: clamp(18px, 4vw, 48px);
-  gap: clamp(18px, 3vw, 36px);
-  max-width: 980px;
-  margin: 0 auto;
-  color: #fff; /* text inside cards/hero will be white */
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
 }
 
-/* ---------- hero (card) ---------- */
-/* Use a slightly stronger translucent pink card so white text remains readable */
-.hero {
-  width: 100%;
-  max-width: 860px;
-  text-align: center;
-  background: rgba(255, 183, 205, 0.92); /* soft rose/pink card */
-  border-radius: 14px;
-  padding: clamp(18px, 3.2vw, 28px);
-  box-shadow: 0 10px 30px rgba(18,18,18,0.06);
-  border: 1px solid rgba(0,0,0,0.03);
-  backdrop-filter: blur(4px);
-  color: #ffffff; /* ensure white text here */
+/* Section styles */
+.hero, .cards, .about, .site-footer {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1.5rem auto;
+  backdrop-filter: blur(8px);
 }
 
-/* logo: white text, small outline */
-.logo {
-  margin: 0;
-  font-weight: 900;
-  font-size: clamp(28px, 6vw, 48px);
-  letter-spacing: 1.2px;
-  color: #ffffff;
-  -webkit-text-stroke: 0.45px var(--outline-color);
-  margin-bottom: 6px;
-  text-shadow:
-    -0.6px -0.6px 0 var(--outline-color),
-     0.6px -0.6px 0 var(--outline-color),
-    -0.6px  0.6px 0 var(--outline-color),
-     0.6px  0.6px 0 var(--outline-color);
+/* Title */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
-/* tagline */
-.tagline {
-  display: block;
-  font-weight: 600;
-  font-size: clamp(12px, 2vw, 14px);
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  opacity: 0.95;
-  margin-bottom: 12px;
-  color: #fff;
-}
-
-/* intro */
-.intro {
-  margin: 0 auto 12px;
-  color: #fff;
-  font-size: clamp(14px, 2.2vw, 18px);
-  max-width: 820px;
-}
-
-/* actions (single CTA) */
-.actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-/* CTA: keep pink gradient but ensure white text shows */
+/* CTA Button */
 .cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  text-decoration: none;
-  color: #fff;
-  background: linear-gradient(135deg, #ff7bb3 0%, #ff5e9e 60%);
-  box-shadow: 0 8px 24px rgba(255,120,170,0.12);
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: transform .16s ease, box-shadow .16s ease;
-}
-.cta:hover,
-.cta:focus {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 38px rgba(255,120,170,0.16);
-  outline: none;
-}
-
-/* ---------- Projects / cards ---------- */
-.cards {
-  width: 100%;
-  background: transparent;
-  border-radius: 12px;
-  padding: 0;
-  box-shadow: none;
-}
-
-/* project list */
-.project-list {
-  margin: 10px 0 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 12px;
-}
-
-/* single project row (desktop: two columns; mobile: stacked) */
-.project-item {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-  background: rgba(255, 198, 215, 0.96); /* slightly deeper pink so white text reads well */
-  border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 8px 20px rgba(10,10,10,0.04);
-  border: 1px solid rgba(0,0,0,0.04);
-  color: #fff;
-}
-
-/* project content */
-.project-left { display: flex; flex-direction: column; gap: 6px; }
-.project-title { font-weight: 700; font-size: 1.05rem; color: #fff; }
-.project-desc { color: rgba(255,255,255,0.95); font-size: 0.95rem; }
-
-/* right side status pill */
-.project-right { display: flex; align-items: center; justify-content: flex-end; }
-.status {
   display: inline-block;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.2px;
+  padding: 0.8rem 1.5rem;
+  margin-top: 1rem;
+  background: hotpink;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  -webkit-text-stroke: 0.4px black;
+  transition: 0.3s;
 }
+.cta:hover { background: deeppink; }
 
-/* completed pill: slightly greenish to show done */
-.status.completed {
-  background: linear-gradient(90deg, #aef0c6 0%, #6bd49a 100%);
-  color: #061a11;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 6px 18px rgba(40,160,110,0.06);
+/* Project list */
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-/* upcoming pill */
-.status.upcoming-pill {
-  background: linear-gradient(90deg, #ffeef5 0%, #ffdfe8 100%);
-  color: #4a1a2b;
-  border: 1px solid rgba(0,0,0,0.03);
-  box-shadow: 0 6px 14px rgba(10,10,10,0.03);
-}
-
-/* ---------- about ---------- */
-/* make about card slightly pink but readable */
-.about {
-  width: 100%;
-  text-align: left;
-  background: rgba(255, 195, 210, 0.96);
-  padding: 14px;
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(10,10,10,0.04);
-  border: 1px solid rgba(0,0,0,0.03);
-  color: #fff;
+  margin: 1rem 0;
+  padding: 1rem;
 }
-.about h2 { margin-top: 0; color: #fff; }
+.project-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.project-desc {
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+}
 
-/* ---------- footer ---------- */
+/* Status pills */
+.status {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  -webkit-text-stroke: 0.3px black;
+}
+.status.completed {
+  background: #4ade80; /* green */
+}
+.status.upcoming-pill {
+  background: #fca5a5; /* soft red */
+}
+
+/* Footer */
 .site-footer {
-  margin-top: 6px;
-  text-align: center;
-  opacity: 0.95;
-  font-size: 13px;
-  color: #111; /* footer small dark text on light bg area below */
+  font-size: 0.9rem;
+  margin-top: 2rem;
 }
 
-/* ---------- Responsive tweaks ---------- */
-@media (max-width: 900px) {
-  .container { padding-left: 6vw; padding-right: 6vw; }
-  .container { justify-content: flex-start; padding-top: clamp(28px, 8vh, 48px); padding-bottom: 48px; }
-  .hero { padding: clamp(14px, 4vw, 20px); }
-}
-
-@media (max-width: 640px) {
-  .project-item { grid-template-columns: 1fr; align-items: flex-start; }
-  .project-right { justify-content: flex-start; margin-top: 6px; }
-  .cta { width: 100%; justify-content: center; }
-  .logo { font-size: 30px; }
+/* Responsive */
+@media (max-width: 600px) {
+  .project-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 }
