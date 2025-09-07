@@ -41,7 +41,7 @@
             <p class="project-title">Sukho History</p>
             <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
           </div>
-          <span class="status completed">Completed</span>
+          <span class="status completed">Completed ✔</span>
         </li>
 
         <li class="project-item">
@@ -70,12 +70,12 @@
   </div>
 
   <script>
-    // Sidebar Toggle
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
 
     hamburger.addEventListener("click", () => {
       sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
     });
   </script>
 </body>
