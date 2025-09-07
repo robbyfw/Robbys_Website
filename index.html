@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#fff0f6" />
   <title>Robby's Website</title>
+  <link rel="icon" href="Studio-Project.png" type="image/png">
   <link rel="stylesheet" href="main_style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- animated decorative background (purely visual) -->
   <div class="bg-anim" aria-hidden="true"></div>
 
   <main class="container" role="main">
-    <header class="hero">
-      <h1 class="logo">Robby's Website</h1>
+    <header class="hero" aria-labelledby="site-title">
+      <h1 id="site-title" class="logo">Robby's Website</h1>
       <p class="tagline">Creativity · History · Web Design</p>
 
       <p class="intro">
@@ -22,41 +25,41 @@
 
       <div class="actions">
         <!-- Only Sukho History CTA -->
-        <a class="cta" href="sukho_history/">📖 Explore Sukho History</a>
+        <a class="cta" href="sukho_history/" rel="noopener noreferrer">📖 Explore Sukho History</a>
       </div>
     </header>
 
-    <section id="projects" class="cards">
-      <h2>Featured Project</h2>
+    <section id="projects" class="cards" aria-labelledby="projects-title">
+      <h2 id="projects-title">Featured Project</h2>
       <ul class="project-list">
-        <li class="project-item">
+        <li class="project-item" role="article" aria-labelledby="p1-title">
           <div class="project-left">
-            <div class="project-title">Sukho History</div>
+            <div id="p1-title" class="project-title">Sukho History</div>
             <div class="project-desc">A short site about Sukho — village history, saints, architecture.</div>
           </div>
           <div class="project-right">
-            <span class="status completed">Completed ✓</span>
+            <span class="status completed" aria-hidden="true">Completed ✓</span>
           </div>
         </li>
 
-        <li class="project-item upcoming">
+        <li class="project-item upcoming" role="article" aria-labelledby="p2-title">
           <div class="project-left">
-            <div class="project-title">Other Projects</div>
+            <div id="p2-title" class="project-title">Other Projects</div>
             <div class="project-desc">More sites & experiments — coming soon.</div>
           </div>
           <div class="project-right">
-            <span class="status upcoming-pill">Upcoming</span>
+            <span class="status upcoming-pill" aria-hidden="true">Upcoming</span>
           </div>
         </li>
       </ul>
     </section>
 
-    <section id="about" class="about">
-      <h2>About</h2>
+    <section id="about" class="about" aria-labelledby="about-title">
+      <h2 id="about-title">About</h2>
       <p>I’m 15 and learning every day — I love mixing design, code, and storytelling to make things people enjoy using. Expect more history sites and useful small projects here soon.</p>
     </section>
 
-    <footer class="site-footer">
+    <footer class="site-footer" role="contentinfo">
       <small>© 2025 Muhammad Asim (Robby) • Built with 💙</small>
     </footer>
   </main>
