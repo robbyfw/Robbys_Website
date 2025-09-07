@@ -7,7 +7,7 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: #071426;
+  background: #06121a;
   color: #e8eef6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,20 +15,21 @@ html, body {
   overflow-y: auto; /* allow natural scrolling */
 }
 
-/* ---------- animated layered background (blobs + gradient) ---------- */
+/* ---------- animated layered background (cool, aesthetic) ---------- */
 .bg-anim {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(120deg, #071426 10%, #102035 40%, #0b2942 70%);
-  background-size: 240% 240%;
-  filter: blur(28px) saturate(.98);
-  opacity: 0.95;
-  animation: bgMove 28s linear infinite;
+  /* cooler, calmer gradient (indigo -> teal -> soft violet) */
+  background: linear-gradient(120deg, #071426 6%, #0b2b3a 30%, #0f5560 60%, #4b3b8a 92%);
+  background-size: 220% 220%;
+  filter: blur(30px) saturate(0.98);
+  opacity: 0.96;
+  animation: bgMove 30s linear infinite;
   pointer-events: none;
 }
 
-/* decorative animated blobs using pseudo elements */
+/* decorative animated blobs using pseudo elements (teal + violet glows) */
 .bg-anim::before,
 .bg-anim::after {
   content: "";
@@ -36,22 +37,26 @@ html, body {
   width: 60vmax; height: 60vmax;
   border-radius: 50%;
   filter: blur(60px);
-  opacity: 0.22;
+  opacity: 0.2;
   transform: translate(-10%, -30%);
   mix-blend-mode: screen;
-  animation: floatMove 14s ease-in-out infinite;
+  animation: floatMove 16s ease-in-out infinite;
 }
 .bg-anim::before {
-  left: -20%;
-  top: -30%;
-  background: radial-gradient(circle at 30% 30%, rgba(81, 46, 154, 0.75), transparent 40%);
-  animation-duration: 18s;
+  left: -22%;
+  top: -28%;
+  /* soft teal glow */
+  background: radial-gradient(circle at 30% 30%, rgba(46,196,182,0.60), transparent 35%);
+  animation-duration: 19s;
+  opacity: 0.22;
 }
 .bg-anim::after {
-  right: -30%;
-  bottom: -10%;
-  background: radial-gradient(circle at 70% 70%, rgba(14, 165, 233, 0.6), transparent 40%);
-  animation-duration: 22s;
+  right: -28%;
+  bottom: -12%;
+  /* gentle violet glow */
+  background: radial-gradient(circle at 70% 70%, rgba(107,67,234,0.45), transparent 36%);
+  animation-duration: 24s;
+  opacity: 0.18;
 }
 
 @keyframes bgMove {
@@ -61,17 +66,14 @@ html, body {
 }
 @keyframes floatMove {
   0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-8%) scale(1.06); }
+  50% { transform: translateY(-6%) scale(1.04); }
   100% { transform: translateY(0) scale(1); }
 }
-
-/* subtle overlay texture */
-.bg-anim::marker { display: none; }
 
 /* ---------- global text outline (every text) ---------- */
 /* Use subtle dark stroke and shadow for cross-browser readability */
 :root {
-  --outline-color: rgba(0,0,0,0.55);
+  --outline-color: rgba(0,0,0,0.56);
   --soft-text: #dfe9f3;
 }
 * {
@@ -99,7 +101,7 @@ html, body {
   width: 100%;
   max-width: 860px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.008));
   border-radius: 14px;
   padding: clamp(18px, 3.2vw, 28px);
   backdrop-filter: blur(6px) saturate(1.03);
@@ -112,7 +114,7 @@ html, body {
   font-weight: 900;
   font-size: clamp(28px, 6vw, 48px);
   letter-spacing: 1.2px;
-  background: linear-gradient(90deg, #f7e8c9 0%, #ffd6a5 40%, #ffd6a5 100%);
+  background: linear-gradient(90deg, #dfe7ff 0%, #bfe7df 45%, #ffd6a5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -160,7 +162,7 @@ html, body {
   font-size: 15px;
   text-decoration: none;
   color: white;
-  background: linear-gradient(135deg, rgba(120,60,220,0.95), rgba(30,170,230,0.95));
+  background: linear-gradient(135deg, rgba(95,55,220,0.95), rgba(26,170,170,0.95));
   box-shadow:
     0 8px 26px rgba(20,30,50,0.6),
     0 0 30px rgba(60,40,180,0.06);
@@ -203,7 +205,7 @@ html, body {
   justify-content: space-between;
   align-items: center;
 }
-.cards li.upcoming { color: rgba(220,230,255,0.65); opacity: 0.7; font-style: italic; }
+.cards li.upcoming { color: rgba(220,230,255,0.65); opacity: 0.75; font-style: italic; }
 .cards li .link-inline { color: #cfe9ff; text-decoration: underline; font-weight: 700; }
 
 /* ---------- about ---------- */
