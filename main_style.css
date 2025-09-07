@@ -1,4 +1,4 @@
-/* Softer Gradient Background */
+/* Softer Dark Gradient Background */
 body {
   margin: 0;
   padding: 0;
@@ -15,11 +15,11 @@ body {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: linear-gradient(270deg, #1e3c72, #2a5298, #0f2027, #203a43, #2c5364);
-  background-size: 800% 800%;
-  animation: gradientFlow 25s ease infinite;
+  background: linear-gradient(270deg, #0d0d0d, #1a1a2e, #16213e, #0f3460);
+  background-size: 600% 600%;
+  animation: gradientFlow 30s ease infinite;
   z-index: -1;
-  filter: blur(50px);
+  filter: blur(40px);
 }
 
 @keyframes gradientFlow {
@@ -36,28 +36,31 @@ body {
   max-width: 850px;
   text-align: center;
   backdrop-filter: blur(20px);
-  box-shadow: 0px 8px 35px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Gradient + Outline Logo */
+/* Apply Outline to ALL text */
+* {
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.25);
+}
+
+/* Logo */
 .logo {
   font-size: 3.8em;
   font-weight: 900;
   margin: 0;
   letter-spacing: 2px;
-  background: linear-gradient(90deg, #ffecd2, #fcb69f, #ff9a9e);
+  background: linear-gradient(90deg, #f9d423, #ff4e50);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
 }
 
-/* Tagline with outline */
+/* Tagline */
 .tagline {
   font-size: 1.2em;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 25px;
-  -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
 }
 
 /* Intro Text */
@@ -73,7 +76,7 @@ body {
   font-weight: 600;
 }
 
-/* Fancy Button */
+/* Modern Button */
 .btn {
   display: inline-block;
   padding: 14px 40px;
@@ -81,18 +84,18 @@ body {
   font-weight: 600;
   color: #fff;
   border-radius: 50px;
-  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
   text-decoration: none;
   transition: 0.3s ease-in-out;
-  box-shadow: 0px 4px 20px rgba(255, 0, 100, 0.4);
+  box-shadow: 0px 4px 20px rgba(37, 117, 252, 0.4);
 }
 
 .btn:hover {
   transform: translateY(-3px) scale(1.07);
-  box-shadow: 0px 6px 25px rgba(255, 0, 100, 0.6);
+  box-shadow: 0px 6px 25px rgba(37, 117, 252, 0.6);
 }
 
-/* About + Projects Sections */
+/* Sections */
 section {
   margin-top: 50px;
   text-align: left;
@@ -101,7 +104,6 @@ section {
 h2 {
   font-size: 1.6em;
   margin-bottom: 15px;
-  -webkit-text-stroke: 0.5px rgba(255,255,255,0.3);
 }
 
 section p, section ul {
