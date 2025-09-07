@@ -1,10 +1,10 @@
-/* Animated light pink + white gradient background */
+/* Animated very soft white gradient background */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg, #fff0f6, #ffe6f0, #ffffff, #ffeaf5);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
+  background: linear-gradient(-45deg, #ffffff, #fdfdfd, #f8f8f8, #ffffff);
+  background-size: 300% 300%;
+  animation: gradientMove 15s ease infinite;
   color: #fff;
   text-align: center;
 }
@@ -15,9 +15,9 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Black outline for all text */
+/* White text with black outline */
 h1, h2, p, a, span, footer, .tagline, .project-title, .project-desc {
-  color: #fff;
+  color: #ffffff;
   -webkit-text-stroke: 0.6px black; /* thin black outline */
 }
 
@@ -28,16 +28,16 @@ h1, h2, p, a, span, footer, .tagline, .project-title, .project-desc {
   padding: 2rem;
 }
 
-/* Section styles */
+/* Sections */
 .hero, .cards, .about, .site-footer {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   padding: 2rem;
   margin: 1.5rem auto;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
 }
 
-/* Title */
+/* Titles */
 h1 {
   font-size: 2.5rem;
   font-weight: 800;
@@ -73,7 +73,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   margin: 1rem 0;
   padding: 1rem;
