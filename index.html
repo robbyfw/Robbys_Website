@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Robby's Website</title>
-  <!-- Linking CSS correctly -->
   <link rel="stylesheet" href="main_style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
@@ -70,14 +69,13 @@
     </footer>
   </div>
 
-  <!-- Sidebar Toggle Script -->
   <script>
-    const sidebar = document.getElementById("sidebar");
+    // Sidebar Toggle
     const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
 
     hamburger.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-      hamburger.classList.toggle("active");
+      sidebar.classList.toggle("open");
     });
   </script>
 </body>
