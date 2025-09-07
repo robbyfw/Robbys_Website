@@ -1,3 +1,31 @@
+:root {
+  --bg1: #0b0b0c;
+  --bg2: #141416;
+  --bg3: #0f0f11;
+  --card-glass: rgba(255,255,255,0.03);
+  --muted-glass: rgba(255,255,255,0.02);
+  --accent: #ff2fa6;
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; font-family: 'Poppins', sans-serif; }
+
+/* Background */
+body {
+  background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+  background-size: 300% 300%;
+  animation: gradientMove 18s ease infinite;
+  color: var(--white);
+  text-align: center;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Sidebar */
 .sidebar {
   height: 100%;
@@ -32,7 +60,6 @@
   top: 15px;
   right: 20px;
   font-size: 2rem;
-  text-decoration: none;
   cursor: pointer;
 }
 
@@ -54,3 +81,60 @@
   background: var(--white);
   border-radius: 2px;
 }
+
+/* Container + Sections */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.hero, .cards, .about, .site-footer {
+  background: var(--card-glass);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 1.5rem auto;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+h1 { font-size: 2.5rem; font-weight: 800; }
+h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+.tagline { letter-spacing: 0.12em; margin-bottom: 1rem; }
+
+.cta {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  margin-top: 1rem;
+  background: var(--accent);
+  color: var(--white);
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+}
+.cta:hover { transform: translateY(-3px); }
+
+/* Projects */
+.project-list { list-style: none; padding: 0; margin: 0; }
+.project-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--muted-glass);
+  border-radius: 12px;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.project-item > div { flex: 1; text-align: left; }
+
+.status {
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.status.completed { background: #166534; }
+.status.upcoming-pill { background: #7f1d1d; }
+
+.site-footer { font-size: 0.9rem; margin-top: 2rem; }
