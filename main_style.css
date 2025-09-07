@@ -8,27 +8,27 @@ html, body {
   margin: 0;
   font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background: #fff;
-  color: #0b0b0b; /* dark text for light background */
+  color: #ffffff; /* global text color: white */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.45;
   overflow-y: auto;
 }
 
-/* ---------- Soft white + light pink animated background ---------- */
+/* ---------- Light pink + white animated background ---------- */
 .bg-anim {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #ffffff 0%, #fff4f8 45%, #ffeef5 100%);
-  background-size: 200% 200%;
-  filter: blur(10px) saturate(1.02);
-  animation: bgMove 28s linear infinite;
-  pointer-events: none;
+  background: linear-gradient(120deg, #ffffff 0%, #fff6f8 30%, #ffeaf2 60%, #fff0f6 100%);
+  background-size: 240% 240%;
+  filter: blur(14px) saturate(1.02);
   opacity: 1;
+  animation: bgMove 22s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* pink & soft blue blobs for depth (subtle) */
+/* gentle decorative blobs for depth */
 .bg-anim::before,
 .bg-anim::after {
   content: "";
@@ -36,19 +36,19 @@ html, body {
   width: 60vmax; height: 60vmax;
   border-radius: 50%;
   filter: blur(70px);
-  opacity: 0.16;
+  opacity: 0.18;
   mix-blend-mode: screen;
   animation: floatMove 18s ease-in-out infinite;
 }
 .bg-anim::before {
   left: -25%;
   top: -30%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,160,190,0.70), transparent 35%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,170,195,0.85), transparent 35%);
 }
 .bg-anim::after {
   right: -28%;
   bottom: -10%;
-  background: radial-gradient(circle at 70% 70%, rgba(200,235,255,0.55), transparent 36%);
+  background: radial-gradient(circle at 70% 70%, rgba(255,210,235,0.55), transparent 36%);
 }
 
 @keyframes bgMove {
@@ -58,24 +58,23 @@ html, body {
 }
 @keyframes floatMove {
   0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-6%) scale(1.03); }
+  50% { transform: translateY(-6%) scale(1.02); }
   100% { transform: translateY(0) scale(1); }
 }
 
-/* ---------- Force BLACK outline for every text ---------- */
-/* Webkit stroke + multi-shadow for cross-browser outline */
+/* ---------- subtle black outline for ALL text ---------- */
+/* Very small stroke + small multi-directional shadows for cross-browser outline */
 :root {
   --outline-color: #000000;
-  --soft-text: #222;
 }
 * {
-  -webkit-text-stroke: 0.6px var(--outline-color);
+  -webkit-text-stroke: 0.35px var(--outline-color); /* very small black stroke */
   text-shadow:
-    -1px -1px 0 var(--outline-color),
-     1px -1px 0 var(--outline-color),
-    -1px  1px 0 var(--outline-color),
-     1px  1px 0 var(--outline-color),
-     0 2px 6px rgba(0,0,0,0.06);
+    -0.5px -0.5px 0 var(--outline-color),
+     0.5px -0.5px 0 var(--outline-color),
+    -0.5px  0.5px 0 var(--outline-color),
+     0.5px  0.5px 0 var(--outline-color);
+  /* keep further shadows minimal so outline stays subtle */
 }
 
 /* ---------- main container ---------- */
@@ -89,33 +88,38 @@ html, body {
   gap: clamp(18px, 3vw, 36px);
   max-width: 980px;
   margin: 0 auto;
-  color: var(--soft-text);
+  color: #fff; /* text inside cards/hero will be white */
 }
 
-/* hero */
+/* ---------- hero (card) ---------- */
+/* Use a slightly stronger translucent pink card so white text remains readable */
 .hero {
   width: 100%;
   max-width: 860px;
   text-align: center;
-  background: rgba(255,255,255,0.88); /* faint white card so contrast is perfect */
+  background: rgba(255, 183, 205, 0.92); /* soft rose/pink card */
   border-radius: 14px;
   padding: clamp(18px, 3.2vw, 28px);
-  box-shadow: 0 8px 30px rgba(15,15,15,0.06);
-  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 10px 30px rgba(18,18,18,0.06);
+  border: 1px solid rgba(0,0,0,0.03);
+  backdrop-filter: blur(4px);
+  color: #ffffff; /* ensure white text here */
 }
 
-/* logo */
+/* logo: white text, small outline */
 .logo {
   margin: 0;
   font-weight: 900;
   font-size: clamp(28px, 6vw, 48px);
   letter-spacing: 1.2px;
-  background: linear-gradient(90deg, #2b2b2b 0%, #4b4b4b 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 0.7px var(--outline-color);
-  color: #0b0b0b;
+  color: #ffffff;
+  -webkit-text-stroke: 0.45px var(--outline-color);
   margin-bottom: 6px;
+  text-shadow:
+    -0.6px -0.6px 0 var(--outline-color),
+     0.6px -0.6px 0 var(--outline-color),
+    -0.6px  0.6px 0 var(--outline-color),
+     0.6px  0.6px 0 var(--outline-color);
 }
 
 /* tagline */
@@ -125,19 +129,20 @@ html, body {
   font-size: clamp(12px, 2vw, 14px);
   text-transform: uppercase;
   letter-spacing: 1.4px;
-  opacity: 0.9;
+  opacity: 0.95;
   margin-bottom: 12px;
+  color: #fff;
 }
 
 /* intro */
 .intro {
   margin: 0 auto 12px;
-  color: #111;
+  color: #fff;
   font-size: clamp(14px, 2.2vw, 18px);
   max-width: 820px;
 }
 
-/* actions */
+/* actions (single CTA) */
 .actions {
   display: flex;
   gap: 12px;
@@ -147,7 +152,7 @@ html, body {
   flex-wrap: wrap;
 }
 
-/* CTA (pink-accented to match background) */
+/* CTA: keep pink gradient but ensure white text shows */
 .cta {
   display: inline-flex;
   align-items: center;
@@ -194,17 +199,18 @@ html, body {
   grid-template-columns: 1fr auto;
   gap: 12px;
   align-items: center;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 198, 215, 0.96); /* slightly deeper pink so white text reads well */
   border-radius: 12px;
   padding: 14px 16px;
   box-shadow: 0 8px 20px rgba(10,10,10,0.04);
   border: 1px solid rgba(0,0,0,0.04);
+  color: #fff;
 }
 
 /* project content */
 .project-left { display: flex; flex-direction: column; gap: 6px; }
-.project-title { font-weight: 700; font-size: 1.05rem; color: #0b0b0b; }
-.project-desc { color: #333; font-size: 0.95rem; opacity: 0.95; }
+.project-title { font-weight: 700; font-size: 1.05rem; color: #fff; }
+.project-desc { color: rgba(255,255,255,0.95); font-size: 0.95rem; }
 
 /* right side status pill */
 .project-right { display: flex; align-items: center; justify-content: flex-end; }
@@ -217,44 +223,43 @@ html, body {
   letter-spacing: 0.2px;
 }
 
-/* completed pill */
+/* completed pill: slightly greenish to show done */
 .status.completed {
-  background: linear-gradient(90deg, #99e6b3 0%, #59d19a 100%);
-  color: #06250f;
+  background: linear-gradient(90deg, #aef0c6 0%, #6bd49a 100%);
+  color: #061a11;
   border: 1px solid rgba(0,0,0,0.06);
   box-shadow: 0 6px 18px rgba(40,160,110,0.06);
 }
 
 /* upcoming pill */
 .status.upcoming-pill {
-  background: linear-gradient(90deg, #ffe9f2 0%, #ffd9ea 100%);
+  background: linear-gradient(90deg, #ffeef5 0%, #ffdfe8 100%);
   color: #4a1a2b;
   border: 1px solid rgba(0,0,0,0.03);
   box-shadow: 0 6px 14px rgba(10,10,10,0.03);
 }
 
-/* slightly muted upcoming row */
-.project-item.upcoming { opacity: 0.95; }
-
 /* ---------- about ---------- */
+/* make about card slightly pink but readable */
 .about {
   width: 100%;
   text-align: left;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 195, 210, 0.96);
   padding: 14px;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(10,10,10,0.04);
   border: 1px solid rgba(0,0,0,0.03);
+  color: #fff;
 }
-.about h2 { margin-top: 0; color: #0b0b0b; }
+.about h2 { margin-top: 0; color: #fff; }
 
 /* ---------- footer ---------- */
 .site-footer {
   margin-top: 6px;
   text-align: center;
-  opacity: 0.9;
+  opacity: 0.95;
   font-size: 13px;
-  color: #222;
+  color: #111; /* footer small dark text on light bg area below */
 }
 
 /* ---------- Responsive tweaks ---------- */
