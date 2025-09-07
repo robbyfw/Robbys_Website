@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-<!-- Sidebar Menu -->
-<div id="sidebar" class="sidebar">
-  <a href="#">Donations</a>
-</div>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="#">Donations</a>
+  </div>
 
-<!-- Hamburger Icon -->
-<div class="hamburger" id="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <div class="container">
     <!-- Hero Section -->
@@ -70,13 +70,15 @@
     </footer>
   </div>
 
+  <!-- Sidebar Toggle Script -->
   <script>
-    function openSidebar() {
-      document.getElementById("sidebar").style.width = "250px";
-    }
-    function closeSidebar() {
-      document.getElementById("sidebar").style.width = "0";
-    }
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.getElementById("hamburger");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+      hamburger.classList.toggle("active");
+    });
   </script>
 </body>
 </html>
