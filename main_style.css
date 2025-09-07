@@ -20,7 +20,7 @@ html, body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, #ffffff 0%, #fff6f9 45%, #ffeef5 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fff4f8 45%, #ffeef5 100%);
   background-size: 200% 200%;
   filter: blur(10px) saturate(1.02);
   animation: bgMove 28s linear infinite;
@@ -28,7 +28,7 @@ html, body {
   opacity: 1;
 }
 
-/* pink & teal blobs for depth (subtle) */
+/* pink & soft blue blobs for depth (subtle) */
 .bg-anim::before,
 .bg-anim::after {
   content: "";
@@ -36,14 +36,14 @@ html, body {
   width: 60vmax; height: 60vmax;
   border-radius: 50%;
   filter: blur(70px);
-  opacity: 0.18;
+  opacity: 0.16;
   mix-blend-mode: screen;
   animation: floatMove 18s ease-in-out infinite;
 }
 .bg-anim::before {
   left: -25%;
   top: -30%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,160,190,0.75), transparent 35%);
+  background: radial-gradient(circle at 30% 30%, rgba(255,160,190,0.70), transparent 35%);
 }
 .bg-anim::after {
   right: -28%;
@@ -62,15 +62,14 @@ html, body {
   100% { transform: translateY(0) scale(1); }
 }
 
-/* ---------- Force black outline for every text ---------- */
-/* Webkit stroke + multi-directional text-shadow for cross-browser "outline" */
+/* ---------- Force BLACK outline for every text ---------- */
+/* Webkit stroke + multi-shadow for cross-browser outline */
 :root {
   --outline-color: #000000;
   --soft-text: #222;
 }
 * {
-  -webkit-text-stroke: 0.5px var(--outline-color);
-  /* multiple small shadows to simulate a crisp outline on non-webkit */
+  -webkit-text-stroke: 0.6px var(--outline-color);
   text-shadow:
     -1px -1px 0 var(--outline-color),
      1px -1px 0 var(--outline-color),
@@ -98,7 +97,7 @@ html, body {
   width: 100%;
   max-width: 860px;
   text-align: center;
-  background: rgba(255,255,255,0.75); /* faint white card so contrast is perfect */
+  background: rgba(255,255,255,0.88); /* faint white card so contrast is perfect */
   border-radius: 14px;
   padding: clamp(18px, 3.2vw, 28px);
   box-shadow: 0 8px 30px rgba(15,15,15,0.06);
@@ -111,7 +110,6 @@ html, body {
   font-weight: 900;
   font-size: clamp(28px, 6vw, 48px);
   letter-spacing: 1.2px;
-  /* keep a soft gradient fill for the logo while text stroke gives outline */
   background: linear-gradient(90deg, #2b2b2b 0%, #4b4b4b 60%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
