@@ -54,7 +54,7 @@ h1, h2, p, a, span, footer, .tagline, .project-title, .project-desc {
 }
 
 /* Sections */
-.hero, .cards, .about, .site-footer, .suggestion {
+.hero, .cards, .about, .site-footer {
   background: var(--card-glass);
   border-radius: 15px;
   padding: 2rem;
@@ -103,6 +103,7 @@ h2 {
   padding: 0;
   margin: 0;
 }
+/* === Updated: ensure left content is a single column and status is always on the right === */
 .project-item {
   display: flex;
   justify-content: space-between;
@@ -111,15 +112,24 @@ h2 {
   border-radius: 12px;
   margin: 1rem 0;
   padding: 1rem;
+  gap: 1rem;            /* small gap so items don't collide */
+  min-height: 72px;    /* consistent height for nicer alignment */
 }
+
+/* Make the left block take all available space and be left-aligned (fixes desktop misalignment) */
+.project-item > div {
+  flex: 1;
+  text-align: left;
+}
+
 .project-title {
   font-weight: 600;
   font-size: 1.1rem;
+  margin: 0;
 }
 .project-desc {
   font-size: 0.95rem;
   margin-top: 0.2rem;
-  opacity: 0.95;
 }
 
 /* Status pills */
@@ -144,52 +154,6 @@ h2 {
   opacity: 0.95;
 }
 
-/* Suggestion form */
-.suggestion textarea {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(0,0,0,0.35);
-  color: var(--white);
-  resize: vertical;
-  font-family: inherit;
-  font-size: 0.95rem;
-  outline: none;
-}
-.suggestion textarea::placeholder { color: rgba(255,255,255,0.55); }
-
-.suggestion .suggestion-actions {
-  margin-top: 0.7rem;
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.btn {
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  background: rgba(255,255,255,0.06);
-  color: var(--white);
-}
-.btn.commit {
-  background: var(--accent);
-  color: var(--white);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-}
-#suggestion-msg {
-  margin-left: 0.6rem;
-  font-size: 0.95rem;
-  opacity: 0.95;
-}
-
-/* small helper text */
-.small { font-size: 0.92rem; opacity: 0.95; }
-
 /* Responsive */
 @media (max-width: 600px) {
   .project-item {
@@ -197,6 +161,4 @@ h2 {
     align-items: flex-start;
     gap: 0.5rem;
   }
-  .suggestion .suggestion-actions { justify-content: stretch; }
-  .suggestion .suggestion-actions .btn { flex: 1; }
 }
