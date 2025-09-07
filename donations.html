@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donations | Robby's Website</title>
+
   <!-- Link to donation-specific CSS -->
   <link rel="stylesheet" href="donations_style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
@@ -75,7 +76,7 @@
       hamburger.classList.toggle("active");
     });
 
-    // accessibility: allow Enter key to toggle
+    // accessibility: allow Enter/Space key to toggle
     hamburger.addEventListener("keydown", (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -84,7 +85,7 @@
       }
     });
 
-    // optional: close sidebar when clicking outside it on small screens
+    // optional: close sidebar when clicking outside
     document.addEventListener('click', (e) => {
       const isClickInside = sidebar.contains(e.target) || hamburger.contains(e.target);
       if (!isClickInside && sidebar.classList.contains('open')) {
