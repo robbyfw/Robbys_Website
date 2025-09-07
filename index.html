@@ -8,6 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="#" class="close-btn" onclick="closeSidebar()">×</a>
+    <a href="#">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" onclick="openSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <div class="container">
     <!-- Hero Section -->
     <section class="hero">
@@ -34,7 +47,7 @@
 
         <li class="project-item">
           <div>
-            <p class="project-title">     Other Projects</p>
+            <p class="project-title">Other Projects</p>
             <p class="project-desc">More sites & experiments — coming soon.</p>
           </div>
           <span class="status upcoming-pill">Upcoming</span>
@@ -56,5 +69,14 @@
       <p>© 2025 Muhammad Asim (Robby) • Built with 💙</p>
     </footer>
   </div>
+
+  <script>
+    function openSidebar() {
+      document.getElementById("sidebar").style.width = "250px";
+    }
+    function closeSidebar() {
+      document.getElementById("sidebar").style.width = "0";
+    }
+  </script>
 </body>
 </html>
