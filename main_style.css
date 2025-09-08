@@ -110,14 +110,20 @@ body {
   font-size: 0.85rem;
 }
 
-.completed {
-  background: #28a745;
+/* New Visit Button */
+.visit-btn {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  background: #0078ff;
   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
 }
 
-.upcoming-pill {
-  background: #ff9800;
-  color: white;
+.visit-btn:hover {
+  background: #005fcc;
 }
 
 /* About Section */
