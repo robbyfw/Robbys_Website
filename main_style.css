@@ -5,34 +5,22 @@
   box-sizing: border-box;
 }
 
-/* Body with pseudo-element for smooth water animation */
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
-  position: relative;
-  overflow-x: hidden;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  -webkit-animation: waterflow 20s ease infinite; /* mobile Safari/Chrome fix */
+  background-attachment: fixed; /* ensures motion on mobile */
   line-height: 1.6;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-  background-size: 600% 600%;
-  z-index: -1;
-  animation: waterflow 20s linear infinite;
-  transform: translateX(0);
-}
-
-/* Smooth transform animation for mobile & desktop */
+/* Background animation like water */
 @keyframes waterflow {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(50%); }
-  100% { transform: translateX(0); }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .container {
