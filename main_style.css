@@ -12,8 +12,15 @@ body {
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
   -webkit-animation: waterflow 20s ease infinite; /* mobile Safari/Chrome fix */
-  background-attachment: fixed; /* ensures motion on mobile */
+  background-attachment: fixed; /* ensures motion on desktop */
   line-height: 1.6;
+}
+
+/* ✅ Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 /* Background animation like water */
