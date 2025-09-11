@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake — Robby</title>
+
+  <!-- Use same font as your main site -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="game-header">
+      <h1>Snake</h1>
+      <p class="small">Modern • Responsive • Mobile-friendly</p>
+    </header>
+
+    <main class="game-area">
+      <div class="board-wrap">
+        <canvas id="gameCanvas" width="800" height="800" aria-label="Snake game canvas"></canvas>
+
+        <div class="ui-overlay">
+          <div class="scorebox">
+            <div>Score</div>
+            <div id="score">0</div>
+          </div>
+
+          <div class="controls">
+            <button id="startBtn" class="btn">Start</button>
+            <button id="pauseBtn" class="btn ghost">Pause</button>
+            <button id="restartBtn" class="btn ghost">Restart</button>
+
+            <label class="control-row">
+              Speed
+              <input id="speedRange" type="range" min="4" max="18" value="8">
+            </label>
+            <label class="control-row">
+              Grid
+              <input id="gridToggle" type="checkbox">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <aside class="info-panel">
+        <h3>How to play</h3>
+        <ul>
+          <li>Use ← ↑ → ↓ or swipe on mobile to move.</li>
+          <li>Eat the glowing fruits to grow and score points.</li>
+          <li>Avoid walls and your tail.</li>
+        </ul>
+
+        <div class="meta">
+          <div>Highscore: <span id="highscore">0</span></div>
+          <div class="hint">Tip: faster speed for more challenge.</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="game-footer">
+      <a href="../index.html" class="back-link">← Back to site</a>
+      <div class="credits">© 2025 Muhammad Asim (Robby)</div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
