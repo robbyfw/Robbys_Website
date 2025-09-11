@@ -4,19 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snake Game</title>
+
+  <!-- Website Logo / Favicon -->
+  <link rel="icon" type="image/png" href="Studio-Project.png">
+  <link rel="apple-touch-icon" href="Studio-Project.png">
+
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="game-wrapper">
-    <h1 class="title">🐍 Snake Game</h1>
-    <p class="subtitle">Play the modern version of Snake!</p>
+  <div class="game-container">
+    <h1>🐍 Snake Game</h1>
+    <canvas id="gameCanvas"></canvas>
+    <p id="score">Score: 0</p>
 
-    <div class="game-card">
-      <canvas id="gameCanvas" width="400" height="400"></canvas>
-      <div class="game-controls">
-        <button id="startBtn">▶ Start Game</button>
-        <p class="score">Score: <span id="score">0</span></p>
+    <!-- Control Buttons -->
+    <div class="game-buttons">
+      <button id="startBtn">▶️ Start</button>
+      <button id="pauseBtn">⏸ Pause</button>
+      <button id="restartBtn">🔄 Restart</button>
+      <button id="themeBtn">🌈 Theme</button>
+      <button id="soundBtn">🔊 Sound</button>
+    </div>
+
+    <!-- Touch Buttons for Mobile -->
+    <div class="controls">
+      <button id="up">⬆️</button>
+      <div class="middle-buttons">
+        <button id="left">⬅️</button>
+        <button id="down">⬇️</button>
+        <button id="right">➡️</button>
       </div>
     </div>
   </div>
