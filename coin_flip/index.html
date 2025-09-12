@@ -70,7 +70,7 @@ h1 {
 
 /* ===== Coin ===== */
 .coin-wrap {
-  perspective: 1000px;
+  perspective: 1200px;
   width: 160px;
   height: 160px;
   display: flex;
@@ -88,10 +88,23 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 -8px 18px rgba(0,0,0,0.12);
   transition: transform 1.2s cubic-bezier(.2,.9,.3,1);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 -8px 18px rgba(0,0,0,0.12);
+  background: radial-gradient(circle at 30% 30%, #ffd86b, #e6b73f 60%, #a67b22 120%);
 }
 
+/* Coin edges */
+.coin::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.25) 80%);
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+/* Faces */
 .face {
   position: absolute;
   inset: 0;
@@ -102,29 +115,12 @@ h1 {
   font-size: 3rem;
   font-weight: 700;
   backface-visibility: hidden;
+  z-index: 10;
+  transform-style: preserve-3d;
 }
 
-.face.front {
-  background: radial-gradient(circle at 30% 25%, #ffd86b, #e6b73f 50%, #a67b22 120%);
-  color: #111;
-  transform: translateZ(6px);
-  box-shadow: inset 0 10px 20px rgba(255,255,255,0.18);
-}
-
-.face.back {
-  background: radial-gradient(circle at 30% 25%, #ffe9b0, #d6b078 50%, #8f6528 120%);
-  color: #111;
-  transform: rotateX(180deg) translateZ(6px);
-  box-shadow: inset 0 -6px 16px rgba(0,0,0,0.12);
-}
-
-.coin::before {
-  content:"";
-  position:absolute;
-  inset:6px;
-  border-radius:50%;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -6px 12px rgba(0,0,0,0.2);
-}
+.face.front { transform: translateZ(6px); }
+.face.back { transform: rotateX(180deg) translateZ(6px); }
 
 /* ===== Controls ===== */
 .controls {
@@ -215,25 +211,25 @@ const coin = document.getElementById('coin');
 const flipBtn = document.getElementById('flipBtn');
 const quickBtn = document.getElementById('quickBtn');
 const resultEl = document.getElementById('result');
-let busy = false;
+let busy=false;
 
 function softConfetti(x, y){
   const colors = ['#ffd3a5','#ffd1dc','#c2f0fc','#d6f5d6','#fbe8a6','#e6d6ff'];
   for(let i=0;i<14;i++){
-    const el = document.createElement('div');
+    const el=document.createElement('div');
     el.className='confetti';
-    const size = Math.random()*8+8;
-    el.style.width = `${size}px`;
-    el.style.height = `${size*1.2}px`;
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    const size=Math.random()*8+8;
+    el.style.width=`${size}px`;
+    el.style.height=`${size*1.2}px`;
+    el.style.left=`${x}px`;
+    el.style.top=`${y}px`;
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
     document.body.appendChild(el);
 
-    const dx = (Math.random()-0.5)*(80+Math.random()*160);
-    const dy = -(120+Math.random()*260);
-    const rot = (Math.random()-0.5)*720;
-    const dur = 900 + Math.random()*800;
+    const dx=(Math.random()-0.5)*(80+Math.random()*160);
+    const dy=-(120+Math.random()*260);
+    const rot=(Math.random()-0.5)*720;
+    const dur=900 + Math.random()*800;
 
     el.animate([
       { transform: `translate3d(0,0,0) rotate(${Math.random()*360}deg)`, opacity:1 },
@@ -244,16 +240,15 @@ function softConfetti(x, y){
   }
 }
 
-function spin(duration = 1200, flips = 5){
+function spin(duration=1300){
   if(busy) return Promise.reject('busy');
   busy=true;
-  coin.classList.add('flipping');
-  const totalDeg = flips*360 + (Math.random()*180 - 90);
-  coin.style.transform = `rotateX(${totalDeg}deg) translateZ(0)`;
+  const randX=Math.floor(Math.random()*6+6)*360;
+  const randY=Math.floor(Math.random()*6+6)*360;
+  coin.style.transition=`transform ${duration}ms cubic-bezier(.2,.9,.3,1)`;
+  coin.style.transform=`rotateX(${randX}deg) rotateY(${randY}deg)`;
   return new Promise(resolve=>{
     setTimeout(()=>{
-      coin.classList.remove('flipping');
-      coin.style.transform='';
       busy=false;
       resolve();
     }, duration+20);
@@ -268,8 +263,8 @@ async function doFlip(times=1){
   const cy=rect.top+rect.height/2;
 
   for(let i=0;i<times;i++){
-    try{ await spin(1100,6+Math.floor(Math.random()*4)); } catch(e){return;}
-    const outcome = Math.random()<0.5?'Heads':'Tails';
+    try{ await spin(1200); } catch(e){return;}
+    const outcome=Math.random()<0.5?'Heads':'Tails';
     const front=coin.querySelector('.face.front');
     const back=coin.querySelector('.face.back');
     if(outcome==='Heads'){ front.textContent='H'; back.textContent='T'; }
