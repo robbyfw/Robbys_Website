@@ -1,39 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anonymous Chat</title>
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-    // Firebase Config (replace with yours!)
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    window.db = getFirestore(app);
-  </script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="chat-container">
-    <h2>💬 Anonymous Chat</h2>
-    <div id="messages"></div>
-
-    <div class="input-area">
-      <input type="text" id="messageInput" placeholder="Type a message..." />
+    <h1>💬 Anonymous Chat</h1>
+    <div id="chat" class="chat-box"></div>
+    <div class="input-container">
+      <input type="text" id="messageInput" placeholder="Type your message..." />
       <button id="sendBtn">Send</button>
     </div>
   </div>
