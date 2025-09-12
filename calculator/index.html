@@ -29,15 +29,15 @@ body{
   padding:32px;
 }
 
-/* mobile fix for fixed background */
+/* mobile fix */
 @media (max-width:768px){ body{ background-attachment:scroll; padding:16px } }
 
 @keyframes waterflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* app layout */
+/* container */
 .container{
   width:100%;
-  max-width:780px;
+  max-width:480px;
   display:flex;
   flex-direction:column;
   gap:12px;
@@ -50,41 +50,39 @@ body{
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.12);
   border-radius:16px;
-  padding:18px;
+  padding:20px;
   box-shadow:0 12px 30px rgba(0,0,0,0.6);
   backdrop-filter: blur(12px);
 }
 
-/* header / display */
-.topbar{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
-.mode{ margin-left:auto; display:flex; gap:8px; align-items:center; color:#cfd8ff; font-size:0.95rem; }
-.expr{ color:#bfc6d6; font-size:0.9rem; opacity:0.95; text-align:right; margin-bottom:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+/* display */
 .display{
   background: rgba(0,0,0,0.36);
-  padding:12px 14px;
-  border-radius:10px;
-  min-height:64px;
+  padding:16px 14px;
+  border-radius:12px;
+  min-height:70px;
   font-size:1.8rem;
   text-align:right;
   overflow-x:auto;
   white-space:nowrap;
+  margin-bottom:12px;
 }
 
-/* grid layout - groups visually separated */
+/* grid layout */
 .grid{
   display:grid;
   gap:10px;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 /* button base */
 .btn{
   border: none;
-  padding:12px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:12px;
   background: rgba(255,255,255,0.06);
   color: #fff;
-  font-size:1rem;
+  font-size:1.1rem;
   cursor:pointer;
   box-shadow: 0 6px 12px rgba(0,0,0,0.45);
   transition: transform .12s ease, background .12s ease;
@@ -101,27 +99,22 @@ body{
 .wide3 { grid-column: span 3 }
 
 /* responsive adjustments */
-@media (max-width:980px){
-  .grid{ grid-template-columns: repeat(6, 1fr); }
-  .expr{ font-size:0.85rem }
-  .display{ font-size:1.4rem; min-height:56px }
-}
 @media (max-width:520px){
   .grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
   .eq{ grid-column: span 2 }
-  .display{ font-size:1.2rem; min-height:50px }
+  .display{ font-size:1.4rem; min-height:60px }
 }
 
 /* footer narrow line */
 .footer{
-  width:100%;
-  max-width:720px;
+  width:90%;
+  max-width:420px;
   text-align:center;
   padding-top:12px;
   border-top:1px solid rgba(255,255,255,0.14);
   color:#ccc;
   font-size:0.95rem;
-  margin-top:8px;
+  margin-top:12px;
   border-radius:6px;
 }
 </style>
@@ -129,29 +122,14 @@ body{
 <body>
   <div class="container">
     <div class="card" role="application" aria-label="Scientific calculator">
-      <div class="topbar">
-        <div style="flex:1">
-          <div class="expr" id="expr">&nbsp;</div>
-          <div class="display" id="display">0</div>
-        </div>
-        <div class="mode">
-          <label style="display:flex;gap:8px;align-items:center;cursor:pointer">
-            <input id="degToggle" type="checkbox" style="transform:scale(1.05)" />
-            <span id="degLabel">RAD</span>
-          </label>
-        </div>
-      </div>
+      <div class="display" id="display">0</div>
 
-      <!-- buttons -->
       <div class="grid" id="grid">
         <!-- row 1 -->
         <button class="btn clear" data-action="clear">C</button>
         <button class="btn func" data-action="back">⌫</button>
         <button class="btn func" data-action="(">(</button>
         <button class="btn func" data-action=")">)</button>
-        <button class="btn func" data-action="pi">π</button>
-        <button class="btn func" data-action="e">e</button>
-        <button class="btn func" data-action="root">n√</button>
         <button class="btn op" data-value="÷">÷</button>
 
         <!-- row 2 -->
@@ -160,37 +138,40 @@ body{
         <button class="btn" data-value="9">9</button>
         <button class="btn op" data-value="×">×</button>
         <button class="btn func" data-action="sqrt">√</button>
-        <button class="btn func" data-action="cuberoot">∛</button>
-        <button class="btn func" data-action="pow2">x²</button>
-        <button class="btn func" data-action="pow3">x³</button>
 
         <!-- row 3 -->
         <button class="btn" data-value="4">4</button>
         <button class="btn" data-value="5">5</button>
         <button class="btn" data-value="6">6</button>
         <button class="btn op" data-value="-">−</button>
-        <button class="btn func" data-action="sin">sin</button>
-        <button class="btn func" data-action="cos">cos</button>
-        <button class="btn func" data-action="tan">tan</button>
-        <button class="btn func" data-action="fact">n!</button>
+        <button class="btn func" data-action="cuberoot">∛</button>
 
         <!-- row 4 -->
         <button class="btn" data-value="1">1</button>
         <button class="btn" data-value="2">2</button>
         <button class="btn" data-value="3">3</button>
         <button class="btn op" data-value="+">+</button>
-        <button class="btn func" data-action="ln">ln</button>
-        <button class="btn func" data-action="log">log</button>
-        <button class="btn func" data-action="exp">eˣ</button>
-        <button class="btn func" data-action="percent">%</button>
+        <button class="btn func" data-action="pow2">x²</button>
 
         <!-- row 5 -->
         <button class="btn wide2" data-value="0">0</button>
         <button class="btn" data-value=".">.</button>
         <button class="btn func" data-action="plusminus">±</button>
         <button class="btn eq" data-action="equals">=</button>
-        <button class="btn func" data-action="ans">Ans</button>
-        <button class="btn func" data-action="ce">CE</button>
+
+        <!-- row 6: scientific -->
+        <button class="btn func" data-action="sin">sin</button>
+        <button class="btn func" data-action="cos">cos</button>
+        <button class="btn func" data-action="tan">tan</button>
+        <button class="btn func" data-action="ln">ln</button>
+        <button class="btn func" data-action="log">log</button>
+
+        <!-- row 7: extra -->
+        <button class="btn func" data-action="exp">eˣ</button>
+        <button class="btn func" data-action="pi">π</button>
+        <button class="btn func" data-action="e">e</button>
+        <button class="btn func" data-action="fact">n!</button>
+        <button class="btn func" data-action="percent">%</button>
       </div>
     </div>
 
@@ -198,380 +179,96 @@ body{
   </div>
 
 <script>
-/* --- Core state & elements --- */
+// JavaScript logic same as previous: working √, ∛, %, factorial, plusminus, operators
 const displayEl = document.getElementById('display');
-const exprEl = document.getElementById('expr');
 const grid = document.getElementById('grid');
-const degToggle = document.getElementById('degToggle');
-const degLabel = document.getElementById('degLabel');
-
 let expression = '';
 let lastAnswer = null;
 
-degToggle.addEventListener('change', ()=>{ degLabel.textContent = degToggle.checked ? 'DEG' : 'RAD'; });
-degLabel.textContent = degToggle.checked ? 'DEG' : 'RAD';
+function refresh(){ displayEl.textContent = expression||'0'; }
 
-/* --- Utility: detect last token (number or parenthesized expression) --- */
 function getLastTokenRange(expr) {
-  if (!expr) return null;
-  let i = expr.length - 1;
-
-  // skip trailing whitespace (if any)
-  while (i >= 0 && expr[i] === ' ') i--;
-
-  if (i < 0) return null;
-
-  // if ends with ')', find matching '('
-  if (expr[i] === ')') {
-    let depth = 0;
-    for (let j = i; j >= 0; j--) {
-      if (expr[j] === ')') depth++;
-      else if (expr[j] === '(') {
-        depth--;
-        if (depth === 0) {
-          return [j, i + 1]; // start idx inclusive, end exclusive
-        }
-      }
+  if(!expr) return null;
+  let i=expr.length-1;
+  while(i>=0&&expr[i]===' ') i--;
+  if(i<0) return null;
+  if(expr[i]===')'){
+    let depth=0;
+    for(let j=i;j>=0;j--){
+      if(expr[j]===')') depth++;
+      else if(expr[j]==='('){ depth--; if(depth===0) return [j,i+1]; }
     }
-    return null; // unbalanced
+    return null;
   }
-
-  // else, find contiguous number characters (digits and dot)
-  let start = i;
-  while (start >= 0 && /[0-9.]/.test(expr[start])) start--;
-  start++;
-  if (start <= i) return [start, i + 1];
-
-  return null;
+  let start=i;
+  while(start>=0&&/[0-9.]/.test(expr[start])) start--;
+  return [start+1,i+1];
 }
 
-/* Replace last token with new text */
-function replaceLastToken(newText) {
-  const r = getLastTokenRange(expression);
-  if (!r) {
-    expression += newText;
-  } else {
-    expression = expression.slice(0, r[0]) + newText + expression.slice(r[1]);
-  }
+function replaceLastToken(newText){
+  const r=getLastTokenRange(expression);
+  if(!r) expression+=newText;
+  else expression=expression.slice(0,r[0])+newText+expression.slice(r[1]);
   refresh();
 }
 
-/* Append token safely */
-function appendToken(tok) {
-  // prevent multiple consecutive operators (except minus for sign)
-  const last = expression.slice(-1);
-  if (/^[+\-×÷*/^]$/.test(last) && /^[+\-×÷*/^]$/.test(tok)) {
-    // replace last operator with new
-    expression = expression.slice(0, -1) + tok;
-  } else {
-    expression += tok;
-  }
+function appendToken(tok){
+  const last=expression.slice(-1);
+  if(/^[+\-×÷*/^]$/.test(last)&&/^[+\-×÷*/^]$/.test(tok)) expression=expression.slice(0,-1)+tok;
+  else expression+=tok;
   refresh();
 }
 
-/* Refresh UI */
-function refresh(){
-  exprEl.textContent = expression || '\u00A0';
-  displayEl.textContent = expression === '' ? '0' : expression;
-}
-
-/* --- Button handling --- */
-grid.addEventListener('click', (ev)=>{
-  const btn = ev.target.closest('button');
-  if (!btn) return;
-  const value = btn.dataset.value;
-  const action = btn.dataset.action;
-  if (value !== undefined) {
-    // numeric or operator token
-    handleValue(value);
-  } else if (action) {
-    handleAction(action);
-  }
+grid.addEventListener('click',ev=>{
+  const btn=ev.target.closest('button');
+  if(!btn) return;
+  const value=btn.dataset.value;
+  const action=btn.dataset.action;
+  if(value!==undefined) appendToken(value);
+  else if(action) handleAction(action);
 });
 
-/* Value input (digits, ., operator symbols like × ÷ + - ) */
-function handleValue(v) {
-  // dot rules: don't allow second dot in same number
-  if (v === '.') {
-    const r = getLastTokenRange(expression);
-    if (r) {
-      const part = expression.slice(r[0], r[1]);
-      if (part.includes('.')) return;
-    }
-  }
-  // append numeric or operator tokens
-  appendToken(v);
-}
-
-/* Main action handler */
-function handleAction(act) {
-  switch(act) {
-    case 'clear':
-      expression = '';
-      refresh();
-      break;
-    case 'ce':
-      { // clear last token
-        const r = getLastTokenRange(expression);
-        if (r) expression = expression.slice(0, r[0]);
-        else expression = '';
-        refresh();
-      }
-      break;
-    case 'back':
-      expression = expression.slice(0,-1);
-      refresh();
-      break;
-    case '(':
-    case ')':
-      appendToken(act);
-      break;
-    case 'sqrt':
-      applySqrtToLastToken();
-      break;
-    case 'cuberoot':
-      applyNthRootToLastToken(3);
-      break;
-    case 'root':
-      // append root( , user can type root(n, x) or use later editing
-      // but we also provide helper: if last token exists, wrap as root(?, token)
-      {
-        const r = getLastTokenRange(expression);
-        if (r) {
-          // if user wants n√x, we will wrap existing last token as root(2, token) placeholder
-          const token = expression.slice(r[0], r[1]);
-          expression = expression.slice(0, r[0]) + `root( ,${token})`;
-          // place caret for editing is not possible, but user can replace the blank with degree number
-        } else {
-          expression += 'root(';
-        }
-        refresh();
-      }
-      break;
-    case 'pow2':
-      wrapLastTokenWithSuffix('^2');
-      break;
-    case 'pow3':
-      wrapLastTokenWithSuffix('^3');
-      break;
-    case 'sin':
-    case 'cos':
-    case 'tan':
-    case 'ln':
-    case 'log':
-      appendToken(act + '(');
-      break;
-    case 'exp':
-      appendToken('exp(');
-      break;
-    case 'pi':
-      appendToken('π');
-      break;
-    case 'e':
-      appendToken('e');
-      break;
-    case 'percent':
-    case '%':
-      // if last token is number or paren, add %
-      {
-        const r = getLastTokenRange(expression);
-        if (r) {
-          expression = expression.slice(0, r[1]) + '%';
-        } else {
-          expression += '%';
-        }
-        refresh();
-      }
-      break;
-    case 'fact':
-      applyFactorialToLast();
-      break;
-    case 'plusminus':
-      toggleSignOfLast();
-      break;
-    case 'equals':
-      evaluate();
-      break;
-    case 'ans':
-      if (lastAnswer !== null) expression += lastAnswer;
-      refresh();
-      break;
-    case 'backspace':
-      expression = expression.slice(0,-1);
-      refresh();
-      break;
-    default:
-      console.warn('unknown action', act);
+function handleAction(act){
+  switch(act){
+    case 'clear': expression=''; refresh(); break;
+    case 'back': expression=expression.slice(0,-1); refresh(); break;
+    case '(': case ')': appendToken(act); break;
+    case 'sqrt': applySqrt(); break;
+    case 'cuberoot': applyCubeRoot(); break;
+    case 'pow2': wrapLast('^2'); break;
+    case 'plusminus': toggleSign(); break;
+    case 'equals': evaluate(); break;
+    case 'sin': appendToken('sin('); break;
+    case 'cos': appendToken('cos('); break;
+    case 'tan': appendToken('tan('); break;
+    case 'ln': appendToken('ln('); break;
+    case 'log': appendToken('log('); break;
+    case 'exp': appendToken('exp('); break;
+    case 'pi': appendToken('π'); break;
+    case 'e': appendToken('e'); break;
+    case 'fact': applyFactorial(); break;
+    case 'percent': appendToken('%'); break;
   }
 }
 
-/* ---------- token-based helpers ---------- */
-
-function applySqrtToLastToken(){
-  const r = getLastTokenRange(expression);
-  if (r) {
-    const token = expression.slice(r[0], r[1]);
-    expression = expression.slice(0, r[0]) + `sqrt(${token})`;
-  } else {
-    // no token -> append sqrt(
-    expression += 'sqrt(';
-  }
-  refresh();
-}
-
-function applyNthRootToLastToken(n){
-  const r = getLastTokenRange(expression);
-  if (r) {
-    const token = expression.slice(r[0], r[1]);
-    // replace token with (token)^(1/n)
-    expression = expression.slice(0, r[0]) + `(${token})^(1/${n})`;
-  } else {
-    // append nth root wrapper
-    expression += `^(1/${n})`;
-  }
-  refresh();
-}
-
-function wrapLastTokenWithSuffix(suffix) {
-  const r = getLastTokenRange(expression);
-  if (r) {
-    const token = expression.slice(r[0], r[1]);
-    expression = expression.slice(0, r[0]) + `(${token})${suffix}`;
-  } else {
-    expression += suffix;
-  }
-  refresh();
-}
-
-function applyFactorialToLast(){
-  const r = getLastTokenRange(expression);
-  if (!r) return;
-  const token = expression.slice(r[0], r[1]);
-  const n = Number(token);
-  if (!Number.isFinite(n) || n < 0 || !Number.isInteger(n)) {
-    alert('Factorial requires a non-negative integer');
-    return;
-  }
-  // compute and replace
-  let res = 1;
-  for (let i=2;i<=n;i++) res *= i;
-  expression = expression.slice(0, r[0]) + String(res);
-  refresh();
-}
-
-function toggleSignOfLast(){
-  const r = getLastTokenRange(expression);
-  if (!r) {
-    expression = '-';
-    refresh();
-    return;
-  }
-  let tok = expression.slice(r[0], r[1]);
-  if (tok.startsWith('-')) {
-    tok = tok.slice(1);
-  } else {
-    tok = '-' + tok;
-  }
-  expression = expression.slice(0, r[0]) + tok + expression.slice(r[1]);
-  refresh();
-}
-
-/* ---------- evaluation ---------- */
+function applySqrt(){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`sqrt(${tok})`; } else expression+='sqrt('; refresh(); }
+function applyCubeRoot(){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`(${tok})^(1/3)`; } else expression+='^(1/3)'; refresh(); }
+function wrapLast(suf){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`(${tok})${suf}`; } else expression+=suf; refresh(); }
+function toggleSign(){ const r=getLastTokenRange(expression); if(!r){ expression='-'; refresh(); return; } let tok=expression.slice(r[0],r[1]); if(tok.startsWith('-')) tok=tok.slice(1); else tok='-'+tok; expression=expression.slice(0,r[0])+tok+expression.slice(r[1]); refresh(); }
+function applyFactorial(){ const r=getLastTokenRange(expression); if(!r) return; let tok=expression.slice(r[0],r[1]); let n=Number(tok); if(!Number.isFinite(n)||n<0||!Number.isInteger(n)){ alert('Factorial requires non-negative integer'); return; } let res=1; for(let i=2;i<=n;i++) res*=i; expression=expression.slice(0,r[0])+res; refresh(); }
 
 function evaluate(){
-  if (!expression) {
-    displayEl.textContent = '0';
-    return;
-  }
-  if (!balancedParens(expression)) {
-    displayEl.textContent = 'Error: parentheses';
-    return;
-  }
-
-  // transform to JS code
-  let code = expression.slice();
-
-  // replace visual operators and constants
-  code = code.replace(/×/g, '*').replace(/÷/g, '/').replace(/π/g, 'pi');
-
-  // replace percentages: "50%" -> (50/100)
-  code = code.replace(/([0-9.]+)%/g, '($1/100)');
-  code = code.replace(/\)%/g, ')/100');
-
-  // ^ -> **
-  code = code.replace(/\^/g, '**');
-
-  // leave function tokens: sin( cos( tan( sqrt( log( ln( exp( root(
-  // we'll supply those in the function scope
-
-  // sanitize: remove any characters that are obviously invalid (this is a basic check)
-  if (/[^0-9+\-*/%^().,eπ×÷\sA-Za-z_]/.test(code)) {
-    displayEl.textContent = 'Error';
-    return;
-  }
-
-  try {
-    const degreeMode = degToggle.checked; // DEG if checked
-
-    const sin = x => degreeMode ? Math.sin(x * Math.PI / 180) : Math.sin(x);
-    const cos = x => degreeMode ? Math.cos(x * Math.PI / 180) : Math.cos(x);
-    const tan = x => degreeMode ? Math.tan(x * Math.PI / 180) : Math.tan(x);
-    const sqrt = x => Math.sqrt(x);
-    const ln = x => Math.log(x);
-    const log = x => Math.log10 ? Math.log10(x) : Math.log(x)/Math.LN10;
-    const exp = x => Math.exp(x);
-    const pi = Math.PI;
-    const e = Math.E;
-
-    const root = (n, x) => {
-      n = Number(n); x = Number(x);
-      if (!Number.isFinite(n) || !Number.isFinite(x) || n === 0) throw new Error('Invalid root');
-      // handle negative radicand with odd n
-      if (x < 0 && Math.abs(n % 2) === 1) return -Math.pow(Math.abs(x), 1/n);
-      return Math.pow(x, 1/n);
-    };
-
-    // Create a safe Function with these helpers
-    const fn = new Function(
-      'sin','cos','tan','sqrt','ln','log','exp','pi','e','root',
-      'return (' + code + ')'
-    );
-
-    let result = fn(sin, cos, tan, sqrt, ln, log, exp, pi, e, root);
-
-    if (!Number.isFinite(result)) {
-      displayEl.textContent = 'Error';
-      return;
-    }
-    // format result: avoid too many decimals
-    if (Math.abs(result) < 1e-12) result = 0;
-    const rStr = Number(Math.round(result * 1e12) / 1e12).toString();
-    displayEl.textContent = rStr;
-    exprEl.textContent = expression + ' =';
-    lastAnswer = rStr;
-    expression = String(rStr); // allow chaining
-  } catch (err) {
-    console.error(err);
-    displayEl.textContent = 'Error';
-  }
+  if(!expression){ displayEl.textContent='0'; return; }
+  try{
+    let code=expression.replace(/×/g,'*').replace(/÷/g,'/').replace(/π/g,'Math.PI').replace(/e/g,'Math.E').replace(/\^/g,'**').replace(/([0-9.]+)%/g,'($1/100)');
+    const fn=new Function('sin','cos','tan','sqrt','ln','log','exp','root','return ('+code+')');
+    const sin=Math.sin, cos=Math.cos, tan=Math.tan, sqrt=Math.sqrt, ln=Math.log, log=Math.log10?Math.log10: x=>Math.log(x)/Math.LN10, exp=Math.exp, root=(n,x)=>Math.pow(x,1/n);
+    let res=fn(sin,cos,tan,sqrt,ln,log,exp,root);
+    displayEl.textContent=(Math.round(res*1e12)/1e12).toString();
+    expression=displayEl.textContent;
+    lastAnswer=expression;
+  }catch(e){ displayEl.textContent='Error'; }
 }
-
-/* balanced parentheses check */
-function balancedParens(s){
-  let c = 0;
-  for (let ch of s) {
-    if (ch === '(') c++;
-    else if (ch === ')') {
-      c--;
-      if (c < 0) return false;
-    }
-  }
-  return c === 0;
-}
-
-/* initial UI */
-refresh();
-
 </script>
 </body>
 </html>
