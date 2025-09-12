@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scientific Calculator — Muhammad Asim (Robby)</title>
+<title>Simple Calculator — Muhammad Asim (Robby)</title>
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="/Studio-Project.png">
@@ -35,7 +35,7 @@ body{
 /* container */
 .container{
   width:100%;
-  max-width:520px;
+  max-width:400px;
   display:flex;
   flex-direction:column;
   gap:16px;
@@ -70,7 +70,7 @@ body{
 .grid{
   display:grid;
   gap:10px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* button base */
@@ -80,7 +80,7 @@ body{
   border-radius:12px;
   background: rgba(255,255,255,0.06);
   color: #fff;
-  font-size:1rem;
+  font-size:1.2rem;
   cursor:pointer;
   box-shadow: 0 6px 12px rgba(0,0,0,0.45);
   transition: transform .12s ease, background .12s ease;
@@ -90,7 +90,6 @@ body{
 
 /* variants */
 .op{ background: linear-gradient(180deg, rgba(0,120,255,0.82), rgba(0,96,200,0.82)); color:#fff }
-.func{ background: rgba(200,200,255,0.06); color: #eaf2ff }
 .eq { background: linear-gradient(180deg,#00ffab,#00e594); color:#000; grid-column: span 2 }
 .clear{ background: linear-gradient(180deg,#ff6b6b,#ff4b4b); color:#fff }
 .wide2 { grid-column: span 2 }
@@ -99,13 +98,13 @@ body{
 @media (max-width:520px){
   .grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
   .eq{ grid-column: span 2 }
-  .display{ font-size:1.4rem; min-height:60px }
+  .display{ font-size:1.5rem; min-height:60px }
 }
 
 /* footer narrow line */
 .footer{
   width:90%;
-  max-width:480px;
+  max-width:380px;
   text-align:center;
   padding-top:12px;
   border-top:1px solid rgba(255,255,255,0.14);
@@ -118,57 +117,38 @@ body{
 </head>
 <body>
   <div class="container">
-    <div class="card" role="application" aria-label="Scientific calculator">
+    <div class="card">
       <div class="display" id="display">0</div>
 
-      <div class="grid" id="grid">
-        <!-- row 1: clear, back, (, ), ÷ -->
+      <div class="grid">
+        <!-- Row 1 -->
         <button class="btn clear" data-action="clear">C</button>
-        <button class="btn func" data-action="back">⌫</button>
-        <button class="btn func" data-action="(">(</button>
-        <button class="btn func" data-action=")">)</button>
+        <button class="btn" data-action="back">⌫</button>
+        <button class="btn" data-action="plusminus">±</button>
         <button class="btn op" data-value="÷">÷</button>
 
-        <!-- row 2: 7-9, ×, √ -->
+        <!-- Row 2 -->
         <button class="btn" data-value="7">7</button>
         <button class="btn" data-value="8">8</button>
         <button class="btn" data-value="9">9</button>
         <button class="btn op" data-value="×">×</button>
-        <button class="btn func" data-action="sqrt">√</button>
 
-        <!-- row 3: 4-6, -, ∛ -->
+        <!-- Row 3 -->
         <button class="btn" data-value="4">4</button>
         <button class="btn" data-value="5">5</button>
         <button class="btn" data-value="6">6</button>
         <button class="btn op" data-value="-">−</button>
-        <button class="btn func" data-action="cuberoot">∛</button>
 
-        <!-- row 4: 1-3, +, x² -->
+        <!-- Row 4 -->
         <button class="btn" data-value="1">1</button>
         <button class="btn" data-value="2">2</button>
         <button class="btn" data-value="3">3</button>
         <button class="btn op" data-value="+">+</button>
-        <button class="btn func" data-action="pow2">x²</button>
 
-        <!-- row 5: 0, ., ±, = -->
+        <!-- Row 5 -->
         <button class="btn wide2" data-value="0">0</button>
         <button class="btn" data-value=".">.</button>
-        <button class="btn func" data-action="plusminus">±</button>
         <button class="btn eq" data-action="equals">=</button>
-
-        <!-- row 6: scientific functions -->
-        <button class="btn func" data-action="sin">sin</button>
-        <button class="btn func" data-action="cos">cos</button>
-        <button class="btn func" data-action="tan">tan</button>
-        <button class="btn func" data-action="ln">ln</button>
-        <button class="btn func" data-action="log">log</button>
-
-        <!-- row 7: constants & other functions -->
-        <button class="btn func" data-action="exp">eˣ</button>
-        <button class="btn func" data-action="pi">π</button>
-        <button class="btn func" data-action="e">e</button>
-        <button class="btn func" data-action="fact">n!</button>
-        <button class="btn func" data-action="percent">%</button>
       </div>
     </div>
 
@@ -176,96 +156,52 @@ body{
   </div>
 
 <script>
-// Same JS as previous working version
 const displayEl = document.getElementById('display');
-const grid = document.getElementById('grid');
+const buttons = document.querySelectorAll('.btn');
 let expression = '';
-let lastAnswer = null;
 
-function refresh(){ displayEl.textContent = expression||'0'; }
+function refresh(){ displayEl.textContent = expression || '0'; }
 
-function getLastTokenRange(expr) {
-  if(!expr) return null;
-  let i=expr.length-1;
-  while(i>=0&&expr[i]===' ') i--;
-  if(i<0) return null;
-  if(expr[i]===')'){
-    let depth=0;
-    for(let j=i;j>=0;j--){
-      if(expr[j]===')') depth++;
-      else if(expr[j]==='('){ depth--; if(depth===0) return [j,i+1]; }
-    }
-    return null;
-  }
-  let start=i;
-  while(start>=0&&/[0-9.]/.test(expr[start])) start--;
-  return [start+1,i+1];
-}
+function append(value){ expression += value; refresh(); }
 
-function replaceLastToken(newText){
-  const r=getLastTokenRange(expression);
-  if(!r) expression+=newText;
-  else expression=expression.slice(0,r[0])+newText+expression.slice(r[1]);
-  refresh();
-}
+function back(){ expression = expression.slice(0,-1); refresh(); }
 
-function appendToken(tok){
-  const last=expression.slice(-1);
-  if(/^[+\-×÷*/^]$/.test(last)&&/^[+\-×÷*/^]$/.test(tok)) expression=expression.slice(0,-1)+tok;
-  else expression+=tok;
-  refresh();
-}
-
-grid.addEventListener('click',ev=>{
-  const btn=ev.target.closest('button');
-  if(!btn) return;
-  const value=btn.dataset.value;
-  const action=btn.dataset.action;
-  if(value!==undefined) appendToken(value);
-  else if(action) handleAction(action);
-});
-
-function handleAction(act){
-  switch(act){
-    case 'clear': expression=''; refresh(); break;
-    case 'back': expression=expression.slice(0,-1); refresh(); break;
-    case '(': case ')': appendToken(act); break;
-    case 'sqrt': applySqrt(); break;
-    case 'cuberoot': applyCubeRoot(); break;
-    case 'pow2': wrapLast('^2'); break;
-    case 'plusminus': toggleSign(); break;
-    case 'equals': evaluate(); break;
-    case 'sin': appendToken('sin('); break;
-    case 'cos': appendToken('cos('); break;
-    case 'tan': appendToken('tan('); break;
-    case 'ln': appendToken('ln('); break;
-    case 'log': appendToken('log('); break;
-    case 'exp': appendToken('exp('); break;
-    case 'pi': appendToken('π'); break;
-    case 'e': appendToken('e'); break;
-    case 'fact': applyFactorial(); break;
-    case 'percent': appendToken('%'); break;
+function toggleSign(){
+  if(expression==='') return;
+  let lastNumber = expression.match(/-?\d+(\.\d+)?$/);
+  if(lastNumber){
+    let num = lastNumber[0];
+    let start = expression.lastIndexOf(num);
+    if(num.startsWith('-')) num = num.slice(1);
+    else num = '-'+num;
+    expression = expression.slice(0,start) + num;
+    refresh();
   }
 }
 
-function applySqrt(){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`sqrt(${tok})`; } else expression+='sqrt('; refresh(); }
-function applyCubeRoot(){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`(${tok})^(1/3)`; } else expression+='^(1/3)'; refresh(); }
-function wrapLast(suf){ const r=getLastTokenRange(expression); if(r){ const tok=expression.slice(r[0],r[1]); expression=expression.slice(0,r[0])+`(${tok})${suf}`; } else expression+=suf; refresh(); }
-function toggleSign(){ const r=getLastTokenRange(expression); if(!r){ expression='-'; refresh(); return; } let tok=expression.slice(r[0],r[1]); if(tok.startsWith('-')) tok=tok.slice(1); else tok='-'+tok; expression=expression.slice(0,r[0])+tok+expression.slice(r[1]); refresh(); }
-function applyFactorial(){ const r=getLastTokenRange(expression); if(!r) return; let tok=expression.slice(r[0],r[1]); let n=Number(tok); if(!Number.isFinite(n)||n<0||!Number.isInteger(n)){ alert('Factorial requires non-negative integer'); return; } let res=1; for(let i=2;i<=n;i++) res*=i; expression=expression.slice(0,r[0])+res; refresh(); }
-
-function evaluate(){
-  if(!expression){ displayEl.textContent='0'; return; }
+function calculate(){
+  if(expression==='') return;
   try{
-    let code=expression.replace(/×/g,'*').replace(/÷/g,'/').replace(/π/g,'Math.PI').replace(/e/g,'Math.E').replace(/\^/g,'**').replace(/([0-9.]+)%/g,'($1/100)');
-    const fn=new Function('sin','cos','tan','sqrt','ln','log','exp','root','return ('+code+')');
-    const sin=Math.sin, cos=Math.cos, tan=Math.tan, sqrt=Math.sqrt, ln=Math.log, log=Math.log10?Math.log10: x=>Math.log(x)/Math.LN10, exp=Math.exp, root=(n,x)=>Math.pow(x,1/n);
-    let res=fn(sin,cos,tan,sqrt,ln,log,exp,root);
-    displayEl.textContent=(Math.round(res*1e12)/1e12).toString();
-    expression=displayEl.textContent;
-    lastAnswer=expression;
-  }catch(e){ displayEl.textContent='Error'; }
+    let code = expression.replace(/×/g,'*').replace(/÷/g,'/');
+    let result = Function('"use strict";return ('+code+')')();
+    displayEl.textContent = (Math.round(result*1e12)/1e12).toString();
+    expression = displayEl.textContent;
+  }catch(e){ displayEl.textContent='Error'; expression=''; }
 }
+
+buttons.forEach(btn=>{
+  const val = btn.dataset.value;
+  const action = btn.dataset.action;
+  btn.addEventListener('click',()=>{
+    if(val!==undefined) append(val);
+    else if(action){
+      if(action==='clear') expression='',refresh();
+      else if(action==='back') back();
+      else if(action==='plusminus') toggleSign();
+      else if(action==='equals') calculate();
+    }
+  });
+});
 </script>
 </body>
 </html>
