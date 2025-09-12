@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scientific Calculator — Muhammad Asim (Robby)</title>
 
-<!-- Website Logo / Favicon -->
+<!-- Favicon -->
 <link rel="icon" type="image/png" href="/Studio-Project.png">
 <link rel="apple-touch-icon" href="/Studio-Project.png">
 
@@ -26,21 +26,19 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:32px;
+  padding:20px;
 }
-
-/* mobile fix */
-@media (max-width:768px){ body{ background-attachment:scroll; padding:16px } }
+@media (max-width:768px){ body{ background-attachment:scroll; padding:12px } }
 
 @keyframes waterflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* container */
 .container{
   width:100%;
-  max-width:480px;
+  max-width:520px;
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:16px;
   align-items:center;
 }
 
@@ -65,7 +63,7 @@ body{
   text-align:right;
   overflow-x:auto;
   white-space:nowrap;
-  margin-bottom:12px;
+  margin-bottom:16px;
 }
 
 /* grid layout */
@@ -82,7 +80,7 @@ body{
   border-radius:12px;
   background: rgba(255,255,255,0.06);
   color: #fff;
-  font-size:1.1rem;
+  font-size:1rem;
   cursor:pointer;
   box-shadow: 0 6px 12px rgba(0,0,0,0.45);
   transition: transform .12s ease, background .12s ease;
@@ -96,7 +94,6 @@ body{
 .eq { background: linear-gradient(180deg,#00ffab,#00e594); color:#000; grid-column: span 2 }
 .clear{ background: linear-gradient(180deg,#ff6b6b,#ff4b4b); color:#fff }
 .wide2 { grid-column: span 2 }
-.wide3 { grid-column: span 3 }
 
 /* responsive adjustments */
 @media (max-width:520px){
@@ -108,7 +105,7 @@ body{
 /* footer narrow line */
 .footer{
   width:90%;
-  max-width:420px;
+  max-width:480px;
   text-align:center;
   padding-top:12px;
   border-top:1px solid rgba(255,255,255,0.14);
@@ -125,48 +122,48 @@ body{
       <div class="display" id="display">0</div>
 
       <div class="grid" id="grid">
-        <!-- row 1 -->
+        <!-- row 1: clear, back, (, ), ÷ -->
         <button class="btn clear" data-action="clear">C</button>
         <button class="btn func" data-action="back">⌫</button>
         <button class="btn func" data-action="(">(</button>
         <button class="btn func" data-action=")">)</button>
         <button class="btn op" data-value="÷">÷</button>
 
-        <!-- row 2 -->
+        <!-- row 2: 7-9, ×, √ -->
         <button class="btn" data-value="7">7</button>
         <button class="btn" data-value="8">8</button>
         <button class="btn" data-value="9">9</button>
         <button class="btn op" data-value="×">×</button>
         <button class="btn func" data-action="sqrt">√</button>
 
-        <!-- row 3 -->
+        <!-- row 3: 4-6, -, ∛ -->
         <button class="btn" data-value="4">4</button>
         <button class="btn" data-value="5">5</button>
         <button class="btn" data-value="6">6</button>
         <button class="btn op" data-value="-">−</button>
         <button class="btn func" data-action="cuberoot">∛</button>
 
-        <!-- row 4 -->
+        <!-- row 4: 1-3, +, x² -->
         <button class="btn" data-value="1">1</button>
         <button class="btn" data-value="2">2</button>
         <button class="btn" data-value="3">3</button>
         <button class="btn op" data-value="+">+</button>
         <button class="btn func" data-action="pow2">x²</button>
 
-        <!-- row 5 -->
+        <!-- row 5: 0, ., ±, = -->
         <button class="btn wide2" data-value="0">0</button>
         <button class="btn" data-value=".">.</button>
         <button class="btn func" data-action="plusminus">±</button>
         <button class="btn eq" data-action="equals">=</button>
 
-        <!-- row 6: scientific -->
+        <!-- row 6: scientific functions -->
         <button class="btn func" data-action="sin">sin</button>
         <button class="btn func" data-action="cos">cos</button>
         <button class="btn func" data-action="tan">tan</button>
         <button class="btn func" data-action="ln">ln</button>
         <button class="btn func" data-action="log">log</button>
 
-        <!-- row 7: extra -->
+        <!-- row 7: constants & other functions -->
         <button class="btn func" data-action="exp">eˣ</button>
         <button class="btn func" data-action="pi">π</button>
         <button class="btn func" data-action="e">e</button>
@@ -179,7 +176,7 @@ body{
   </div>
 
 <script>
-// JavaScript logic same as previous: working √, ∛, %, factorial, plusminus, operators
+// Same JS as previous working version
 const displayEl = document.getElementById('display');
 const grid = document.getElementById('grid');
 let expression = '';
