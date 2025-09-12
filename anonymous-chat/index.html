@@ -2,56 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anonymous Chat</title>
+  <title>Chat App</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
     }
 
     .chat-container {
       width: 400px;
       height: 600px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
       overflow: hidden;
     }
 
     .chat-header {
-      background: #4A90E2;
+      background: #667eea;
       color: white;
-      padding: 15px;
       text-align: center;
+      padding: 15px;
+      font-size: 20px;
       font-weight: bold;
     }
 
-    .chat-messages {
+    .chat-box {
       flex: 1;
       padding: 15px;
       overflow-y: auto;
+      background: #f9f9f9;
     }
 
-    .message {
-      background: #f1f1f1;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 8px;
+    .chat-message {
+      margin: 8px 0;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 75%;
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease-in-out;
     }
 
-    .message span {
-      display: block;
-      font-size: 12px;
-      color: gray;
-      margin-top: 4px;
+    .chat-message.user {
+      background: #667eea;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+
+    .chat-message.bot {
+      background: #e0e0e0;
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
     }
 
     .chat-input {
@@ -61,95 +70,143 @@
 
     .chat-input input {
       flex: 1;
-      padding: 12px;
       border: none;
+      padding: 15px;
+      font-size: 16px;
       outline: none;
     }
 
     .chat-input button {
-      background: #4A90E2;
+      background: #667eea;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 15px;
       cursor: pointer;
       font-weight: bold;
+      transition: 0.3s;
     }
 
     .chat-input button:hover {
-      background: #357ABD;
+      background: #5563c1;
+    }
+
+    .chat-footer {
+      padding: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid #eee;
+    }
+
+    .typing {
+      font-size: 13px;
+      color: #888;
+      margin: 5px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-header">Anonymous Chat</div>
-    <div class="chat-messages" id="messages"></div>
+    <div class="chat-header">💬 My Chat</div>
+    <div class="chat-box" id="chat-box"></div>
     <div class="chat-input">
-      <input type="text" id="messageInput" placeholder="Write a message..." />
-      <button id="sendBtn">Send</button>
+      <input type="text" id="message-input" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    <div class="chat-footer">
+      <button onclick="clearChat()">🗑 Clear Chat</button> | 
+      <button onclick="toggleTheme()">🌗 Theme</button>
     </div>
   </div>
 
-  <!-- Firebase -->
-  <script type="module">
-    // Import Firebase SDKs
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } 
-      from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const messageInput = document.getElementById("message-input");
 
-    // Your Firebase Config (replace with yours)
-    const firebaseConfig = {
-      apiKey: "AIzaSyCQ3pQ6fz3Hob-PnFahG4RdwkOxMWmZzr4",
-      authDomain: "anonymouschat-eb9fa.firebaseapp.com",
-      projectId: "anonymouschat-eb9fa",
-      storageBucket: "anonymouschat-eb9fa.appspot.com", // ✅ make sure it's .appspot.com
-      messagingSenderId: "670450301668",
-      appId: "1:670450301668:web:9fd0aeaf1960b33fb2caf1",
-      measurementId: "G-3K3YLB4TNG"
+    // Load saved messages on page load
+    window.onload = () => {
+      loadMessages();
     };
 
-    // Init Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    // Save to localStorage
+    function saveMessages() {
+      localStorage.setItem("messages", chatBox.innerHTML);
+    }
 
-    // DOM Elements
-    const messagesDiv = document.getElementById("messages");
-    const input = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
+    // Load from localStorage
+    function loadMessages() {
+      const saved = localStorage.getItem("messages");
+      if (saved) {
+        chatBox.innerHTML = saved;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
 
-    // Send Message
-    sendBtn.addEventListener("click", async () => {
-      const text = input.value.trim();
-      if (!text) return;
-      try {
-        await addDoc(collection(db, "messages"), {
-          text: text,
-          name: "Anonymous",
-          timestamp: serverTimestamp()
-        });
-        input.value = "";
-      } catch (e) {
-        console.error("Error adding message: ", e);
+    // Send message
+    function sendMessage() {
+      const text = messageInput.value.trim();
+      if (text === "") return;
+
+      // User message
+      const userMsg = document.createElement("div");
+      userMsg.className = "chat-message user";
+      userMsg.textContent = text;
+      chatBox.appendChild(userMsg);
+
+      messageInput.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+      saveMessages();
+
+      // Bot typing...
+      const typing = document.createElement("div");
+      typing.className = "typing";
+      typing.textContent = "Bot is typing...";
+      chatBox.appendChild(typing);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Fake bot reply
+      setTimeout(() => {
+        typing.remove();
+        const botMsg = document.createElement("div");
+        botMsg.className = "chat-message bot";
+        botMsg.textContent = "You said: " + text;
+        chatBox.appendChild(botMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        saveMessages();
+      }, 1000);
+    }
+
+    // Press Enter to send
+    messageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
       }
     });
 
-    // Listen for messages
-const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
-onSnapshot(q, (snapshot) => {
-  messagesDiv.innerHTML = "";
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    const time = data.timestamp ? data.timestamp.toDate().toLocaleString() : "No time";
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message");
-    messageDiv.innerHTML = `
-      <strong>${data.name || "Anonymous"}</strong>: ${data.text}
-      <span>${time}</span>
-    `;
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  });
-});
+    // Clear chat
+    function clearChat() {
+      chatBox.innerHTML = "";
+      localStorage.removeItem("messages");
+    }
+
+    // Dark/Light theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      if (document.body.classList.contains("dark")) {
+        document.body.style.background = "linear-gradient(135deg, #1f1c2c, #928dab)";
+        document.querySelector(".chat-container").style.background = "#222";
+        document.querySelector(".chat-box").style.background = "#333";
+      } else {
+        document.body.style.background = "linear-gradient(135deg, #667eea, #764ba2)";
+        document.querySelector(".chat-container").style.background = "#fff";
+        document.querySelector(".chat-box").style.background = "#f9f9f9";
+      }
+    }
   </script>
 </body>
 </html>
