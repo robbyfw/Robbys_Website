@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coin Flip — Muhammad Asim</title>
 
 <link rel="icon" type="image/png" href="/Studio-Project.png">
@@ -10,431 +10,282 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --bg1: #171717;
-    --bg2: #262626;
-    --card: rgba(255,255,255,0.04);
-    --muted: #c7ccd6;
-    --accent1: #5bd1ff;
-    --accent2: #6ee7b7;
-    --soft-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  }
+/* ===== General Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  html,body{height:100%;margin:0}
-  body{
-    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    background: linear-gradient(200deg,var(--bg1),var(--bg2));
-    color: #f7f9fb;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:22px;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow:hidden;
-  }
+html, body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  line-height: 1.4;
 
-  /* full-canvas soft particles (background) */
-  canvas.bg {
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-    filter: blur(10px) saturate(1.05) contrast(0.95);
-    opacity:0.9;
-  }
+  /* Black water motion background */
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  -webkit-animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+}
 
-  .wrap {
-    width:100%;
-    max-width:520px;
-    z-index:5;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:18px;
-  }
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  .card{
-    width:100%;
-    background:var(--card);
-    border-radius:18px;
-    padding:28px;
-    box-shadow:var(--soft-shadow);
-    backdrop-filter: blur(10px) saturate(1.03);
-    border: 1px solid rgba(255,255,255,0.04);
-  }
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+}
 
-  .header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom:8px;
-  }
+/* ===== Container ===== */
+.container {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
-  .title{
-    font-size:1.6rem;
-    font-weight:600;
-    color:#eef6fb;
-    margin:0;
-  }
+/* ===== Header ===== */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+}
 
-  .subtitle{
-    color:var(--muted);
-    font-size:0.92rem;
-    margin-top:6px;
-  }
+/* ===== Coin ===== */
+.coin-wrap {
+  perspective: 1000px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .main {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-  }
+.coin {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 -8px 18px rgba(0,0,0,0.12);
+  transition: transform 1.2s cubic-bezier(.2,.9,.3,1);
+}
 
-  /* coin holder with perspective */
-  .coin-wrap{
-    perspective:1000px;
-    width:160px;
-    height:160px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+.face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: 700;
+  backface-visibility: hidden;
+}
 
-  .coin {
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    position:relative;
-    transform-style:preserve-3d;
-    transition: transform 1200ms cubic-bezier(.2,.9,.3,1);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 -8px 18px rgba(0,0,0,0.12);
-  }
+.face.front {
+  background: radial-gradient(circle at 30% 25%, #ffd86b, #e6b73f 50%, #a67b22 120%);
+  color: #111;
+  transform: translateZ(6px);
+  box-shadow: inset 0 10px 20px rgba(255,255,255,0.18);
+}
 
-  /* front/back faces */
-  .face {
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    backface-visibility:hidden;
-    border-radius:50%;
-    font-size:3.2rem;
-    font-weight:700;
-    user-select:none;
-  }
+.face.back {
+  background: radial-gradient(circle at 30% 25%, #ffe9b0, #d6b078 50%, #8f6528 120%);
+  color: #111;
+  transform: rotateX(180deg) translateZ(6px);
+  box-shadow: inset 0 -6px 16px rgba(0,0,0,0.12);
+}
 
-  .face.front{
-    background: radial-gradient(circle at 30% 25%, #ffd86b, #e6b73f 50%, #a67b22 120%);
-    color: #111;
-    transform: translateZ(6px);
-    box-shadow: inset 0 10px 20px rgba(255,255,255,0.18);
-  }
+.coin::before {
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:50%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -6px 12px rgba(0,0,0,0.2);
+}
 
-  .face.back{
-    background: radial-gradient(circle at 30% 25%, #ffe9b0, #d6b078 50%, #8f6528 120%);
-    color:#111;
-    transform: rotateX(180deg) translateZ(6px);
-    box-shadow: inset 0 -6px 16px rgba(0,0,0,0.12);
-  }
+/* ===== Controls ===== */
+.controls {
+  display: flex;
+  gap: 12px;
+}
 
-  /* realistic bevel (thin rim) */
-  .coin::before{
-    content:"";
-    position:absolute;
-    inset:6px;
-    border-radius:50%;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -6px 12px rgba(0,0,0,0.2);
-    pointer-events:none;
-  }
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #052228;
+  cursor: pointer;
+  background: linear-gradient(135deg, #5bd1ff, #6ee7b7);
+  box-shadow: 0 6px 20px rgba(25,133,178,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  /* flipping state */
-  .coin.flipping {
-    /* rotateX will be applied inline for randomness */
-    transition: transform 1200ms cubic-bezier(.2,.9,.3,1);
-  }
+button:active { transform: translateY(2px); }
 
-  .controls {
-    display:flex;
-    gap:12px;
-    align-items:center;
-    margin-top:6px;
-  }
+button.secondary {
+  background: transparent;
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.1);
+}
 
-  .btn {
-    padding:12px 18px;
-    border-radius:12px;
-    border: none;
-    cursor:pointer;
-    font-weight:600;
-    font-size:1rem;
-    color:#052228;
-    background: linear-gradient(135deg,var(--accent1),var(--accent2));
-    box-shadow: 0 8px 18px rgba(25,133,178,0.14);
-    transition: transform .18s ease, box-shadow .18s;
-  }
-  .btn:active{ transform: translateY(2px) }
-  .btn.secondary {
-    background: transparent;
-    color:var(--muted);
-    border-radius:10px;
-    padding:10px 14px;
-    box-shadow:none;
-    border:1px solid rgba(255,255,255,0.03);
-  }
+/* ===== Result ===== */
+.result {
+  min-height: 28px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ccc;
+}
 
-  .result {
-    min-height:28px;
-    color:var(--muted);
-    font-weight:600;
-    font-size:1.05rem;
-  }
+/* ===== Confetti ===== */
+.confetti {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  width: 10px;
+  height: 16px;
+  border-radius: 50%;
+  opacity: 0.9;
+  transform-origin: center;
+}
 
-  /* confetti (soft) */
-  .confetti {
-    position:fixed;
-    z-index:7;
-    pointer-events:none;
-    width:10px;
-    height:16px;
-    border-radius:6px;
-    opacity:0.95;
-    transform-origin:center;
-    filter: blur(.6px) saturate(1.05);
-  }
+/* ===== Footer ===== */
+.footer {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ccc;
+}
 
-  /* small comfy footer */
-  .footer {
-    width:100%;
-    margin-top:10px;
-    text-align:center;
-    color:#bfc8d3;
-    font-size:0.86rem;
-    opacity:0.9;
-  }
-
-  /* responsive */
-  @media (max-width:520px) {
-    .coin-wrap{ width:120px; height:120px }
-    .coin{ width:110px; height:110px }
-    .face{ font-size:2.4rem }
-    .title{ font-size:1.35rem }
-    .btn{ padding:10px 14px; font-size:0.98rem }
-  }
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .coin-wrap { width: 120px; height: 120px; }
+  .coin { width: 110px; height: 110px; }
+  .face { font-size: 2.4rem; }
+  h1 { font-size: 1.8rem; }
+  button { padding: 10px 16px; font-size: 0.95rem; }
+}
 </style>
 </head>
 <body>
-  <!-- canvas for gentle bokeh particles -->
-  <canvas class="bg" id="bgCanvas"></canvas>
-
-  <div class="wrap" role="main" aria-labelledby="title">
-    <div class="card" aria-live="polite">
-      <div class="header">
-        <div>
-          <h1 id="title" class="title">Coin Flip</h1>
-          <div class="subtitle">Tap the coin or press Flip — cozy visuals, smooth motion</div>
-        </div>
-        <div style="opacity:.85;font-size:.92rem;color:var(--muted)">v1 • lightweight</div>
-      </div>
-
-      <div class="main">
-        <div class="coin-wrap" aria-hidden="false">
-          <div id="coin" class="coin" role="button" aria-label="Flip coin" tabindex="0">
-            <div class="face front">H</div>
-            <div class="face back">T</div>
-          </div>
-        </div>
-
-        <div class="controls" role="group" aria-label="Controls">
-          <button id="flipBtn" class="btn">Flip</button>
-          <button id="quickBtn" class="btn secondary" title="Flip twice quickly">Quick ×2</button>
-        </div>
-
-        <div id="result" class="result" aria-live="polite">Ready</div>
-      </div>
+<div class="container">
+  <h1>Coin Flip</h1>
+  <div class="coin-wrap">
+    <div class="coin" id="coin">
+      <div class="face front">H</div>
+      <div class="face back">T</div>
     </div>
-
-    <div class="footer">© 2025 Muhammad Asim (Robby) • Built with 🖤</div>
   </div>
 
+  <div class="controls">
+    <button id="flipBtn">Flip</button>
+    <button id="quickBtn" class="secondary">Quick ×2</button>
+  </div>
+
+  <div class="result" id="result">Ready</div>
+  <div class="footer">© 2025 Muhammad Asim (Robby) • Built with 🖤</div>
+</div>
+
 <script>
-/* ===== Soft particle background (canvas) ===== */
-(() => {
-  const canvas = document.getElementById('bgCanvas');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = innerWidth;
-  let h = canvas.height = innerHeight;
-  const particles = [];
-  const count = Math.round((w*h) / 50000); // scale with screen area
+const coin = document.getElementById('coin');
+const flipBtn = document.getElementById('flipBtn');
+const quickBtn = document.getElementById('quickBtn');
+const resultEl = document.getElementById('result');
+let busy = false;
 
-  function rand(min,max){ return Math.random()*(max-min)+min; }
+function softConfetti(x, y){
+  const colors = ['#ffd3a5','#ffd1dc','#c2f0fc','#d6f5d6','#fbe8a6','#e6d6ff'];
+  for(let i=0;i<14;i++){
+    const el = document.createElement('div');
+    el.className='confetti';
+    const size = Math.random()*8+8;
+    el.style.width = `${size}px`;
+    el.style.height = `${size*1.2}px`;
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    document.body.appendChild(el);
 
-  for(let i=0;i<count;i++){
-    particles.push({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      r: rand(20,120),
-      alpha: rand(0.06,0.15),
-      vx: rand(-0.02,0.02),
-      vy: rand(-0.02,0.02),
-      hue: rand(190,230),
-      sat: rand(20,40),
-      light: rand(35,55)
-    });
+    const dx = (Math.random()-0.5)*(80+Math.random()*160);
+    const dy = -(120+Math.random()*260);
+    const rot = (Math.random()-0.5)*720;
+    const dur = 900 + Math.random()*800;
+
+    el.animate([
+      { transform: `translate3d(0,0,0) rotate(${Math.random()*360}deg)`, opacity:1 },
+      { transform: `translate3d(${dx}px, ${dy}px,0) rotate(${rot}deg)`, opacity:0.05 }
+    ], {duration: dur, easing:'cubic-bezier(.2,.8,.25,1)', fill:'forwards'});
+
+    setTimeout(()=> el.remove(), dur+80);
   }
+}
 
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    for(const p of particles){
-      p.x += p.vx;
-      p.y += p.vy;
-      // wrap
-      if(p.x < -p.r) p.x = w + p.r;
-      if(p.x > w + p.r) p.x = -p.r;
-      if(p.y < -p.r) p.y = h + p.r;
-      if(p.y > h + p.r) p.y = -p.r;
-
-      // gradient blob
-      const g = ctx.createRadialGradient(p.x,p.y,p.r*0.08,p.x,p.y,p.r);
-      g.addColorStop(0, `hsla(${p.hue},${p.sat}%,${p.light}%, ${p.alpha*1.6})`);
-      g.addColorStop(0.4, `hsla(${p.hue},${p.sat}%,${p.light}%, ${p.alpha})`);
-      g.addColorStop(1, `hsla(${p.hue},${p.sat}%,${p.light}%, 0)`);
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', ()=>{
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
+function spin(duration = 1200, flips = 5){
+  if(busy) return Promise.reject('busy');
+  busy=true;
+  coin.classList.add('flipping');
+  const totalDeg = flips*360 + (Math.random()*180 - 90);
+  coin.style.transform = `rotateX(${totalDeg}deg) translateZ(0)`;
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      coin.classList.remove('flipping');
+      coin.style.transform='';
+      busy=false;
+      resolve();
+    }, duration+20);
   });
-  draw();
-})();
+}
 
-/* ===== Coin flip + soft confetti logic ===== */
-(() => {
-  const coin = document.getElementById('coin');
-  const flipBtn = document.getElementById('flipBtn');
-  const quickBtn = document.getElementById('quickBtn');
-  const resultEl = document.getElementById('result');
+async function doFlip(times=1){
+  if(busy) return;
+  resultEl.textContent='';
+  const rect=coin.getBoundingClientRect();
+  const cx=rect.left+rect.width/2;
+  const cy=rect.top+rect.height/2;
 
-  let busy = false;
-
-  function spin(duration = 1200, flips = 5) {
-    if (busy) return Promise.reject('busy');
-    busy = true;
-    coin.classList.add('flipping');
-
-    // randomize spin: flips * 360 + small offset
-    const totalDeg = (flips * 360) + (Math.random()*180 - 90);
-    // Use rotateX for a coin-like flip (3D)
-    coin.style.transform = `rotateX(${totalDeg}deg) translateZ(0)`;
-
-    return new Promise(resolve => {
-      // handle end using timeout same as transition duration
-      setTimeout(() => {
-        coin.classList.remove('flipping');
-        coin.style.transform = ''; // clear so it snaps to default
-        busy = false;
-        resolve();
-      }, duration + 20);
-    });
+  for(let i=0;i<times;i++){
+    try{ await spin(1100,6+Math.floor(Math.random()*4)); } catch(e){return;}
+    const outcome = Math.random()<0.5?'Heads':'Tails';
+    const front=coin.querySelector('.face.front');
+    const back=coin.querySelector('.face.back');
+    if(outcome==='Heads'){ front.textContent='H'; back.textContent='T'; }
+    else{ front.textContent='T'; back.textContent='H'; }
+    softConfetti(cx,cy);
+    resultEl.textContent=`Result: ${outcome}`;
+    await new Promise(r=>setTimeout(r,260));
   }
+}
 
-  function softConfetti(x, y){
-    // spawn 14 soft pieces
-    const colors = ['#ffd3a5','#ffd1dc','#c2f0fc','#d6f5d6','#fbe8a6','#e6d6ff'];
-    for(let i=0;i<14;i++){
-      const el = document.createElement('div');
-      el.className = 'confetti';
-      const size = Math.round(Math.random()*10)+8;
-      el.style.width = `${size}px`;
-      el.style.height = `${Math.round(size*1.2)}px`;
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      el.style.opacity = `${0.85 - Math.random()*0.3}`;
-      el.style.transform = `translate3d(0,0,0) rotate(${Math.random()*360}deg)`;
-      el.style.borderRadius = `${Math.random()*8 + 4}px`;
-      el.style.boxShadow = '0 6px 14px rgba(0,0,0,0.14)';
-      document.body.appendChild(el);
-
-      // random flight path
-      const dx = (Math.random()-0.5) * (80 + Math.random()*160);
-      const dy = - (120 + Math.random()*260);
-      const rot = (Math.random()-0.5) * 720;
-      const dur = 900 + Math.random()*800;
-
-      el.animate([
-        { transform: `translate3d(0,0,0) rotate(${Math.random()*360}deg)`, opacity: el.style.opacity },
-        { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg)`, opacity: 0.05 }
-      ], {
-        duration: dur,
-        easing: 'cubic-bezier(.2,.8,.25,1)',
-        iterations: 1,
-        fill: 'forwards'
-      });
-
-      // remove after animation
-      setTimeout(()=> el.remove(), dur + 80);
-    }
-  }
-
-  async function doFlip(multi = 1) {
-    if (busy) return;
-    resultEl.textContent = '';
-    // compute position for confetti (coin center)
-    const rect = coin.getBoundingClientRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
-
-    // perform flips (chain)
-    for (let i=0;i<multi;i++){
-      try {
-        await spin(1100, 6 + Math.floor(Math.random()*4));
-      } catch(e){ return; }
-      // determine outcome
-      const outcome = Math.random() < 0.5 ? 'Heads' : 'Tails';
-      // front/back faces: set inner text accordingly
-      const front = coin.querySelector('.face.front');
-      const back = coin.querySelector('.face.back');
-      if (outcome === 'Heads') {
-        front.textContent = 'H';
-        back.textContent = 'T';
-      } else {
-        front.textContent = 'T';
-        back.textContent = 'H';
-      }
-      // soft confetti burst
-      softConfetti(cx, cy);
-      // show result text gently
-      resultEl.textContent = `Result: ${outcome}`;
-      await new Promise(r => setTimeout(r, 260)); // small pause between quick flips
-    }
-  }
-
-  flipBtn.addEventListener('click', ()=> doFlip(1));
-  coin.addEventListener('click', ()=> doFlip(1));
-  quickBtn.addEventListener('click', ()=> doFlip(2));
-
-  // keyboard: Enter or Space to flip
-  window.addEventListener('keydown', (e)=>{
-    if (e.code === 'Space' || e.key === 'Enter') {
-      e.preventDefault();
-      doFlip(1);
-    }
-  });
-})();
+flipBtn.addEventListener('click',()=>doFlip(1));
+quickBtn.addEventListener('click',()=>doFlip(2));
+coin.addEventListener('click',()=>doFlip(1));
+window.addEventListener('keydown',e=>{
+  if(e.code==='Space'||e.key==='Enter'){ e.preventDefault(); doFlip(1); }
+});
 </script>
 </body>
 </html>
