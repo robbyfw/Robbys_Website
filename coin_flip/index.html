@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Flip Simulator</title>
+
+<link rel="icon" type="image/png" href="/Studio-Project.png">
+<link rel="apple-touch-icon" href="/Studio-Project.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(270deg,#1c1c1c,#2a2a2a,#1c1c1c);
+  background-size:600% 600%;
+  animation:waterflow 20s ease infinite;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:white;
+  margin:0;
+}
+@keyframes waterflow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.container{
+  text-align:center;
+  background: rgba(255,255,255,0.04);
+  border-radius:20px;
+  padding:40px 30px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+}
+
+h1{margin-bottom:20px;}
+.coin{
+  width:120px;
+  height:120px;
+  margin: 20px auto;
+  border-radius:50%;
+  background: #f0c14b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  font-weight:bold;
+  color:#000;
+  cursor:pointer;
+  user-select:none;
+  transition: transform 0.6s ease;
+}
+
+button{
+  padding:12px 24px;
+  font-size:1rem;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  background: #0078ff;
+  color:white;
+  margin-top:20px;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover{
+  background:#005fcc;
+  transform:scale(1.05);
+}
+
+.result{
+  margin-top:20px;
+  font-size:1.2rem;
+  min-height:30px;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:0.9rem;
+  color:#ccc;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Coin Flip Simulator</h1>
+  <div class="coin" id="coin">🪙</div>
+  <button id="flipBtn">Flip Coin</button>
+  <div class="result" id="result"></div>
+  <div class="footer">© 2025 Muhammad Asim (Robby) • Built with 🖤</div>
+</div>
+
+<script>
+const coin = document.getElementById('coin');
+const flipBtn = document.getElementById('flipBtn');
+const resultEl = document.getElementById('result');
+
+function flipCoin(){
+  coin.style.transform = 'rotateY(0deg)';
+  resultEl.textContent = '';
+  
+  setTimeout(()=>{
+    const outcome = Math.random() < 0.5 ? 'Heads' : 'Tails';
+    coin.style.transform = 'rotateY(720deg)';
+    coin.textContent = outcome==='Heads' ? '🪙' : '⚪';
+    resultEl.textContent = `Result: ${outcome}`;
+  },100);
+}
+
+flipBtn.addEventListener('click', flipCoin);
+coin.addEventListener('click', flipCoin);
+</script>
+</body>
+</html>
