@@ -1,212 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Chat App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      height: 100vh;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .chat-container {
-      width: 400px;
-      height: 600px;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+.chat-container {
+  width: 400px;
+  height: 600px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-    .chat-header {
-      background: #667eea;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 20px;
-      font-weight: bold;
-    }
+.chat-header {
+  background: #667eea;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-    .chat-box {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      background: #f9f9f9;
-    }
+.chat-box {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
 
-    .chat-message {
-      margin: 8px 0;
-      padding: 10px 15px;
-      border-radius: 15px;
-      max-width: 75%;
-      word-wrap: break-word;
-      animation: fadeIn 0.3s ease-in-out;
-    }
+.chat-message {
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 70%;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease-in-out;
+}
 
-    .chat-message.user {
-      background: #667eea;
-      color: white;
-      margin-left: auto;
-      border-bottom-right-radius: 5px;
-    }
+/* Random anonymous bubble colors */
+.chat-message.msg1 { background: #667eea; color: white; margin-left: auto; }
+.chat-message.msg2 { background: #ff6b6b; color: white; margin-right: auto; }
+.chat-message.msg3 { background: #1dd1a1; color: white; margin-left: auto; }
+.chat-message.msg4 { background: #feca57; color: white; margin-right: auto; }
 
-    .chat-message.bot {
-      background: #e0e0e0;
-      margin-right: auto;
-      border-bottom-left-radius: 5px;
-    }
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
 
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ddd;
-    }
+.chat-input input {
+  flex: 1;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+}
 
-    .chat-input input {
-      flex: 1;
-      border: none;
-      padding: 15px;
-      font-size: 16px;
-      outline: none;
-    }
+.chat-input button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    .chat-input button {
-      background: #667eea;
-      color: white;
-      border: none;
-      padding: 15px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+.chat-input button:hover {
+  background: #5563c1;
+}
 
-    .chat-input button:hover {
-      background: #5563c1;
-    }
+.chat-footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #eee;
+}
 
-    .chat-footer {
-      padding: 10px;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
-      border-top: 1px solid #eee;
-    }
-
-    .typing {
-      font-size: 13px;
-      color: #888;
-      margin: 5px 0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
-  <div class="chat-container">
-    <div class="chat-header">💬 My Chat</div>
-    <div class="chat-box" id="chat-box"></div>
-    <div class="chat-input">
-      <input type="text" id="message-input" placeholder="Type a message...">
-      <button onclick="sendMessage()">Send</button>
-    </div>
-    <div class="chat-footer">
-      <button onclick="clearChat()">🗑 Clear Chat</button> | 
-      <button onclick="toggleTheme()">🌗 Theme</button>
-    </div>
-  </div>
-
-  <script>
-    const chatBox = document.getElementById("chat-box");
-    const messageInput = document.getElementById("message-input");
-
-    // Load saved messages on page load
-    window.onload = () => {
-      loadMessages();
-    };
-
-    // Save to localStorage
-    function saveMessages() {
-      localStorage.setItem("messages", chatBox.innerHTML);
-    }
-
-    // Load from localStorage
-    function loadMessages() {
-      const saved = localStorage.getItem("messages");
-      if (saved) {
-        chatBox.innerHTML = saved;
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }
-    }
-
-    // Send message
-    function sendMessage() {
-      const text = messageInput.value.trim();
-      if (text === "") return;
-
-      // User message
-      const userMsg = document.createElement("div");
-      userMsg.className = "chat-message user";
-      userMsg.textContent = text;
-      chatBox.appendChild(userMsg);
-
-      messageInput.value = "";
-      chatBox.scrollTop = chatBox.scrollHeight;
-      saveMessages();
-
-      // Bot typing...
-      const typing = document.createElement("div");
-      typing.className = "typing";
-      typing.textContent = "Bot is typing...";
-      chatBox.appendChild(typing);
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      // Fake bot reply
-      setTimeout(() => {
-        typing.remove();
-        const botMsg = document.createElement("div");
-        botMsg.className = "chat-message bot";
-        botMsg.textContent = "You said: " + text;
-        chatBox.appendChild(botMsg);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        saveMessages();
-      }, 1000);
-    }
-
-    // Press Enter to send
-    messageInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        sendMessage();
-      }
-    });
-
-    // Clear chat
-    function clearChat() {
-      chatBox.innerHTML = "";
-      localStorage.removeItem("messages");
-    }
-
-    // Dark/Light theme toggle
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-      if (document.body.classList.contains("dark")) {
-        document.body.style.background = "linear-gradient(135deg, #1f1c2c, #928dab)";
-        document.querySelector(".chat-container").style.background = "#222";
-        document.querySelector(".chat-box").style.background = "#333";
-      } else {
-        document.body.style.background = "linear-gradient(135deg, #667eea, #764ba2)";
-        document.querySelector(".chat-container").style.background = "#fff";
-        document.querySelector(".chat-box").style.background = "#f9f9f9";
-      }
-    }
-  </script>
-</body>
-</html>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
