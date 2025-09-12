@@ -1,79 +1,80 @@
+/* General styling */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #667eea, #764ba2);
-  height: 100vh;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  color: white;
 }
 
+/* Chat container */
 .chat-container {
-  width: 400px;
-  height: 600px;
-  background: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 500px;
+  height: 80vh;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.5);
 }
 
-.chat-header {
-  background: #667eea;
-  color: white;
+.chat-container h2 {
   text-align: center;
   padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
+  margin: 0;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
 }
 
-.chat-box {
+/* Messages */
+#messages {
   flex: 1;
-  padding: 15px;
+  padding: 10px;
   overflow-y: auto;
-  background: #f9f9f9;
-}
-
-.chat-message {
-  margin: 8px 0;
-  padding: 10px 15px;
-  border-radius: 10px;
-  background: #667eea;
-  color: white;
-  max-width: 70%;
-  word-wrap: break-word;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.chat-input {
   display: flex;
-  border-top: 1px solid #ddd;
+  flex-direction: column;
 }
 
-.chat-input input {
+.message {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  word-wrap: break-word;
+}
+
+/* Input area */
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 2px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.3);
+}
+
+#messageInput {
   flex: 1;
+  padding: 10px;
   border: none;
-  padding: 15px;
-  font-size: 16px;
+  border-radius: 8px;
   outline: none;
+  font-size: 14px;
 }
 
-.chat-input button {
-  background: #667eea;
-  color: white;
+#sendBtn {
+  margin-left: 10px;
+  padding: 10px 15px;
   border: none;
-  padding: 15px 20px;
+  border-radius: 8px;
+  background: #00c6ff;
+  color: white;
   cursor: pointer;
-  font-weight: bold;
   transition: 0.3s;
 }
 
-.chat-input button:hover {
-  background: #5563c1;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+#sendBtn:hover {
+  background: #0072ff;
 }
