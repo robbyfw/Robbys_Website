@@ -1,234 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scientific Calculator</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Scientific Calculator — Muhammad Asim (Robby)</title>
 
 <!-- Website Logo / Favicon -->
 <link rel="icon" type="image/png" href="/Studio-Project.png">
 <link rel="apple-touch-icon" href="/Studio-Project.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ===== General Reset ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; }
 
-body {
+body{
   font-family: 'Poppins', sans-serif;
-  color: white;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  color: #fff;
+  background: linear-gradient(270deg,#1c1c1c,#2a2a2a,#1c1c1c);
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
   -webkit-animation: waterflow 20s ease infinite;
   background-attachment: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
 }
 
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-    padding: 10px;
-  }
+/* Mobile fix */
+@media (max-width:768px){
+  body { background-attachment: scroll; padding:16px; }
 }
 
 @keyframes waterflow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%;}
+  50% { background-position:100% 50%;}
+  100% { background-position:0% 50%;}
 }
 
-/* ===== Calculator Container ===== */
-.calculator {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
-  backdrop-filter: blur(15px);
-  margin-bottom: 2rem;
+/* Calculator wrapper */
+.app {
+  width:100%;
+  max-width:720px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-/* Display */
+/* Card */
+.card {
+  width:100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius:16px;
+  padding:18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Display area */
+.display-wrap {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:14px;
+}
+.mode {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.9rem;
+  color:#cfd8ff;
+}
 .display {
-  background: rgba(0,0,0,0.3);
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: right;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  overflow-x: auto;
+  flex:1;
+  background: rgba(0,0,0,0.35);
+  padding:12px;
+  border-radius:10px;
+  text-align:right;
+  font-size:1.6rem;
+  min-height:56px;
+  overflow-x:auto;
+  white-space:nowrap;
 }
 
-/* Buttons Grid */
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.8rem;
+/* small expression line above */
+.expr {
+  color:#bfc6d6;
+  font-size:0.85rem;
+  opacity:0.9;
+  margin-bottom:6px;
+  text-align:right;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-button {
-  padding: 1rem;
-  font-size: 1rem;
+/* Grid buttons */
+.grid {
+  display:grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap:10px;
+}
+
+/* Buttons */
+.btn {
   border: none;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  padding:12px 8px;
+  font-size:1rem;
+  border-radius:10px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  cursor:pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.45);
+  transition: transform .12s ease, background .12s ease;
+}
+.btn:active { transform: translateY(2px); }
+
+.btn:hover { background: rgba(0,120,255,0.14); }
+
+/* special colors */
+.op { background: rgba(0,120,255,0.8); color:#fff; }
+.op:hover { background: #0078ff; }
+.eq { background: #00ffab; color:#000; grid-column: span 2; }
+.eq:hover { background: #00e594; }
+.clear { background: rgba(255,50,50,0.85); color:#fff; }
+.clear:hover { background:#ff0000; }
+.func { background: rgba(200,200,255,0.06); color:#eaf2ff; }
+
+/* responsive */
+@media (max-width:900px){
+  .grid { grid-template-columns: repeat(6,1fr); }
+  .eq { grid-column: span 2; }
+}
+@media (max-width:520px){
+  .grid { grid-template-columns: repeat(4,1fr); gap:8px; }
+  .display { font-size:1.25rem; min-height:48px; }
 }
 
-button:hover {
-  background: rgba(0,120,255,0.7);
-  transform: translateY(-2px);
-}
-
-/* Operator buttons */
-button.operator {
-  background: rgba(0,120,255,0.7);
-}
-
-button.operator:hover {
-  background: #0078ff;
-}
-
-/* Equal button */
-button.equal {
-  background: #00ffab;
-  color: black;
-}
-
-button.equal:hover {
-  background: #00e594;
-}
-
-/* Clear button */
-button.clear {
-  background: rgba(255,0,0,0.6);
-  color: white;
-}
-
-button.clear:hover {
-  background: #ff0000;
-}
-
-/* Small responsive adjustments */
-@media (max-width: 480px) {
-  .display {
-    font-size: 1.5rem;
-  }
-  button {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* Footer */
+/* footer with limited width */
 .footer {
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255,255,255,0.3);
-  font-size: 0.9rem;
-  color: #ccc;
-  letter-spacing: 0.5px;
-  margin-top: 10px;
+  width:100%;
+  max-width:640px;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,0.14);
+  text-align:center;
+  color:#cfcfcf;
+  font-size:0.95rem;
+  border-radius:6px;
 }
 </style>
 </head>
 <body>
+  <div class="app">
+    <div class="card" role="application" aria-label="Scientific calculator">
 
-<div class="calculator">
-  <div class="display" id="display">0</div>
-  <div class="buttons">
-    <!-- Row 1 -->
-    <button class="clear" onclick="clearDisplay()">C</button>
-    <button class="operator" onclick="appendValue('(')">(</button>
-    <button class="operator" onclick="appendValue(')')">)</button>
-    <button class="operator" onclick="appendValue('^')">^</button>
-    <button class="operator" onclick="appendValue('%')">%</button>
-    <button class="operator" onclick="appendValue('/')">÷</button>
+      <div class="display-wrap">
+        <div style="width:1px"></div>
+        <div style="flex:1">
+          <div class="expr" id="expressionDisplay">&nbsp;</div>
+          <div class="display" id="display">0</div>
+        </div>
 
-    <!-- Row 2 -->
-    <button onclick="appendValue('7')">7</button>
-    <button onclick="appendValue('8')">8</button>
-    <button onclick="appendValue('9')">9</button>
-    <button class="operator" onclick="appendValue('*')">×</button>
-    <button class="operator" onclick="appendValue('sqrt(')">√</button>
-    <button class="operator" onclick="appendValue('**0.5')">√x</button>
+        <div class="mode">
+          <label for="degToggle" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input id="degToggle" type="checkbox" style="transform:scale(1.1);" />
+            <span id="degLabel">RAD</span>
+          </label>
+        </div>
+      </div>
 
-    <!-- Row 3 -->
-    <button onclick="appendValue('4')">4</button>
-    <button onclick="appendValue('5')">5</button>
-    <button onclick="appendValue('6')">6</button>
-    <button class="operator" onclick="appendValue('-')">-</button>
-    <button class="operator" onclick="appendValue('sin(')">sin</button>
-    <button class="operator" onclick="appendValue('cos(')">cos</button>
+      <!-- Buttons grid -->
+      <div class="grid" id="buttons">
+        <!-- Row 1 -->
+        <button class="btn clear" data-action="clear">C</button>
+        <button class="btn func" data-action="back">⌫</button>
+        <button class="btn func" data-action="(">(</button>
+        <button class="btn func" data-action=")">)</button>
+        <button class="btn func" data-value="^">^</button>
+        <button class="btn func" data-value="%">%</button>
+        <button class="btn func" data-action="sqrt">√</button>
+        <button class="btn op" data-value="÷">÷</button>
 
-    <!-- Row 4 -->
-    <button onclick="appendValue('1')">1</button>
-    <button onclick="appendValue('2')">2</button>
-    <button onclick="appendValue('3')">3</button>
-    <button class="operator" onclick="appendValue('+')">+</button>
-    <button class="operator" onclick="appendValue('tan(')">tan</button>
-    <button class="operator" onclick="appendValue('log(')">log</button>
+        <!-- Row 2 -->
+        <button class="btn" data-value="7">7</button>
+        <button class="btn" data-value="8">8</button>
+        <button class="btn" data-value="9">9</button>
+        <button class="btn op" data-value="×">×</button>
+        <button class="btn func" data-action="sin">sin</button>
+        <button class="btn func" data-action="cos">cos</button>
+        <button class="btn func" data-action="tan">tan</button>
+        <button class="btn func" data-action="fact">n!</button>
 
-    <!-- Row 5 -->
-    <button onclick="appendValue('0')">0</button>
-    <button onclick="appendValue('.')">.</button>
-    <button class="equal" onclick="calculateResult()">=</button>
-    <button class="operator" onclick="appendValue('*')">×</button>
-    <button class="operator" onclick="appendValue('/')">÷</button>
-    <button class="operator" onclick="appendValue('Math.PI')">π</button>
+        <!-- Row 3 -->
+        <button class="btn" data-value="4">4</button>
+        <button class="btn" data-value="5">5</button>
+        <button class="btn" data-value="6">6</button>
+        <button class="btn op" data-value="-">−</button>
+        <button class="btn func" data-action="ln">ln</button>
+        <button class="btn func" data-action="log">log</button>
+        <button class="btn func" data-action="exp">eˣ</button>
+        <button class="btn func" data-action="pi">π</button>
+
+        <!-- Row 4 -->
+        <button class="btn" data-value="1">1</button>
+        <button class="btn" data-value="2">2</button>
+        <button class="btn" data-value="3">3</button>
+        <button class="btn op" data-value="+">+</button>
+        <button class="btn func" data-action="pow2">x²</button>
+        <button class="btn func" data-action="pow3">x³</button>
+        <button class="btn func" data-action="comma">,</button>
+        <button class="btn func" data-action="ans">Ans</button>
+
+        <!-- Row 5 -->
+        <button class="btn" data-value="0" style="grid-column: span 2;">0</button>
+        <button class="btn" data-value=".">.</button>
+        <button class="btn func" data-action="plusminus">±</button>
+        <button class="btn eq" data-action="equals">=</button>
+        <button class="btn func" data-action="e">e</button>
+        <button class="btn func" data-action="clearEntry">CE</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2025 Muhammad Asim (Robby) • Built with 🖤
+    </div>
   </div>
-</div>
-
-<div class="footer">
-  © 2025 Muhammad Asim (Robby) • Built with 🖤
-</div>
 
 <script>
-let display = document.getElementById('display');
+/*
+  Robust scientific calculator logic:
+  - builds an expression string
+  - helper math functions (sin, cos, tan) switch between RAD/DEG
+  - percent, factorial, backspace, +/- handled correctly
+  - safe evaluation by creating a Function with provided helpers only
+*/
 
-function appendValue(val) {
-  if(display.innerText === '0') display.innerText = val;
-  else display.innerText += val;
+const displayEl = document.getElementById('display');
+const exprEl = document.getElementById('expressionDisplay');
+const degToggle = document.getElementById('degToggle');
+const degLabel = document.getElementById('degLabel');
+
+let expression = '';   // the expression string shown/edited
+let lastAnswer = null; // stores last result for Ans button
+
+// update degree label
+function updateDegLabel(){
+  degLabel.innerText = degToggle.checked ? 'DEG' : 'RAD';
+}
+degToggle.addEventListener('change', updateDegLabel);
+updateDegLabel();
+
+// Utility: show expression & display
+function refreshUI() {
+  exprEl.textContent = expression || '\u00A0';
+  displayEl.textContent = expression === '' ? '0' : expression;
 }
 
-function calculateResult() {
-  try {
-    // Replace some math functions to JS eval
-    let expression = display.innerText
-      .replace(/sin\(/g, 'Math.sin(')
-      .replace(/cos\(/g, 'Math.cos(')
-      .replace(/tan\(/g, 'Math.tan(')
-      .replace(/log\(/g, 'Math.log10(')
-      .replace(/√/g, 'Math.sqrt')
-      .replace(/π/g, 'Math.PI');
-    display.innerText = eval(expression);
-  } catch {
-    display.innerText = 'Error';
+// Helpers to find last number/token in expression
+function getLastNumberRange(expr) {
+  // returns [startIndex, endIndexExclusive]
+  // finds last contiguous numeric token and decimal, possibly with leading '-' or parentheses
+  let i = expr.length - 1;
+  if (i < 0) return null;
+  // If last char is ')', we can't easily find number - return null
+  // We'll treat functions separately.
+  // Move left skipping digits and dot
+  while (i >= 0 && /[0-9.]/.test(expr[i])) i--;
+  // include minus if it's unary at start of number
+  if (i >= 0 && expr[i] === '-') {
+    // check previous char to ensure unary minus (start or non-digit)
+    if (i === 0 || /[+\-×÷*\/^(%]/.test(expr[i-1])) {
+      // keep minus
+    } else {
+      i++; // minus is operator, not part of number
+    }
+  } else {
+    i++;
+  }
+  if (i <= expr.length - 1) return [i, expr.length];
+  return null;
+}
+
+// Replace last number in expression with replacer(value)
+function replaceLastNumberWith(newText) {
+  const r = getLastNumberRange(expression);
+  if (!r) {
+    // no plain last number; append newText
+    expression += newText;
+  } else {
+    expression = expression.slice(0, r[0]) + newText;
+  }
+  refreshUI();
+}
+
+/* Buttons handling */
+document.getElementById('buttons').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  const value = btn.dataset.value;
+  const action = btn.dataset.action;
+
+  if (value !== undefined) {
+    // Direct token
+    handleToken(value);
+  } else if (action) {
+    handleAction(action);
+  }
+});
+
+function handleToken(tok) {
+  // prevent double-dot in last number
+  if (tok === '.') {
+    const lastNum = getLastNumberRange(expression);
+    if (lastNum) {
+      const existing = expression.slice(lastNum[0], lastNum[1]);
+      if (existing.includes('.')) return; // ignore extra dot
+    }
+  }
+  // append
+  expression += tok;
+  refreshUI();
+}
+
+function handleAction(action) {
+  switch(action) {
+    case 'clear':
+      expression = '';
+      refreshUI();
+      break;
+
+    case 'clearEntry':
+      // clear last entry number
+      const r = getLastNumberRange(expression);
+      if (r) {
+        expression = expression.slice(0, r[0]);
+      } else {
+        expression = '';
+      }
+      refreshUI();
+      break;
+
+    case 'back':
+      expression = expression.slice(0, -1);
+      refreshUI();
+      break;
+
+    case '(':
+    case ')':
+      expression += action;
+      refreshUI();
+      break;
+
+    case 'sqrt':
+      // append sqrt(  -> use sqrt() helper during eval
+      expression += 'sqrt(';
+      refreshUI();
+      break;
+
+    case 'sin':
+    case 'cos':
+    case 'tan':
+    case 'ln':
+    case 'log':
+      expression += action + '(';
+      refreshUI();
+      break;
+
+    case 'exp':
+      // e^x: append 'exp(' and will be e^x -> implement as exp(x)=Math.exp(x)
+      expression += 'exp(';
+      refreshUI();
+      break;
+
+    case 'pi':
+      expression += 'π';
+      refreshUI();
+      break;
+
+    case 'e':
+      expression += 'e';
+      refreshUI();
+      break;
+
+    case 'pow2':
+      // x^2 -> replace last number with (lastNumber)**2
+      {
+        const r = getLastNumberRange(expression);
+        if (r) {
+          const num = expression.slice(r[0], r[1]);
+          expression = expression.slice(0, r[0]) + '(' + num + ')^2';
+        } else {
+          // nothing => append ^2
+          expression += '^2';
+        }
+        refreshUI();
+      }
+      break;
+
+    case 'pow3':
+      {
+        const r = getLastNumberRange(expression);
+        if (r) {
+          const num = expression.slice(r[0], r[1]);
+          expression = expression.slice(0, r[0]) + '(' + num + ')^3';
+        } else {
+          expression += '^3';
+        }
+        refreshUI();
+      }
+      break;
+
+    case 'fact':
+      // factorial of last integer number
+      {
+        const r = getLastNumberRange(expression);
+        if (!r) return;
+        const numStr = expression.slice(r[0], r[1]);
+        const num = Number(numStr);
+        if (!Number.isFinite(num) || num < 0 || !Number.isInteger(num)) {
+          alert('Factorial requires a non-negative integer.');
+          return;
+        }
+        const res = factorial(num);
+        expression = expression.slice(0, r[0]) + String(res);
+        refreshUI();
+      }
+      break;
+
+    case 'comma':
+      expression += ',';
+      refreshUI();
+      break;
+
+    case 'plusminus':
+      // toggle sign of last number
+      {
+        const r = getLastNumberRange(expression);
+        if (!r) {
+          // if empty, just start negative
+          expression = '-';
+        } else {
+          const numStr = expression.slice(r[0], r[1]);
+          if (numStr.startsWith('-')) {
+            expression = expression.slice(0, r[0]) + numStr.slice(1);
+          } else {
+            expression = expression.slice(0, r[0]) + '-' + numStr;
+          }
+        }
+        refreshUI();
+      }
+      break;
+
+    case 'equals':
+      evaluateExpression();
+      break;
+
+    case 'ans':
+      if (lastAnswer !== null) {
+        expression += String(lastAnswer);
+        refreshUI();
+      }
+      break;
+
+    default:
+      console.log('Unknown action', action);
   }
 }
 
-function clearDisplay() {
-  display.innerText = '0';
+/* factorial helper */
+function factorial(n){
+  if (n === 0 || n === 1) return 1;
+  let r = 1;
+  for (let i=2;i<=n;i++) r *= i;
+  return r;
 }
-</script>
 
+/* Safe evaluation:
+   - transform user-friendly symbols to JS-friendly form
+   - provide helper functions in a controlled scope
+*/
+function evaluateExpression(){
+  if (!expression) return;
+
+  // quick balancing check
+  if (!parenthesesBalanced(expression)) {
+    displayEl.textContent = 'Error: parentheses';
+    return;
+  }
+
+  // transform tokens to JS code
+  let code = expression.slice();
+
+  // visual operators -> JS
+  code = code.replace(/×/g, '*').replace(/÷/g, '/');
+
+  // percent handling: replace occurrences like "number%" -> (number/100)
+  // Use regex to replace trailing % after number or closing paren
+  code = code.replace(/([0-9\.]+)%/g, '($1/100)');
+  code = code.replace(/\)%/g, ')/100'); // (expr)% -> (expr)/100
+
+  // caret ^ to exponent **
+  code = code.replace(/\^/g, '**');
+
+  // replace π with pi identifier
+  code = code.replace(/π/g, 'pi');
+
+  // replace 'e' token carefully: we need to replace standalone 'e' not part of word.
+  code = code.replace(/(^|[^A-Za-z0-9_])e(?=[^A-Za-z0-9_]|$)/g, '$1' + 'e');
+
+  // note: function names are left as is: sin(, cos(, tan(, sqrt(, log(, ln(, exp(
+  // We'll provide these function names in evaluation scope.
+
+  // Final evaluation using Function with helpers injected:
+  try {
+    const fn = new Function(
+      'sin','cos','tan','sqrt','log','ln','exp','pi','e','fact','toDeg','toRad',
+      'return ' + code
+    );
+
+    const degreeMode = degToggle.checked; // DEG if checked
+    const toDeg = x => x * 180 / Math.PI;
+    const toRad = x => x * Math.PI / 180;
+
+    // helpers (sin/cos/tan accept single numeric argument)
+    const sin = x => {
+      if (degreeMode) return Math.sin(toRad(x));
+      return Math.sin(x);
+    };
+    const cos = x => {
+      if (degreeMode) return Math.cos(toRad(x));
+      return Math.cos(x);
+    };
+    const tan = x => {
+      if (degreeMode) return Math.tan(toRad(x));
+      return Math.tan(x);
+    };
+    const sqrt = x => Math.sqrt(x);
+    const ln = x => Math.log(x);
+    const log = x => Math.log10 ? Math.log10(x) : Math.log(x)/Math.LN10;
+    const exp = x => Math.exp(x);
+    const pi = Math.PI;
+    const e = Math.E;
+
+    const result = fn(sin, cos, tan, sqrt, log, ln, exp, pi, e, factorial, toDeg, toRad);
+
+    if (!Number.isFinite(result)) {
+      displayEl.textContent = 'Error';
+      expression = '';
+      return;
+    }
+
+    // nicely format (avoid long scientific notation when possible)
+    let out = Number.parseFloat(result);
+    // limit decimals to sensible length
+    if (Math.abs(out) < 1e-12) out = 0;
+    const displayStr = (Math.round(out * 1e12)/1e12).toString();
+    displayEl.textContent = displayStr;
+    exprEl.textContent = expression + ' =';
+    lastAnswer = displayStr;
+    expression = String(displayStr); // allow further ops on result
+  } catch (err) {
+    displayEl.textContent = 'Error';
+    console.error(err);
+  }
+}
+
+/* parentheses check */
+function parenthesesBalanced(s) {
+  let cnt = 0;
+  for (const ch of s) {
+    if (ch === '(') cnt++;
+    if (ch === ')') {
+      cnt--;
+      if (cnt < 0) return false;
+    }
+  }
+  return cnt === 0;
+}
+
+/* initialize */
+refreshUI();
+
+</script>
 </body>
 </html>
