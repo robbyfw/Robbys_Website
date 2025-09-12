@@ -5,14 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Calculator — Muhammad Asim (Robby)</title>
 
-<!-- Favicon -->
 <link rel="icon" type="image/png" href="/Studio-Project.png">
 <link rel="apple-touch-icon" href="/Studio-Project.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== Reset & base ===== */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -32,17 +30,15 @@ body{
 
 @keyframes waterflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* container */
 .container{
   width:100%;
-  max-width:400px;
+  max-width:380px;
   display:flex;
   flex-direction:column;
   gap:16px;
   align-items:center;
 }
 
-/* card */
 .card{
   width:100%;
   background:rgba(255,255,255,0.04);
@@ -53,7 +49,6 @@ body{
   backdrop-filter: blur(12px);
 }
 
-/* display */
 .display{
   background: rgba(0,0,0,0.36);
   padding:16px 14px;
@@ -66,14 +61,12 @@ body{
   margin-bottom:16px;
 }
 
-/* grid layout */
 .grid{
   display:grid;
   gap:10px;
   grid-template-columns: repeat(4, 1fr);
 }
 
-/* button base */
 .btn{
   border: none;
   padding:16px;
@@ -88,23 +81,19 @@ body{
 .btn:active{ transform: translateY(2px) }
 .btn:hover{ background: rgba(0,120,255,0.14) }
 
-/* variants */
 .op{ background: linear-gradient(180deg, rgba(0,120,255,0.82), rgba(0,96,200,0.82)); color:#fff }
-.eq { background: linear-gradient(180deg,#00ffab,#00e594); color:#000; grid-column: span 2 }
+.eq { background: linear-gradient(180deg,#00ffab,#00e594); color:#000; grid-row:5; }
 .clear{ background: linear-gradient(180deg,#ff6b6b,#ff4b4b); color:#fff }
 .wide2 { grid-column: span 2 }
 
-/* responsive adjustments */
 @media (max-width:520px){
   .grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
-  .eq{ grid-column: span 2 }
   .display{ font-size:1.5rem; min-height:60px }
 }
 
-/* footer narrow line */
 .footer{
   width:90%;
-  max-width:380px;
+  max-width:360px;
   text-align:center;
   padding-top:12px;
   border-top:1px solid rgba(255,255,255,0.14);
