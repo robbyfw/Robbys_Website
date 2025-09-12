@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anonymous Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .chat-container {
+      width: 400px;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .message {
+      background: #eee;
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .input-container {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+    input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="messages" id="messages"></div>
+    <div class="input-container">
+      <input type="text" id="messageInput" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQ3pQ6fz3Hob-PnFahG4RdwkOxMWmZzr4",
+      authDomain: "anonymouschat-eb9fa.firebaseapp.com",
+      projectId: "anonymouschat-eb9fa",
+      storageBucket: "anonymouschat-eb9fa.firebasestorage.app",
+      messagingSenderId: "670450301668",
+      appId: "1:670450301668:web:9fd0aeaf1960b33fb2caf1",
+      measurementId: "G-3K3YLB4TNG"
+    };
+
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const messagesDiv = document.getElementById("messages");
+    const messageInput = document.getElementById("messageInput");
+
+    // Load messages in real-time
+    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    onSnapshot(q, (snapshot) => {
+      messagesDiv.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.classList.add("message");
+        div.textContent = `Anonymous: ${data.text}`;
+        messagesDiv.appendChild(div);
+      });
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+
+    // Send a message
+    async function sendMessage() {
+      const text = messageInput.value.trim();
+      if (text) {
+        await addDoc(collection(db, "messages"), {
+          text,
+          timestamp: serverTimestamp()
+        });
+        messageInput.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
