@@ -134,21 +134,22 @@
     });
 
     // Listen for messages
-    const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
-    onSnapshot(q, (snapshot) => {
-      messagesDiv.innerHTML = "";
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message");
-        messageDiv.innerHTML = `
-          <strong>${data.name || "Anonymous"}</strong>: ${data.text}
-          <span>${data.timestamp?.toDate().toLocaleString() || ""}</span>
-        `;
-        messagesDiv.appendChild(messageDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      });
-    });
+const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+onSnapshot(q, (snapshot) => {
+  messagesDiv.innerHTML = "";
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    const time = data.timestamp ? data.timestamp.toDate().toLocaleString() : "No time";
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message");
+    messageDiv.innerHTML = `
+      <strong>${data.name || "Anonymous"}</strong>: ${data.text}
+      <span>${time}</span>
+    `;
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  });
+});
   </script>
 </body>
 </html>
