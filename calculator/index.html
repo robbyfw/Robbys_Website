@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cool Calculator</title>
+<title>Scientific Calculator</title>
 
 <!-- Website Logo / Favicon -->
 <link rel="icon" type="image/png" href="/Studio-Project.png">
@@ -32,13 +32,13 @@ body {
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  padding: 20px;
 }
 
-/* Mobile fix for background */
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
-    padding: 20px;
+    padding: 10px;
   }
 }
 
@@ -54,11 +54,11 @@ body {
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 20px;
   padding: 2rem;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
-  margin-bottom: 3rem;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  backdrop-filter: blur(15px);
+  margin-bottom: 2rem;
 }
 
 /* Display */
@@ -75,13 +75,13 @@ body {
 /* Buttons Grid */
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.8rem;
 }
 
 button {
-  padding: 1.2rem;
-  font-size: 1.2rem;
+  padding: 1rem;
+  font-size: 1rem;
   border: none;
   border-radius: 12px;
   background: rgba(255,255,255,0.1);
@@ -96,7 +96,7 @@ button:hover {
   transform: translateY(-2px);
 }
 
-/* Special buttons */
+/* Operator buttons */
 button.operator {
   background: rgba(0,120,255,0.7);
 }
@@ -105,8 +105,8 @@ button.operator:hover {
   background: #0078ff;
 }
 
+/* Equal button */
 button.equal {
-  grid-column: span 2;
   background: #00ffab;
   color: black;
 }
@@ -117,7 +117,6 @@ button.equal:hover {
 
 /* Clear button */
 button.clear {
-  grid-column: span 4;
   background: rgba(255,0,0,0.6);
   color: white;
 }
@@ -126,27 +125,28 @@ button.clear:hover {
   background: #ff0000;
 }
 
-/* Responsive font size for mobile */
+/* Small responsive adjustments */
 @media (max-width: 480px) {
   .display {
     font-size: 1.5rem;
   }
-
   button {
-    padding: 1rem;
-    font-size: 1rem;
+    padding: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 
 /* Footer */
 .footer {
-  width: 100%;
+  max-width: 500px;
+  width: 90%;
   text-align: center;
   padding: 1rem 0;
   border-top: 1px solid rgba(255,255,255,0.3);
   font-size: 0.9rem;
   color: #ccc;
   letter-spacing: 0.5px;
+  margin-top: 10px;
 }
 </style>
 </head>
@@ -155,27 +155,45 @@ button.clear:hover {
 <div class="calculator">
   <div class="display" id="display">0</div>
   <div class="buttons">
+    <!-- Row 1 -->
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button class="operator" onclick="appendValue('(')">(</button>
+    <button class="operator" onclick="appendValue(')')">)</button>
+    <button class="operator" onclick="appendValue('^')">^</button>
+    <button class="operator" onclick="appendValue('%')">%</button>
+    <button class="operator" onclick="appendValue('/')">÷</button>
+
+    <!-- Row 2 -->
     <button onclick="appendValue('7')">7</button>
     <button onclick="appendValue('8')">8</button>
     <button onclick="appendValue('9')">9</button>
-    <button class="operator" onclick="appendValue('/')">÷</button>
+    <button class="operator" onclick="appendValue('*')">×</button>
+    <button class="operator" onclick="appendValue('sqrt(')">√</button>
+    <button class="operator" onclick="appendValue('**0.5')">√x</button>
 
+    <!-- Row 3 -->
     <button onclick="appendValue('4')">4</button>
     <button onclick="appendValue('5')">5</button>
     <button onclick="appendValue('6')">6</button>
-    <button class="operator" onclick="appendValue('*')">×</button>
+    <button class="operator" onclick="appendValue('-')">-</button>
+    <button class="operator" onclick="appendValue('sin(')">sin</button>
+    <button class="operator" onclick="appendValue('cos(')">cos</button>
 
+    <!-- Row 4 -->
     <button onclick="appendValue('1')">1</button>
     <button onclick="appendValue('2')">2</button>
     <button onclick="appendValue('3')">3</button>
-    <button class="operator" onclick="appendValue('-')">-</button>
+    <button class="operator" onclick="appendValue('+')">+</button>
+    <button class="operator" onclick="appendValue('tan(')">tan</button>
+    <button class="operator" onclick="appendValue('log(')">log</button>
 
+    <!-- Row 5 -->
     <button onclick="appendValue('0')">0</button>
     <button onclick="appendValue('.')">.</button>
     <button class="equal" onclick="calculateResult()">=</button>
-    <button class="operator" onclick="appendValue('+')">+</button>
-
-    <button class="clear" onclick="clearDisplay()">C</button>
+    <button class="operator" onclick="appendValue('*')">×</button>
+    <button class="operator" onclick="appendValue('/')">÷</button>
+    <button class="operator" onclick="appendValue('Math.PI')">π</button>
   </div>
 </div>
 
@@ -193,7 +211,15 @@ function appendValue(val) {
 
 function calculateResult() {
   try {
-    display.innerText = eval(display.innerText);
+    // Replace some math functions to JS eval
+    let expression = display.innerText
+      .replace(/sin\(/g, 'Math.sin(')
+      .replace(/cos\(/g, 'Math.cos(')
+      .replace(/tan\(/g, 'Math.tan(')
+      .replace(/log\(/g, 'Math.log10(')
+      .replace(/√/g, 'Math.sqrt')
+      .replace(/π/g, 'Math.PI');
+    display.innerText = eval(expression);
   } catch {
     display.innerText = 'Error';
   }
