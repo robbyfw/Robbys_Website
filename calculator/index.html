@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cool Calculator</title>
+
+<!-- Website Logo / Favicon -->
+<link rel="icon" type="image/png" href="/Studio-Project.png">
+<link rel="apple-touch-icon" href="/Studio-Project.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== General Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  -webkit-animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Mobile fix for background */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    padding: 20px;
+  }
+}
+
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Calculator Container ===== */
+.calculator {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  margin-bottom: 3rem;
+}
+
+/* Display */
+.display {
+  background: rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: right;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+}
+
+/* Buttons Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+button {
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button:hover {
+  background: rgba(0,120,255,0.7);
+  transform: translateY(-2px);
+}
+
+/* Special buttons */
+button.operator {
+  background: rgba(0,120,255,0.7);
+}
+
+button.operator:hover {
+  background: #0078ff;
+}
+
+button.equal {
+  grid-column: span 2;
+  background: #00ffab;
+  color: black;
+}
+
+button.equal:hover {
+  background: #00e594;
+}
+
+/* Clear button */
+button.clear {
+  grid-column: span 4;
+  background: rgba(255,0,0,0.6);
+  color: white;
+}
+
+button.clear:hover {
+  background: #ff0000;
+}
+
+/* Responsive font size for mobile */
+@media (max-width: 480px) {
+  .display {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  font-size: 0.9rem;
+  color: #ccc;
+  letter-spacing: 0.5px;
+}
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button class="operator" onclick="appendValue('/')">÷</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button class="operator" onclick="appendValue('*')">×</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button class="operator" onclick="appendValue('-')">-</button>
+
+    <button onclick="appendValue('0')">0</button>
+    <button onclick="appendValue('.')">.</button>
+    <button class="equal" onclick="calculateResult()">=</button>
+    <button class="operator" onclick="appendValue('+')">+</button>
+
+    <button class="clear" onclick="clearDisplay()">C</button>
+  </div>
+</div>
+
+<div class="footer">
+  © 2025 Muhammad Asim (Robby) • Built with 🖤
+</div>
+
+<script>
+let display = document.getElementById('display');
+
+function appendValue(val) {
+  if(display.innerText === '0') display.innerText = val;
+  else display.innerText += val;
+}
+
+function calculateResult() {
+  try {
+    display.innerText = eval(display.innerText);
+  } catch {
+    display.innerText = 'Error';
+  }
+}
+
+function clearDisplay() {
+  display.innerText = '0';
+}
+</script>
+
+</body>
+</html>
