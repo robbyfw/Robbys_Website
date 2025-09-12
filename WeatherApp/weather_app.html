@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Widget</title>
+
+  <!-- Favicon / Tab Image -->
+  <link rel="icon" type="image/png" href="/Studio-Project.png">
+  <link rel="apple-touch-icon" href="/Studio-Project.png">
+
+  <style>
+    /* Water-like animated background */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .weather-container {
+      background: rgba(0, 128, 255, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #00bfff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #009acd;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .result p {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    /* Credits at bottom */
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="weather-container">
+    <h2>Weather App</h2>
+    <input type="text" id="cityInput" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <footer>
+    Made by Muhammad Asim (Robby)
+  </footer>
+
+  <script>
+    const API_KEY = "cef868c24f7eadea4f39779c0e588c9b"; // Your API key
+
+    async function getWeather() {
+      const city = document.getElementById("cityInput").value;
+      const resultDiv = document.getElementById("result");
+
+      if(city === "") {
+        resultDiv.innerHTML = "<p>Please enter a city name!</p>";
+        return;
+      }
+
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("City not found");
+
+        const data = await response.json();
+        resultDiv.innerHTML = `
+          <p><strong>${data.name}</strong></p>
+          <p>Temperature: ${data.main.temp} °C</p>
+          <p>Condition: ${data.weather[0].description}</p>
+          <p>Humidity: ${data.main.humidity}%</p>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = `<p>${error.message}</p>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
