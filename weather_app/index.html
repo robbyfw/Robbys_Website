@@ -1,103 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <link rel="icon" type="image/png" href="/Studio-Project.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HumanGPT Weather</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="weather-container">
-    <h2>🌊 Weather App</h2>
-    <input type="text" id="cityInput" placeholder="Enter city name">
-    
-    <div class="buttons">
-      <button onclick="getWeather()">Get Weather</button>
-      <button class="location-btn" onclick="getLocationWeather()">📍 My Location</button>
-    </div>
+  <main class="app">
+    <section class="card" aria-labelledby="appTitle">
+      <header class="card-head">
+        <h1 id="appTitle" class="title">HumanGPT Weather</h1>
+        <p class="sub">Black-water theme · Frosted glass UI</p>
+      </header>
 
-    <div class="toggle-btn" onclick="toggleUnit()">Switch to °F</div>
-    <div class="result" id="result"></div>
-  </div>
+      <div class="controls">
+        <input id="cityInput" type="text" placeholder="Type a city name (e.g. Lahore)" aria-label="City name">
+        <div class="row">
+          <button id="getBtn" class="btn primary">Get Weather</button>
+          <button id="locBtn" class="btn ghost">Check my location</button>
+        </div>
 
-  <footer>
-    Made by Muhammad Asim (Robby)
-  </footer>
+        <div id="unitToggle" class="unit-toggle" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle Celsius or Fahrenheit">
+          <span class="labels"><span>°C</span><span>°F</span></span>
+          <span class="knob" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div id="result" class="result" aria-live="polite"></div>
+
+      <div class="credits">
+        <hr>
+        <div class="credit-text">Made by Muhammad Asim (Robby)</div>
+      </div>
+    </section>
+  </main>
 
   <script>
+    // ---------- CONFIG ----------
     const API_KEY = "cef868c24f7eadea4f39779c0e588c9b";
     let isCelsius = true;
+    let lastWeatherData = null; // keep last fetched data to re-render on unit change
 
-    async function getWeather() {
-      const city = document.getElementById("cityInput").value.trim();
-      const resultDiv = document.getElementById("result");
+    // ---------- DOM ----------
+    const cityInput = document.getElementById('cityInput');
+    const getBtn = document.getElementById('getBtn');
+    const locBtn = document.getElementById('locBtn');
+    const unitToggle = document.getElementById('unitToggle');
+    const resultDiv = document.getElementById('result');
 
-      if(city === "") {
-        resultDiv.innerHTML = "<p>Please enter a city name!</p>";
-        return;
-      }
+    // ---------- EVENTS ----------
+    getBtn.addEventListener('click', () => getWeather());
+    locBtn.addEventListener('click', () => getLocationWeather());
+    cityInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') getWeather(); });
 
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-      fetchWeather(url);
+    unitToggle.addEventListener('click', toggleUnit);
+    unitToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleUnit(); }
+    });
+
+    // ---------- HELPERS ----------
+    function showLoading() {
+      resultDiv.innerHTML = `
+        <div class="spinner" role="status" aria-hidden="true"></div>
+        <div class="small">Loading weather…</div>
+      `;
     }
 
-    function getLocationWeather() {
-      const resultDiv = document.getElementById("result");
+    function showMessage(msg) {
+      resultDiv.innerHTML = `<div class="msg">${escapeHtml(msg)}</div>`;
+    }
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-            fetchWeather(url);
-          },
-          () => {
-            resultDiv.innerHTML = "<p>Location access denied.</p>";
-          }
-        );
-      } else {
-        resultDiv.innerHTML = "<p>Geolocation not supported by your browser.</p>";
-      }
+    function escapeHtml(s) {
+      if (s === undefined || s === null) return '';
+      return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // ---------- FETCH / RENDER ----------
+    async function getWeather() {
+      const city = cityInput.value.trim();
+      if (!city) { showMessage("Please enter a city name."); return; }
+
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+      await fetchWeather(url);
+    }
+
+    async function getLocationWeather() {
+      if (!navigator.geolocation) { showMessage("Geolocation not supported by your browser."); return; }
+      showLoading();
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${API_KEY}&units=metric`;
+        await fetchWeather(url);
+      }, () => {
+        showMessage("Location access denied.");
+      }, { timeout: 10000 });
     }
 
     async function fetchWeather(url) {
-      const resultDiv = document.getElementById("result");
       try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("City not found");
-
-        const data = await response.json();
-        displayWeather(data);
-      } catch (error) {
-        resultDiv.innerHTML = `<p>${error.message}</p>`;
+        showLoading();
+        const resp = await fetch(url);
+        if (!resp.ok) {
+          if (resp.status === 404) throw new Error("City not found.");
+          throw new Error("Unable to fetch weather.");
+        }
+        const data = await resp.json();
+        lastWeatherData = data; // store last result
+        await renderWeather(data);
+      } catch (err) {
+        showMessage(err.message || "Error fetching weather.");
       }
     }
 
-    function displayWeather(data) {
-      const resultDiv = document.getElementById("result");
-      const temp = isCelsius ? data.main.temp : (data.main.temp * 9/5) + 32;
+    // Preload icon to avoid first-click missing icon
+    function preloadImage(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve({ ok: true, url });
+        img.onerror = () => resolve({ ok: false });
+      });
+    }
+
+    async function renderWeather(data) {
+      // compute temperature and local time
+      const tempC = data.main.temp;
+      const temp = isCelsius ? tempC : (tempC * 9/5) + 32;
       const unit = isCelsius ? "°C" : "°F";
+      const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+      // preload icon
+      const loaded = await preloadImage(iconUrl);
+
+      // local time (data.dt UTC seconds, timezone offset in seconds)
+      const local = new Date((data.dt + (data.timezone || 0)) * 1000);
+      const localStr = local.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+      // build HTML (if icon loaded, use it; otherwise inline fallback SVG)
+      const iconHtml = loaded.ok
+        ? `<img class="weather-icon" src="${iconUrl}" alt="${escapeHtml(data.weather[0].description)}">`
+        : `<svg class="weather-icon fallback" viewBox="0 0 24 24" aria-hidden="true" width="64" height="64">
+             <path fill="currentColor" d="M19.36 10.46A7 7 0 0 0 5 10.5a5 5 0 0 0 .22 9.98h13.14a4 4 0 0 0 .99-7.02z" opacity=".9"/>
+           </svg>`;
 
       resultDiv.innerHTML = `
-        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"
-             class="weather-icon" alt="Weather Icon">
-        <p><strong>${data.name}</strong></p>
-        <p>Temperature: ${temp.toFixed(1)} ${unit}</p>
-        <p>Condition: ${data.weather[0].description}</p>
-        <p>Humidity: ${data.main.humidity}%</p>
+        <div class="result-top">${iconHtml}
+          <div class="city">${escapeHtml(data.name)}, <span class="country">${escapeHtml(data.sys.country)}</span></div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Temperature</div>
+            <div class="stat-value">${temp.toFixed(1)} ${unit}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Condition</div>
+            <div class="stat-value">${escapeHtml(capitalize(data.weather[0].description))}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Humidity</div>
+            <div class="stat-value">${data.main.humidity}%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Local time</div>
+            <div class="stat-value">${localStr}</div>
+          </div>
+        </div>
       `;
     }
 
     function toggleUnit() {
       isCelsius = !isCelsius;
-      const btn = document.querySelector(".toggle-btn");
-      btn.textContent = isCelsius ? "Switch to °F" : "Switch to °C";
-
-      const city = document.getElementById("cityInput").value.trim();
-      if(city !== "") getWeather();
+      unitToggle.setAttribute('aria-checked', String(isCelsius));
+      // toggle visual state (isF means Fahrenheit)
+      unitToggle.classList.toggle('is-f', !isCelsius);
+      // re-render last fetched result if exists
+      if (lastWeatherData) renderWeather(lastWeatherData);
     }
+
+    function capitalize(s) { if (!s) return s; return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    // focus input on load
+    window.addEventListener('load', () => cityInput.focus());
   </script>
 </body>
 </html>
