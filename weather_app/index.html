@@ -4,33 +4,40 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Weather App</title>
+
+  <!-- Tab image (Studio Project) -->
+  <link rel="icon" type="image/png" href="/Studio-Project.png">
+  <link rel="apple-touch-icon" href="/Studio-Project.png">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="wrap">
     <section class="card" aria-labelledby="title">
       <h1 id="title" class="app-title">Weather App</h1>
-      <p class="subtitle">Simple · Fast · Black-water theme</p>
 
       <div class="controls">
-        <input id="cityInput" type="text" placeholder="Enter city name (e.g. Karachi)" aria-label="City name">
+        <input id="cityInput" type="text" placeholder="Enter city name (e.g. Sukho)" aria-label="City name">
+
         <div class="buttons-row">
           <button id="getBtn" class="btn btn-primary">Get Weather</button>
           <button id="locBtn" class="btn btn-secondary">Check my location</button>
         </div>
-
-        <div class="unit-row">
-          <button id="unitBtn" class="btn btn-ghost">Show °F</button>
-        </div>
       </div>
 
       <div id="result" class="result" aria-live="polite"></div>
+
     </section>
 
-    <!-- credits outside the card, with a thin line not touching edges -->
+    <!-- credits outside the card, with a thin non-touching line + text below -->
     <div class="credits-wrap">
       <hr class="credits-line">
       <div class="credits-text">Made by Muhammad Asim (Robby)</div>
+    </div>
+
+    <!-- Unit toggle placed after result (hidden until results exist) -->
+    <div id="unitContainer" class="unit-container hidden">
+      <button id="unitBtn" class="btn btn-ghost">Show °F</button>
     </div>
   </main>
 
@@ -45,28 +52,32 @@
     const getBtn = document.getElementById('getBtn');
     const locBtn = document.getElementById('locBtn');
     const unitBtn = document.getElementById('unitBtn');
+    const unitContainer = document.getElementById('unitContainer');
     const resultDiv = document.getElementById('result');
 
     // ---------- EVENTS ----------
     getBtn.addEventListener('click', () => getWeather());
     locBtn.addEventListener('click', () => getLocationWeather());
-    unitBtn.addEventListener('click', toggleUnit);
     cityInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') getWeather(); });
+    // unit button toggles and only shown after a successful fetch
+    unitBtn && unitBtn.addEventListener('click', toggleUnit);
 
     // ---------- HELPERS ----------
-    function setLoading() {
+    function showLoading() {
       resultDiv.innerHTML = '<div class="spinner" aria-hidden="true"></div><div class="small">Loading weather…</div>';
+      hideUnit();
     }
     function showMessage(msg) {
       resultDiv.innerHTML = '<div class="msg">' + escapeHtml(msg) + '</div>';
+      hideUnit();
     }
     function escapeHtml(s) {
       if (s === undefined || s === null) return '';
       return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
-    // preload icon with timeout fallback
-    function loadImageWithTimeout(url, timeoutMs = 900) {
+    // load image with timeout fallback (helps show icon on first try)
+    function loadImageWithTimeout(url, timeoutMs = 1500) {
       return new Promise((resolve) => {
         const img = new Image();
         let settled = false;
@@ -81,7 +92,6 @@
 
     // ---------- FETCH / RENDER ----------
     async function getWeather(city = null, lat = null, lon = null) {
-      // determine city/coords
       if (!city && (typeof lat !== 'number' || typeof lon !== 'number')) {
         const typed = cityInput.value && cityInput.value.trim();
         if (!typed) { showMessage('Please enter a city name.'); return; }
@@ -96,14 +106,14 @@
       }
 
       try {
-        setLoading();
+        showLoading();
         const resp = await fetch(url);
         if (!resp.ok) {
           if (resp.status === 404) throw new Error('City not found.');
           throw new Error('Unable to fetch weather.');
         }
         const data = await resp.json();
-        lastWeather = data; // store for re-render on unit change
+        lastWeather = data;
         await renderWeather(data);
       } catch (err) {
         showMessage(err.message || 'Error fetching weather.');
@@ -112,7 +122,7 @@
 
     async function getLocationWeather() {
       if (!navigator.geolocation) { showMessage('Geolocation not supported by your browser.'); return; }
-      setLoading();
+      showLoading();
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude: lat, longitude: lon } = pos.coords;
         await getWeather(null, lat, lon);
@@ -122,31 +132,33 @@
     }
 
     async function renderWeather(data) {
-      // compute temps & time
-      const tempC = data.main.temp;
+      // Ensure safe icon handling: some responses may not include weather[0] — use default '03d'
+      const weatherItem = (data.weather && data.weather[0]) ? data.weather[0] : { description: 'N/A', icon: '03d' };
+      const iconCode = weatherItem.icon || '03d';
+      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+      // Preload icon for first-click reliability
+      const iconLoaded = await loadImageWithTimeout(iconUrl, 1500);
+
+      // compute temperature and local time
+      const tempC = typeof data.main?.temp === 'number' ? data.main.temp : 0;
       const temp = useCelsius ? tempC : (tempC * 9/5) + 32;
       const unit = useCelsius ? '°C' : '°F';
-      const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-
-      // preload icon (prevents missing icon on first click)
-      const loaded = await loadImageWithTimeout(iconUrl, 900);
-
-      // local time formatting
       const localDate = new Date((data.dt + (data.timezone || 0)) * 1000);
       const localStr = localDate.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
-      // icon HTML: either loaded image or inline fallback SVG
-      const iconHtml = loaded
-        ? `<img class="weather-icon" src="${iconUrl}" alt="${escapeHtml(data.weather[0].description)}">`
-        : `<svg class="weather-icon fallback" viewBox="0 0 24 24" aria-hidden="true" width="64" height="64"><path fill="currentColor" d="M19.36 10.46A7 7 0 0 0 5 10.5a5 5 0 0 0 .22 9.98h13.14a4 4 0 0 0 .99-7.02z"/></svg>`;
+      // Prepare icon HTML (fallback inline SVG if load fails)
+      const iconHtml = iconLoaded
+        ? `<img class="weather-icon" src="${iconUrl}" alt="${escapeHtml(weatherItem.description)}">`
+        : `<svg class="weather-icon fallback" viewBox="0 0 24 24" aria-hidden="true" width="76" height="76"><path fill="currentColor" d="M19.36 10.46A7 7 0 0 0 5 10.5a5 5 0 0 0 .22 9.98h13.14a4 4 0 0 0 .99-7.02z"/></svg>`;
 
-      // render
+      // Fill result
       resultDiv.innerHTML = `
         <div class="top">
           ${iconHtml}
           <div class="city-block">
-            <div class="city-name">${escapeHtml(data.name)}</div>
-            <div class="country">${escapeHtml(data.sys.country)}</div>
+            <div class="city-name">${escapeHtml(data.name || 'Unknown')}</div>
+            <div class="country">${escapeHtml(data.sys?.country || '')}</div>
           </div>
         </div>
 
@@ -157,11 +169,11 @@
           </div>
           <div class="grid-item">
             <div class="label">Condition</div>
-            <div class="value">${escapeHtml(capitalize(data.weather[0].description))}</div>
+            <div class="value">${escapeHtml(capitalize(weatherItem.description || 'N/A'))}</div>
           </div>
           <div class="grid-item">
             <div class="label">Humidity</div>
-            <div class="value">${data.main.humidity}%</div>
+            <div class="value">${data.main?.humidity ?? 'N/A'}%</div>
           </div>
           <div class="grid-item">
             <div class="label">Local time</div>
@@ -169,18 +181,28 @@
           </div>
         </div>
       `;
+
+      // Show unit toggle below result
+      showUnit();
     }
 
     function toggleUnit() {
       useCelsius = !useCelsius;
       unitBtn.textContent = useCelsius ? 'Show °F' : 'Show °C';
-      // re-render last result (no new fetch)
       if (lastWeather) renderWeather(lastWeather);
+    }
+
+    function showUnit() {
+      unitContainer.classList.remove('hidden');
+    }
+
+    function hideUnit() {
+      unitContainer.classList.add('hidden');
     }
 
     function capitalize(s) { if (!s) return s; return s.charAt(0).toUpperCase() + s.slice(1); }
 
-    // focus input
+    // focus input on load
     window.addEventListener('load', () => cityInput.focus());
   </script>
 </body>
