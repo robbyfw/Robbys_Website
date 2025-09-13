@@ -5,123 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="icon" type="image/png" href="/Studio-Project.png">
-
-  <style>
-    /* Background with water + black overlay */
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: "Segoe UI", sans-serif;
-      background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-        url("https://i.ibb.co/YPfG1pR/water-bg.gif") no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-
-    /* Glass effect for container */
-    .weather-container {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(12px);
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      width: 330px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    h2 {
-      margin-bottom: 15px;
-      font-size: 26px;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    input {
-      padding: 12px;
-      width: 80%;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    /* Buttons */
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: #00bfff;
-      color: white;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #008cba;
-    }
-
-    /* Toggle switch */
-    .toggle-btn {
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 25px;
-      padding: 6px 14px;
-      font-size: 14px;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.3s;
-      display: inline-block;
-    }
-    .toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    .result {
-      margin-top: 20px;
-      min-height: 120px;
-    }
-
-    .result p {
-      margin: 6px 0;
-      font-size: 18px;
-    }
-
-    /* Weather icon */
-    .weather-icon {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 10px;
-    }
-
-    /* Fade in animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #ccc;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="weather-container">
-    <h2>🌦️ Weather App</h2>
+    <h2>🌊 Weather App</h2>
     <input type="text" id="cityInput" placeholder="Enter city name">
-    <button onclick="getWeather()">Get Weather</button>
-    <div class="toggle-btn" onclick="toggleUnit()">Switch to °F</div>
+    
+    <div class="buttons">
+      <button onclick="getWeather()">Get Weather</button>
+      <button class="location-btn" onclick="getLocationWeather()">📍 My Location</button>
+    </div>
 
+    <div class="toggle-btn" onclick="toggleUnit()">Switch to °F</div>
     <div class="result" id="result"></div>
   </div>
 
@@ -143,7 +39,31 @@
       }
 
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+      fetchWeather(url);
+    }
 
+    function getLocationWeather() {
+      const resultDiv = document.getElementById("result");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+            fetchWeather(url);
+          },
+          () => {
+            resultDiv.innerHTML = "<p>Location access denied.</p>";
+          }
+        );
+      } else {
+        resultDiv.innerHTML = "<p>Geolocation not supported by your browser.</p>";
+      }
+    }
+
+    async function fetchWeather(url) {
+      const resultDiv = document.getElementById("result");
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("City not found");
@@ -179,6 +99,5 @@
       if(city !== "") getWeather();
     }
   </script>
-
 </body>
 </html>
