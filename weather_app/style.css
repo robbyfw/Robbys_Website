@@ -1,16 +1,32 @@
-/* Background - Black Watery Effect */
+/* ---------------------------
+   Global / Background (waterflow)
+   --------------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-bg-top: rgba(255,255,255,0.03);
+  --glass-bg-bottom: rgba(255,255,255,0.01);
+  --accent: #00bfff;
+  --accent-dark: #008cba;
+  --muted: rgba(255,255,255,0.72);
+  --card-width: 420px;
+}
+
+html,body { height: 100%; }
+
 body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #eaf9ff;
   background: linear-gradient(270deg, #0d0d0d, #1c1c1c, #0d0d0d);
   background-size: 600% 600%;
-  animation: waterflow 20s ease infinite;
-  color: #fff;
+  animation: waterflow 22s ease infinite;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
 @keyframes waterflow {
@@ -19,114 +35,171 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Glassmorphism Box */
-.weather-container {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(14px);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  width: 340px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-  animation: fadeIn 1s ease-in-out;
+/* subtle overlay texture via pseudo-element */
+body::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 18px 18px;
+  opacity: 0.05;
+  pointer-events: none;
 }
 
-h2 {
-  margin-bottom: 15px;
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: 1px;
+/* ---------------------------
+   Center card (glass)
+   --------------------------- */
+.app { width: 100%; max-width: var(--card-width); display:flex; justify-content:center; }
+.card {
+  width: 100%;
+  max-width: var(--card-width);
+  background: linear-gradient(180deg, var(--glass-bg-top), var(--glass-bg-bottom));
+  border-radius: 16px;
+  padding: 22px;
+  backdrop-filter: blur(14px) saturate(130%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  overflow: visible;
 }
 
-/* Input */
-input {
-  padding: 12px;
-  width: 80%;
-  border: none;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  font-size: 16px;
+/* header */
+.card-head { text-align:center; margin-bottom: 14px; }
+.title { font-size: 20px; font-weight: 700; letter-spacing: 0.4px; color: #dff9ff; }
+.sub { color: rgba(200,240,255,0.45); font-size: 13px; margin-top:6px; }
+
+/* controls */
+.controls { display:flex; flex-direction:column; gap:10px; align-items:center; }
+input#cityInput {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(0,0,0,0.28);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+  color: #eaf9ff;
   outline: none;
-  text-align: center;
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-}
-
-/* Button group */
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-/* Buttons */
-button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
   font-size: 15px;
-  font-weight: 500;
-  transition: 0.3s;
-  color: #fff;
-  background: linear-gradient(135deg, #00bfff, #008cba);
+  text-align:center;
+  transition: box-shadow 0.18s ease, transform 0.12s ease, border-color 0.12s ease;
 }
-button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #009acd, #006b9e);
-}
-
-/* Location Button */
-.location-btn {
-  background: linear-gradient(135deg, #32cd32, #228b22);
-}
-.location-btn:hover {
-  background: linear-gradient(135deg, #2e8b57, #006400);
+input#cityInput:focus {
+  box-shadow: 0 8px 26px rgba(0,191,255,0.06);
+  transform: translateY(-2px);
+  border-color: rgba(0,191,255,0.16);
 }
 
-/* Toggle Unit Button */
-.toggle-btn {
-  margin-top: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 25px;
-  padding: 8px 14px;
-  font-size: 14px;
+/* row for buttons */
+.row { display:flex; gap:10px; width:100%; }
+.btn {
+  flex:1;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: none;
   cursor: pointer;
-  transition: 0.3s;
-  display: inline-block;
-}
-.toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
-}
-
-/* Weather results */
-.result {
-  margin-top: 20px;
-  min-height: 120px;
-}
-.result p {
-  margin: 6px 0;
-  font-size: 18px;
-}
-.weather-icon {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 8px;
-}
-
-/* Fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Footer */
-footer {
-  margin-top: 25px;
+  font-weight: 600;
   font-size: 14px;
-  color: #bbb;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn.primary {
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  color: #021b2a;
+  box-shadow: 0 8px 20px rgba(0,191,255,0.12);
+}
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--muted);
+}
+.btn:hover { transform: translateY(-3px); }
+
+/* unit toggle (pill with knob) */
+.unit-toggle {
+  margin-top: 8px;
+  width: 120px;
+  height: 36px;
+  border-radius: 999px;
+  position: relative;
+  display: inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 4px;
+  transition: box-shadow .15s ease, transform .12s ease;
+}
+.unit-toggle:focus { outline: none; box-shadow: 0 6px 20px rgba(0,191,255,0.08); }
+.unit-toggle .labels { position: absolute; left: 12px; right: 12px; display:flex; justify-content:space-between; font-size:13px; color: rgba(255,255,255,0.8); z-index:1; pointer-events:none; }
+.unit-toggle .knob {
+  --knob-size: 28px;
+  position: absolute;
+  left: 6px;
+  width: var(--knob-size);
+  height: var(--knob-size);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f8ffff, #dffcff);
+  box-shadow: 0 6px 18px rgba(0,191,255,0.12);
+  transition: transform .18s cubic-bezier(.2,.9,.2,1);
+  transform: translateX(0);
+  z-index: 0;
+}
+/* when Fahrenheit active, move knob to right and darken knob */
+.unit-toggle.is-f .knob { transform: translateX(56px); background: linear-gradient(180deg, #ffd9d9, #ffcfcf); box-shadow: 0 6px 18px rgba(255,80,80,0.12); }
+
+/* result area */
+.result {
+  margin-top: 14px;
+  min-height: 140px;
+  display:block;
+  color: #eaf9ff;
 }
 
+/* top row: icon + city */
+.result-top { display:flex; gap:12px; align-items:center; justify-content:flex-start; margin-bottom:8px; }
+.weather-icon { width:72px; height:72px; object-fit:contain; border-radius:8px; }
+.fallback { fill: rgba(230,249,255,0.9); width:72px; height:72px; }
+.city { font-weight:700; font-size:18px; color:#dffcff; }
+.country { color: rgba(220,255,255,0.85); font-weight:600; }
+
+/* stats grid */
+.stats { display:grid; grid-template-columns: repeat(2,1fr); gap:10px; margin-top:8px; }
+.stat { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.02); }
+.stat-label { font-size:12px; color: rgba(220,255,255,0.65); }
+.stat-value { font-weight:700; margin-top:4px; font-size:15px; color:#e6fdff; }
+
+/* spinner */
+.spinner {
+  width:36px; height:36px;
+  border-radius:50%;
+  margin:6px auto;
+  border:4px solid rgba(255,255,255,0.06);
+  border-top-color: var(--accent);
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.small { color: rgba(200,240,255,0.7); text-align:center; margin-top:6px; }
+
+/* message */
+.msg { text-align:center; font-size:15px; color: #ffd6d6; }
+
+/* credits */
+.credits { margin-top: 14px; text-align:center; }
+.credits hr {
+  width: 60%;
+  height: 1px;
+  margin: 10px auto 8px;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+}
+.credit-text { font-size:13px; color: rgba(220,255,255,0.7); }
+
+/* responsive minor tweaks */
+@media (max-width: 480px) {
+  .card { padding: 16px; border-radius: 12px; }
+  .unit-toggle { width: 110px; height:34px; }
+  .unit-toggle.is-f .knob { transform: translateX(48px); }
+  .weather-icon { width:60px; height:60px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+}
