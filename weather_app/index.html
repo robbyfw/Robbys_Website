@@ -18,7 +18,6 @@
 
       <div class="controls">
         <input id="cityInput" type="text" placeholder="Enter city name (e.g. Sukho)" aria-label="City name">
-
         <div class="buttons-row">
           <button id="getBtn" class="btn btn-primary">Get Weather</button>
           <button id="locBtn" class="btn btn-secondary">Check my location</button>
@@ -27,17 +26,16 @@
 
       <div id="result" class="result" aria-live="polite"></div>
 
+      <!-- Unit toggle INSIDE the card, below results (hidden until a result exists) -->
+      <div id="unitContainer" class="unit-container hidden">
+        <button id="unitBtn" class="btn btn-ghost">Show °F</button>
+      </div>
     </section>
 
     <!-- credits outside the card, with a thin non-touching line + text below -->
     <div class="credits-wrap">
       <hr class="credits-line">
       <div class="credits-text">Made by Muhammad Asim (Robby)</div>
-    </div>
-
-    <!-- Unit toggle placed after result (hidden until results exist) -->
-    <div id="unitContainer" class="unit-container hidden">
-      <button id="unitBtn" class="btn btn-ghost">Show °F</button>
     </div>
   </main>
 
@@ -59,8 +57,7 @@
     getBtn.addEventListener('click', () => getWeather());
     locBtn.addEventListener('click', () => getLocationWeather());
     cityInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') getWeather(); });
-    // unit button toggles and only shown after a successful fetch
-    unitBtn && unitBtn.addEventListener('click', toggleUnit);
+    unitBtn.addEventListener('click', toggleUnit);
 
     // ---------- HELPERS ----------
     function showLoading() {
@@ -76,21 +73,36 @@
       return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
-    // load image with timeout fallback (helps show icon on first try)
-    function loadImageWithTimeout(url, timeoutMs = 1500) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        let settled = false;
-        const timer = setTimeout(() => {
-          if (!settled) { settled = true; resolve(false); }
-        }, timeoutMs);
-        img.onload = () => { if (!settled) { settled = true; clearTimeout(timer); resolve(true); } };
-        img.onerror = () => { if (!settled) { settled = true; clearTimeout(timer); resolve(false); } };
-        img.src = url;
-      });
+    // ---------- WEATHER SVG (fast inline icon generator) ----------
+    // returns an SVG string based on weather main type
+    function weatherSVG(main) {
+      main = (main || '').toLowerCase();
+      // base sizes & common styles
+      const common = 'width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"';
+      // Clear - sun
+      if (main.includes('clear')) {
+        return `<svg ${common}><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffe28a"/><stop offset="1" stop-color="#ffd54d"/></linearGradient></defs>
+          <circle cx="32" cy="24" r="10" fill="url(#g1)"/><g stroke="#ffd54d" stroke-width="2" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="12"/><line x1="32" y1="36" x2="32" y2="44"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="46" y1="24" x2="54" y2="24"/><line x1="14" y1="8" x2="20" y2="14"/><line x1="44" y1="8" x2="38" y2="14"/><line x1="14" y1="40" x2="20" y2="34"/><line x1="44" y1="40" x2="38" y2="34"/></g></svg>`;
+      }
+      // Rain / Drizzle
+      if (main.includes('rain') || main.includes('drizzle')) {
+        return `<svg ${common}><defs><linearGradient id="c1" x1="0" x2="1"><stop offset="0" stop-color="#e6f7ff"/><stop offset="1" stop-color="#cfeeff"/></linearGradient></defs>
+          <g><ellipse cx="30" cy="26" rx="16" ry="10" fill="url(#c1)"/></g>
+          <g fill="#7fcfff"><path d="M22 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/><path d="M34 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/><path d="M46 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/></g></svg>`;
+      }
+      // Snow
+      if (main.includes('snow')) {
+        return `<svg ${common}><g fill="#eaf6ff"><ellipse cx="30" cy="26" rx="16" ry="10"/></g><g fill="#fff"><circle cx="22" cy="40" r="2"/><circle cx="32" cy="44" r="2"/><circle cx="42" cy="40" r="2"/></g></svg>`;
+      }
+      // Thunderstorm
+      if (main.includes('thunder')) {
+        return `<svg ${common}><ellipse cx="30" cy="26" rx="16" ry="10" fill="#dfefff"/><path d="M34 36 L28 50 L40 44 L30 62" fill="none" stroke="#ffd85a" stroke-width="3" stroke-linecap="round"/></svg>`;
+      }
+      // Clouds / default
+      return `<svg ${common}><ellipse cx="30" cy="26" rx="16" ry="10" fill="#dfefff"/><ellipse cx="42" cy="30" rx="12" ry="8" fill="#e9f5ff"/></svg>`;
     }
 
-    // ---------- FETCH / RENDER ----------
+    // ---------- FETCH & RENDER ----------
     async function getWeather(city = null, lat = null, lon = null) {
       if (!city && (typeof lat !== 'number' || typeof lon !== 'number')) {
         const typed = cityInput.value && cityInput.value.trim();
@@ -114,51 +126,50 @@
         }
         const data = await resp.json();
         lastWeather = data;
-        await renderWeather(data);
+        renderWeather(data);
       } catch (err) {
         showMessage(err.message || 'Error fetching weather.');
       }
     }
 
     async function getLocationWeather() {
-      if (!navigator.geolocation) { showMessage('Geolocation not supported by your browser.'); return; }
+      if (!navigator.geolocation) { showMessage('Geolocation not supported.'); return; }
       showLoading();
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude: lat, longitude: lon } = pos.coords;
         await getWeather(null, lat, lon);
-      }, () => {
-        showMessage('Location access denied.');
-      }, { timeout: 10000 });
+      }, () => showMessage('Location access denied.'), { timeout: 10000 });
     }
 
-    async function renderWeather(data) {
-      // Ensure safe icon handling: some responses may not include weather[0] — use default '03d'
-      const weatherItem = (data.weather && data.weather[0]) ? data.weather[0] : { description: 'N/A', icon: '03d' };
-      const iconCode = weatherItem.icon || '03d';
-      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    function renderWeather(data) {
+      // safe weather object
+      const weatherItem = (data.weather && data.weather[0]) ? data.weather[0] : { main: 'Clouds', description: 'N/A' };
+      const main = weatherItem.main || 'Clouds';
+      const description = weatherItem.description || 'N/A';
 
-      // Preload icon for first-click reliability
-      const iconLoaded = await loadImageWithTimeout(iconUrl, 1500);
+      // compute "now" at that location using current UTC + location offset
+      const nowUtcSec = Math.floor(Date.now() / 1000);
+      const tzOffset = data.timezone || 0; // seconds offset from UTC for the location
+      const localSec = nowUtcSec + tzOffset;
+      const localDate = new Date(localSec * 1000);
+      // format like "13 Sep · 08:25 PM"
+      const localeStr = localDate.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true });
 
-      // compute temperature and local time
+      // temperature
       const tempC = typeof data.main?.temp === 'number' ? data.main.temp : 0;
       const temp = useCelsius ? tempC : (tempC * 9/5) + 32;
       const unit = useCelsius ? '°C' : '°F';
-      const localDate = new Date((data.dt + (data.timezone || 0)) * 1000);
-      const localStr = localDate.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
-      // Prepare icon HTML (fallback inline SVG if load fails)
-      const iconHtml = iconLoaded
-        ? `<img class="weather-icon" src="${iconUrl}" alt="${escapeHtml(weatherItem.description)}">`
-        : `<svg class="weather-icon fallback" viewBox="0 0 24 24" aria-hidden="true" width="76" height="76"><path fill="currentColor" d="M19.36 10.46A7 7 0 0 0 5 10.5a5 5 0 0 0 .22 9.98h13.14a4 4 0 0 0 .99-7.02z"/></svg>`;
+      // Build result (using our inline SVG)
+      const svg = weatherSVG(main);
 
-      // Fill result
       resultDiv.innerHTML = `
         <div class="top">
-          ${iconHtml}
+          <div class="svg-wrap">${svg}</div>
           <div class="city-block">
             <div class="city-name">${escapeHtml(data.name || 'Unknown')}</div>
             <div class="country">${escapeHtml(data.sys?.country || '')}</div>
+            <div class="local-time small">${escapeHtml(localeStr)}</div>
           </div>
         </div>
 
@@ -169,20 +180,20 @@
           </div>
           <div class="grid-item">
             <div class="label">Condition</div>
-            <div class="value">${escapeHtml(capitalize(weatherItem.description || 'N/A'))}</div>
+            <div class="value">${escapeHtml(capitalize(description))}</div>
           </div>
           <div class="grid-item">
             <div class="label">Humidity</div>
             <div class="value">${data.main?.humidity ?? 'N/A'}%</div>
           </div>
           <div class="grid-item">
-            <div class="label">Local time</div>
-            <div class="value">${localStr}</div>
+            <div class="label">Wind</div>
+            <div class="value">${data.wind?.speed ?? 'N/A'} m/s</div>
           </div>
         </div>
       `;
 
-      // Show unit toggle below result
+      // show toggle inside card now that we have result
       showUnit();
     }
 
@@ -192,13 +203,8 @@
       if (lastWeather) renderWeather(lastWeather);
     }
 
-    function showUnit() {
-      unitContainer.classList.remove('hidden');
-    }
-
-    function hideUnit() {
-      unitContainer.classList.add('hidden');
-    }
+    function showUnit() { unitContainer.classList.remove('hidden'); }
+    function hideUnit() { unitContainer.classList.add('hidden'); }
 
     function capitalize(s) { if (!s) return s; return s.charAt(0).toUpperCase() + s.slice(1); }
 
