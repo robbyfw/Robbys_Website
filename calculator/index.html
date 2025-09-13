@@ -3,106 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Robby's Website</title>
-
+<title>Robby's Calculator</title>
 <link rel="icon" type="image/png" href="/Studio-Project.png">
 <link rel="apple-touch-icon" href="/Studio-Project.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:'Poppins',sans-serif;
-  background: linear-gradient(270deg,#1c1c1c,#2a2a2a,#1c1c1c);
-  background-size:600% 600%;
-  animation:waterflow 20s ease infinite;
-  -webkit-animation:waterflow 20s ease infinite;
-  background-attachment: fixed;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-@media (max-width:768px){ body{ background-attachment:scroll; padding:12px } }
-
-@keyframes waterflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-.container{
-  width:100%;
-  max-width:380px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  align-items:center;
-}
-
-.card{
-  width:100%;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.12);
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.6);
-  backdrop-filter: blur(12px);
-}
-
-.display{
-  background: rgba(0,0,0,0.36);
-  padding:16px 14px;
-  border-radius:12px;
-  min-height:70px;
-  font-size:1.8rem;
-  text-align:right;
-  overflow-x:auto;
-  white-space:nowrap;
-  margin-bottom:16px;
-}
-
-.grid{
-  display:grid;
-  gap:10px;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.btn{
-  border: none;
-  padding:16px;
-  border-radius:12px;
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  font-size:1.2rem;
-  cursor:pointer;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.45);
-  transition: transform .12s ease, background .12s ease;
-}
-.btn:active{ transform: translateY(2px) }
-.btn:hover{ background: rgba(0,120,255,0.14) }
-
-.op{ background: linear-gradient(180deg, rgba(0,120,255,0.82), rgba(0,96,200,0.82)); color:#fff }
-.eq { background: linear-gradient(180deg,#00ffab,#00e594); color:#000; grid-row:5; }
-.clear{ background: linear-gradient(180deg,#ff6b6b,#ff4b4b); color:#fff }
-.wide2 { grid-column: span 2 }
-
-@media (max-width:520px){
-  .grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
-  .display{ font-size:1.5rem; min-height:60px }
-}
-
-.footer{
-  width:90%;
-  max-width:360px;
-  text-align:center;
-  padding-top:12px;
-  border-top:1px solid rgba(255,255,255,0.14);
-  color:#ccc;
-  font-size:0.95rem;
-  margin-top:12px;
-  border-radius:6px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
@@ -144,53 +49,6 @@ body{
     <div class="footer">© 2025 Muhammad Asim (Robby) • Built with 🖤</div>
   </div>
 
-<script>
-const displayEl = document.getElementById('display');
-const buttons = document.querySelectorAll('.btn');
-let expression = '';
-
-function refresh(){ displayEl.textContent = expression || '0'; }
-
-function append(value){ expression += value; refresh(); }
-
-function back(){ expression = expression.slice(0,-1); refresh(); }
-
-function toggleSign(){
-  if(expression==='') return;
-  let lastNumber = expression.match(/-?\d+(\.\d+)?$/);
-  if(lastNumber){
-    let num = lastNumber[0];
-    let start = expression.lastIndexOf(num);
-    if(num.startsWith('-')) num = num.slice(1);
-    else num = '-'+num;
-    expression = expression.slice(0,start) + num;
-    refresh();
-  }
-}
-
-function calculate(){
-  if(expression==='') return;
-  try{
-    let code = expression.replace(/×/g,'*').replace(/÷/g,'/');
-    let result = Function('"use strict";return ('+code+')')();
-    displayEl.textContent = (Math.round(result*1e12)/1e12).toString();
-    expression = displayEl.textContent;
-  }catch(e){ displayEl.textContent='Error'; expression=''; }
-}
-
-buttons.forEach(btn=>{
-  const val = btn.dataset.value;
-  const action = btn.dataset.action;
-  btn.addEventListener('click',()=>{
-    if(val!==undefined) append(val);
-    else if(action){
-      if(action==='clear') expression='',refresh();
-      else if(action==='back') back();
-      else if(action==='plusminus') toggleSign();
-      else if(action==='equals') calculate();
-    }
-  });
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
