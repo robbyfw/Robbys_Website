@@ -73,33 +73,111 @@
       return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
-    // ---------- WEATHER SVG (fast inline icon generator) ----------
-    // returns an SVG string based on weather main type
+    // ---------- WEATHER SVG (comprehensive inline icon generator) ----------
+    // Accepts the 'main' field from OpenWeather (e.g. "Clear", "Rain", "Snow", "Clouds", "Mist", etc.)
+    // Returns an inline SVG string sized 84x84 (keeps styling consistent).
     function weatherSVG(main) {
       main = (main || '').toLowerCase();
-      // base sizes & common styles
-      const common = 'width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"';
-      // Clear - sun
+
+      // Clear / sunny
       if (main.includes('clear')) {
-        return `<svg ${common}><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffe28a"/><stop offset="1" stop-color="#ffd54d"/></linearGradient></defs>
-          <circle cx="32" cy="24" r="10" fill="url(#g1)"/><g stroke="#ffd54d" stroke-width="2" stroke-linecap="round"><line x1="32" y1="4" x2="32" y2="12"/><line x1="32" y1="36" x2="32" y2="44"/><line x1="10" y1="24" x2="18" y2="24"/><line x1="46" y1="24" x2="54" y2="24"/><line x1="14" y1="8" x2="20" y2="14"/><line x1="44" y1="8" x2="38" y2="14"/><line x1="14" y1="40" x2="20" y2="34"/><line x1="44" y1="40" x2="38" y2="34"/></g></svg>`;
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><radialGradient id="sunGrad" cx="50%" cy="40%"><stop offset="0" stop-color="#fff3b0"/><stop offset="1" stop-color="#ffd54d"/></radialGradient></defs>
+          <g>
+            <circle cx="32" cy="22" r="10" fill="url(#sunGrad)"/>
+            <g stroke="#ffd54d" stroke-width="2" stroke-linecap="round">
+              <line x1="32" y1="4" x2="32" y2="12"/><line x1="32" y1="36" x2="32" y2="44"/>
+              <line x1="12" y1="22" x2="20" y2="22"/><line x1="52" y1="22" x2="44" y2="22"/>
+              <line x1="16" y1="8" x2="22" y2="14"/><line x1="48" y1="8" x2="42" y2="14"/>
+              <line x1="16" y1="36" x2="22" y2="30"/><line x1="48" y1="36" x2="42" y2="30"/>
+            </g>
+          </g>
+        </svg>`;
       }
-      // Rain / Drizzle
-      if (main.includes('rain') || main.includes('drizzle')) {
-        return `<svg ${common}><defs><linearGradient id="c1" x1="0" x2="1"><stop offset="0" stop-color="#e6f7ff"/><stop offset="1" stop-color="#cfeeff"/></linearGradient></defs>
-          <g><ellipse cx="30" cy="26" rx="16" ry="10" fill="url(#c1)"/></g>
-          <g fill="#7fcfff"><path d="M22 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/><path d="M34 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/><path d="M46 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/></g></svg>`;
+
+      // Thunderstorm
+      if (main.includes('thunder') || main.includes('storm')) {
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <ellipse cx="32" cy="26" rx="18" ry="10" fill="#dfefff"/>
+            <path d="M28 34 L20 50 L36 42 L30 62" fill="none" stroke="#ffd85a" stroke-width="3" stroke-linecap="round"/>
+            <g opacity="0.9"><circle cx="44" cy="24" r="6" fill="#dfefff"/></g>
+          </g>
+        </svg>`;
       }
+
+      // Drizzle / Rain
+      if (main.includes('drizzle') || main.includes('rain')) {
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <ellipse cx="30" cy="22" rx="16" ry="9" fill="#e6f7ff"/>
+            <ellipse cx="44" cy="26" rx="10" ry="7" fill="#eaf7ff"/>
+            <g fill="#6fcfff">
+              <path d="M22 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/>
+              <path d="M34 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/>
+              <path d="M46 36c0 3-3 7-3 7s-3-4-3-7c0-1.7 1.3-3 3-3s3 1.3 3 3z"/>
+            </g>
+          </g>
+        </svg>`;
+      }
+
       // Snow
       if (main.includes('snow')) {
-        return `<svg ${common}><g fill="#eaf6ff"><ellipse cx="30" cy="26" rx="16" ry="10"/></g><g fill="#fff"><circle cx="22" cy="40" r="2"/><circle cx="32" cy="44" r="2"/><circle cx="42" cy="40" r="2"/></g></svg>`;
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <ellipse cx="30" cy="22" rx="16" ry="9" fill="#eef8ff"/>
+            <g fill="#ffffff">
+              <circle cx="22" cy="36" r="2.4"/><circle cx="32" cy="40" r="2.4"/><circle cx="42" cy="36" r="2.4"/>
+            </g>
+            <g opacity="0.9"><ellipse cx="44" cy="26" rx="10" ry="7" fill="#eef8ff"/></g>
+          </g>
+        </svg>`;
       }
-      // Thunderstorm
-      if (main.includes('thunder')) {
-        return `<svg ${common}><ellipse cx="30" cy="26" rx="16" ry="10" fill="#dfefff"/><path d="M34 36 L28 50 L40 44 L30 62" fill="none" stroke="#ffd85a" stroke-width="3" stroke-linecap="round"/></svg>`;
+
+      // Atmosphere: mist / fog / haze / smoke / dust / sand / ash (use subtle fog lines)
+      if (main.includes('mist') || main.includes('fog') || main.includes('haze') || main.includes('smoke') || main.includes('dust') || main.includes('sand') || main.includes('ash')) {
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <ellipse cx="32" cy="26" rx="18" ry="10" fill="#e9f3fb"/>
+            <g fill="rgba(0,0,0,0.06)">
+              <rect x="12" y="38" width="40" height="2" rx="1" />
+              <rect x="8" y="44" width="48" height="2" rx="1" />
+              <rect x="16" y="50" width="32" height="2" rx="1" />
+            </g>
+          </g>
+        </svg>`;
       }
-      // Clouds / default
-      return `<svg ${common}><ellipse cx="30" cy="26" rx="16" ry="10" fill="#dfefff"/><ellipse cx="42" cy="30" rx="12" ry="8" fill="#e9f5ff"/></svg>`;
+
+      // Squall or tornado - strong wind icon
+      if (main.includes('squall') || main.includes('tornado')) {
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="#dfefff" stroke-width="2.4" stroke-linecap="round">
+            <path d="M10 22c6 0 10-4 18-4 8 0 10 4 18 4"/>
+            <path d="M8 34c10 0 14-4 24-4s14 4 28 4"/>
+            <path d="M12 46c12 0 18-4 28-4 10 0 14 4 26 4"/>
+            <path d="M28 52c2 4 6 8 12 8"/>
+          </g>
+        </svg>`;
+      }
+
+      // Clouds detailed: broken / few / scattered / overcast
+      if (main.includes('cloud')) {
+        // a cloud cluster
+        return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <ellipse cx="24" cy="30" rx="14" ry="8" fill="#dfefff"/>
+            <ellipse cx="38" cy="28" rx="12" ry="8" fill="#e9f5ff"/>
+            <ellipse cx="44" cy="34" rx="10" ry="6" fill="#ecf7ff"/>
+          </g>
+        </svg>`;
+      }
+
+      // Default fallback (gentle cloud)
+      return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g>
+          <ellipse cx="32" cy="26" rx="18" ry="10" fill="#dfefff"/>
+        </g>
+      </svg>`;
     }
 
     // ---------- FETCH & RENDER ----------
@@ -160,7 +238,7 @@
       const temp = useCelsius ? tempC : (tempC * 9/5) + 32;
       const unit = useCelsius ? '°C' : '°F';
 
-      // Build result (using our inline SVG)
+      // Build result (using our inline SVG generator)
       const svg = weatherSVG(main);
 
       resultDiv.innerHTML = `
