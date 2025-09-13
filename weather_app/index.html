@@ -3,41 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Widget</title>
-
-  <!-- Favicon / Tab Image -->
+  <title>Weather App</title>
   <link rel="icon" type="image/png" href="/Studio-Project.png">
   <link rel="apple-touch-icon" href="/Studio-Project.png">
 
   <style>
-    /* Black Water Background */
-    body {
+    /* General Reset */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+      background-size: 600% 600%;
+      animation: waterflow 20s ease infinite;
+      -webkit-animation: waterflow 20s ease infinite;
+      background-attachment: fixed;
+      line-height: 1.6;
       height: 100vh;
-      font-family: "Segoe UI", Tahoma, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at center, #000 40%, #020b18 100%);
       overflow: hidden;
-      color: white;
     }
 
-    /* Animated water effect */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://i.ibb.co/FqsNRvq/waves.png');
-      background-size: cover;
-      opacity: 0.15;
-      animation: moveWaves 12s linear infinite;
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
     }
 
-    @keyframes moveWaves {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 0; }
+    @keyframes waterflow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* Floating particles */
@@ -68,7 +72,7 @@
     /* Weather Container */
     .weather-container {
       position: relative;
-      background: rgba(20, 20, 30, 0.7);
+      background: rgba(20, 20, 30, 0.75);
       padding: 35px;
       border-radius: 20px;
       text-align: center;
@@ -112,6 +116,7 @@
       font-size: 16px;
       font-weight: bold;
       transition: 0.3s;
+      margin: 5px;
     }
 
     button:hover {
@@ -156,7 +161,7 @@
     <h2>Weather App</h2>
     <input type="text" id="cityInput" placeholder="Enter city name">
     <button onclick="getWeather()">Get Weather</button>
-    <button onclick="getLocationWeather()">📍 My Location</button>
+    <button onclick="getLocationWeather()">My Location</button>
 
     <div class="result" id="result"></div>
     <div class="toggle" onclick="toggleUnit()">Switch to °F</div>
@@ -170,7 +175,7 @@
     const API_KEY = "cef868c24f7eadea4f39779c0e588c9b";
     let useCelsius = true;
 
-    // Create floating particles dynamically
+    // Floating particles
     const particleContainer = document.querySelector('.particles');
     for (let i = 0; i < 25; i++) {
       let span = document.createElement("span");
@@ -180,51 +185,63 @@
       particleContainer.appendChild(span);
     }
 
-    async function getWeather(city = null, lat = null, lon = null) {
+    async function getWeather() {
+      const city = document.getElementById("cityInput").value.trim();
       const resultDiv = document.getElementById("result");
-      let url = "";
 
-      if(city) {
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
-      } else if(lat && lon) {
-        url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+      if(city === "") {
+        resultDiv.innerHTML = "<p>Please enter a city name!</p>";
+        return;
       }
+
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
 
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("City not found");
 
         const data = await response.json();
-        const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-
-        let temp = data.main.temp;
-        if(!useCelsius) temp = (temp * 9/5) + 32;
-
-        const html = `
-          <img src="${icon}" alt="Weather Icon" class="weather-icon">
-          <p><strong>${data.name}, ${data.sys.country}</strong></p>
-          <p>Temperature: ${temp.toFixed(1)} °${useCelsius ? "C" : "F"}</p>
-          <p>Condition: ${data.weather[0].description}</p>
-          <p>Humidity: ${data.main.humidity}%</p>
-        `;
-
-        typeWriter(resultDiv, html);
+        displayWeather(data);
       } catch (error) {
         resultDiv.innerHTML = `<p>${error.message}</p>`;
       }
     }
 
+    function displayWeather(data) {
+      const resultDiv = document.getElementById("result");
+      const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+      let temp = data.main.temp;
+      if(!useCelsius) temp = (temp * 9/5) + 32;
+
+      const html = `
+        <img src="${icon}" alt="Weather Icon" class="weather-icon">
+        <p><strong>${data.name}, ${data.sys.country}</strong></p>
+        <p>Temperature: ${temp.toFixed(1)} °${useCelsius ? "C" : "F"}</p>
+        <p>Condition: ${data.weather[0].description}</p>
+        <p>Humidity: ${data.main.humidity}%</p>
+      `;
+
+      typeWriter(resultDiv, html);
+    }
+
     function toggleUnit() {
       useCelsius = !useCelsius;
       document.querySelector(".toggle").innerText = `Switch to °${useCelsius ? "F" : "C"}`;
-      const city = document.getElementById("cityInput").value;
-      if(city) getWeather(city);
+      const city = document.getElementById("cityInput").value.trim();
+      if(city) getWeather();
     }
 
     function getLocationWeather() {
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
-          getWeather(null, pos.coords.latitude, pos.coords.longitude);
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${API_KEY}&units=metric`;
+          fetch(url)
+            .then(res => res.json())
+            .then(data => displayWeather(data))
+            .catch(() => {
+              document.getElementById("result").innerHTML = "<p>Unable to fetch location weather.</p>";
+            });
         });
       } else {
         alert("Geolocation not supported.");
@@ -244,12 +261,11 @@
           i++;
           setTimeout(typing, 20);
         } else {
-          element.innerHTML = html; // restore HTML after animation
+          element.innerHTML = html;
         }
       }
       typing();
     }
   </script>
-
 </body>
 </html>
