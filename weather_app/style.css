@@ -1,1 +1,132 @@
+/* Background - Black Watery Effect */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(270deg, #0d0d0d, #1c1c1c, #0d0d0d);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  color: #fff;
+}
+
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism Box */
+.weather-container {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 340px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Input */
+input {
+  padding: 12px;
+  width: 80%;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* Button group */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: 0.3s;
+  color: #fff;
+  background: linear-gradient(135deg, #00bfff, #008cba);
+}
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #009acd, #006b9e);
+}
+
+/* Location Button */
+.location-btn {
+  background: linear-gradient(135deg, #32cd32, #228b22);
+}
+.location-btn:hover {
+  background: linear-gradient(135deg, #2e8b57, #006400);
+}
+
+/* Toggle Unit Button */
+.toggle-btn {
+  margin-top: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block;
+}
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Weather results */
+.result {
+  margin-top: 20px;
+  min-height: 120px;
+}
+.result p {
+  margin: 6px 0;
+  font-size: 18px;
+}
+.weather-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 8px;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer */
+footer {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #bbb;
+}
 
