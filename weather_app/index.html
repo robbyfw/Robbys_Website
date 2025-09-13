@@ -5,93 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="icon" type="image/png" href="/Studio-Project.png">
-  <link rel="apple-touch-icon" href="/Studio-Project.png">
 
   <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Background with water + black overlay */
     body {
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-      background-size: 600% 600%;
-      animation: waterflow 20s ease infinite;
-      -webkit-animation: waterflow 20s ease infinite;
-      background-attachment: fixed;
-      line-height: 1.6;
+      margin: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("https://i.ibb.co/YPfG1pR/water-bg.gif") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
 
-    @media (max-width: 768px) {
-      body {
-        background-attachment: scroll;
-      }
-    }
-
-    @keyframes waterflow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Floating particles */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .particles span {
-      position: absolute;
-      display: block;
-      width: 5px; height: 5px;
-      background: rgba(0,191,255,0.8);
-      border-radius: 50%;
-      animation: float 10s linear infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    /* Weather Container */
+    /* Glass effect for container */
     .weather-container {
-      position: relative;
-      background: rgba(20, 20, 30, 0.75);
-      padding: 35px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      padding: 30px;
       border-radius: 20px;
       text-align: center;
-      width: 340px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 25px rgba(0,191,255,0.5);
-      z-index: 2;
-      animation: fadeIn 1.2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      width: 330px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      animation: fadeIn 1s ease-in-out;
     }
 
     h2 {
-      margin-bottom: 20px;
-      font-size: 28px;
-      color: #00d4ff;
+      margin-bottom: 15px;
+      font-size: 26px;
+      font-weight: 600;
       letter-spacing: 1px;
     }
 
@@ -100,71 +47,82 @@
       width: 80%;
       border: none;
       border-radius: 8px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       font-size: 16px;
       outline: none;
-      text-align: center;
     }
 
+    /* Buttons */
     button {
-      padding: 12px 24px;
+      padding: 10px 20px;
       border: none;
-      background: linear-gradient(135deg, #00bfff, #005f99);
+      background: #00bfff;
       color: white;
-      border-radius: 30px;
+      border-radius: 25px;
       cursor: pointer;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 500;
       transition: 0.3s;
-      margin: 5px;
+    }
+    button:hover {
+      background: #008cba;
     }
 
-    button:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 15px rgba(0,191,255,0.8);
+    /* Toggle switch */
+    .toggle-btn {
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      padding: 6px 14px;
+      font-size: 14px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-block;
+    }
+    .toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
     .result {
       margin-top: 20px;
-      font-size: 18px;
       min-height: 120px;
     }
 
-    .weather-icon {
-      width: 90px;
-      margin: 10px 0;
+    .result p {
+      margin: 6px 0;
+      font-size: 18px;
     }
 
-    .toggle {
-      margin-top: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      color: #00d4ff;
-      text-decoration: underline;
+    /* Weather icon */
+    .weather-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    /* Fade in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     footer {
-      margin-top: 40px;
+      margin-top: 25px;
       font-size: 14px;
-      color: #bbb;
-      z-index: 2;
-      text-shadow: 0 0 8px rgba(0,191,255,0.6);
+      color: #ccc;
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating particles -->
-  <div class="particles"></div>
-
   <div class="weather-container">
-    <h2>Weather App</h2>
+    <h2>🌦️ Weather App</h2>
     <input type="text" id="cityInput" placeholder="Enter city name">
     <button onclick="getWeather()">Get Weather</button>
-    <button onclick="getLocationWeather()">My Location</button>
+    <div class="toggle-btn" onclick="toggleUnit()">Switch to °F</div>
 
     <div class="result" id="result"></div>
-    <div class="toggle" onclick="toggleUnit()">Switch to °F</div>
   </div>
 
   <footer>
@@ -173,17 +131,7 @@
 
   <script>
     const API_KEY = "cef868c24f7eadea4f39779c0e588c9b";
-    let useCelsius = true;
-
-    // Floating particles
-    const particleContainer = document.querySelector('.particles');
-    for (let i = 0; i < 25; i++) {
-      let span = document.createElement("span");
-      span.style.left = Math.random() * 100 + "vw";
-      span.style.animationDuration = 5 + Math.random() * 10 + "s";
-      span.style.opacity = Math.random();
-      particleContainer.appendChild(span);
-    }
+    let isCelsius = true;
 
     async function getWeather() {
       const city = document.getElementById("cityInput").value.trim();
@@ -194,7 +142,7 @@
         return;
       }
 
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {
         const response = await fetch(url);
@@ -209,63 +157,28 @@
 
     function displayWeather(data) {
       const resultDiv = document.getElementById("result");
-      const icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      const temp = isCelsius ? data.main.temp : (data.main.temp * 9/5) + 32;
+      const unit = isCelsius ? "°C" : "°F";
 
-      let temp = data.main.temp;
-      if(!useCelsius) temp = (temp * 9/5) + 32;
-
-      const html = `
-        <img src="${icon}" alt="Weather Icon" class="weather-icon">
-        <p><strong>${data.name}, ${data.sys.country}</strong></p>
-        <p>Temperature: ${temp.toFixed(1)} °${useCelsius ? "C" : "F"}</p>
+      resultDiv.innerHTML = `
+        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"
+             class="weather-icon" alt="Weather Icon">
+        <p><strong>${data.name}</strong></p>
+        <p>Temperature: ${temp.toFixed(1)} ${unit}</p>
         <p>Condition: ${data.weather[0].description}</p>
         <p>Humidity: ${data.main.humidity}%</p>
       `;
-
-      typeWriter(resultDiv, html);
     }
 
     function toggleUnit() {
-      useCelsius = !useCelsius;
-      document.querySelector(".toggle").innerText = `Switch to °${useCelsius ? "F" : "C"}`;
+      isCelsius = !isCelsius;
+      const btn = document.querySelector(".toggle-btn");
+      btn.textContent = isCelsius ? "Switch to °F" : "Switch to °C";
+
       const city = document.getElementById("cityInput").value.trim();
-      if(city) getWeather();
-    }
-
-    function getLocationWeather() {
-      if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&appid=${API_KEY}&units=metric`;
-          fetch(url)
-            .then(res => res.json())
-            .then(data => displayWeather(data))
-            .catch(() => {
-              document.getElementById("result").innerHTML = "<p>Unable to fetch location weather.</p>";
-            });
-        });
-      } else {
-        alert("Geolocation not supported.");
-      }
-    }
-
-    // Typewriter Effect
-    function typeWriter(element, html) {
-      element.innerHTML = "";
-      let i = 0;
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = html;
-      const text = tempDiv.innerText.split("");
-      function typing() {
-        if (i < text.length) {
-          element.innerText += text[i];
-          i++;
-          setTimeout(typing, 20);
-        } else {
-          element.innerHTML = html;
-        }
-      }
-      typing();
+      if(city !== "") getWeather();
     }
   </script>
+
 </body>
 </html>
