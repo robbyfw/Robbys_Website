@@ -15,14 +15,14 @@ body {
   line-height: 1.6;
 }
 
-/* ✅ Mobile fix: disable fixed background to prevent white box */
+/* Mobile fix: disable fixed background to prevent white box */
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
   }
 }
 
-/* Background animation like water */
+/* Background animation */
 @keyframes waterflow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -129,8 +129,8 @@ body {
   width: 0;
   position: fixed;
   top: 0; left: 0;
-  background: rgba(17, 17, 17, 0.4); /* transparent dark */
-  backdrop-filter: blur(10px);       /* ✅ frosted glass effect */
+  background: rgba(17, 17, 17, 0.4); /* blurred dark */
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   overflow-x: hidden;
   transition: 0.3s;
