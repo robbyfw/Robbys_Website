@@ -11,8 +11,8 @@ body {
   background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
-  -webkit-animation: waterflow 20s ease infinite; /* mobile Safari/Chrome fix */
-  background-attachment: fixed; /* ensures motion on desktop */
+  -webkit-animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
   line-height: 1.6;
 }
 
@@ -54,6 +54,7 @@ body {
   margin-bottom: 1rem;
 }
 
+/* CTA Button Style (optional for future use) */
 .cta {
   display: inline-block;
   margin-top: 1rem;
@@ -65,7 +66,6 @@ body {
   font-weight: bold;
   transition: background 0.3s;
 }
-
 .cta:hover {
   background: #005fcc;
 }
@@ -74,7 +74,6 @@ body {
 .cards {
   margin-top: 3rem;
 }
-
 .cards h2 {
   margin-bottom: 1rem;
 }
@@ -95,7 +94,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* Thin white outline on hover (no glow) */
 .project-item:hover {
   transform: translateY(-5px);
   border-color: #ffffff;
@@ -117,7 +115,7 @@ body {
   font-size: 0.85rem;
 }
 
-/* New Visit Button */
+/* Visit Button */
 .visit-btn {
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
@@ -128,7 +126,6 @@ body {
   font-weight: bold;
   transition: background 0.3s;
 }
-
 .visit-btn:hover {
   background: #005fcc;
 }
@@ -142,8 +139,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   transition: transform 0.3s ease;
 }
-
-/* Thin white outline on hover (no glow) */
 .about:hover {
   transform: translateY(-5px);
   border-color: #ffffff;
@@ -169,19 +164,21 @@ body {
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 60px;
+  z-index: 1000;
 }
 
 .sidebar a {
-  padding: 10px 20px;
+  padding: 12px 25px;
   text-decoration: none;
   font-size: 18px;
   color: #ccc;
   display: block;
   transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 .sidebar a:hover {
   color: white;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .sidebar.open {
@@ -196,7 +193,6 @@ body {
   cursor: pointer;
   z-index: 1001;
 }
-
 .hamburger span {
   display: block;
   width: 30px;
@@ -205,15 +201,12 @@ body {
   background: white;
   transition: 0.3s;
 }
-
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
-
 .hamburger.active span:nth-child(2) {
   opacity: 0;
 }
-
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
