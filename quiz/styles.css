@@ -115,32 +115,25 @@ body {
   color: #fff;
 }
 
-/* ------- DROPDOWN FIXES (ADDED) ------- */
-/* Force visible readable options across browsers:
-   - Set explicit option background and text color (many browsers respect this)
-   - Provide fallback for system dropdowns: make the select itself slightly lighter on open via focus
-   - Hide default expand on IE/Edge if necessary and keep our arrow
+/* ------- DROPDOWN FIXES (ADJUSTED TO BLUR BACKGROUND) ------- */
+/* Provide blurred/translucent dropdown background where browsers allow it.
+   Many browsers render native system dropdowns which ignore complex styles on <option>.
+   This CSS keeps selects blurred and uses translucent option color for browsers that support it.
 */
 .select-wrapper select option {
-  /* light background and dark text so option text is readable */
-  background: #f7f7f7;
-  color: #111;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  backdrop-filter: blur(6px);
 }
 
-/* On focus, slightly lighten select so the dropdown contrasts with page */
+/* On focus, slightly change select to ensure the menu contrasts */
 .select-wrapper select:focus {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.08);
   outline: none;
 }
 
 /* Remove default dropdown arrow in IE/Edge */
 .select-wrapper select::-ms-expand { display: none; }
-
-/* Add stronger contrast on active/open for some browsers */
-.select-wrapper select:active,
-.select-wrapper select[aria-expanded="true"] {
-  background: rgba(255,255,255,0.07);
-}
 
 /* End of dropdown fixes */
 
@@ -330,6 +323,16 @@ body {
   width: 100%;
   height: 100%;
   z-index: 9999;
+}
+
+/* footer */
+.site-footer {
+  margin-top: 28px;
+  padding: 18px 8px;
+  text-align: center;
+  color: #cfcfcf;
+  font-size: 13px;
+  border-top: 1px solid rgba(255,255,255,0.03);
 }
 
 /* responsive */
