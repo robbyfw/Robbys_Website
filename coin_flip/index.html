@@ -1,136 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Robby's Website - Coin, Flip, Game</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robby's Website - Coin Flip</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- Website Logo / Favicon -->
   <link rel="icon" type="image/png" href="/Studio-Project.png">
   <link rel="apple-touch-icon" href="/Studio-Project.png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <a href="index.html">Home</a>
-    <a href="calculator.html">Calculator</a>
-    <a href="coinflip.html">Coin Flip</a>
-    <a href="weather.html">Weather</a>
-    <a href="quiz.html">Quiz</a>
-    <a href="donations.html">Donations</a>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
   </div>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <span class="hamburger" onclick="toggleSidebar()">☰</span>
-    <h1 class="logo">Robby's Website</h1>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
   <!-- Main Container -->
   <div class="container">
-    <h1>Coin Flip</h1>
-    <div class="coin-wrap">
-      <div class="coin" id="coin">
-        <div class="face front">H</div>
-        <div class="face back">T</div>
-      </div>
+    <div class="card">
+      <h1 class="title">Coin Flip</h1>
+      <p class="subtitle">Flip the coin and test your luck 🎲</p>
+
+      <div class="coin" id="coin"></div>
+      <button class="flip-btn" id="flipBtn">Flip Coin</button>
+      <p id="result" class="result-text">Click the button to flip!</p>
     </div>
-    <div class="controls">
-      <button id="flipBtn">Flip</button>
-      <button id="quickBtn" class="secondary">Quick ×2</button>
-    </div>
-    <div class="result" id="result">Ready</div>
-    <div class="footer">© 2025 Muhammad Asim (Robby) • Built with 🖤</div>
+
+    <footer class="site-footer">
+      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+    </footer>
   </div>
 
   <script>
     // Sidebar Toggle
-    function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
-    }
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
 
-    // Coin Flip Script
-    const coin = document.getElementById('coin');
-    const flipBtn = document.getElementById('flipBtn');
-    const quickBtn = document.getElementById('quickBtn');
-    const resultEl = document.getElementById('result');
-    let busy=false;
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
 
-    function softConfetti(x, y){
-      const colors = ['#ffd3a5','#ffd1dc','#c2f0fc','#d6f5d6','#fbe8a6','#e6d6ff'];
-      for(let i=0;i<14;i++){
-        const el=document.createElement('div');
-        el.className='confetti';
-        const size=Math.random()*8+8;
-        el.style.width=`${size}px`;
-        el.style.height=`${size*1.2}px`;
-        el.style.left=`${x}px`;
-        el.style.top=`${y}px`;
-        el.style.background=colors[Math.floor(Math.random()*colors.length)];
-        document.body.appendChild(el);
+    // Coin Flip Logic
+    const coin = document.getElementById("coin");
+    const flipBtn = document.getElementById("flipBtn");
+    const result = document.getElementById("result");
 
-        const dx=(Math.random()-0.5)*(80+Math.random()*160);
-        const dy=-(120+Math.random()*260);
-        const rot=(Math.random()-0.5)*720;
-        const dur=900 + Math.random()*800;
+    flipBtn.addEventListener("click", () => {
+      coin.classList.remove("heads", "tails");
 
-        el.animate([
-          { transform: `translate3d(0,0,0) rotate(${Math.random()*360}deg)`, opacity:1 },
-          { transform: `translate3d(${dx}px, ${dy}px,0) rotate(${rot}deg)`, opacity:0.05 }
-        ], {duration: dur, easing:'cubic-bezier(.2,.8,.25,1)', fill:'forwards'});
+      const outcome = Math.random() < 0.5 ? "heads" : "tails";
+      coin.classList.add(outcome);
 
-        setTimeout(()=> el.remove(), dur+80);
-      }
-    }
-
-    function spin(duration=1300){
-      if(busy) return Promise.reject('busy');
-      busy=true;
-      const randX=Math.floor(Math.random()*6+6)*360;
-      const randY=Math.floor(Math.random()*6+6)*360;
-      coin.style.transition=`transform ${duration}ms cubic-bezier(.2,.9,.3,1)`;
-      coin.style.transform=`rotateX(${randX}deg) rotateY(${randY}deg)`;
-      return new Promise(resolve=>{
-        setTimeout(()=>{
-          busy=false;
-          resolve();
-        }, duration+20);
-      });
-    }
-
-    async function doFlip(times=1){
-      if(busy) return;
-      resultEl.textContent='';
-      const rect=coin.getBoundingClientRect();
-      const cx=rect.left+rect.width/2;
-      const cy=rect.top+rect.height/2;
-      for(let i=0;i<times;i++){
-        try{ await spin(1200); } catch(e){return;}
-        const outcome=Math.random()<0.5?'Heads':'Tails';
-        const front=coin.querySelector('.face.front');
-        const back=coin.querySelector('.face.back');
-        if(outcome==='Heads'){
-          front.textContent='H';
-          back.textContent='T';
-        } else{
-          front.textContent='T';
-          back.textContent='H';
-        }
-        softConfetti(cx,cy);
-        resultEl.textContent=`Result: ${outcome}`;
-        await new Promise(r=>setTimeout(r,260));
-      }
-    }
-
-    flipBtn.addEventListener('click',()=>doFlip(1));
-    quickBtn.addEventListener('click',()=>doFlip(2));
-    coin.addEventListener('click',()=>doFlip(1));
-    window.addEventListener('keydown',e=>{
-      if(e.code==='Space'||e.key==='Enter'){
-        e.preventDefault();
-        doFlip(1);
-      }
+      setTimeout(() => {
+        result.textContent = outcome.toUpperCase() + " 🎉";
+      }, 1000);
     });
   </script>
 </body>
