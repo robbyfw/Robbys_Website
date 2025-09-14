@@ -1,125 +1,61 @@
-const startBtn = document.getElementById('start-btn');
-const restartBtn = document.getElementById('restart-btn');
-const quizBox = document.getElementById('quiz-box');
-const questionEl = document.getElementById('question');
-const optionsEl = document.getElementById('options');
-const scoreBox = document.getElementById('score-box');
-const scoreEl = document.getElementById('score');
+const apiUrl = 'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple';
 
-let questions = [];
-let currentQuestionIndex = 0;
-let score = 0;
-
-startBtn.addEventListener('click', startQuiz);
-restartBtn.addEventListener('click', () => location.reload());
+document.getElementById('startBtn').addEventListener('click', startQuiz);
 
 async function startQuiz() {
-  startBtn.classList.add('hidden');
-  quizBox.classList.remove('hidden');
+    const category = document.getElementById('category').value;
+    const difficulty = document.getElementById('difficulty').value;
+    const url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
 
-  const res = await fetch('https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple');
-  const data = await res.json();
-  questions = data.results;
+    const response = await fetch(url);
+    const data = await response.json();
 
-  currentQuestionIndex = 0;
-  score = 0;
-  showQuestion();
-}
-
-function showQuestion() {
-  const current = questions[currentQuestionIndex];
-  questionEl.innerHTML = decodeHTML(current.question);
-
-  let answers = [...current.incorrect_answers];
-  answers.push(current.correct_answer);
-  answers = shuffleArray(answers);
-
-  optionsEl.innerHTML = '';
-  answers.forEach(answer => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = decodeHTML(answer);
-    btn.addEventListener('click', () => checkAnswer(btn, current.correct_answer));
-    optionsEl.appendChild(btn);
-  });
-}
-
-function checkAnswer(btn, correct) {
-  if (btn.innerHTML === decodeHTML(correct)) {
-    btn.classList.add('correct');
-    score++;
-  } else {
-    btn.classList.add('wrong');
-    // show correct answer
-    Array.from(optionsEl.children).forEach(b => {
-      if (b.innerHTML === decodeHTML(correct)) b.classList.add('correct');
-    });
-  }
-
-  // wait 1 sec and next question
-  setTimeout(() => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      showQuestion();
+    if (data.response_code === 0) {
+        displayQuestions(data.results);
     } else {
-      showScore();
+        alert('Failed to fetch questions. Please try again later.');
     }
-  }, 1000);
 }
 
-function showScore() {
-  quizBox.classList.add('hidden');
-  scoreBox.classList.remove('hidden');
-  scoreEl.innerHTML = score;
+function displayQuestions(questions) {
+    const quizContainer = document.getElementById('quiz');
+    quizContainer.innerHTML = '';
+
+    questions.forEach((questionData, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        questionElement.innerHTML = `
+            <h2>${questionData.question}</h2>
+            <ul class="options">
+                ${shuffleOptions([questionData.correct_answer, ...questionData.incorrect_answers]).map(option => `
+                    <li><button onclick="checkAnswer(this, '${option}', '${questionData.correct_answer}')">${option}</button></li>
+                `).join('')}
+            </ul>
+        `;
+        quizContainer.appendChild(questionElement);
+    });
+
+    const scoreElement = document.getElementById('score');
+    scoreElement.innerHTML = 'Score: 0';
 }
 
-// Shuffle array
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
+function shuffleOptions(options) {
+    for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [options[i], options[j]] = [options[j], options[i]];
+    }
+    return options;
 }
 
-// Decode HTML entities
-function decodeHTML(html) {
-  const txt = document.createElement('textarea');
-  txt.innerHTML = html;
-  return txt.value;
+function checkAnswer(button, selected, correct) {
+    const isCorrect = selected === correct;
+    button.classList.add(isCorrect ? 'correct' : 'incorrect');
+    button.disabled = true;
+
+    const allButtons = button.closest('.options').querySelectorAll('button');
+    allButtons.forEach(btn => btn.disabled = true);
+
+    const scoreElement = document.getElementById('score');
+    let currentScore = parseInt(scoreElement.innerText.split(': ')[1]);
+    scoreElement.innerHTML = `Score: ${isCorrect ? currentScore + 10 : currentScore}`;
 }
-
-/* Water motion effect */
-const canvas = document.getElementById('water-canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let waveArray = [];
-for (let i = 0; i < 200; i++) {
-  waveArray.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    radius: Math.random() * 3 + 1,
-    speed: Math.random() * 0.5 + 0.2
-  });
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-  waveArray.forEach(wave => {
-    ctx.beginPath();
-    ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
-    ctx.fill();
-    wave.y -= wave.speed;
-    if (wave.y < 0) wave.y = canvas.height;
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
