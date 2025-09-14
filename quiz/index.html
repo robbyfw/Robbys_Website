@@ -1,40 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia Quiz</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Robby's Website</title>
+
+  <!-- Poppins font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="wave-container">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
+  <main class="page">
+    <header class="header">
+      <h1 class="title">Trivia Quiz</h1>
+      <p class="subtitle">General Knowledge • Fun & quick</p>
+    </header>
 
-    <div class="quiz-container">
-        <h1>Trivia Quiz</h1>
-        <div class="controls">
-            <select id="category">
-                <option value="9">General Knowledge</option>
-                <!-- Add more categories as needed -->
-            </select>
-            <select id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <button id="startBtn">Start Quiz</button>
-        </div>
-        <div id="quiz" class="quiz">
-            <!-- Questions will be injected here -->
-        </div>
-        <div id="score" class="score">
-            <!-- Score will be displayed here -->
-        </div>
-    </div>
+    <section class="controls">
+      <div class="left-controls">
+        <label>
+          Category
+          <select id="category">
+            <option value="9" selected>General Knowledge</option>
+            <!-- If you want more categories later add them here -->
+          </select>
+        </label>
 
-    <script src="script.js"></script>
+        <label>
+          Difficulty
+          <select id="difficulty">
+            <option value="easy" selected>Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+
+        <label>
+          Questions
+          <select id="amount">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50" selected>50</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="right-controls">
+        <button id="startBtn" class="btn primary">Start</button>
+        <button id="restartBtn" class="btn ghost hidden">Restart</button>
+      </div>
+    </section>
+
+    <section id="quizArea" class="quiz-area hidden" aria-live="polite">
+      <div class="meta-row">
+        <div class="progress-wrap">
+          <div id="progressBar" class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <div class="progress-text"><span id="qNumber">0</span>/<span id="qTotal">0</span></div>
+        </div>
+
+        <div class="score-wrap">
+          <div>Score</div>
+          <div id="scoreDisplay" class="score-pill">0</div>
+          <div class="best">Best: <span id="bestScore">0</span></div>
+        </div>
+      </div>
+
+      <div class="card question-card">
+        <div id="questionText" class="question-text">Press Start to play ➜</div>
+
+        <ul id="optionsList" class="options-list" role="list">
+          <!-- buttons injected here -->
+        </ul>
+
+        <div class="controls-row">
+          <div class="timer-wrap">
+            <div id="timer" class="timer">00:15</div>
+            <div class="timer-label">time</div>
+          </div>
+
+          <div class="action-buttons">
+            <button id="nextBtn" class="btn secondary hidden">Next</button>
+            <button id="skipBtn" class="btn ghost">Skip</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultArea" class="result-area hidden">
+      <div class="card result-card">
+        <h2>Quiz Completed</h2>
+        <p>Your score: <strong id="finalScore">0</strong></p>
+        <p id="finalSummary"></p>
+        <div class="result-actions">
+          <button id="playAgainBtn" class="btn primary">Play Again</button>
+          <button id="viewAnswersBtn" class="btn ghost">Review Questions</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+  <!-- Link JS -->
+  <script src="script.js" defer></script>
 </body>
 </html>
