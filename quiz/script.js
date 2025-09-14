@@ -5,32 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.getElementById('sidebar');
 
-  hamburger.addEventListener('click', () => {
-    sidebar.classList.toggle('open');       // Slide sidebar in/out
-    hamburger.classList.toggle('active');   // Animate hamburger into X
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent triggering document click
+    sidebar.classList.toggle('open');       
+    hamburger.classList.toggle('active');   
   });
 
-  // Optional: allow clicking outside sidebar to close it
+  // Optional: clicking outside closes sidebar
   document.addEventListener('click', (e) => {
     if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
       sidebar.classList.remove('open');
       hamburger.classList.remove('active');
     }
   });
+});
 
-  /* ---------------- Quiz Elements ---------------- */
-  const startBtn = document.getElementById('startBtn');
-  const restartBtn = document.getElementById('restartBtn');
-  const quizArea = document.getElementById('quizArea');
-  const questionText = document.getElementById('questionText');
-  const optionsList = document.getElementById('optionsList');
-  const qNumberEl = document.getElementById('qNumber');
-  const qTotalEl = document.getElementById('qTotal');
-  const progressFill = document.getElementById('progressFill');
-  const scoreDisplay = document.getElementById('scoreDisplay');
-
-
-/* ---------------- Elements ---------------- */
+/* ---------------- Quiz Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
 const quizArea = document.getElementById('quizArea');
