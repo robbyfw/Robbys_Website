@@ -1,7 +1,6 @@
-// script.js — connected to index.html
-// Quiz using OpenTDB and improved UX
+// script.js — improved visuals, select blur fix, keyboard and sounds
 
-// Elements
+/* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
 const quizArea = document.getElementById('quizArea');
@@ -21,27 +20,25 @@ const finalSummary = document.getElementById('finalSummary');
 const playAgainBtn = document.getElementById('playAgainBtn');
 const viewAnswersBtn = document.getElementById('viewAnswersBtn');
 
-const confettiCanvas = document.getElementById('confetti-canvas');
-const ctxConfetti = confettiCanvas.getContext('2d');
-
-// Controls
 const categorySelect = document.getElementById('category');
 const difficultySelect = document.getElementById('difficulty');
 const amountSelect = document.getElementById('amount');
 
+const confettiCanvas = document.getElementById('confetti-canvas');
+const ctxConfetti = confettiCanvas.getContext('2d');
+
+/* ---------------- State ---------------- */
 let questions = [];
 let currentIndex = 0;
 let score = 0;
 let timerInterval = null;
-let timePerQuestion = 15; // seconds
+let timePerQuestion = 15;
 let timeLeft = timePerQuestion;
-let userAnswers = []; // store for review
-
-// confetti globals
+let userAnswers = [];
 let confettiPieces = [];
 let confettiRunning = false;
 
-/* ---------- Helpers ---------- */
+/* ---------------- Helpers ---------------- */
 function decodeHTML(html) {
   const txt = document.createElement('textarea');
   txt.innerHTML = html;
@@ -55,7 +52,32 @@ function shuffleArray(arr) {
   return arr;
 }
 
-/* ---------- API Fetch ---------- */
+/* ---------------- Sound (WebAudio) ---------------- */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playTone(type = 'correct') {
+  // simple short sound: different patterns for correct/wrong
+  const now = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = type === 'correct' ? 'triangle' : 'sawtooth';
+  if (type === 'correct') {
+    o.frequency.setValueAtTime(880, now);
+    o.frequency.exponentialRampToValueAtTime(1320, now + 0.09);
+  } else {
+    o.frequency.setValueAtTime(220, now);
+    o.frequency.exponentialRampToValueAtTime(150, now + 0.12);
+  }
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.15, now + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+  o.connect(g);
+  g.connect(audioCtx.destination);
+  o.start(now);
+  o.stop(now + 0.24);
+}
+
+/* ---------------- API Fetch ---------------- */
 async function fetchQuestions() {
   const amount = amountSelect.value || '10';
   const category = categorySelect.value || '9';
@@ -89,9 +111,8 @@ async function fetchQuestions() {
   }
 }
 
-/* ---------- Init / UI ---------- */
+/* ---------------- Init ---------------- */
 function initQuiz() {
-  // reset
   currentIndex = 0;
   score = 0;
   userAnswers = [];
@@ -104,45 +125,53 @@ function initQuiz() {
   restartBtn.classList.remove('hidden');
   startBtn.classList.add('hidden');
   renderQuestion();
-  saveBestFromStorage();
+  loadBest();
 }
 
+/* ---------------- Render ---------------- */
 function renderQuestion() {
   const q = questions[currentIndex];
   qNumberEl.textContent = currentIndex + 1;
-  questionText.textContent = q.question;
+  questionText.innerHTML = q.question; // question already decoded
 
-  // build options
   const opts = shuffleArray([q.correct, ...q.incorrect]);
   optionsList.innerHTML = '';
-  opts.forEach(opt => {
+  opts.forEach((opt, i) => {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.className = 'option-btn';
     btn.setAttribute('type', 'button');
-    btn.textContent = opt;
+    btn.setAttribute('data-index', i);
+    // Use innerHTML so punctuation/quotes show correctly (already decoded)
+    btn.innerHTML = opt;
+    // add hint number for keyboard
+    const hint = document.createElement('span');
+    hint.style.float = 'right';
+    hint.style.opacity = '0.6';
+    hint.style.fontSize = '12px';
+    hint.textContent = `(${i+1})`;
+    btn.appendChild(hint);
+
     btn.addEventListener('click', () => handleAnswer(btn, opt, q.correct));
     li.appendChild(btn);
     optionsList.appendChild(li);
   });
 
-  // reset next/skip/timer
   nextBtn.classList.add('hidden');
   skipBtn.disabled = false;
   enableOptionButtons(true);
   resetTimer();
   startTimer();
-
   updateProgress();
 }
 
-/* ---------- Progress ---------- */
+/* ---------------- Progress ---------------- */
 function updateProgress() {
-  const pct = ((currentIndex) / Math.max(1, questions.length)) * 100;
+  const pct = Math.round(((currentIndex) / Math.max(1, questions.length)) * 100);
   progressFill.style.width = `${pct}%`;
 }
 
-/* ---------- Timer ---------- */
+/* ---------------- Timer ---------------- */
 function startTimer() {
   clearInterval(timerInterval);
   timeLeft = timePerQuestion;
@@ -152,7 +181,6 @@ function startTimer() {
     timerEl.textContent = formatTime(timeLeft);
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      // treat as skipped/incorrect
       handleTimeout();
     }
   }, 1000);
@@ -166,17 +194,16 @@ function formatTime(sec) {
   return `00:${s}`;
 }
 
-/* ---------- Answer handling ---------- */
+/* ---------------- Answer handling ---------------- */
 function handleAnswer(btn, chosen, correct) {
-  // Prevent double clicks
+  if (btn.disabled) return;
   enableOptionButtons(false);
   clearInterval(timerInterval);
   skipBtn.disabled = true;
 
   const allOptionButtons = optionsList.querySelectorAll('button');
-  // reveal correct answer
   allOptionButtons.forEach(b => {
-    if (b.textContent === correct) {
+    if (b.textContent.replace(/\(\d\)$/, '').trim() === correct) {
       b.classList.add('correct');
     }
     b.disabled = true;
@@ -184,37 +211,29 @@ function handleAnswer(btn, chosen, correct) {
 
   if (chosen === correct) {
     btn.classList.add('correct');
+    // sound
+    playTone('correct');
     score += 1;
     scoreDisplay.textContent = score;
-    userAnswers.push({ question: questions[currentIndex], chosen, correct, correctFlag: true });
+    userAnswers.push({ question: questions[currentIndex], chosen, correct, ok: true });
   } else {
     btn.classList.add('wrong');
-    userAnswers.push({ question: questions[currentIndex], chosen, correct, correctFlag: false });
+    playTone('wrong');
+    userAnswers.push({ question: questions[currentIndex], chosen, correct, ok: false });
   }
 
-  // Show next button or finish
   nextBtn.classList.remove('hidden');
-
-  // Save to localStorage best
-  setTimeout(saveBestToStorage, 300);
-
-  // If last question, change next button text
-  if (currentIndex === questions.length - 1) {
-    nextBtn.textContent = 'Finish';
-  } else {
-    nextBtn.textContent = 'Next';
-  }
+  nextBtn.textContent = (currentIndex === questions.length - 1) ? 'Finish' : 'Next';
+  saveBestIfNeeded();
 }
 
 function handleTimeout() {
-  // mark as missed
   enableOptionButtons(false);
   skipBtn.disabled = true;
 
-  // highlight correct
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
-    if (b.textContent === questions[currentIndex].correct) {
+    if (b.textContent.replace(/\(\d\)$/, '').trim() === questions[currentIndex].correct) {
       b.classList.add('correct');
     } else {
       b.classList.add('wrong');
@@ -222,14 +241,13 @@ function handleTimeout() {
     b.disabled = true;
   });
 
-  userAnswers.push({ question: questions[currentIndex], chosen: null, correct: questions[currentIndex].correct, correctFlag: false });
+  userAnswers.push({ question: questions[currentIndex], chosen: null, correct: questions[currentIndex].correct, ok: false });
   nextBtn.classList.remove('hidden');
   nextBtn.textContent = (currentIndex === questions.length - 1) ? 'Finish' : 'Next';
 }
 
-/* ---------- Navigation ---------- */
+/* ---------------- Navigation ---------------- */
 nextBtn.addEventListener('click', () => {
-  // move forward
   currentIndex++;
   if (currentIndex >= questions.length) {
     finishQuiz();
@@ -239,18 +257,13 @@ nextBtn.addEventListener('click', () => {
 });
 
 skipBtn.addEventListener('click', () => {
-  // mark skip
   clearInterval(timerInterval);
   handleTimeout();
-  // allow next
 });
 
-restartBtn.addEventListener('click', () => {
-  window.location.reload();
-});
+restartBtn.addEventListener('click', () => location.reload());
 
 playAgainBtn.addEventListener('click', () => {
-  // restart the same quiz settings
   resultArea.classList.add('hidden');
   quizArea.classList.remove('hidden');
   currentIndex = 0;
@@ -261,17 +274,16 @@ playAgainBtn.addEventListener('click', () => {
 });
 
 viewAnswersBtn.addEventListener('click', () => {
-  // show review: iterate through userAnswers and show a simple summary
+  // build review string
   let html = '';
   userAnswers.forEach((ua, idx) => {
-    html += `${idx+1}. ${ua.question.question}<br>`;
-    html += `&nbsp;&nbsp;Your answer: <strong>${ua.chosen ?? '(no answer)'}</strong><br>`;
-    html += `&nbsp;&nbsp;Correct: <strong>${ua.correct}</strong><br><br>`;
+    html += `${idx+1}. ${ua.question.question}\nYour answer: ${ua.chosen ?? '(no answer)'}\nCorrect: ${ua.correct}\n\n`;
   });
-  alert(html);
+  // simple popup (keeps it quick)
+  alert(html || 'No answers yet.');
 });
 
-/* ---------- Finish ---------- */
+/* ---------------- Finish ---------------- */
 function finishQuiz() {
   clearInterval(timerInterval);
   quizArea.classList.add('hidden');
@@ -280,42 +292,30 @@ function finishQuiz() {
   const pct = Math.round((score / questions.length) * 100);
   finalSummary.innerHTML = `You answered <strong>${score}</strong> / <strong>${questions.length}</strong> correctly. (${pct}%)`;
 
-  // confetti if >= 70%
   if (pct >= 70) runConfetti(120);
-
-  // save best
-  saveBestToStorage();
+  saveBestIfNeeded();
 }
 
-/* ---------- Option enabling ---------- */
+/* ---------------- Option enable/disable ---------------- */
 function enableOptionButtons(enable) {
   const btns = optionsList.querySelectorAll('button');
-  btns.forEach(b => {
-    b.disabled = !enable;
-  });
+  btns.forEach(b => b.disabled = !enable);
 }
 
-/* ---------- Score persistence ---------- */
-function saveBestToStorage() {
-  const prevBest = Number(localStorage.getItem('quiz_best') || 0);
-  if (score > prevBest) {
+/* ---------------- Best score (localStorage) ---------------- */
+function loadBest() {
+  const prev = Number(localStorage.getItem('quiz_best') || 0);
+  bestScoreEl.textContent = prev;
+}
+function saveBestIfNeeded() {
+  const prev = Number(localStorage.getItem('quiz_best') || 0);
+  if (score > prev) {
     localStorage.setItem('quiz_best', String(score));
     bestScoreEl.textContent = score;
-  } else {
-    bestScoreEl.textContent = prevBest;
   }
 }
-function saveBestFromStorage() {
-  const prevBest = Number(localStorage.getItem('quiz_best') || 0);
-  bestScoreEl.textContent = prevBest;
-}
 
-/* ---------- Start handler ---------- */
-startBtn.addEventListener('click', async () => {
-  await fetchQuestions();
-});
-
-/* ---------- Utility: confetti ---------- */
+/* ---------------- Confetti ---------------- */
 function resizeConfetti() {
   confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
@@ -331,27 +331,26 @@ function runConfetti(amount = 80) {
     confettiPieces.push({
       x: Math.random() * confettiCanvas.width,
       y: Math.random() * -confettiCanvas.height,
-      w: 6 + Math.random() * 10,
-      h: 8 + Math.random() * 12,
+      w: 6 + Math.random() * 12,
+      h: 8 + Math.random() * 16,
       vx: -2 + Math.random() * 4,
       vy: 2 + Math.random() * 6,
       angle: Math.random() * 360,
-      color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-      rotSpeed: -0.1 + Math.random() * 0.2
+      color: `hsl(${Math.floor(Math.random() * 360)}, 75%, 60%)`,
+      rotSpeed: -0.12 + Math.random() * 0.24
     });
   }
 
-  let lifetime = 2400; // ms
   const start = performance.now();
+  const lifetime = 2400;
 
   function step(now) {
     const elapsed = now - start;
     ctxConfetti.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
-
     confettiPieces.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.03; // gravity
+      p.vy += 0.03;
       p.angle += p.rotSpeed;
 
       ctxConfetti.save();
@@ -373,5 +372,23 @@ function runConfetti(amount = 80) {
   requestAnimationFrame(step);
 }
 
-/* ---------- Kickoff: show best score on load ---------- */
-saveBestFromStorage();
+/* ---------------- Keyboard shortcuts 1-4 ---------------- */
+window.addEventListener('keydown', (e) => {
+  if (quizArea.classList.contains('hidden')) return;
+  const key = e.key;
+  if (['1','2','3','4'].includes(key)) {
+    const idx = Number(key) - 1;
+    const btn = optionsList.querySelector(`button[data-index="${idx}"]`);
+    if (btn && !btn.disabled) btn.click();
+  } else if (key === 'Enter' && !nextBtn.classList.contains('hidden')) {
+    nextBtn.click();
+  }
+});
+
+/* ---------------- Start handler ---------------- */
+startBtn.addEventListener('click', async () => {
+  await fetchQuestions();
+});
+
+/* ---------------- On load show best ---------------- */
+loadBest();
