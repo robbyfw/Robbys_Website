@@ -2,23 +2,36 @@
 // NOTE: I only added small code for custom dropdowns and adjusted option text handling.
 // Everything else from your previous logic is preserved and unchanged.
 
-/* ---------------- Sidebar Toggle ---------------- */
-const hamburger = document.getElementById('hamburger');
-const sidebar = document.getElementById('sidebar');
+document.addEventListener('DOMContentLoaded', () => {
+  /* ---------------- Sidebar Toggle ---------------- */
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
 
-hamburger.addEventListener('click', () => {
-  sidebar.classList.toggle('open');           
-  document.body.classList.toggle('sidebar-open'); 
-  hamburger.classList.toggle('active');       
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    document.body.classList.toggle('sidebar-open');
+    hamburger.classList.toggle('active');
+  });
+
+  window.toggleSidebar = function() {
+    sidebar.classList.toggle('open');
+    document.body.classList.toggle('sidebar-open');
+    hamburger.classList.toggle('active');
+  };
+
+  /* ---------------- Quiz Elements ---------------- */
+  const startBtn = document.getElementById('startBtn');
+  const restartBtn = document.getElementById('restartBtn');
+  const quizArea = document.getElementById('quizArea');
+  const questionText = document.getElementById('questionText');
+  const optionsList = document.getElementById('optionsList');
+  const qNumberEl = document.getElementById('qNumber');
+  const qTotalEl = document.getElementById('qTotal');
+  const progressFill = document.getElementById('progressFill');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+
+  /* ---------------- Rest of your quiz JS here ---------------- */
 });
-
-window.toggleSidebar = function() {
-  sidebar.classList.toggle('open');
-  document.body.classList.toggle('sidebar-open');
-  hamburger.classList.toggle('active');
-};
-
-/* Rest of your JS code below... */
 
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
