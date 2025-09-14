@@ -8,6 +8,21 @@
   <link rel="icon" href="../Studio-Project.png" type="image/png">
 </head>
 <body>
+  <!-- Sidebar Menu (Copied from main page) -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <!-- Moving Background -->
   <div class="background"></div>
 
@@ -110,16 +125,26 @@
 
   <!-- Suggestion Form -->
   <section id="suggestion" class="content-section">
-  <h2>Submit a Suggestion</h2>
-  <p>If you’d like to share a suggestion, click the button below. You’ll be taken to our official Google Form.</p>
-  <a href="https://forms.gle/uWSDFZcmF5sX26CH6" target="_blank" class="suggestion-button">Go to Suggestion Form</a>
-</section>
-
+    <h2>Submit a Suggestion</h2>
+    <p>If you’d like to share a suggestion, click the button below. You’ll be taken to our official Google Form.</p>
+    <a href="https://forms.gle/uWSDFZcmF5sX26CH6" target="_blank" class="suggestion-button">Go to Suggestion Form</a>
+  </section>
 
   <!-- Footer -->
   <footer>
     <p>© Robby's Website | Built with passion ✨</p>
     <p class="credit">Made by Asim Qureshi</p>
   </footer>
+
+  <!-- Hamburger Script -->
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+  </script>
 </body>
 </html>
