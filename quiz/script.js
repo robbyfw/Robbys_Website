@@ -2,6 +2,11 @@
 // NOTE: I only added small code for custom dropdowns and adjusted option text handling.
 // Everything else from your previous logic is preserved and unchanged.
 
+// Sidebar toggle
+window.toggleSidebar = function() {
+  document.body.classList.toggle('sidebar-open');
+};
+
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
