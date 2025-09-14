@@ -1,131 +1,263 @@
+/* Use your requested background exactly + enhancements */
+
+/* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden;
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  -webkit-animation: waterflow 20s ease infinite; /* mobile Safari/Chrome fix */
+  background-attachment: fixed; /* ensures motion on desktop */
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 40px 18px;
 }
 
-.wave-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
+/* background motion */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.wave {
-    position: absolute;
-    bottom: 0;
-    width: 200%;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.6);
-    animation: wave-animation 10s linear infinite;
+/* subtle decorative blobs */
+.page::before {
+  content: "";
+  position: fixed;
+  inset: -10% -10% auto auto;
+  width: 50vw;
+  height: 50vh;
+  background: radial-gradient(circle at 30% 30%, rgba(56, 85, 170, 0.08), transparent 30%),
+              radial-gradient(circle at 70% 70%, rgba(30, 180, 180, 0.05), transparent 30%);
+  filter: blur(30px);
+  z-index: 0;
+  pointer-events: none;
 }
 
-.wave:nth-child(2) {
-    animation-duration: 15s;
-    animation-delay: 2s;
+/* layout */
+.page {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  z-index: 2;
 }
 
-.wave:nth-child(3) {
-    animation-duration: 20s;
-    animation-delay: 4s;
+/* header */
+.header {
+  text-align: center;
+  margin-bottom: 18px;
 }
 
-@keyframes wave-animation {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+.title {
+  font-size: 32px;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
-.quiz-container {
-    position: relative;
-    z-index: 1;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.subtitle {
+  font-size: 13px;
+  color: #dcdcdc;
+  opacity: 0.9;
 }
 
+/* controls */
 .controls {
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0 22px;
+  align-items: center;
 }
 
-select, button {
-    padding: 10px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.controls label {
+  display: inline-block;
+  font-size: 13px;
+  color: #e8e8e8;
+  margin-right: 8px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+.controls select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 120px;
+  margin-left: 8px;
 }
 
-button:hover {
-    background-color: #45a049;
+/* buttons */
+.btn {
+  padding: 9px 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.12);
 }
 
-.quiz {
-    margin-top: 20px;
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: translateY(0); }
+
+/* variants */
+.btn.primary {
+  background: linear-gradient(180deg, rgba(63,131,255,0.14), rgba(45,95,255,0.06));
+  border: 1px solid rgba(80,140,255,0.18);
+  box-shadow: 0 6px 40px rgba(73,114,255,0.08);
 }
 
-.question {
-    margin-bottom: 20px;
+.btn.secondary {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
-.options {
-    list-style: none;
-    padding: 0;
+.btn.ghost {
+  background: transparent;
+  border: 1px dashed rgba(255,255,255,0.06);
 }
 
-.options li {
-    margin: 10px 0;
+/* responsive controls */
+.left-controls { display:flex; gap:10px; align-items:center; }
+.right-controls { display:flex; gap:8px; align-items:center; }
+
+@media (max-width:720px) {
+  .controls { flex-direction: column; align-items: stretch; gap: 10px; }
+  .left-controls { flex-wrap: wrap; }
 }
 
-.options li button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f4f4f4;
+/* quiz area */
+.quiz-area { margin-top: 6px; }
+.hidden { display: none; }
+
+.meta-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
 }
 
-.options li button:hover {
-    background-color: #ddd;
+/* progress */
+.progress-wrap { display:flex; align-items:center; gap:12px; min-width: 200px; }
+.progress-bar {
+  width: 260px;
+  height: 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #47d1ff, #6a86ff);
+  transition: width .45s ease;
+}
+.progress-text { font-size: 13px; color:#ddd; }
+
+/* score */
+.score-wrap { text-align:right; min-width:120px; }
+.score-pill {
+  background: rgba(255,255,255,0.06);
+  padding: 6px 10px;
+  border-radius: 999px;
+  display:inline-block;
+  margin-top:6px;
+  font-weight:700;
+  color:#fff;
+}
+.best { font-size:12px; color: #cfcfcf; margin-top:6px; }
+
+/* question card */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
-.correct {
-    background-color: #4CAF50;
-    color: white;
+.question-card { min-height: 260px; display:flex; flex-direction:column; justify-content:space-between; }
+
+.question-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #fff;
+  line-height:1.4;
 }
 
-.incorrect {
-    background-color: #f44336;
-    color: white;
+/* options */
+.options-list {
+  list-style:none;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.options-list li { }
+.option-btn {
+  width:100%;
+  padding: 12px;
+  text-align:left;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.03);
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  font-weight:600;
+}
+.option-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.option-btn:disabled { cursor: default; opacity: 0.95; transform:none; box-shadow:none; }
+
+/* correct / wrong */
+.option-btn.correct {
+  background: linear-gradient(90deg, rgba(72,187,120,0.16), rgba(46,160,94,0.10));
+  border: 1px solid rgba(72,187,120,0.28);
+  color: #dfffe1;
+  transform: scale(1.02);
+}
+.option-btn.wrong {
+  background: linear-gradient(90deg, rgba(240,90,90,0.12), rgba(190,50,50,0.06));
+  border: 1px solid rgba(240,90,90,0.28);
+  color: #ffe9e9;
 }
 
-.score {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
+/* controls row under question */
+.controls-row { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:8px; }
+.timer-wrap { display:flex; align-items:center; gap:10px; }
+.timer {
+  background: rgba(255,255,255,0.03);
+  padding:8px 12px;
+  border-radius: 999px;
+  font-weight:700;
+  letter-spacing:0.6px;
+}
+
+/* result area */
+.result-area { margin-top: 18px; }
+.result-card { text-align:center; padding:26px; }
+.result-actions { display:flex; gap:12px; justify-content:center; margin-top:12px; }
+
+/* confetti canvas */
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
 }
