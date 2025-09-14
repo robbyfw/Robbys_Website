@@ -377,4 +377,20 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 /* Small accessibility / touch improvements */
 .option-btn, .btn, .custom-option { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
 
-/* End of CSS */
+/* End of your previous CSS */
+
+/* ----------------- Sidebar CSS ----------------- */
+.sidebar {
+  position: fixed;
+  left: -240px; /* hide initially */
+  top: 0;
+  width: 240px;
+  height: 100%;
+  background: #1c1c1c;
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 60px;
+}
+
+/* ...rest of the sidebar CSS from my snippet... */
