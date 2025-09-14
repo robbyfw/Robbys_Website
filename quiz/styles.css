@@ -51,40 +51,135 @@ body {
   transform: translateZ(0);
 }
 
-/* Sidebar */
-.sidebar {
+/* ------------------------------
+   Full styles.css including updated sidebar
+   ------------------------------ */
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and page styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  -webkit-animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 40px 18px;
+}
+
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page::before {
+  content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 230px;
+  inset: -10% -10% auto auto;
+  width: 50vw;
+  height: 50vh;
+  background: radial-gradient(circle at 30% 30%, rgba(56, 85, 170, 0.06), transparent 30%),
+              radial-gradient(circle at 70% 70%, rgba(30, 180, 180, 0.03), transparent 30%);
+  filter: blur(30px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  z-index: 2;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* ------------------------------
+   Sidebar (updated)
+   ------------------------------ */
+.sidebar {
   height: 100%;
-  background: rgba(18,18,18,0.95);
-  border-right: 1px solid rgba(255,255,255,0.05);
-  padding: 20px;
-  overflow-y: auto;
-  z-index: 999;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  width: 0;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  background: rgba(17, 17, 17, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
 }
 
-body.sidebar-open .sidebar { transform: translateX(0); }
+.sidebar a {
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-.sidebar-header {
+.sidebar a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+/* ------------------------------
+   Hamburger Icon (three lines toggle)
+   ------------------------------ */
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1100;
 }
 
-.sidebar-header h2 { font-size: 20px; font-weight: 600; }
-.sidebar-toggle { font-size: 20px; background: none; border: none; color: #fff; cursor: pointer; }
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
 
-.sidebar-links { list-style: none; }
-.sidebar-links li { margin-bottom: 12px; }
-.sidebar-links li a { color: #fff; text-decoration: none; font-weight: 500; }
-.sidebar-links li a.active { color: #47d1ff; }
+/* Animate into X when sidebar is open */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
 
-/* Rest of your quiz CSS below... */
+/* ------------------------------
+   Quiz styles (unchanged)
+   ------------------------------ */
 .header { text-align: center; margin-bottom: 18px; }
 .title { font-size: 32px; letter-spacing: 0.6px; font-weight: 700; margin-bottom: 6px; }
 .subtitle { font-size: 13px; color: #dcdcdc; opacity: 0.9; }
@@ -126,7 +221,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 .btn.secondary { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
 .btn.ghost { background: transparent; border: 1px dashed rgba(255,255,255,0.06); }
 
-/* ...rest of your original quiz CSS continues unchanged... */
 .left-controls { display:flex; gap:10px; align-items:center; }
 .right-controls { display:flex; gap:8px; align-items:center; }
 
@@ -177,7 +271,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 }
 .best { font-size:12px; color: #cfcfcf; margin-top:6px; }
 
-/* question card */
 .card {
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
   border-radius: 14px;
@@ -202,7 +295,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   text-align: left;
 }
 
-/* options */
 .options-list {
   list-style:none;
   display:grid;
@@ -232,7 +324,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 .option-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 .option-btn:disabled { cursor: default; opacity: 0.95; transform:none; box-shadow:none; }
 
-/* correct / wrong */
 .option-btn.correct {
   background: linear-gradient(90deg, rgba(72,187,120,0.18), rgba(46,160,94,0.10));
   border: 1px solid rgba(72,187,120,0.28);
@@ -261,7 +352,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   100% { transform: translateX(0); }
 }
 
-/* controls row under question */
 .controls-row {
   display:flex;
   justify-content:space-between;
@@ -278,7 +368,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   letter-spacing:0.6px;
 }
 
-/* result area */
 .result-area { margin-top: 18px; }
 .result-card { text-align:center; padding:26px; }
 .result-actions {
@@ -288,7 +377,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   margin-top:12px;
 }
 
-/* confetti canvas */
 .confetti-canvas {
   position: fixed;
   top: 0;
@@ -299,7 +387,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   z-index: 9999;
 }
 
-/* footer */
 .site-footer {
   margin-top: 28px;
   padding: 18px 8px;
@@ -312,15 +399,12 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 /* ------------------------------
    Responsive mobile improvements
    ------------------------------ */
-
-/* Tablet-ish adjustments (<= 980px) */
 @media (max-width: 980px) {
   body { padding: 30px 14px; }
   .title { font-size: 28px; }
   .page { max-width: 880px; }
 }
 
-/* Mobile primary breakpoint (<=720px) */
 @media (max-width: 720px) {
   .controls { flex-direction: column; align-items: stretch; gap: 12px; }
   .left-controls { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
@@ -343,7 +427,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   .question-text { font-size: 18px; }
 }
 
-/* Narrow phones (<=520px) */
 @media (max-width: 520px) {
   body { padding: 18px 12px; }
   .title { font-size: 24px; }
@@ -359,7 +442,6 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   .page { padding-left: 8px; padding-right: 8px; }
 }
 
-/* Tiny phones (<=420px) */
 @media (max-width: 420px) {
   .title { font-size: 20px; }
   .question-text { font-size: 15px; }
@@ -368,35 +450,7 @@ body.sidebar-open .sidebar { transform: translateX(0); }
   .progress-bar { height: 8px; border-radius: 8px; }
 }
 
-/* Fix for mobile background white-box bug + GPU repaint reduction */
 @media (max-width: 768px) {
   body { background-attachment: scroll; -webkit-overflow-scrolling: touch; }
   .card, .option-btn, .custom-options { -webkit-transform: translateZ(0); transform: translateZ(0); backface-visibility: hidden; }
-}
-
-/* Small accessibility / touch improvements */
-.option-btn, .btn, .custom-option { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
-
-/* Sidebar toggle button (the three lines ☰) */
-.sidebar-toggle {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: #1c1c1c;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1100; /* above sidebar */
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-}
-
-.sidebar-toggle:hover {
-  background: #333;
 }

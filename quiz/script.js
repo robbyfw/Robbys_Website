@@ -2,10 +2,23 @@
 // NOTE: I only added small code for custom dropdowns and adjusted option text handling.
 // Everything else from your previous logic is preserved and unchanged.
 
-// Sidebar toggle
+/* ---------------- Sidebar Toggle ---------------- */
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+
+hamburger.addEventListener('click', () => {
+  sidebar.classList.toggle('open');           
+  document.body.classList.toggle('sidebar-open'); 
+  hamburger.classList.toggle('active');       
+});
+
 window.toggleSidebar = function() {
+  sidebar.classList.toggle('open');
   document.body.classList.toggle('sidebar-open');
+  hamburger.classList.toggle('active');
 };
+
+/* Rest of your JS code below... */
 
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
