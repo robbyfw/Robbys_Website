@@ -145,15 +145,11 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 .custom-options .custom-option:last-child { border-bottom: none; }
-.custom-options .custom-option:hover {
-  background: rgba(255,255,255,0.03);
-}
+.custom-options .custom-option:hover { background: rgba(255,255,255,0.03); }
 
 /* For browsers that don't support backdrop-filter on options, fallback */
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .custom-options {
-    background: rgba(30,30,30,0.9);
-  }
+  .custom-options { background: rgba(30,30,30,0.9); }
 }
 
 /* buttons */
@@ -168,7 +164,6 @@ body {
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
   box-shadow: 0 6px 18px rgba(2,6,23,0.12);
 }
-
 .btn:hover { transform: translateY(-3px); }
 .btn:active { transform: translateY(0); }
 
@@ -178,12 +173,10 @@ body {
   border: 1px solid rgba(80,140,255,0.18);
   box-shadow: 0 6px 40px rgba(73,114,255,0.08);
 }
-
 .btn.secondary {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
 }
-
 .btn.ghost {
   background: transparent;
   border: 1px dashed rgba(255,255,255,0.06);
@@ -192,9 +185,16 @@ body {
 .left-controls { display:flex; gap:10px; align-items:center; }
 .right-controls { display:flex; gap:8px; align-items:center; }
 
+/* 📱 Mobile fix for controls */
 @media (max-width:720px) {
-  .controls { flex-direction: column; align-items: stretch; gap: 10px; }
-  .left-controls { flex-wrap: wrap; }
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .left-controls {
+    flex-wrap: wrap;
+  }
 }
 
 /* quiz area */
@@ -209,7 +209,13 @@ body {
   margin-bottom:12px;
 }
 
-.progress-wrap { display:flex; align-items:center; gap:12px; min-width: 200px; }
+.progress-wrap {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width: 200px;
+}
+
 .progress-bar {
   width: 260px;
   height: 10px;
@@ -246,9 +252,12 @@ body {
   box-shadow: 0 8px 40px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.03);
 }
-
-.question-card { min-height: 260px; display:flex; flex-direction:column; justify-content:space-between; }
-
+.question-card {
+  min-height: 260px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 .question-text {
   font-size: 19px;
   font-weight: 600;
@@ -291,17 +300,15 @@ body {
   border: 1px solid rgba(72,187,120,0.28);
   color: #eaffea;
   transform: scale(1.02);
+  animation: pop .18s ease;
 }
 .option-btn.wrong {
   background: linear-gradient(90deg, rgba(240,90,90,0.14), rgba(190,50,50,0.06));
   border: 1px solid rgba(240,90,90,0.28);
   color: #ffecec;
   transform: scale(0.995);
+  animation: shake .32s ease;
 }
-
-/* small animations */
-.option-btn.correct { animation: pop .18s ease; }
-.option-btn.wrong { animation: shake .32s ease; }
 
 @keyframes pop {
   0% { transform: scale(0.98); }
@@ -317,7 +324,13 @@ body {
 }
 
 /* controls row under question */
-.controls-row { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:8px; }
+.controls-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-top:8px;
+}
 .timer-wrap { display:flex; align-items:center; gap:10px; }
 .timer {
   background: rgba(255,255,255,0.03);
@@ -330,7 +343,12 @@ body {
 /* result area */
 .result-area { margin-top: 18px; }
 .result-card { text-align:center; padding:26px; }
-.result-actions { display:flex; gap:12px; justify-content:center; margin-top:12px; }
+.result-actions {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-top:12px;
+}
 
 /* confetti canvas */
 .confetti-canvas {
@@ -353,10 +371,14 @@ body {
   border-top: 1px solid rgba(255,255,255,0.03);
 }
 
-/* responsive */
+/* 📱 Mobile fix for options grid */
 @media (max-width:680px) {
-  .options-list { grid-template-columns: 1fr; }
-  .progress-bar { width: 160px; }
+  .options-list {
+    grid-template-columns: 1fr;
+  }
+  .progress-bar {
+    width: 160px;
+  }
 }
 
 /* ✅ Mobile fix: disable fixed background to prevent white box */
