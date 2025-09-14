@@ -10,6 +10,22 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <div class="container">
     <div class="card">
       <div class="display" id="display">0</div>
@@ -50,5 +66,15 @@
   </div>
 
 <script src="script.js"></script>
+<script>
+  // Hamburger functionality
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+
+  hamburger.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    hamburger.classList.toggle("active");
+  });
+</script>
 </body>
 </html>
