@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz | Robby</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>Quiz Time!</h1>
-    <button id="start-btn">Start Quiz</button>
-
-    <div id="quiz-box" class="hidden">
-      <div id="question" class="question"></div>
-      <div id="options" class="options"></div>
+    <div class="wave-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
     </div>
 
-    <div id="score-box" class="hidden">
-      <h2>Your Score: <span id="score"></span>/50</h2>
-      <button id="restart-btn">Restart Quiz</button>
+    <div class="quiz-container">
+        <h1>Trivia Quiz</h1>
+        <div class="controls">
+            <select id="category">
+                <option value="9">General Knowledge</option>
+                <!-- Add more categories as needed -->
+            </select>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <button id="startBtn">Start Quiz</button>
+        </div>
+        <div id="quiz" class="quiz">
+            <!-- Questions will be injected here -->
+        </div>
+        <div id="score" class="score">
+            <!-- Score will be displayed here -->
+        </div>
     </div>
-  </div>
 
-  <canvas id="water-canvas"></canvas>
+    <script src="script.js"></script>
 </body>
 </html>
