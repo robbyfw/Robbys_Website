@@ -1,23 +1,22 @@
 /* ------------------------------
    Sidebar / Hamburger Toggle
    ------------------------------ */
-document.addEventListener('DOMContentLoaded', () => {
-  const hamburger = document.getElementById('hamburger');
-  const sidebar = document.getElementById('sidebar');
+// Hamburger code moved outside DOMContentLoaded to work immediately
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
 
-  hamburger.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent triggering document click
-    sidebar.classList.toggle('open');       
-    hamburger.classList.toggle('active');   
-  });
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation(); // prevent triggering document click
+  sidebar.classList.toggle('open');       
+  hamburger.classList.toggle('active');   
+});
 
-  // Optional: clicking outside closes sidebar
-  document.addEventListener('click', (e) => {
-    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
-      sidebar.classList.remove('open');
-      hamburger.classList.remove('active');
-    }
-  });
+// Optional: clicking outside closes sidebar
+document.addEventListener('click', (e) => {
+  if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+    sidebar.classList.remove('open');
+    hamburger.classList.remove('active');
+  }
 });
 
 /* ---------------- Quiz Elements ---------------- */
@@ -71,7 +70,6 @@ function shuffleArray(arr) {
   }
   return arr;
 }
-/* strip leading "1. " numbering from display text to compare to raw answer */
 function stripLeadingNumber(displayText) {
   return displayText.replace(/^\s*\d+\.\s*/, '').trim();
 }
@@ -87,19 +85,16 @@ function initCustomSelects() {
     const select = wrapper.querySelector('select');
     if (!select) return;
 
-    // create visible custom element
     const custom = document.createElement('div');
     custom.className = 'custom-select';
     custom.tabIndex = 0;
     custom.textContent = select.options[select.selectedIndex]?.text || select.value;
     wrapper.appendChild(custom);
 
-    // create panel
     const panel = document.createElement('div');
     panel.className = 'custom-options hidden';
     wrapper.appendChild(panel);
 
-    // fill panel
     Array.from(select.options).forEach(opt => {
       const item = document.createElement('div');
       item.className = 'custom-option';
@@ -107,16 +102,13 @@ function initCustomSelects() {
       item.dataset.value = opt.value;
       panel.appendChild(item);
       item.addEventListener('click', () => {
-        // set original select value and dispatch change
         select.value = item.dataset.value;
         select.dispatchEvent(new Event('change', { bubbles: true }));
-        // update custom visible
         custom.textContent = item.textContent;
         closeAllCustomOptions();
       });
     });
 
-    // toggle panel on click
     custom.addEventListener('click', (e) => {
       e.stopPropagation();
       const open = !panel.classList.contains('open');
@@ -127,7 +119,6 @@ function initCustomSelects() {
       }
     });
 
-    // keyboard support
     custom.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -140,17 +131,14 @@ function initCustomSelects() {
       }
     });
 
-    // update visible when original select changes (so restart/etc reflect)
     select.addEventListener('change', () => {
       const selected = select.options[select.selectedIndex];
       custom.textContent = selected ? selected.text : select.value;
     });
 
-    // style adjustments: ensure wrapper relative and panel width same
     wrapper.style.position = 'relative';
   });
 
-  // click outside closes panels
   document.addEventListener('click', closeAllCustomOptions);
 }
 
@@ -245,7 +233,7 @@ function initQuiz() {
 function renderQuestion() {
   const q = questions[currentIndex];
   qNumberEl.textContent = currentIndex + 1;
-  questionText.innerHTML = q.question; // question already decoded
+  questionText.innerHTML = q.question;
 
   const opts = shuffleArray([q.correct, ...q.incorrect]);
   optionsList.innerHTML = '';
@@ -253,9 +241,8 @@ function renderQuestion() {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.className = 'option-btn';
-    btn.setAttribute('type', 'button');
-    btn.setAttribute('data-index', i);
-    // Prefix numbering (e.g., "1. Yes"), use innerText-safe approach
+    btn.type = 'button';
+    btn.dataset.index = i;
     btn.textContent = `${i + 1}. ${opt}`;
     btn.addEventListener('click', () => handleAnswer(btn, opt, q.correct));
     li.appendChild(btn);
@@ -308,16 +295,14 @@ function handleAnswer(btn, chosen, correct) {
 
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
-    if (stripLeadingNumber(b.textContent) === correct) {
-      b.classList.add('correct');
-    }
+    if (stripLeadingNumber(b.textContent) === correct) b.classList.add('correct');
     b.disabled = true;
   });
 
   if (chosen === correct) {
     btn.classList.add('correct');
     playTone('correct');
-    score += 1;
+    score++;
     scoreDisplay.textContent = score;
     userAnswers.push({ question: questions[currentIndex], chosen, correct, ok: true });
   } else {
@@ -353,11 +338,8 @@ function handleTimeout() {
 /* ---------------- Navigation ---------------- */
 nextBtn.addEventListener('click', () => {
   currentIndex++;
-  if (currentIndex >= questions.length) {
-    finishQuiz();
-  } else {
-    renderQuestion();
-  }
+  if (currentIndex >= questions.length) finishQuiz();
+  else renderQuestion();
 });
 
 skipBtn.addEventListener('click', () => {
@@ -463,9 +445,8 @@ function runConfetti(amount = 80) {
       ctxConfetti.restore();
     });
 
-    if (elapsed < lifetime) {
-      requestAnimationFrame(step);
-    } else {
+    if (elapsed < lifetime) requestAnimationFrame(step);
+    else {
       ctxConfetti.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
       confettiRunning = false;
     }
@@ -494,3 +475,26 @@ startBtn.addEventListener('click', async () => {
 
 /* ---------------- On load show best ---------------- */
 loadBest();
+
+/* ---------------- Ensure hamburger and quiz hooks work on load ---------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  // Hamburger already has click handler above; no duplication needed
+  // Quiz buttons (start/restart/playAgain/viewAnswers) are already hooked
+  // Timer, options, next/skip buttons are already hooked
+  // Just make sure confetti canvas is sized correctly
+  resizeConfetti();
+});
+
+/* ---------------- Defensive check ---------------- */
+if (!hamburger || !sidebar) {
+  console.warn('Hamburger or sidebar element missing. Hamburger menu may not work.');
+}
+if (!quizArea || !questionText || !optionsList) {
+  console.warn('Quiz elements missing. Quiz will not function properly.');
+}
+
+/* ---------------- Optional: reset sidebar on window resize ---------------- */
+window.addEventListener('resize', () => {
+  sidebar.classList.remove('open');
+  hamburger.classList.remove('active');
+});
