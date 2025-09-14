@@ -10,8 +10,24 @@
   <link rel="apple-touch-icon" href="/Studio-Project.png">
 
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <main class="wrap">
     <section class="card" aria-labelledby="title">
       <h1 id="title" class="app-title">Weather App</h1>
@@ -40,6 +56,15 @@
   </main>
 
   <script>
+    // ---------- SIDEBAR ----------
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+
     // ---------- CONFIG ----------
     const API_KEY = "cef868c24f7eadea4f39779c0e588c9b";
     let useCelsius = true;
@@ -73,13 +98,9 @@
       return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
 
-    // ---------- WEATHER SVG (comprehensive inline icon generator) ----------
-    // Accepts the 'main' field from OpenWeather (e.g. "Clear", "Rain", "Snow", "Clouds", "Mist", etc.)
-    // Returns an inline SVG string sized 84x84 (keeps styling consistent).
+    // ---------- WEATHER SVG ----------
     function weatherSVG(main) {
       main = (main || '').toLowerCase();
-
-      // Clear / sunny
       if (main.includes('clear')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs><radialGradient id="sunGrad" cx="50%" cy="40%"><stop offset="0" stop-color="#fff3b0"/><stop offset="1" stop-color="#ffd54d"/></radialGradient></defs>
@@ -94,8 +115,6 @@
           </g>
         </svg>`;
       }
-
-      // Thunderstorm
       if (main.includes('thunder') || main.includes('storm')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
@@ -105,8 +124,6 @@
           </g>
         </svg>`;
       }
-
-      // Drizzle / Rain
       if (main.includes('drizzle') || main.includes('rain')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
@@ -120,8 +137,6 @@
           </g>
         </svg>`;
       }
-
-      // Snow
       if (main.includes('snow')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
@@ -133,8 +148,6 @@
           </g>
         </svg>`;
       }
-
-      // Atmosphere: mist / fog / haze / smoke / dust / sand / ash (use subtle fog lines)
       if (main.includes('mist') || main.includes('fog') || main.includes('haze') || main.includes('smoke') || main.includes('dust') || main.includes('sand') || main.includes('ash')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
@@ -147,8 +160,6 @@
           </g>
         </svg>`;
       }
-
-      // Squall or tornado - strong wind icon
       if (main.includes('squall') || main.includes('tornado')) {
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g fill="none" stroke="#dfefff" stroke-width="2.4" stroke-linecap="round">
@@ -159,10 +170,7 @@
           </g>
         </svg>`;
       }
-
-      // Clouds detailed: broken / few / scattered / overcast
       if (main.includes('cloud')) {
-        // a cloud cluster
         return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <g>
             <ellipse cx="24" cy="30" rx="14" ry="8" fill="#dfefff"/>
@@ -171,8 +179,6 @@
           </g>
         </svg>`;
       }
-
-      // Default fallback (gentle cloud)
       return `<svg width="84" height="84" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g>
           <ellipse cx="32" cy="26" rx="18" ry="10" fill="#dfefff"/>
@@ -220,25 +226,17 @@
     }
 
     function renderWeather(data) {
-      // safe weather object
       const weatherItem = (data.weather && data.weather[0]) ? data.weather[0] : { main: 'Clouds', description: 'N/A' };
       const main = weatherItem.main || 'Clouds';
       const description = weatherItem.description || 'N/A';
-
-      // compute "now" at that location using current UTC + location offset
       const nowUtcSec = Math.floor(Date.now() / 1000);
-      const tzOffset = data.timezone || 0; // seconds offset from UTC for the location
+      const tzOffset = data.timezone || 0;
       const localSec = nowUtcSec + tzOffset;
       const localDate = new Date(localSec * 1000);
-      // format like "13 Sep · 08:25 PM"
       const localeStr = localDate.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: true });
-
-      // temperature
       const tempC = typeof data.main?.temp === 'number' ? data.main.temp : 0;
       const temp = useCelsius ? tempC : (tempC * 9/5) + 32;
       const unit = useCelsius ? '°C' : '°F';
-
-      // Build result (using our inline SVG generator)
       const svg = weatherSVG(main);
 
       resultDiv.innerHTML = `
@@ -270,8 +268,6 @@
           </div>
         </div>
       `;
-
-      // show toggle inside card now that we have result
       showUnit();
     }
 
@@ -283,10 +279,7 @@
 
     function showUnit() { unitContainer.classList.remove('hidden'); }
     function hideUnit() { unitContainer.classList.add('hidden'); }
-
     function capitalize(s) { if (!s) return s; return s.charAt(0).toUpperCase() + s.slice(1); }
-
-    // focus input on load
     window.addEventListener('load', () => cityInput.focus());
   </script>
 </body>
