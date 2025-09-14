@@ -15,26 +15,24 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Sidebar start -->
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h2>Robby's Menu</h2>
-      <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    </div>
-    <ul class="sidebar-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="calculator.html">Calculator</a></li>
-      <li><a href="coinflip.html">Coin Flip</a></li>
-      <li><a href="weather.html">Weather</a></li>
-      <li><a href="quiz.html" class="active">Quiz</a></li>
-      <li><a href="donations.html">Donations</a></li>
-    </ul>
+<!-- Sidebar toggle button outside -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<!-- Sidebar start -->
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>Robby's Menu</h2>
   </div>
-  <script>
-    function toggleSidebar() {
-      document.body.classList.toggle('sidebar-open');
-    }
-  </script>
+  <ul class="sidebar-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="coinflip.html">Coin Flip</a></li>
+    <li><a href="weather.html">Weather</a></li>
+    <li><a href="quiz.html" class="active">Quiz</a></li>
+    <li><a href="donations.html">Donations</a></li>
+  </ul>
+</div>
+
   <!-- Sidebar end -->
 
   <main class="page">

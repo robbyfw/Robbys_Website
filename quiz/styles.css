@@ -377,20 +377,26 @@ body.sidebar-open .sidebar { transform: translateX(0); }
 /* Small accessibility / touch improvements */
 .option-btn, .btn, .custom-option { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
 
-/* End of your previous CSS */
-
-/* ----------------- Sidebar CSS ----------------- */
-.sidebar {
+/* Sidebar toggle button (the three lines ☰) */
+.sidebar-toggle {
   position: fixed;
-  left: -240px; /* hide initially */
-  top: 0;
-  width: 240px;
-  height: 100%;
+  top: 15px;
+  left: 15px;
   background: #1c1c1c;
   color: white;
-  transition: left 0.3s ease;
-  z-index: 1000;
-  padding-top: 60px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1100; /* above sidebar */
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
 }
 
-/* ...rest of the sidebar CSS from my snippet... */
+.sidebar-toggle:hover {
+  background: #333;
+}
