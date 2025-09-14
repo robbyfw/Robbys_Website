@@ -1,3 +1,8 @@
+/* ------------------------------
+   Full styles.css — Desktop kept as original,
+   plus robust mobile overrides at the bottom.
+   ------------------------------ */
+
 /* Use your requested background exactly + enhancements */
 
 /* General Reset */
@@ -18,6 +23,9 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   padding: 40px 18px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* background motion */
@@ -45,25 +53,15 @@ body {
   max-width: 980px;
   margin: 0 auto;
   z-index: 2;
+  /* helps reduce mobile painting glitches */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 18px;
-}
-
-.title {
-  font-size: 32px;
-  letter-spacing: 0.6px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  font-size: 13px;
-  color: #dcdcdc;
-  opacity: 0.9;
-}
+/* Header */
+.header { text-align: center; margin-bottom: 18px; }
+.title { font-size: 32px; letter-spacing: 0.6px; font-weight: 700; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #dcdcdc; opacity: 0.9; }
 
 /* controls */
 .controls {
@@ -134,6 +132,7 @@ body {
   border: 1px solid rgba(255,255,255,0.06);
   box-shadow: 0 12px 40px rgba(2,6,23,0.6);
   z-index: 999;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* each option in panel */
@@ -163,6 +162,8 @@ body {
   cursor: pointer;
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
   box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 .btn:hover { transform: translateY(-3px); }
 .btn:active { transform: translateY(0); }
@@ -173,29 +174,11 @@ body {
   border: 1px solid rgba(80,140,255,0.18);
   box-shadow: 0 6px 40px rgba(73,114,255,0.08);
 }
-.btn.secondary {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.btn.ghost {
-  background: transparent;
-  border: 1px dashed rgba(255,255,255,0.06);
-}
+.btn.secondary { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+.btn.ghost { background: transparent; border: 1px dashed rgba(255,255,255,0.06); }
 
 .left-controls { display:flex; gap:10px; align-items:center; }
 .right-controls { display:flex; gap:8px; align-items:center; }
-
-/* 📱 Mobile fix for controls */
-@media (max-width:720px) {
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-  .left-controls {
-    flex-wrap: wrap;
-  }
-}
 
 /* quiz area */
 .quiz-area { margin-top: 6px; }
@@ -251,6 +234,7 @@ body {
   padding: 18px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.03);
+  will-change: transform;
 }
 .question-card {
   min-height: 260px;
@@ -290,6 +274,10 @@ body {
   font-size: 15px;
   line-height: 1.35;
   white-space: normal;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .option-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 .option-btn:disabled { cursor: default; opacity: 0.95; transform:none; box-shadow:none; }
@@ -371,19 +359,141 @@ body {
   border-top: 1px solid rgba(255,255,255,0.03);
 }
 
-/* 📱 Mobile fix for options grid */
-@media (max-width:680px) {
-  .options-list {
-    grid-template-columns: 1fr;
-  }
-  .progress-bar {
-    width: 160px;
-  }
+/* ------------------------------
+   Responsive mobile improvements
+   (ONLY under these max-width breakpoints)
+   ------------------------------ */
+
+/* Tablet-ish adjustments (<= 980px) — gentle shrink, no layout reflow */
+@media (max-width: 980px) {
+  body { padding: 30px 14px; }
+  .title { font-size: 28px; }
+  .page { max-width: 880px; }
 }
 
-/* ✅ Mobile fix: disable fixed background to prevent white box */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
+/* Primary mobile breakpoint — stack controls, meta row, options -> 1 column */
+@media (max-width: 720px) {
+  /* Controls: stack filters and make selects flexible */
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
+
+  .left-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Each select wrapper will flex and shrink if needed */
+  .select-wrapper {
+    flex: 1 1 160px;
+    min-width: 120px;
+    margin-bottom: 0;
+  }
+
+  .custom-select { min-width: 0; width: 100%; padding-right: 38px; }
+
+  /* Right controls: center the start/restart buttons and make them easy to tap.
+     Keep desktop visuals but allow full-width on narrow phones. */
+  .right-controls {
+    display:flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  .right-controls .btn {
+    min-width: 120px;
+  }
+
+  /* Meta row stacks vertically on mobile */
+  .meta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .progress-wrap { width: 100%; display:flex; justify-content:center; }
+  .progress-bar { width: 100%; max-width: 100%; }
+
+  .score-wrap { text-align: center; min-width: auto; }
+  .best { display:block; margin-top:6px; }
+
+  /* Options -> single column full width for big tappable area */
+  .options-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .option-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  /* Controls row under question (timer & action buttons): stack when narrow */
+  .controls-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .action-buttons {
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  /* Smaller cards & padding to fit mobile screen better */
+  .card { padding: 16px; }
+  .question-card { min-height: auto; }
+
+  /* Make custom-options panel full width of container on mobile */
+  .custom-options { left: 0; top: calc(100% + 8px); width: 100%; }
+
+  /* Improve readability */
+  .question-text { font-size: 18px; }
 }
+
+/* Narrow phones — extra compact */
+@media (max-width: 520px) {
+  body { padding: 18px 12px; }
+
+  .title { font-size: 24px; }
+  .subtitle { font-size: 12px; }
+
+  .select-wrapper { flex: 1 1 120px; min-width: 100px; }
+  .custom-select { padding: 8px 36px 8px 10px; font-size: 13px; }
+
+  .progress-bar { height: 9px; }
+  .question-text { font-size: 16px; margin-bottom: 12px; }
+  .option-btn { padding: 12px; font-size: 15px; border-radius: 10px; }
+
+  .controls-row { flex-direction: column; align-items: stretch; gap: 8px; }
+  .action-buttons { justify-content: center; }
+
+  .card { padding: 12px; }
+  .page { padding-left: 8px; padding-right: 8px; }
+}
+
+/* Tiny phones — final tweaks */
+@media (max-width: 420px) {
+  .title { font-size: 20px; }
+  .question-text { font-size: 15px; }
+  .option-btn { font-size: 14px; padding: 10px; }
+  .btn { padding: 8px 12px; font-size: 14px; }
+
+  /* Slightly reduce progress bar width so it doesn't touch edges */
+  .progress-bar { height: 8px; border-radius: 8px; }
+}
+
+/* Fix for mobile background white-box bug + reduce GPU repaint when scrolling quickly */
+@media (max-width: 768px) {
+  body { background-attachment: scroll; -webkit-overflow-scrolling: touch; }
+  /* Give the main interactive card a separate composite layer to avoid paint flashes */
+  .card, .option-btn, .custom-options { -webkit-transform: translateZ(0); transform: translateZ(0); backface-visibility: hidden; }
+}
+
+/* Small accessibility / touch improvements */
+.option-btn, .btn, .custom-option { -webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; }
+
+/* End of CSS */
