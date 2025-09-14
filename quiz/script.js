@@ -1,4 +1,6 @@
 // script.js — improved visuals, select blur fix, keyboard and sounds
+// Only changed option numbering logic and comparison to strip numbers;
+// footer added in HTML; dropdown styling was updated in CSS.
 
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
@@ -50,6 +52,10 @@ function shuffleArray(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+/* strip leading "1. " numbering from display text to compare to raw answer */
+function stripLeadingNumber(displayText) {
+  return displayText.replace(/^\s*\d+\.\s*/, '').trim();
 }
 
 /* ---------------- Sound (WebAudio) ---------------- */
@@ -142,16 +148,8 @@ function renderQuestion() {
     btn.className = 'option-btn';
     btn.setAttribute('type', 'button');
     btn.setAttribute('data-index', i);
-    // Use innerHTML so punctuation/quotes show correctly (already decoded)
-    btn.innerHTML = opt;
-    // add hint number for keyboard
-    const hint = document.createElement('span');
-    hint.style.float = 'right';
-    hint.style.opacity = '0.6';
-    hint.style.fontSize = '12px';
-    hint.textContent = `(${i+1})`;
-    btn.appendChild(hint);
-
+    // Prefix numbering (e.g., "1. Yes")
+    btn.innerHTML = `${i + 1}. ${opt}`;
     btn.addEventListener('click', () => handleAnswer(btn, opt, q.correct));
     li.appendChild(btn);
     optionsList.appendChild(li);
@@ -203,7 +201,7 @@ function handleAnswer(btn, chosen, correct) {
 
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
-    if (b.textContent.replace(/\(\d\)$/, '').trim() === correct) {
+    if (stripLeadingNumber(b.textContent) === correct) {
       b.classList.add('correct');
     }
     b.disabled = true;
@@ -211,7 +209,6 @@ function handleAnswer(btn, chosen, correct) {
 
   if (chosen === correct) {
     btn.classList.add('correct');
-    // sound
     playTone('correct');
     score += 1;
     scoreDisplay.textContent = score;
@@ -233,7 +230,7 @@ function handleTimeout() {
 
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
-    if (b.textContent.replace(/\(\d\)$/, '').trim() === questions[currentIndex].correct) {
+    if (stripLeadingNumber(b.textContent) === questions[currentIndex].correct) {
       b.classList.add('correct');
     } else {
       b.classList.add('wrong');
