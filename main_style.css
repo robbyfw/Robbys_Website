@@ -11,7 +11,6 @@ body {
   background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
-  -webkit-animation: waterflow 20s ease infinite;
   background-attachment: fixed;
   line-height: 1.6;
 }
@@ -54,22 +53,6 @@ body {
   margin-bottom: 1rem;
 }
 
-/* CTA Button Style (if needed later) */
-.cta {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.8rem 1.2rem;
-  background: #0078ff;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-.cta:hover {
-  background: #005fcc;
-}
-
 /* Project Cards */
 .cards {
   margin-top: 3rem;
@@ -94,7 +77,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* Hover effect */
 .project-item:hover {
   transform: translateY(-5px);
   border-color: #ffffff;
@@ -131,20 +113,6 @@ body {
   background: #005fcc;
 }
 
-/* About Section */
-.about {
-  margin-top: 3rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: transform 0.3s ease;
-}
-.about:hover {
-  transform: translateY(-5px);
-  border-color: #ffffff;
-}
-
 /* Footer */
 .site-footer {
   text-align: center;
@@ -161,7 +129,9 @@ body {
   width: 0;
   position: fixed;
   top: 0; left: 0;
-  background: #111;
+  background: rgba(17, 17, 17, 0.4); /* transparent dark */
+  backdrop-filter: blur(10px);       /* ✅ frosted glass effect */
+  -webkit-backdrop-filter: blur(10px);
   overflow-x: hidden;
   transition: 0.3s;
   padding-top: 60px;
