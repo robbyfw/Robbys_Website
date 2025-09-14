@@ -1,5 +1,6 @@
 /* =========================
    COIN FLIP + SIDEBAR CSS
+   (moved from inline <style> in HTML)
    ========================= */
 
 /* General Reset */
@@ -16,12 +17,13 @@ html, body {
   overflow-x: hidden;
   line-height: 1.4;
 
-  /* Black water motion background */
+  /* Black water motion background (same as before) */
   background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
   -webkit-animation: waterflow 20s ease infinite;
   background-attachment: fixed;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +40,7 @@ html, body {
 }
 
 /* -------------------------
-   Sidebar (exact "good" code)
+   Sidebar (the "good" sidebar code)
    ------------------------- */
 .sidebar {
   height: 100%;
@@ -99,7 +101,7 @@ html, body {
 }
 
 /* -------------------------
-   Coin flip UI
+   Coin flip UI (moved from inline)
    ------------------------- */
 .container {
   width: 100%;
@@ -116,8 +118,7 @@ html, body {
   gap: 20px;
 }
 
-/* Title (kept as original) */
-.container h1, .title {
+.container h1 {
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;

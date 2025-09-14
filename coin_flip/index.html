@@ -9,12 +9,12 @@
   <link rel="apple-touch-icon" href="/Studio-Project.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Link to external CSS (put the CSS below into style.css) -->
+  <!-- external css (moved from inline) -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Sidebar Menu (exact from your 'good' sidebar code) -->
+  <!-- Sidebar Menu (the "good" sidebar you provided) -->
   <div id="sidebar" class="sidebar">
     <a href="https://fwrobby.site">Home</a>
     <a href="https://fwrobby.site/about">About Me</a>
@@ -29,8 +29,10 @@
     <span></span>
   </div>
 
-  <!-- Main Container (unchanged content / logic) -->
+  <!-- Main container (unchanged content) -->
   <div class="container">
+    <h1>Coin Flip</h1>
+
     <div class="coin-wrap">
       <div class="coin" id="coin">
         <div class="face front">H</div>
@@ -59,7 +61,10 @@
 
   hamburger.addEventListener("click", toggleSidebar);
   hamburger.addEventListener("keydown", (e) => {
-    if (e.key === 'Enter' || e.key === ' ') toggleSidebar();
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleSidebar();
+    }
   });
 
   // ===== Coin flip logic (kept intact and functional) =====
@@ -71,36 +76,36 @@
 
   function softConfetti(x, y){
     const colors = ['#ffd3a5','#ffd1dc','#c2f0fc','#d6f5d6','#fbe8a6','#e6d6ff'];
-    for(let i=0;i<14;i++){
+    for (let i = 0; i < 14; i++) {
       const el = document.createElement('div');
       el.className = 'confetti';
-      const size = Math.random()*8+8;
+      const size = Math.random() * 8 + 8;
       el.style.width = `${size}px`;
-      el.style.height = `${size*1.2}px`;
+      el.style.height = `${size * 1.2}px`;
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(el);
 
-      const dx = (Math.random()-0.5)*(80+Math.random()*160);
-      const dy = -(120+Math.random()*260);
-      const rot = (Math.random()-0.5)*720;
-      const dur = 900 + Math.random()*800;
+      const dx = (Math.random() - 0.5) * (80 + Math.random() * 160);
+      const dy = -(120 + Math.random() * 260);
+      const rot = (Math.random() - 0.5) * 720;
+      const dur = 900 + Math.random() * 800;
 
       el.animate([
-        { transform: `translate3d(0,0,0) rotate(${Math.random()*360}deg)`, opacity:1 },
-        { transform: `translate3d(${dx}px, ${dy}px,0) rotate(${rot}deg)`, opacity:0.05 }
-      ], { duration: dur, easing:'cubic-bezier(.2,.8,.25,1)', fill:'forwards' });
+        { transform: `translate3d(0,0,0) rotate(${Math.random() * 360}deg)`, opacity: 1 },
+        { transform: `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg)`, opacity: 0.05 }
+      ], { duration: dur, easing: 'cubic-bezier(.2,.8,.25,1)', fill: 'forwards' });
 
-      setTimeout(()=> el.remove(), dur + 80);
+      setTimeout(() => el.remove(), dur + 80);
     }
   }
 
-  function spin(duration=1300){
-    if(busy) return Promise.reject('busy');
+  function spin(duration = 1300) {
+    if (busy) return Promise.reject('busy');
     busy = true;
-    const randX = Math.floor(Math.random()*6+6)*360;
-    const randY = Math.floor(Math.random()*6+6)*360;
+    const randX = Math.floor(Math.random() * 6 + 6) * 360;
+    const randY = Math.floor(Math.random() * 6 + 6) * 360;
     coin.style.transition = `transform ${duration}ms cubic-bezier(.2,.9,.3,1)`;
     coin.style.transform = `rotateX(${randX}deg) rotateY(${randY}deg)`;
     return new Promise(resolve => {
@@ -111,19 +116,19 @@
     });
   }
 
-  async function doFlip(times=1){
-    if(busy) return;
+  async function doFlip(times = 1) {
+    if (busy) return;
     resultEl.textContent = '';
     const rect = coin.getBoundingClientRect();
-    const cx = rect.left + rect.width/2;
-    const cy = rect.top + rect.height/2;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
 
-    for(let i=0;i<times;i++){
-      try { await spin(1200); } catch(e){ return; }
+    for (let i = 0; i < times; i++) {
+      try { await spin(1200); } catch (e) { return; }
       const outcome = Math.random() < 0.5 ? 'Heads' : 'Tails';
       const front = coin.querySelector('.face.front');
       const back = coin.querySelector('.face.back');
-      if(outcome === 'Heads'){ front.textContent = 'H'; back.textContent = 'T'; }
+      if (outcome === 'Heads') { front.textContent = 'H'; back.textContent = 'T'; }
       else { front.textContent = 'T'; back.textContent = 'H'; }
       softConfetti(cx, cy);
       resultEl.textContent = `Result: ${outcome}`;
