@@ -1,23 +1,22 @@
-// script.js — improved visuals, custom dropdown with blurred panel, option numbering + text style
-// NOTE: I only added small code for custom dropdowns and adjusted option text handling.
-// Everything else from your previous logic is preserved and unchanged.
-
+/* ------------------------------
+   Sidebar / Hamburger Toggle
+   ------------------------------ */
 document.addEventListener('DOMContentLoaded', () => {
-  /* ---------------- Sidebar Toggle ---------------- */
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.getElementById('sidebar');
 
   hamburger.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-    document.body.classList.toggle('sidebar-open');
-    hamburger.classList.toggle('active');
+    sidebar.classList.toggle('open');       // Slide sidebar in/out
+    hamburger.classList.toggle('active');   // Animate hamburger into X
   });
 
-  window.toggleSidebar = function() {
-    sidebar.classList.toggle('open');
-    document.body.classList.toggle('sidebar-open');
-    hamburger.classList.toggle('active');
-  };
+  // Optional: allow clicking outside sidebar to close it
+  document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+      sidebar.classList.remove('open');
+      hamburger.classList.remove('active');
+    }
+  });
 
   /* ---------------- Quiz Elements ---------------- */
   const startBtn = document.getElementById('startBtn');
@@ -30,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressFill = document.getElementById('progressFill');
   const scoreDisplay = document.getElementById('scoreDisplay');
 
-  /* ---------------- Rest of your quiz JS here ---------------- */
-});
 
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');

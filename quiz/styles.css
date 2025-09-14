@@ -105,19 +105,19 @@ body {
 }
 
 /* ------------------------------
-   Sidebar (updated)
+   Sidebar (fixed)
    ------------------------------ */
 .sidebar {
   height: 100%;
   width: 0;
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
   background: rgba(17, 17, 17, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   overflow-x: hidden;
-  transition: 0.3s;
+  transition: width 0.3s ease;  /* smooth open/close */
   padding-top: 60px;
   z-index: 1000;
 }
@@ -137,6 +137,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
 }
 
+/* Open state controlled by JS */
 .sidebar.open {
   width: 250px;
 }
@@ -154,7 +155,7 @@ body {
   width: 30px;
   height: 22px;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 1101; /* above sidebar */
 }
 
 .hamburger span {
