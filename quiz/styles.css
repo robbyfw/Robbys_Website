@@ -80,30 +80,34 @@ body {
   gap:6px;
   font-size:13px;
   color:#e8e8e8;
+  position: relative; /* needed for custom dropdown */
 }
 
-/* custom select look */
+/* hide native select visually but keep it for accessibility - we use a custom overlay */
 .select-wrapper select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* custom select visible element */
+.custom-select {
+  position: relative;
+  display: block;
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.06);
   color: #fff;
   padding: 8px 36px 8px 12px;
   border-radius: 10px;
   font-size: 14px;
   min-width: 140px;
-  position: relative;
-  outline: none;
-  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
 }
 
 /* arrow */
-.select-wrapper {
-  position: relative;
-}
 .select-wrapper::after{
   content: "▾";
   position: absolute;
@@ -115,27 +119,42 @@ body {
   color: #fff;
 }
 
-/* ------- DROPDOWN FIXES (ADJUSTED TO BLUR BACKGROUND) ------- */
-/* Provide blurred/translucent dropdown background where browsers allow it.
-   Many browsers render native system dropdowns which ignore complex styles on <option>.
-   This CSS keeps selects blurred and uses translucent option color for browsers that support it.
-*/
-.select-wrapper select option {
-  background: rgba(255,255,255,0.06);
+/* custom options panel (blurred translucent) */
+.custom-options {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: rgba(18,18,18,0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+  z-index: 999;
+}
+
+/* each option in panel */
+.custom-options .custom-option {
+  padding: 10px 12px;
+  cursor: pointer;
   color: #fff;
-  backdrop-filter: blur(6px);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.custom-options .custom-option:last-child { border-bottom: none; }
+.custom-options .custom-option:hover {
+  background: rgba(255,255,255,0.03);
 }
 
-/* On focus, slightly change select to ensure the menu contrasts */
-.select-wrapper select:focus {
-  background: rgba(255,255,255,0.08);
-  outline: none;
+/* For browsers that don't support backdrop-filter on options, fallback */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .custom-options {
+    background: rgba(30,30,30,0.9);
+  }
 }
-
-/* Remove default dropdown arrow in IE/Edge */
-.select-wrapper select::-ms-expand { display: none; }
-
-/* End of dropdown fixes */
 
 /* buttons */
 .btn {
@@ -241,6 +260,7 @@ body {
 }
 
 /* options */
+/* --- IMPORTANT: option text style now matches body / other text --- */
 .options-list {
   list-style:none;
   display:grid;
@@ -258,9 +278,10 @@ body {
   border: 1px solid rgba(255,255,255,0.03);
   cursor:pointer;
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-  font-weight:600;
+  /* changed to match other page text */
+  font-weight: 400;            /* same as body text */
   color: #fff;
-  font-size: 15px;
+  font-size: 15px;            /* same size */
   line-height: 1.35;
   white-space: normal;
 }
