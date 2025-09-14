@@ -1,6 +1,6 @@
-// script.js — improved visuals, select blur fix, keyboard and sounds
-// Only changed option numbering logic and comparison to strip numbers;
-// footer added in HTML; dropdown styling was updated in CSS.
+// script.js — improved visuals, custom dropdown with blurred panel, option numbering + text style
+// NOTE: I only added small code for custom dropdowns and adjusted option text handling.
+// Everything else from your previous logic is preserved and unchanged.
 
 /* ---------------- Elements ---------------- */
 const startBtn = document.getElementById('startBtn');
@@ -58,11 +58,100 @@ function stripLeadingNumber(displayText) {
   return displayText.replace(/^\s*\d+\.\s*/, '').trim();
 }
 
+/* ---------------- Custom Dropdown (creates blurred dropdown overlay) ---------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  initCustomSelects();
+});
+
+function initCustomSelects() {
+  const wrappers = document.querySelectorAll('.select-wrapper');
+  wrappers.forEach((wrapper, idx) => {
+    const select = wrapper.querySelector('select');
+    if (!select) return;
+
+    // create visible custom element
+    const custom = document.createElement('div');
+    custom.className = 'custom-select';
+    custom.tabIndex = 0;
+    custom.textContent = select.options[select.selectedIndex]?.text || select.value;
+    wrapper.appendChild(custom);
+
+    // create panel
+    const panel = document.createElement('div');
+    panel.className = 'custom-options hidden';
+    wrapper.appendChild(panel);
+
+    // fill panel
+    Array.from(select.options).forEach(opt => {
+      const item = document.createElement('div');
+      item.className = 'custom-option';
+      item.textContent = opt.text;
+      item.dataset.value = opt.value;
+      panel.appendChild(item);
+      item.addEventListener('click', () => {
+        // set original select value and dispatch change
+        select.value = item.dataset.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        // update custom visible
+        custom.textContent = item.textContent;
+        closeAllCustomOptions();
+      });
+    });
+
+    // toggle panel on click
+    custom.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !panel.classList.contains('open');
+      closeAllCustomOptions();
+      if (open) {
+        panel.classList.add('open');
+        panel.classList.remove('hidden');
+      }
+    });
+
+    // keyboard support
+    custom.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        custom.click();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        openPanel(panel);
+        const first = panel.querySelector('.custom-option');
+        first && first.focus && first.focus();
+      }
+    });
+
+    // update visible when original select changes (so restart/etc reflect)
+    select.addEventListener('change', () => {
+      const selected = select.options[select.selectedIndex];
+      custom.textContent = selected ? selected.text : select.value;
+    });
+
+    // style adjustments: ensure wrapper relative and panel width same
+    wrapper.style.position = 'relative';
+  });
+
+  // click outside closes panels
+  document.addEventListener('click', closeAllCustomOptions);
+}
+
+function closeAllCustomOptions() {
+  document.querySelectorAll('.custom-options').forEach(p => {
+    p.classList.remove('open');
+    p.classList.add('hidden');
+  });
+}
+function openPanel(panel) {
+  closeAllCustomOptions();
+  panel.classList.remove('hidden');
+  panel.classList.add('open');
+}
+
 /* ---------------- Sound (WebAudio) ---------------- */
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playTone(type = 'correct') {
-  // simple short sound: different patterns for correct/wrong
   const now = audioCtx.currentTime;
   const o = audioCtx.createOscillator();
   const g = audioCtx.createGain();
@@ -148,8 +237,8 @@ function renderQuestion() {
     btn.className = 'option-btn';
     btn.setAttribute('type', 'button');
     btn.setAttribute('data-index', i);
-    // Prefix numbering (e.g., "1. Yes")
-    btn.innerHTML = `${i + 1}. ${opt}`;
+    // Prefix numbering (e.g., "1. Yes"), use innerText-safe approach
+    btn.textContent = `${i + 1}. ${opt}`;
     btn.addEventListener('click', () => handleAnswer(btn, opt, q.correct));
     li.appendChild(btn);
     optionsList.appendChild(li);
@@ -271,12 +360,10 @@ playAgainBtn.addEventListener('click', () => {
 });
 
 viewAnswersBtn.addEventListener('click', () => {
-  // build review string
   let html = '';
   userAnswers.forEach((ua, idx) => {
     html += `${idx+1}. ${ua.question.question}\nYour answer: ${ua.chosen ?? '(no answer)'}\nCorrect: ${ua.correct}\n\n`;
   });
-  // simple popup (keeps it quick)
   alert(html || 'No answers yet.');
 });
 
