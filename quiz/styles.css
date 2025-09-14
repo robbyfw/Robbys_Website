@@ -260,7 +260,6 @@ body {
 }
 
 /* options */
-/* --- IMPORTANT: option text style now matches body / other text --- */
 .options-list {
   list-style:none;
   display:grid;
@@ -268,7 +267,6 @@ body {
   gap: 12px;
   margin-bottom: 14px;
 }
-.options-list li { }
 .option-btn {
   width:100%;
   padding: 14px;
@@ -278,10 +276,9 @@ body {
   border: 1px solid rgba(255,255,255,0.03);
   cursor:pointer;
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-  /* changed to match other page text */
-  font-weight: 400;            /* same as body text */
+  font-weight: 400;
   color: #fff;
-  font-size: 15px;            /* same size */
+  font-size: 15px;
   line-height: 1.35;
   white-space: normal;
 }
@@ -360,4 +357,11 @@ body {
 @media (max-width:680px) {
   .options-list { grid-template-columns: 1fr; }
   .progress-bar { width: 160px; }
+}
+
+/* ✅ Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
