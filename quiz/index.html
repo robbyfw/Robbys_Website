@@ -3,43 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Robby's Website</title>
+  <title>Trivia Quiz — Robby</title>
 
-  <!-- Poppins font -->
+  <!-- Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Link CSS -->
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="page">
     <header class="header">
       <h1 class="title">Trivia Quiz</h1>
-      <p class="subtitle">General Knowledge • Fun & quick</p>
+      <p class="subtitle">General Knowledge — fun quick rounds</p>
     </header>
 
     <section class="controls">
       <div class="left-controls">
-        <label>
+        <label class="select-wrapper">
           Category
-          <select id="category">
+          <select id="category" aria-label="Category">
             <option value="9" selected>General Knowledge</option>
-            <!-- If you want more categories later add them here -->
+            <!-- Add more category options if you want (ids from OpenTDB) -->
           </select>
         </label>
 
-        <label>
+        <label class="select-wrapper">
           Difficulty
-          <select id="difficulty">
+          <select id="difficulty" aria-label="Difficulty">
             <option value="easy" selected>Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
         </label>
 
-        <label>
+        <label class="select-wrapper">
           Questions
-          <select id="amount">
+          <select id="amount" aria-label="Number of questions">
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50" selected>50</option>
@@ -56,7 +55,9 @@
     <section id="quizArea" class="quiz-area hidden" aria-live="polite">
       <div class="meta-row">
         <div class="progress-wrap">
-          <div id="progressBar" class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <div id="progressBar" class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
           <div class="progress-text"><span id="qNumber">0</span>/<span id="qTotal">0</span></div>
         </div>
 
@@ -67,11 +68,11 @@
         </div>
       </div>
 
-      <div class="card question-card">
-        <div id="questionText" class="question-text">Press Start to play ➜</div>
+      <div class="card question-card" role="group" aria-labelledby="questionText">
+        <div id="questionText" class="question-text">Press <strong>Start</strong> to play</div>
 
         <ul id="optionsList" class="options-list" role="list">
-          <!-- buttons injected here -->
+          <!-- options injected here -->
         </ul>
 
         <div class="controls-row">
@@ -95,7 +96,7 @@
         <p id="finalSummary"></p>
         <div class="result-actions">
           <button id="playAgainBtn" class="btn primary">Play Again</button>
-          <button id="viewAnswersBtn" class="btn ghost">Review Questions</button>
+          <button id="viewAnswersBtn" class="btn ghost">Review</button>
         </div>
       </div>
     </section>
@@ -104,7 +105,6 @@
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
-  <!-- Link JS -->
   <script src="script.js" defer></script>
 </body>
 </html>
