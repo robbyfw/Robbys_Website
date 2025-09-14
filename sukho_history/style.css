@@ -2,7 +2,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%; /* ensures background fills */
+  height: 100%;
   font-family: 'Poppins', sans-serif;
   color: #fff;
   overflow-x: hidden;
@@ -27,6 +27,65 @@ body, html {
   100% { background-position: 0% 50%; }
 }
 
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(17, 17, 17, 0.4); /* transparent dark */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
+}
+
+.sidebar a {
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+/* Hamburger */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin: 6px;
+  background: white;
+  transition: 0.3s;
+}
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* Navigation */
 header {
   background: rgba(0, 0, 0, 0.5);
@@ -46,7 +105,7 @@ nav {
 .logo {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #f5deb3; /* wheat tone */
+  color: #f5deb3; 
   letter-spacing: 1px;
 }
 
@@ -101,7 +160,7 @@ nav ul li a:hover {
 
 .content-section:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(222, 184, 135, 0.4); /* burlywood glow */
+  box-shadow: 0 0 25px rgba(222, 184, 135, 0.4); 
 }
 
 .content-section h2 {
@@ -113,38 +172,7 @@ nav ul li a:hover {
   padding-bottom: 5px;
 }
 
-/* Suggestion Form */
-.suggestion-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.suggestion-form textarea {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  resize: none;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-}
-
-.suggestion-form button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  background: #f5deb3;
-  color: #333;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.suggestion-form button:hover {
-  background: #deb887;
-}
-
-/* Suggestion Button (Google Form Redirect) */
+/* Suggestion Button */
 .suggestion-button {
   display: inline-block;
   padding: 12px 25px;
