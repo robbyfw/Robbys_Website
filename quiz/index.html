@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Robby's Website</title>
 
-  <!-- Favicon / Apple touch icon (use your Studio-Project.png in site root) -->
+  <!-- Favicon / Apple touch icon -->
   <link rel="icon" type="image/png" href="/Studio-Project.png" />
   <link rel="apple-touch-icon" href="/Studio-Project.png" />
 
-  <!-- Poppins -->
+  <!-- Poppins font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
@@ -21,13 +21,13 @@
       <p class="subtitle">General Knowledge — fun quick rounds</p>
     </header>
 
+    <!-- Controls -->
     <section class="controls">
       <div class="left-controls">
         <label class="select-wrapper">
           Category
           <select id="category" aria-label="Category">
             <option value="9" selected>General Knowledge</option>
-            <!-- Add more category options if you want (ids from OpenTDB) -->
           </select>
         </label>
 
@@ -56,6 +56,7 @@
       </div>
     </section>
 
+    <!-- Quiz Area -->
     <section id="quizArea" class="quiz-area hidden" aria-live="polite">
       <div class="meta-row">
         <div class="progress-wrap">
@@ -93,6 +94,7 @@
       </div>
     </section>
 
+    <!-- Result Area -->
     <section id="resultArea" class="result-area hidden">
       <div class="card result-card">
         <h2>Quiz Completed</h2>
@@ -105,7 +107,7 @@
       </div>
     </section>
 
-    <!-- Footer credits (added) -->
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="footer-inner">
         © 2025 Muhammad Asim (Robby) • Built with 🖤
@@ -113,7 +115,7 @@
     </footer>
   </main>
 
-  <!-- Confetti canvas -->
+  <!-- Confetti -->
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
 
   <script src="script.js" defer></script>
