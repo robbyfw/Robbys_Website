@@ -4,38 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Robby's Website - Quiz, Fun, Learn</title>
-
-  <!-- Favicon / Apple touch icon -->
   <link rel="icon" type="image/png" href="/Studio-Project.png" />
   <link rel="apple-touch-icon" href="/Studio-Project.png" />
-
-  <!-- Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Sidebar Menu -->
-<div id="sidebar" class="sidebar">
-  <a href="https://fwrobby.site">Home</a>
-  <a href="https://fwrobby.site/about">About Me</a>
-  <a href="https://fwrobby.site/contact">Contact Me</a>
-  <a href="https://fwrobby.site/donate">Donations</a>
-</div>
-
-<!-- Hamburger Icon -->
-<div class="hamburger" id="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <main class="page">
     <header class="header">
       <h1 class="title">Trivia Quiz</h1>
       <p class="subtitle">General Knowledge — fun quick rounds</p>
     </header>
-
     <section class="controls">
       <div class="left-controls">
         <label class="select-wrapper">
@@ -44,7 +36,6 @@
             <option value="9" selected>General Knowledge</option>
           </select>
         </label>
-
         <label class="select-wrapper">
           Difficulty
           <select id="difficulty" aria-label="Difficulty">
@@ -53,7 +44,6 @@
             <option value="hard">Hard</option>
           </select>
         </label>
-
         <label class="select-wrapper">
           Questions
           <select id="amount" aria-label="Number of questions">
@@ -63,13 +53,11 @@
           </select>
         </label>
       </div>
-
       <div class="right-controls">
         <button id="startBtn" class="btn primary">Start</button>
         <button id="restartBtn" class="btn ghost hidden">Restart</button>
       </div>
     </section>
-
     <section id="quizArea" class="quiz-area hidden" aria-live="polite">
       <div class="meta-row">
         <div class="progress-wrap">
@@ -78,26 +66,20 @@
           </div>
           <div class="progress-text"><span id="qNumber">0</span>/<span id="qTotal">0</span></div>
         </div>
-
         <div class="score-wrap">
           <div>Score</div>
           <div id="scoreDisplay" class="score-pill">0</div>
           <div class="best">Best: <span id="bestScore">0</span></div>
         </div>
       </div>
-
       <div class="card question-card" role="group" aria-labelledby="questionText">
         <div id="questionText" class="question-text">Press <strong>Start</strong> to play</div>
-
-        <ul id="optionsList" class="options-list" role="list">
-        </ul>
-
+        <ul id="optionsList" class="options-list" role="list"></ul>
         <div class="controls-row">
           <div class="timer-wrap">
             <div id="timer" class="timer">00:15</div>
             <div class="timer-label">time</div>
           </div>
-
           <div class="action-buttons">
             <button id="nextBtn" class="btn secondary hidden">Next</button>
             <button id="skipBtn" class="btn ghost">Skip</button>
@@ -105,7 +87,6 @@
         </div>
       </div>
     </section>
-
     <section id="resultArea" class="result-area hidden">
       <div class="card result-card">
         <h2>Quiz Completed</h2>
@@ -117,27 +98,13 @@
         </div>
       </div>
     </section>
-
     <footer class="site-footer">
       <div class="footer-inner">
         © 2025 Muhammad Asim (Robby) • Built with 🖤
       </div>
     </footer>
   </main>
-
   <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
-
-  <script src="script.js" defer></script>
-
-  <script>
-    // Sidebar toggle from main page
-    const hamburger = document.getElementById("hamburger");
-    const sidebar = document.getElementById("sidebar");
-
-    hamburger.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-      hamburger.classList.toggle("active");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

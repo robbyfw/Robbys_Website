@@ -1,22 +1,23 @@
 /* ------------------------------
    Sidebar / Hamburger Toggle
    ------------------------------ */
-// Hamburger code moved outside DOMContentLoaded to work immediately
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
 
 hamburger.addEventListener('click', (e) => {
-  e.stopPropagation(); // prevent triggering document click
-  sidebar.classList.toggle('open');       
-  hamburger.classList.toggle('active');   
+  e.stopPropagation();
+  sidebar.classList.toggle('open');
+  hamburger.classList.toggle('active');
 });
-
-// Optional: clicking outside closes sidebar
 document.addEventListener('click', (e) => {
   if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
     sidebar.classList.remove('open');
     hamburger.classList.remove('active');
   }
+});
+window.addEventListener('resize', () => {
+  sidebar.classList.remove('open');
+  hamburger.classList.remove('active');
 });
 
 /* ---------------- Quiz Elements ---------------- */
@@ -38,11 +39,9 @@ const finalScoreEl = document.getElementById('finalScore');
 const finalSummary = document.getElementById('finalSummary');
 const playAgainBtn = document.getElementById('playAgainBtn');
 const viewAnswersBtn = document.getElementById('viewAnswersBtn');
-
 const categorySelect = document.getElementById('category');
 const difficultySelect = document.getElementById('difficulty');
 const amountSelect = document.getElementById('amount');
-
 const confettiCanvas = document.getElementById('confetti-canvas');
 const ctxConfetti = confettiCanvas.getContext('2d');
 
@@ -74,14 +73,14 @@ function stripLeadingNumber(displayText) {
   return displayText.replace(/^\s*\d+\.\s*/, '').trim();
 }
 
-/* ---------------- Custom Dropdown (creates blurred dropdown overlay) ---------------- */
+/* ---------------- Custom Dropdown ---------------- */
 document.addEventListener('DOMContentLoaded', () => {
   initCustomSelects();
 });
 
 function initCustomSelects() {
   const wrappers = document.querySelectorAll('.select-wrapper');
-  wrappers.forEach((wrapper, idx) => {
+  wrappers.forEach((wrapper) => {
     const select = wrapper.querySelector('select');
     if (!select) return;
 
@@ -234,7 +233,6 @@ function renderQuestion() {
   const q = questions[currentIndex];
   qNumberEl.textContent = currentIndex + 1;
   questionText.innerHTML = q.question;
-
   const opts = shuffleArray([q.correct, ...q.incorrect]);
   optionsList.innerHTML = '';
   opts.forEach((opt, i) => {
@@ -248,7 +246,6 @@ function renderQuestion() {
     li.appendChild(btn);
     optionsList.appendChild(li);
   });
-
   nextBtn.classList.add('hidden');
   skipBtn.disabled = false;
   enableOptionButtons(true);
@@ -292,13 +289,11 @@ function handleAnswer(btn, chosen, correct) {
   enableOptionButtons(false);
   clearInterval(timerInterval);
   skipBtn.disabled = true;
-
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
     if (stripLeadingNumber(b.textContent) === correct) b.classList.add('correct');
     b.disabled = true;
   });
-
   if (chosen === correct) {
     btn.classList.add('correct');
     playTone('correct');
@@ -310,7 +305,6 @@ function handleAnswer(btn, chosen, correct) {
     playTone('wrong');
     userAnswers.push({ question: questions[currentIndex], chosen, correct, ok: false });
   }
-
   nextBtn.classList.remove('hidden');
   nextBtn.textContent = (currentIndex === questions.length - 1) ? 'Finish' : 'Next';
   saveBestIfNeeded();
@@ -319,7 +313,6 @@ function handleAnswer(btn, chosen, correct) {
 function handleTimeout() {
   enableOptionButtons(false);
   skipBtn.disabled = true;
-
   const allOptionButtons = optionsList.querySelectorAll('button');
   allOptionButtons.forEach(b => {
     if (stripLeadingNumber(b.textContent) === questions[currentIndex].correct) {
@@ -329,7 +322,6 @@ function handleTimeout() {
     }
     b.disabled = true;
   });
-
   userAnswers.push({ question: questions[currentIndex], chosen: null, correct: questions[currentIndex].correct, ok: false });
   nextBtn.classList.remove('hidden');
   nextBtn.textContent = (currentIndex === questions.length - 1) ? 'Finish' : 'Next';
@@ -341,14 +333,11 @@ nextBtn.addEventListener('click', () => {
   if (currentIndex >= questions.length) finishQuiz();
   else renderQuestion();
 });
-
 skipBtn.addEventListener('click', () => {
   clearInterval(timerInterval);
   handleTimeout();
 });
-
 restartBtn.addEventListener('click', () => location.reload());
-
 playAgainBtn.addEventListener('click', () => {
   resultArea.classList.add('hidden');
   quizArea.classList.remove('hidden');
@@ -358,7 +347,6 @@ playAgainBtn.addEventListener('click', () => {
   scoreDisplay.textContent = 0;
   renderQuestion();
 });
-
 viewAnswersBtn.addEventListener('click', () => {
   let html = '';
   userAnswers.forEach((ua, idx) => {
@@ -375,7 +363,6 @@ function finishQuiz() {
   finalScoreEl.textContent = score;
   const pct = Math.round((score / questions.length) * 100);
   finalSummary.innerHTML = `You answered <strong>${score}</strong> / <strong>${questions.length}</strong> correctly. (${pct}%)`;
-
   if (pct >= 70) runConfetti(120);
   saveBestIfNeeded();
 }
@@ -424,10 +411,8 @@ function runConfetti(amount = 80) {
       rotSpeed: -0.12 + Math.random() * 0.24
     });
   }
-
   const start = performance.now();
   const lifetime = 2400;
-
   function step(now) {
     const elapsed = now - start;
     ctxConfetti.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
@@ -436,7 +421,6 @@ function runConfetti(amount = 80) {
       p.y += p.vy;
       p.vy += 0.03;
       p.angle += p.rotSpeed;
-
       ctxConfetti.save();
       ctxConfetti.translate(p.x, p.y);
       ctxConfetti.rotate(p.angle);
@@ -444,14 +428,12 @@ function runConfetti(amount = 80) {
       ctxConfetti.fillRect(-p.w/2, -p.h/2, p.w, p.h);
       ctxConfetti.restore();
     });
-
     if (elapsed < lifetime) requestAnimationFrame(step);
     else {
       ctxConfetti.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
       confettiRunning = false;
     }
   }
-
   requestAnimationFrame(step);
 }
 
@@ -476,15 +458,6 @@ startBtn.addEventListener('click', async () => {
 /* ---------------- On load show best ---------------- */
 loadBest();
 
-/* ---------------- Ensure hamburger and quiz hooks work on load ---------------- */
-document.addEventListener('DOMContentLoaded', () => {
-  // Hamburger already has click handler above; no duplication needed
-  // Quiz buttons (start/restart/playAgain/viewAnswers) are already hooked
-  // Timer, options, next/skip buttons are already hooked
-  // Just make sure confetti canvas is sized correctly
-  resizeConfetti();
-});
-
 /* ---------------- Defensive check ---------------- */
 if (!hamburger || !sidebar) {
   console.warn('Hamburger or sidebar element missing. Hamburger menu may not work.');
@@ -492,9 +465,3 @@ if (!hamburger || !sidebar) {
 if (!quizArea || !questionText || !optionsList) {
   console.warn('Quiz elements missing. Quiz will not function properly.');
 }
-
-/* ---------------- Optional: reset sidebar on window resize ---------------- */
-window.addEventListener('resize', () => {
-  sidebar.classList.remove('open');
-  hamburger.classList.remove('active');
-});
