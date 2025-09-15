@@ -40,13 +40,16 @@ body {
   pointer-events: none;
 }
 
+/* MATCH MAIN PAGE PADDING AND WIDTH HERE! */
 .page {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
   position: relative;
-  max-width: 980px;
-  margin: 0 auto;
   z-index: 2;
   transform: translateZ(0);
 }
+/* END PATCH */
 
 /* Sidebar */
 .sidebar {
