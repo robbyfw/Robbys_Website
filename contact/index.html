@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Robby</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- Website Logo / Favicon -->
+  <link rel="icon" type="image/png" href="/Studio-Project.png">
+  <link rel="apple-touch-icon" href="/Studio-Project.png">
+</head>
+<body>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="container">
+    <section class="hero">
+      <h1>Contact the Owner</h1>
+      <p class="tagline">Get in Touch • Friendly Support</p>
+      <p>
+        Hello! This is the official contact page for Robby (Muhammad Asim), the owner of this website.<br>
+        If you have a genuine question, want to team up on a project, or just need help with something related to the site, feel free to reach out using the details below.<br>
+        <strong>
+          Please only contact for real and meaningful reasons. Let’s keep things friendly, helpful, and avoid unnecessary messages or spam. Thanks!
+        </strong>
+      </p>
+    </section>
+
+    <section class="cards">
+      <h2>Contact Information</h2>
+      <ul class="project-list">
+        <li class="project-item">
+          <div>
+            <p class="project-title">Email</p>
+            <p class="project-desc">asimquershi124@gmail.com</p>
+          </div>
+        </li>
+        <li class="project-item">
+          <div>
+            <p class="project-title">Discord</p>
+            <p class="project-desc">fwrobby</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+    </footer>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
