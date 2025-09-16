@@ -47,10 +47,10 @@ body {
   margin-bottom: 1rem;
 }
 
-.tagline {
-  font-weight: 600;
-  color: #ccc;
-  margin-bottom: 1rem;
+.description {
+  color: #ebebeb;
+  font-size: 1.13rem;
+  margin-bottom: 2.2rem;
 }
 
 /* About Sections */
@@ -61,15 +61,23 @@ body {
   padding: 1.4rem 1.3rem;
   border: 1px solid rgba(255,255,255,0.09);
   box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+  transition: box-shadow 0.25s, border-color 0.25s;
 }
 
-.about-section h2 {
+.about-section:hover {
+  border-color: #fff;
+  box-shadow: 0 2px 28px rgba(255,255,255,0.18);
+}
+
+/* Bold section titles */
+.section-title {
   font-size: 1.35rem;
-  color: #8ac6ff;
-  font-weight: 600;
+  font-weight: bold;
   margin-bottom: 0.8rem;
+  color: inherit;
 }
 
+/* Lists */
 .about-section ul {
   margin-left: 1.2rem;
   margin-bottom: 1rem;
