@@ -1,11 +1,8 @@
-// script.js
-// Use this file along with index.html and style.css
+// script.js — optimized for smoothness and two-side UI
 
-/* ===========================
-   QUESTIONS ARRAY (200)
-   ===========================
-   The list below is the 200 would-you-rather questions you provided.
-   We use template strings to allow apostrophes and quotes without escaping.
+/* ========= QUESTIONS ARRAY =========
+   Paste your 200 questions here (the same list you provided).
+   For brevity I'm re-using the exact array you gave earlier.
 */
 const questions = [
 `Would you rather have the power to fly or turn invisible?`,
@@ -210,61 +207,126 @@ const questions = [
 `Would you rather be remembered for something embarrassing or forgotten completely?`
 ];
 
-/* ====== Helpers ====== */
-function shuffleArray(array) {
-  // Fisher-Yates in-place
-  for (let i = array.length - 1; i > 0; i--) {
+/* ====== Lightweight helpers ====== */
+function shuffleArray(a) {
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return array;
+  return a;
 }
 
-/* ====== App state ====== */
-let order = []; // holds indexes in shuffled order
+/* parse a WYR question into left/right */
+function splitQuestion(raw) {
+  if (!raw || typeof raw !== 'string') return { left: raw || '', right: '' };
+
+  // normalize smart quotes to plain quotes and trim
+  let q = raw.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").trim();
+
+  // remove leading "Would you rather" if present (case-insensitive)
+  q = q.replace(/^Would you rather\s*/i, '').replace(/\?$/, '').trim();
+
+  // find the first ' or ' (space-or-space) case-insensitive
+  const match = q.match(/\s+or\s+/i);
+  if (match) {
+    const idx = match.index;
+    const left = q.slice(0, idx).trim();
+    const right = q.slice(idx + match[0].length).trim();
+    return {
+      left: capitalizeSentence(left),
+      right: capitalizeSentence(right)
+    };
+  }
+
+  // fallback: try splitting on ' / ' or ' | ' or comma + or
+  const altMatch = q.match(/\s+\/\s+/) || q.match(/\s+\|\s+/);
+  if (altMatch) {
+    const idx = altMatch.index;
+    const left = q.slice(0, idx).trim();
+    const right = q.slice(idx + altMatch[0].length).trim();
+    return { left: capitalizeSentence(left), right: capitalizeSentence(right) };
+  }
+
+  // ultimate fallback: left is whole phrase, right is prompt
+  return { left: capitalizeSentence(q), right: 'Choose!' };
+}
+
+function capitalizeSentence(s) {
+  if (!s) return s;
+  return s[0].toUpperCase() + s.slice(1);
+}
+
+/* ====== DOM references & state ====== */
+const leftEl = document.getElementById('leftSide');
+const rightEl = document.getElementById('rightSide');
+const indexLabel = document.getElementById('indexLabel');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const shuffleBtn = document.getElementById('shuffleBtn');
+
+let order = [];
 let current = 0;
 
-const el = {
-  question: document.getElementById('question'),
-  indexLabel: document.getElementById('indexLabel'),
-  prevBtn: document.getElementById('prevBtn'),
-  nextBtn: document.getElementById('nextBtn'),
-  shuffleBtn: document.getElementById('shuffleBtn')
-};
-
+/* initialize app (shuffled order on each load) */
 function init() {
-  // create a list of indexes and shuffle it every load
-  order = Array.from({length: questions.length}, (_, i) => i);
+  order = Array.from({ length: questions.length }, (_, i) => i);
   shuffleArray(order);
   current = 0;
   render();
 }
 
+/* render current question by updating only textContent (fast) */
 function render() {
-  const qIndex = order[current];
-  el.question.textContent = questions[qIndex];
-  el.indexLabel.textContent = `Question ${current + 1} of ${questions.length}`;
-  // disable prev if at start
-  el.prevBtn.disabled = current === 0;
-  el.nextBtn.disabled = current >= questions.length - 1;
+  // guard
+  if (!order || order.length === 0) {
+    leftEl.textContent = 'No questions';
+    rightEl.textContent = '';
+    indexLabel.textContent = '0 of 0';
+    return;
+  }
+
+  const idx = order[current];
+  const q = questions[idx];
+  const parts = splitQuestion(q);
+
+  // update DOM — minimal changes
+  leftEl.textContent = parts.left;
+  rightEl.textContent = parts.right;
+
+  indexLabel.textContent = `Question ${current + 1} of ${questions.length}`;
+
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current >= order.length - 1;
+
+  // small subtle pop animation: uses transform & opacity only
+  const wyrRow = document.getElementById('wyrRow');
+  wyrRow.style.opacity = '0';
+  wyrRow.style.transform = 'translateY(6px)';
+  requestAnimationFrame(() => {
+    wyrRow.style.transition = 'transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease';
+    wyrRow.style.opacity = '1';
+    wyrRow.style.transform = 'translateY(0)';
+    // remove the transition after it's done to keep updates cheap
+    setTimeout(() => { wyrRow.style.transition = ''; }, 280);
+  });
 }
 
-/* ====== Navigation ====== */
-el.nextBtn.addEventListener('click', () => {
+/* navigation handlers */
+nextBtn.addEventListener('click', () => {
   if (current < order.length - 1) current++;
   render();
 });
-el.prevBtn.addEventListener('click', () => {
+prevBtn.addEventListener('click', () => {
   if (current > 0) current--;
   render();
 });
-el.shuffleBtn.addEventListener('click', () => {
+shuffleBtn.addEventListener('click', () => {
   shuffleArray(order);
   current = 0;
   render();
 });
 
-/* keyboard navigation */
+/* keyboard: Arrow keys + Space */
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space') {
     e.preventDefault();
@@ -280,5 +342,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* initialize on DOM ready */
+/* Start when DOM ready */
 document.addEventListener('DOMContentLoaded', init);

@@ -3,25 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Would You Rather — Fun Game</title>
+  <title>Would You Rather — Smooth</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Water motion background layers are created in CSS -->
-  <main class="app">
+  <!-- light GPU-backed animated background -->
+  <div class="bg-blobs" aria-hidden="true"></div>
+
+  <main class="app" role="main">
     <header class="header">
       <h1>Would You Rather?</h1>
-      <p class="subtitle">A simple, family-friendly game — questions change order every page load</p>
+      <p class="subtitle">Family-friendly · Questions shuffle on every load</p>
     </header>
 
-    <section class="card" id="card">
+    <section class="card" id="card" aria-live="polite">
       <div class="meta">
         <span id="indexLabel">Question 1 of 200</span>
-        <button id="shuffleBtn" class="small">Shuffle</button>
+        <div class="meta-controls">
+          <button id="shuffleBtn" class="small">Shuffle</button>
+        </div>
       </div>
 
-      <div id="question" class="question" tabindex="0" aria-live="polite">
-        Loading...
+      <div class="wyr-row" id="wyrRow" tabindex="0">
+        <div class="side left" id="leftSide">Loading…</div>
+        <div class="or-divider">OR</div>
+        <div class="side right" id="rightSide"></div>
       </div>
 
       <div class="controls">
@@ -30,12 +36,12 @@
       </div>
 
       <div class="hint">
-        Tip: press Space for next, ← / → to navigate.
+        Tip: Use ← / → or Space to move. Press Shuffle to reshuffle.
       </div>
     </section>
 
     <footer class="footer">
-      <small>Made with a splash of water motion background • Your questions shuffle every load</small>
+      <small>Optimized for smoothness — reduced heavy effects</small>
     </footer>
   </main>
 
