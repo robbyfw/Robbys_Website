@@ -1,67 +1,154 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at center, #111 0%, #333 100%);
-  color: white;
-  text-align: center;
+/* Page + watery animated background (pure CSS) */
+:root{
+  --bg-top: #0b2340;
+  --bg-bottom: #021428;
+  --card-bg: rgba(255,255,255,0.96);
+  --card-color: #0b0b0b;
 }
 
-.title {
-  padding: 20px;
+/* full-screen watery background using layered animated radial gradients */
+html,body{
+  height:100%;
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  background: radial-gradient(1200px 600px at 20% 30%, rgba(255,255,255,0.03), transparent 10%),
+              radial-gradient(900px 500px at 80% 70%, rgba(255,255,255,0.02), transparent 10%),
+              linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  overflow: auto;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+/* subtle moving layers to mimic watery motion */
+body::before, body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  mix-blend-mode: screen;
+  opacity:0.12;
+  background-repeat: repeat;
+  filter: blur(14px);
+  animation: waterMove 12s linear infinite;
+}
+body::after{
+  opacity:0.06;
+  animation-duration: 22s;
+  transform: rotate(30deg);
 }
 
-svg {
-  width: 300px;
-  height: 700px;
+@keyframes waterMove {
+  from { background-position: 0 0; }
+  to   { background-position: 800px 600px; }
 }
 
-/* Organs styling */
-.organ {
-  stroke: black;
-  stroke-width: 1px;
+/* page layout */
+.page {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap: 14px;
+  padding:28px 18px;
+  box-sizing:border-box;
+  color: #e8f6ff;
+  text-align:center;
+}
+
+.header h1{
+  margin:0;
+  font-size:22px;
+  letter-spacing:0.6px;
+}
+.header .sub{ margin:6px 0 0; font-size:13px; color:rgba(235,245,255,0.8); }
+
+/* stage containing svg */
+.stage{
+  position:relative;
+  width:100%;
+  max-width:940px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+/* SVG sizing */
+#anatomy{
+  width:420px;
+  height:auto;
+  display:block;
+  z-index:10;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45));
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* overlay connector covers same visual area — absolute on top of the anatomy */
+.overlay{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:40;
+  overflow:visible;
+}
+
+/* Organ hover effects */
+.organ{
   cursor: pointer;
-  transition: transform 0.2s, filter 0.2s;
+  transition: transform 200ms cubic-bezier(.2,.9,.3,1), filter 180ms;
+  transform-origin: center;
+}
+.organ:hover{
+  transform: translateY(-6px) scale(1.03);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
 }
 
-.organ:hover {
-  transform: scale(1.05);
-  filter: brightness(1.2);
+/* connector line animation controlled via stroke-dasharray in JS */
+#line{
+  transition: stroke-opacity 160ms ease;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-opacity: 0;
 }
 
-/* Colors for realism */
-.brain { fill: #f2b6d8; }
-.lungs { fill: #c77b7b; }
-.heart { fill: #d33; }
-.liver { fill: #8b0000; }
-.stomach { fill: #f4a460; }
-.kidney { fill: #a0522d; }
-.intestines { fill: #ffcc99; }
-.bladder { fill: #f5d76e; }
+/* Info card style */
+.info{
+  position:absolute;
+  z-index:60;
+  min-width:200px;
+  max-width:320px;
+  padding:12px 14px;
+  border-radius:12px;
+  background: var(--card-bg);
+  color: var(--card-color);
+  box-shadow: 0 12px 40px rgba(1,10,20,0.45);
+  transform: translateY(-8px) scale(0.98);
+  opacity:0;
+  pointer-events:auto;
+  transition: transform 200ms cubic-bezier(.15,.9,.3,1), opacity 180ms;
+  border: 1px solid rgba(0,0,0,0.06);
+  display:none;
+}
+.info.show{
+  display:block;
+  opacity:1;
+  transform: translateY(0) scale(1);
+}
+.info strong{ display:block; margin-bottom:6px; font-size:15px; }
+.info p{ margin:0; font-size:13px; line-height:1.4; color:#1b1b1b; }
 
-/* Info box */
-#info-box {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
-  border: 2px solid #555;
-  border-radius: 10px;
-  padding: 15px 20px;
-  max-width: 300px;
-  text-align: left;
-  animation: fadeIn 0.3s ease;
+/* responsive */
+@media (max-width:700px){
+  #anatomy{ width:320px; }
+  .info{ min-width:160px; max-width:260px; font-size:13px; }
 }
 
-.hidden { display: none; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, 20px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+/* reduce animations if user prefers */
+@media (prefers-reduced-motion: reduce) {
+  .organ, #line, .info { transition: none !important; animation: none !important; }
+  body::before, body::after { display:none; }
 }
