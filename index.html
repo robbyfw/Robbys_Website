@@ -6,26 +6,24 @@
   <title>Robby's Website</title>
   <link rel="stylesheet" href="main_style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
-
-  <!-- Website Logo / Favicon -->
   <link rel="icon" type="image/png" href="/Studio-Project.png">
   <link rel="apple-touch-icon" href="/Studio-Project.png">
 </head>
 <body>
   <!-- Sidebar Menu -->
-  <div id="sidebar" class="sidebar">
+  <nav id="sidebar" class="sidebar" aria-label="Main navigation">
     <a href="https://fwrobby.site">Home</a>
     <a href="https://fwrobby.site/about">About Me</a>
     <a href="https://fwrobby.site/contact">Contact Me</a>
     <a href="https://fwrobby.site/donate">Donations</a>
-  </div>
+  </nav>
 
-  <!-- Hamburger Icon -->
-  <div class="hamburger" id="hamburger">
+  <!-- Hamburger Icon (now a button for accessibility) -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="sidebar" aria-expanded="false" type="button">
     <span></span>
     <span></span>
     <span></span>
-  </div>
+  </button>
 
   <div class="container">
     <!-- Hero Section -->
@@ -42,62 +40,68 @@
     <section class="cards">
       <h2>Featured Projects</h2>
       <ul class="project-list">
-        <li class="project-item">
-          <div>
-            <p class="project-title">Sukho History</p>
-            <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
-          </div>
-          <a href="https://fwrobby.site/sukho_history/" class="status visit-btn">Visit →</a>
+        <li>
+          <a class="project-item" href="https://fwrobby.site/sukho_history/">
+            <div>
+              <span class="project-title">Sukho History</span>
+              <span class="project-desc">A short site about Sukho — village history, saints, architecture.</span>
+            </div>
+            <span class="status visit-btn">Visit →</span>
+          </a>
         </li>
-
-        <li class="project-item">
-          <div>
-            <p class="project-title">Simple Calculator</p>
-            <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
-          </div>
-          <a href="https://fwrobby.site/calculator" class="status visit-btn">Visit →</a>
+        <li>
+          <a class="project-item" href="https://fwrobby.site/calculator">
+            <div>
+              <span class="project-title">Simple Calculator</span>
+              <span class="project-desc">A clean and simple tool — basic math operations, modern style.</span>
+            </div>
+            <span class="status visit-btn">Visit →</span>
+          </a>
         </li>
-
-        <li class="project-item">
-          <div>
-            <p class="project-title">Coin Flip</p>
-            <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
-          </div>
-          <a href="https://fwrobby.site/coin_flip" class="status visit-btn">Visit →</a>
+        <li>
+          <a class="project-item" href="https://fwrobby.site/coin_flip">
+            <div>
+              <span class="project-title">Coin Flip</span>
+              <span class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</span>
+            </div>
+            <span class="status visit-btn">Visit →</span>
+          </a>
         </li>
-
-        <li class="project-item">
-          <div>
-            <p class="project-title">Weather App</p>
-            <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
-          </div>
-          <a href="https://fwrobby.site/weather_app" class="status visit-btn">Visit →</a>
+        <li>
+          <a class="project-item" href="https://fwrobby.site/weather_app">
+            <div>
+              <span class="project-title">Weather App</span>
+              <span class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</span>
+            </div>
+            <span class="status visit-btn">Visit →</span>
+          </a>
         </li>
-
-        <!-- ✅ New Quiz Project -->
-        <li class="project-item">
-          <div>
-            <p class="project-title">Quiz Time</p>
-            <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
-          </div>
-          <a href="https://fwrobby.site/quiz" class="status visit-btn">Visit →</a>
+        <li>
+          <a class="project-item" href="https://fwrobby.site/quiz">
+            <div>
+              <span class="project-title">Quiz Time</span>
+              <span class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</span>
+            </div>
+            <span class="status visit-btn">Visit →</span>
+          </a>
         </li>
       </ul>
     </section>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
-    </footer>
   </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+  </footer>
 
   <script>
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
 
     hamburger.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
+      const expanded = sidebar.classList.toggle("open");
       hamburger.classList.toggle("active");
+      hamburger.setAttribute("aria-expanded", expanded);
     });
   </script>
 </body>
