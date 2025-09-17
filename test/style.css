@@ -1,112 +1,67 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  color: #fff;
-  background: linear-gradient(120deg, #1f1c2c 0%, #928dab 100%);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-#parallax-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(circle at 30% 30%, #f6d365 0%, transparent 80%),
-              radial-gradient(circle at 70% 70%, #fda085 0%, transparent 70%);
-  transition: background-position 0.2s;
-}
-
-header {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at center, #111 0%, #333 100%);
+  color: white;
   text-align: center;
-  padding: 2rem 1rem 1rem 1rem;
-  background: rgba(30,30,40,0.7);
-  border-bottom: 2px solid #fff2;
-  z-index: 2;
-  position: relative;
 }
 
-.card-container {
+.title {
+  padding: 20px;
+}
+
+.container {
   display: flex;
-  gap: 2rem;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 3rem 0;
-  z-index: 2;
-  position: relative;
+  margin-top: 10px;
 }
 
-.card {
-  width: 280px;
-  min-height: 180px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 18px;
-  box-shadow: 0 8px 32px 0 rgba(31, 28, 44, 0.37);
-  border: 1px solid rgba(255,255,255,0.18);
-  padding: 2rem;
-  transition: transform 0.35s cubic-bezier(.17,.67,.83,.67), box-shadow 0.35s;
-  will-change: transform;
-  perspective: 600px;
+svg {
+  width: 300px;
+  height: 700px;
+}
+
+/* Organs styling */
+.organ {
+  stroke: black;
+  stroke-width: 1px;
   cursor: pointer;
-  position: relative;
+  transition: transform 0.2s, filter 0.2s;
 }
 
-.card:hover {
-  transform: rotateY(18deg) rotateX(8deg) scale(1.06);
-  box-shadow: 0 12px 48px 0 rgba(71, 28, 144, 0.37), 0 0 80px 0 #fda08544;
+.organ:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
 }
 
-.card h2 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #fda085;
-  letter-spacing: 1px;
+/* Colors for realism */
+.brain { fill: #f2b6d8; }
+.lungs { fill: #c77b7b; }
+.heart { fill: #d33; }
+.liver { fill: #8b0000; }
+.stomach { fill: #f4a460; }
+.kidney { fill: #a0522d; }
+.intestines { fill: #ffcc99; }
+.bladder { fill: #f5d76e; }
+
+/* Info box */
+#info-box {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #555;
+  border-radius: 10px;
+  padding: 15px 20px;
+  max-width: 300px;
+  text-align: left;
+  animation: fadeIn 0.3s ease;
 }
 
-.card p {
-  font-size: 1.06rem;
-  color: #fff;
-}
+.hidden { display: none; }
 
-button#sound-btn {
-  padding: 0.8rem 1.2rem;
-  border-radius: 11px;
-  border: none;
-  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
-  color: #2d2149;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 16px 0 #fda08544;
-  transition: transform 0.18s, box-shadow 0.25s;
-  outline: none;
-}
-
-button#sound-btn:hover {
-  transform: scale(1.12);
-  box-shadow: 0 5px 32px 0 #fda08588;
-}
-
-footer {
-  text-align: center;
-  padding: 1.4rem 0;
-  background: rgba(30,30,40,0.7);
-  border-top: 2px solid #fff2;
-  font-size: 0.98rem;
-  position: relative;
-  z-index: 2;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .card-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .card {
-    margin: 1rem auto;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }

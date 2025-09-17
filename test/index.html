@@ -1,37 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Modern 3D Interactive Page</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <title>Human Organs Interactive</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="parallax-bg"></div>
-  <header>
-    <h1>Modern 3D Interactive Page</h1>
-    <p>Hover, move your mouse, and interact for effects!</p>
-  </header>
-  <main>
-    <div class="card-container">
-      <div class="card">
-        <h2>3D Hover Card</h2>
-        <p>Hover me for a 3D effect!</p>
-      </div>
-      <div class="card">
-        <h2>Animated Gradient</h2>
-        <p>Background colors shift dynamically.</p>
-      </div>
-      <div class="card">
-        <h2>Sound Button</h2>
-        <button id="sound-btn">Hover Me!</button>
-      </div>
-    </div>
-  </main>
-  <footer>
-    <p>&copy; 2025 Modern Effects Demo</p>
-  </footer>
-  <audio id="button-audio" src="click.mp3" preload="auto"></audio>
+  <h1 class="title">Interactive Human Organs</h1>
+
+  <div class="container">
+    <svg id="human-body" viewBox="0 0 300 700">
+
+      <!-- Brain -->
+      <ellipse id="brain" cx="150" cy="60" rx="40" ry="25" class="organ brain"/>
+
+      <!-- Lungs -->
+      <ellipse id="lung-left" cx="120" cy="160" rx="35" ry="60" class="organ lungs"/>
+      <ellipse id="lung-right" cx="180" cy="160" rx="35" ry="60" class="organ lungs"/>
+
+      <!-- Heart -->
+      <path id="heart" d="M150 170
+        C140 150, 110 150, 110 175
+        C110 200, 150 220, 150 220
+        C150 220, 190 200, 190 175
+        C190 150, 160 150, 150 170 Z"
+        class="organ heart"/>
+
+      <!-- Liver -->
+      <ellipse id="liver" cx="170" cy="260" rx="70" ry="30" class="organ liver"/>
+
+      <!-- Stomach -->
+      <path id="stomach" d="M140 230
+        C130 250, 160 270, 150 310
+        C150 330, 170 330, 170 310
+        C180 280, 160 250, 140 230 Z"
+        class="organ stomach"/>
+
+      <!-- Kidneys -->
+      <ellipse id="kidney-left" cx="100" cy="280" rx="20" ry="35" class="organ kidney"/>
+      <ellipse id="kidney-right" cx="200" cy="280" rx="20" ry="35" class="organ kidney"/>
+
+      <!-- Intestines -->
+      <rect id="intestines" x="100" y="340" width="100" height="120" rx="40" ry="40" class="organ intestines"/>
+
+      <!-- Bladder -->
+      <path id="bladder" d="M150 480
+        C130 480, 130 510, 150 520
+        C170 510, 170 480, 150 480 Z"
+        class="organ bladder"/>
+
+    </svg>
+  </div>
+
+  <div id="info-box" class="hidden">
+    <h2 id="organ-name"></h2>
+    <p id="organ-desc"></p>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
