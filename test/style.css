@@ -1,154 +1,163 @@
-/* Page + watery animated background (pure CSS) */
-:root{
-  --bg-top: #0b2340;
-  --bg-bottom: #021428;
-  --card-bg: rgba(255,255,255,0.96);
-  --card-color: #0b0b0b;
+/* copied from your main page and adapted (water animation + layout) */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* full-screen watery background using layered animated radial gradients */
-html,body{
-  height:100%;
-  margin:0;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  background: radial-gradient(1200px 600px at 20% 30%, rgba(255,255,255,0.03), transparent 10%),
-              radial-gradient(900px 500px at 80% 70%, rgba(255,255,255,0.02), transparent 10%),
-              linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
-  overflow: auto;
+/* Use your waterflow background exactly */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  line-height: 1.6;
 }
 
-/* subtle moving layers to mimic watery motion */
-body::before, body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  mix-blend-mode: screen;
-  opacity:0.12;
-  background-repeat: repeat;
-  filter: blur(14px);
-  animation: waterMove 12s linear infinite;
-}
-body::after{
-  opacity:0.06;
-  animation-duration: 22s;
-  transform: rotate(30deg);
+/* Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
-@keyframes waterMove {
-  from { background-position: 0 0; }
-  to   { background-position: 800px 600px; }
+/* Background animation */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* page layout */
-.page {
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 14px;
-  padding:28px 18px;
-  box-sizing:border-box;
-  color: #e8f6ff;
-  text-align:center;
+/* container */
+.container {
+  max-width: 1024px;
+  margin: auto;
+  padding: 2rem;
 }
 
-.header h1{
-  margin:0;
-  font-size:22px;
-  letter-spacing:0.6px;
+/* hero header */
+.hero {
+  text-align: center;
+  margin: 1.2rem 0;
 }
-.header .sub{ margin:6px 0 0; font-size:13px; color:rgba(235,245,255,0.8); }
-
-/* stage containing svg */
-.stage{
-  position:relative;
-  width:100%;
-  max-width:940px;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #f5f7f9;
+  margin-bottom: 0.25rem;
 }
-
-/* SVG sizing */
-#anatomy{
-  width:420px;
-  height:auto;
-  display:block;
-  z-index:10;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45));
-  background: transparent;
-  border-radius: 12px;
+.tagline {
+  font-weight: 600;
+  color: #cfd9e1;
+  margin-bottom: 0.6rem;
 }
 
-/* overlay connector covers same visual area — absolute on top of the anatomy */
-.overlay{
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:40;
-  overflow:visible;
+/* anatomy area */
+.anatomy-area {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 2.5rem;
 }
 
-/* Organ hover effects */
-.organ{
+/* main SVG styling */
+#anatomy {
+  width: 480px;
+  height: auto;
+  z-index: 10;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.6));
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+
+/* connector overlay sits on top of anatomy (absolute) */
+.connector {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+  overflow: visible;
+}
+
+/* style for organs: slight hover pop + shadow */
+.organ {
   cursor: pointer;
-  transition: transform 200ms cubic-bezier(.2,.9,.3,1), filter 180ms;
+  transition: transform 180ms cubic-bezier(.2,.9,.3,1), filter 160ms;
   transform-origin: center;
 }
-.organ:hover{
+.organ:hover {
   transform: translateY(-6px) scale(1.03);
-  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,0.45));
 }
 
-/* connector line animation controlled via stroke-dasharray in JS */
-#line{
-  transition: stroke-opacity 160ms ease;
-  stroke: #ffffff;
+/* connector line transitions and default color like the image (black) */
+#conn-line {
+  transition: stroke-dashoffset 360ms cubic-bezier(.2,.9,.28,1), stroke-opacity 180ms ease;
+  stroke: #222;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-opacity: 0;
 }
 
-/* Info card style */
-.info{
-  position:absolute;
-  z-index:60;
-  min-width:200px;
-  max-width:320px;
-  padding:12px 14px;
-  border-radius:12px;
-  background: var(--card-bg);
-  color: var(--card-color);
-  box-shadow: 0 12px 40px rgba(1,10,20,0.45);
+/* Info label box (similar to labels from your picture: compact, white text on dark/transparent card) */
+.info {
+  position: absolute;
+  z-index: 60;
+  min-width: 180px;
+  max-width: 300px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.95);
+  color: #111;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
   transform: translateY(-8px) scale(0.98);
-  opacity:0;
-  pointer-events:auto;
-  transition: transform 200ms cubic-bezier(.15,.9,.3,1), opacity 180ms;
+  opacity: 0;
+  pointer-events: auto;
+  transition: transform 200ms cubic-bezier(.15,.9,.3,1), opacity 160ms;
+  display: none;
   border: 1px solid rgba(0,0,0,0.06);
-  display:none;
 }
-.info.show{
-  display:block;
-  opacity:1;
+.info.show {
+  display: block;
+  opacity: 1;
   transform: translateY(0) scale(1);
 }
-.info strong{ display:block; margin-bottom:6px; font-size:15px; }
-.info p{ margin:0; font-size:13px; line-height:1.4; color:#1b1b1b; }
+.info strong { display: block; margin-bottom: 6px; font-size: 15px; }
+.info p { margin: 0; font-size: 13px; color: #222; line-height: 1.4; }
 
-/* responsive */
-@media (max-width:700px){
-  #anatomy{ width:320px; }
-  .info{ min-width:160px; max-width:260px; font-size:13px; }
+/* add a tiny triangular pointer on the card toward the line */
+.info::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: inherit;
+  box-shadow: none;
+  z-index: -1;
+  opacity: 0.98;
+  border-left: 1px solid rgba(0,0,0,0.03);
 }
 
-/* reduce animations if user prefers */
+/* responsive */
+@media (max-width: 900px) {
+  #anatomy { width: 380px; }
+  .info { min-width: 150px; max-width: 220px; }
+}
+@media (max-width: 520px) {
+  #anatomy { width: 300px; }
+  .info { min-width: 140px; max-width: 200px; left: 8px !important; right: 8px !important; }
+}
+
+/* reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .organ, #line, .info { transition: none !important; animation: none !important; }
-  body::before, body::after { display:none; }
+  .organ, #conn-line, .info { transition: none !important; animation: none !important; }
 }

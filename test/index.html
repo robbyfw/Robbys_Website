@@ -3,170 +3,132 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Interactive Human Organs — Anatomy</title>
+  <title>Organs — Interactive Anatomy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="page">
-    <header class="header">
-      <h1>Interactive Human Organs</h1>
-      <p class="sub">Hover or click an organ → a line will draw out and show a brief description.</p>
+  <main class="container">
+    <header class="hero">
+      <h1>Organs</h1>
+      <p class="tagline">Hover or click an organ → a line will draw out and show a short description.</p>
     </header>
 
-    <section class="stage">
-      <!-- SVG body + organs -->
+    <section class="anatomy-area">
+      <!-- SVG torso with organs -->
       <svg id="anatomy" viewBox="0 0 360 800" xmlns="http://www.w3.org/2000/svg" aria-label="Human torso with organs">
         <defs>
-          <!-- Gradients -->
-          <linearGradient id="skin" x1="0" x2="0" y1="0" y2="1">
+          <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#f4cbaa"/>
             <stop offset="1" stop-color="#e5ad87"/>
           </linearGradient>
 
           <linearGradient id="heartGrad" x1="0" x2="1">
-            <stop offset="0" stop-color="#ff5252"/>
-            <stop offset="1" stop-color="#bb0f10"/>
-          </linearGradient>
-
-          <linearGradient id="lungGrad" x1="0" x2="1">
-            <stop offset="0" stop-color="#ffdfe0"/>
-            <stop offset="1" stop-color="#ffb3b5"/>
-          </linearGradient>
-
-          <linearGradient id="liverGrad" x1="0" x2="1">
-            <stop offset="0" stop-color="#e3a05a"/>
-            <stop offset="1" stop-color="#b86b2f"/>
-          </linearGradient>
-
-          <linearGradient id="stomachGrad" x1="0" x2="1">
-            <stop offset="0" stop-color="#ffe9b9"/>
-            <stop offset="1" stop-color="#f0b85a"/>
+            <stop offset="0" stop-color="#ff5c5c"/>
+            <stop offset="1" stop-color="#a60d0d"/>
           </linearGradient>
 
           <filter id="softShadow" x="-200%" y="-200%" width="400%" height="400%">
-            <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.18"/>
+            <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.2" />
           </filter>
         </defs>
 
-        <!-- Body outline (torso) -->
+        <!-- torso outline (context) -->
         <path id="torso" d="
-          M180 30
-          C140 30 110 58 100 100
+          M180 32
+          C140 32 110 60 100 100
           L95 170
           C88 230 72 320 72 380
           C72 460 95 520 160 540
           C220 520 248 462 248 380
           C248 320 232 230 225 170
           L220 100
-          C210 58 180 30 180 30 Z
-        " fill="url(#skin)" stroke="#c18868" stroke-width="1.5"/>
+          C210 60 180 32 180 32 Z"
+          fill="url(#skinGrad)" stroke="#b67f60" stroke-width="1.6" />
 
         <!-- Brain -->
-        <g id="brain" class="organ" data-name="Brain" data-info="Controls thought, memory, emotion and most body functions." data-offset-x="120" data-offset-y="-40">
-          <path d="M140 55
-                   C140 40 155 32 170 34
-                   C178 26 198 28 205 38
-                   C220 35 240 46 244 61
-                   C262 68 270 85 265 98
-                   C250 108 220 110 200 100
-                   C190 108 170 112 150 104
-                   C135 98 128 80 140 55 Z" fill="#f1c0d7" stroke="#d19fb2" stroke-width="1"/>
+        <g id="brain" class="organ" data-name="Brain" data-info="Controls thought, memory and body functions." data-offset-x="140" data-offset-y="-50">
+          <path d="M135 48 C140 32 160 24 176 28 C186 22 206 24 214 36 C228 34 245 47 250 63 C268 70 276 88 268 102 C250 112 220 116 200 106 C190 112 172 116 152 108 C136 100 128 82 135 48 Z"
+                fill="#e9c9d6" stroke="#cda8b3" stroke-width="1" />
         </g>
 
-        <!-- Lungs -->
-        <g id="lung-left" class="organ" data-name="Left Lung" data-info="Primary organ for gas exchange; has 2 lobes." data-offset-x="120" data-offset-y="-20">
-          <path d="M125 150
-                   C105 140 95 160 96 185
-                   C98 220 110 260 140 275
-                   C150 282 160 280 170 272
-                   C150 250 140 200 140 170
-                   C140 155 135 152 125 150 Z"
-                fill="url(#lungGrad)" stroke="#d89b9b" stroke-width="1"/>
+        <!-- Lungs (left) -->
+        <g id="lung-left" class="organ" data-name="Left Lung" data-info="Gas exchange organ (2 lobes)." data-offset-x="120" data-offset-y="-10">
+          <path d="M125 150 C106 140 96 160 98 186 C102 220 116 260 148 274 C158 279 168 278 176 270 C158 256 148 210 148 176 C148 154 141 150 125 150 Z"
+                fill="#ffdfe0" stroke="#d2a8a8" stroke-width="1" />
         </g>
 
-        <g id="lung-right" class="organ" data-name="Right Lung" data-info="Primary organ for gas exchange; has 3 lobes." data-offset-x="220" data-offset-y="-20">
-          <path d="M235 150
-                   C255 140 265 160 264 185
-                   C262 220 250 260 220 275
-                   C210 282 200 280 190 272
-                   C210 250 220 200 220 170
-                   C220 155 225 152 235 150 Z"
-                fill="url(#lungGrad)" stroke="#d89b9b" stroke-width="1"/>
+        <!-- Lungs (right) -->
+        <g id="lung-right" class="organ" data-name="Right Lung" data-info="Gas exchange organ (3 lobes)." data-offset-x="220" data-offset-y="-10">
+          <path d="M235 150 C254 140 264 160 262 186 C258 220 244 260 212 274 C202 279 192 278 184 270 C202 256 212 210 212 176 C212 154 219 150 235 150 Z"
+                fill="#ffdfe0" stroke="#d2a8a8" stroke-width="1" />
         </g>
 
         <!-- Heart -->
-        <g id="heart" class="organ" data-name="Heart" data-info="Muscular pump that circulates blood to the entire body." data-offset-x="180" data-offset-y="10">
-          <path d="M180 190
-                   C170 170 150 160 140 180
-                   C130 200 150 220 180 240
-                   C210 220 230 200 220 180
-                   C215 170 195 170 180 190 Z"
+        <g id="heart" class="organ" data-name="Heart" data-info="Muscular pump that circulates blood." data-offset-x="180" data-offset-y="5">
+          <path d="M180 190 C172 170 150 160 140 178 C130 198 148 216 180 236 C212 216 230 198 220 178 C210 160 188 170 180 190 Z"
                 fill="url(#heartGrad)" stroke="#7a0b0b" stroke-width="1"/>
         </g>
 
         <!-- Liver -->
-        <g id="liver" class="organ" data-name="Liver" data-info="Large organ that detoxifies blood, stores energy and makes bile." data-offset-x="220" data-offset-y="40">
-          <path d="M200 250
-                   C270 245 300 270 288 300
-                   C268 325 220 335 170 325
-                   C140 320 130 305 150 290
-                   C165 280 180 260 200 250 Z"
-                fill="url(#liverGrad)" stroke="#a5642d" stroke-width="1"/>
+        <g id="liver" class="organ" data-name="Liver" data-info="Detoxifies blood and produces bile." data-offset-x="220" data-offset-y="45">
+          <path d="M200 250 C270 245 300 270 288 300 C268 325 220 335 170 325 C140 320 132 305 150 292 C165 283 180 260 200 250 Z"
+                fill="#e3a05a" stroke="#a86a36" stroke-width="1"/>
+        </g>
+
+        <!-- Gallbladder (small) -->
+        <g id="gallbladder" class="organ" data-name="Gallbladder" data-info="Stores and concentrates bile." data-offset-x="260" data-offset-y="55">
+          <ellipse cx="230" cy="305" rx="8" ry="12" fill="#9dbb3b" stroke="#7b8e2a" stroke-width="1"/>
+        </g>
+
+        <!-- Pancreas (stylized) -->
+        <g id="pancreas" class="organ" data-name="Pancreas" data-info="Produces enzymes and hormones like insulin." data-offset-x="140" data-offset-y="70">
+          <path d="M160 300 C170 292 195 290 220 300 C230 306 228 318 220 324 C200 336 170 336 150 324 C142 318 145 308 160 300 Z"
+                fill="#e8c19a" stroke="#c69a71" stroke-width="1"/>
         </g>
 
         <!-- Stomach -->
-        <g id="stomach" class="organ" data-name="Stomach" data-info="Breaks down food using acid and enzymes; mixes and stores food." data-offset-x="140" data-offset-y="70">
-          <path d="M150 280
-                   C130 290 125 315 135 340
-                   C145 360 170 370 190 360
-                   C200 355 205 340 200 330
-                   C185 320 165 305 150 280 Z"
-                fill="url(#stomachGrad)" stroke="#c99b5e" stroke-width="1"/>
+        <g id="stomach" class="organ" data-name="Stomach" data-info="Breaks down and digests food." data-offset-x="132" data-offset-y="90">
+          <path d="M150 280 C132 292 126 316 136 340 C146 360 172 368 192 360 C200 356 204 344 198 334 C186 324 170 308 150 280 Z"
+                fill="#ffe8bb" stroke="#caa46b" stroke-width="1"/>
         </g>
 
-        <!-- Kidneys -->
-        <g id="kidney-left" class="organ" data-name="Left Kidney" data-info="Filters blood and produces urine; balances fluids." data-offset-x="80" data-offset-y="100">
-          <path d="M120 320
-                   C110 325 105 345 120 360
-                   C135 375 155 370 165 355
-                   C150 345 144 330 120 320 Z"
-                fill="#b26f56" stroke="#8b4d3b" stroke-width="1"/>
+        <!-- Left Kidney -->
+        <g id="kidney-left" class="organ" data-name="Left Kidney" data-info="Filters blood and produces urine." data-offset-x="90" data-offset-y="120">
+          <path d="M120 322 C110 328 106 346 120 362 C132 376 152 372 162 358 C150 348 142 332 120 322 Z"
+                fill="#b36d52" stroke="#8b4d3b" stroke-width="1"/>
         </g>
 
-        <g id="kidney-right" class="organ" data-name="Right Kidney" data-info="Filters blood and produces urine; balances fluids." data-offset-x="240" data-offset-y="100">
-          <path d="M220 320
-                   C230 325 235 345 220 360
-                   C205 375 185 370 175 355
-                   C190 345 196 330 220 320 Z"
-                fill="#b26f56" stroke="#8b4d3b" stroke-width="1"/>
+        <!-- Right Kidney -->
+        <g id="kidney-right" class="organ" data-name="Right Kidney" data-info="Filters blood and produces urine." data-offset-x="240" data-offset-y="120">
+          <path d="M220 322 C230 328 234 346 220 362 C208 376 188 372 178 358 C190 348 198 332 220 322 Z"
+                fill="#b36d52" stroke="#8b4d3b" stroke-width="1"/>
         </g>
 
-        <!-- Intestines (small + large stylized) -->
-        <g id="intestines" class="organ" data-name="Intestines" data-info="Digest and absorb nutrients (small) and absorb water/form stool (large)." data-offset-x="180" data-offset-y="160">
-          <path d="M100 370
-                   C110 420 140 460 180 460
-                   C220 460 250 420 260 370
-                   C250 390 220 410 180 410
-                   C140 410 120 390 100 370 Z"
-                fill="#ffd2aa" stroke="#d9a77a" stroke-width="1"/>
+        <!-- Small intestine -->
+        <g id="small-intestine" class="organ" data-name="Small Intestine" data-info="Absorbs nutrients from digested food." data-offset-x="180" data-offset-y="175">
+          <path d="M110 370 C130 425 160 460 200 460 C240 460 270 425 290 370 C274 385 244 410 200 410 C158 410 130 386 110 370 Z"
+                fill="#ffd8b3" stroke="#d8a97f" stroke-width="1" />
+        </g>
+
+        <!-- Large intestine (stylized frame around small intestine) -->
+        <g id="large-intestine" class="organ" data-name="Large Intestine" data-info="Absorbs water and forms stool." data-offset-x="60" data-offset-y="220">
+          <path d="M100 350 C98 320 110 300 140 300 L220 300 C250 300 262 320 260 350 C260 390 240 420 200 420 C160 420 130 395 100 350 Z"
+                fill="none" stroke="#e0b28e" stroke-width="8" stroke-linecap="round" />
         </g>
 
         <!-- Bladder -->
-        <g id="bladder" class="organ" data-name="Bladder" data-info="Temporary storage for urine before elimination." data-offset-x="180" data-offset-y="220">
-          <path d="M160 480
-                   C145 490 145 515 160 525
-                   C200 540 220 525 200 505
-                   C190 495 175 490 160 480 Z"
+        <g id="bladder" class="organ" data-name="Bladder" data-info="Stores urine before excretion." data-offset-x="180" data-offset-y="250">
+          <path d="M160 480 C144 492 144 520 160 532 C200 548 220 532 200 512 C190 502 175 494 160 480 Z"
                 fill="#f6d98c" stroke="#cfa96a" stroke-width="1"/>
         </g>
       </svg>
 
-      <!-- overlay connector (full-viewport svg) -->
-      <svg id="connector" class="overlay" viewBox="0 0 360 800" preserveAspectRatio="none" aria-hidden="true">
-        <line id="line" x1="0" y1="0" x2="0" y2="0" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-opacity="0"/>
+      <!-- connector overlay SVG (draws lines) -->
+      <svg id="connector" class="connector" aria-hidden="true">
+        <line id="conn-line" x1="0" y1="0" x2="0" y2="0" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-opacity="0"/>
       </svg>
 
-      <!-- Info card -->
+      <!-- Info label box that appears at the end of the line -->
       <div id="info" class="info" aria-hidden="true">
         <strong id="info-title"></strong>
         <p id="info-text"></p>
@@ -174,6 +136,6 @@
     </section>
   </main>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
