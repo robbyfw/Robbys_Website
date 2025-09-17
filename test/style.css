@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(120deg, #1f1c2c 0%, #928dab 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#parallax-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 30% 30%, #f6d365 0%, transparent 80%),
+              radial-gradient(circle at 70% 70%, #fda085 0%, transparent 70%);
+  transition: background-position 0.2s;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem 1rem 1rem;
+  background: rgba(30,30,40,0.7);
+  border-bottom: 2px solid #fff2;
+  z-index: 2;
+  position: relative;
+}
+
+.card-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 3rem 0;
+  z-index: 2;
+  position: relative;
+}
+
+.card {
+  width: 280px;
+  min-height: 180px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 28, 44, 0.37);
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 2rem;
+  transition: transform 0.35s cubic-bezier(.17,.67,.83,.67), box-shadow 0.35s;
+  will-change: transform;
+  perspective: 600px;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  transform: rotateY(18deg) rotateX(8deg) scale(1.06);
+  box-shadow: 0 12px 48px 0 rgba(71, 28, 144, 0.37), 0 0 80px 0 #fda08544;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fda085;
+  letter-spacing: 1px;
+}
+
+.card p {
+  font-size: 1.06rem;
+  color: #fff;
+}
+
+button#sound-btn {
+  padding: 0.8rem 1.2rem;
+  border-radius: 11px;
+  border: none;
+  background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  color: #2d2149;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 16px 0 #fda08544;
+  transition: transform 0.18s, box-shadow 0.25s;
+  outline: none;
+}
+
+button#sound-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 5px 32px 0 #fda08588;
+}
+
+footer {
+  text-align: center;
+  padding: 1.4rem 0;
+  background: rgba(30,30,40,0.7);
+  border-top: 2px solid #fff2;
+  font-size: 0.98rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .card-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .card {
+    margin: 1rem auto;
+  }
+}
