@@ -4,18 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Would You Rather — Smooth</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles2.css" />
+  <link rel="stylesheet" href="main_style.css" />
+  <link rel="icon" type="image/png" href="/Studio-Project.png">
+  <link rel="apple-touch-icon" href="/Studio-Project.png">
 </head>
 <body>
-  <!-- light GPU-backed animated background -->
-  <div class="bg-blobs" aria-hidden="true"></div>
-
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
+  </div>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <!-- Main App Container -->
   <main class="app" role="main">
     <header class="header">
       <h1>Would You Rather?</h1>
       <p class="subtitle">Family-friendly · Questions shuffle on every load</p>
     </header>
-
     <section class="card" id="card" aria-live="polite">
       <div class="meta">
         <span id="indexLabel">Question 1 of 200</span>
@@ -23,28 +36,28 @@
           <button id="shuffleBtn" class="small">Shuffle</button>
         </div>
       </div>
-
       <div class="wyr-row" id="wyrRow" tabindex="0">
         <div class="side left" id="leftSide">Loading…</div>
         <div class="or-divider">OR</div>
         <div class="side right" id="rightSide"></div>
       </div>
-
       <div class="controls">
         <button id="prevBtn" class="btn">← Prev</button>
         <button id="nextBtn" class="btn primary">Next →</button>
       </div>
-
-      <div class="hint">
-        Tip: Use ← / → or Space to move. Press Shuffle to reshuffle.
-      </div>
     </section>
-
-    <footer class="footer">
-      <small>Optimized for smoothness — reduced heavy effects</small>
+    <footer class="site-footer">
+      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
     </footer>
   </main>
-
-  <script src="script.js" defer></script>
+  <script src="would-you-rather.js" defer></script>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+  </script>
 </body>
 </html>

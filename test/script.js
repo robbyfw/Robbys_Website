@@ -1,9 +1,5 @@
 // script.js — optimized for smoothness and two-side UI
 
-/* ========= QUESTIONS ARRAY =========
-   Paste your 200 questions here (the same list you provided).
-   For brevity I'm re-using the exact array you gave earlier.
-*/
 const questions = [
 `Would you rather have the power to fly or turn invisible?`,
 `Would you rather accidentally call your teacher “mom” or trip in front of the whole class?`,
@@ -219,14 +215,8 @@ function shuffleArray(a) {
 /* parse a WYR question into left/right */
 function splitQuestion(raw) {
   if (!raw || typeof raw !== 'string') return { left: raw || '', right: '' };
-
-  // normalize smart quotes to plain quotes and trim
   let q = raw.replace(/[“”]/g, '"').replace(/[‘’]/g, "'").trim();
-
-  // remove leading "Would you rather" if present (case-insensitive)
   q = q.replace(/^Would you rather\s*/i, '').replace(/\?$/, '').trim();
-
-  // find the first ' or ' (space-or-space) case-insensitive
   const match = q.match(/\s+or\s+/i);
   if (match) {
     const idx = match.index;
@@ -237,8 +227,6 @@ function splitQuestion(raw) {
       right: capitalizeSentence(right)
     };
   }
-
-  // fallback: try splitting on ' / ' or ' | ' or comma + or
   const altMatch = q.match(/\s+\/\s+/) || q.match(/\s+\|\s+/);
   if (altMatch) {
     const idx = altMatch.index;
@@ -246,17 +234,13 @@ function splitQuestion(raw) {
     const right = q.slice(idx + altMatch[0].length).trim();
     return { left: capitalizeSentence(left), right: capitalizeSentence(right) };
   }
-
-  // ultimate fallback: left is whole phrase, right is prompt
   return { left: capitalizeSentence(q), right: 'Choose!' };
 }
-
 function capitalizeSentence(s) {
   if (!s) return s;
   return s[0].toUpperCase() + s.slice(1);
 }
 
-/* ====== DOM references & state ====== */
 const leftEl = document.getElementById('leftSide');
 const rightEl = document.getElementById('rightSide');
 const indexLabel = document.getElementById('indexLabel');
@@ -267,7 +251,6 @@ const shuffleBtn = document.getElementById('shuffleBtn');
 let order = [];
 let current = 0;
 
-/* initialize app (shuffled order on each load) */
 function init() {
   order = Array.from({ length: questions.length }, (_, i) => i);
   shuffleArray(order);
@@ -275,21 +258,17 @@ function init() {
   render();
 }
 
-/* render current question by updating only textContent (fast) */
 function render() {
-  // guard
   if (!order || order.length === 0) {
     leftEl.textContent = 'No questions';
     rightEl.textContent = '';
     indexLabel.textContent = '0 of 0';
     return;
   }
-
   const idx = order[current];
   const q = questions[idx];
   const parts = splitQuestion(q);
 
-  // update DOM — minimal changes
   leftEl.textContent = parts.left;
   rightEl.textContent = parts.right;
 
@@ -298,7 +277,7 @@ function render() {
   prevBtn.disabled = current === 0;
   nextBtn.disabled = current >= order.length - 1;
 
-  // small subtle pop animation: uses transform & opacity only
+  // subtle pop animation
   const wyrRow = document.getElementById('wyrRow');
   wyrRow.style.opacity = '0';
   wyrRow.style.transform = 'translateY(6px)';
@@ -306,12 +285,11 @@ function render() {
     wyrRow.style.transition = 'transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease';
     wyrRow.style.opacity = '1';
     wyrRow.style.transform = 'translateY(0)';
-    // remove the transition after it's done to keep updates cheap
     setTimeout(() => { wyrRow.style.transition = ''; }, 280);
   });
 }
 
-/* navigation handlers */
+// Navigation handlers
 nextBtn.addEventListener('click', () => {
   if (current < order.length - 1) current++;
   render();
@@ -326,7 +304,17 @@ shuffleBtn.addEventListener('click', () => {
   render();
 });
 
-/* keyboard: Arrow keys + Space */
+// Move to next question when clicking either side
+leftEl.addEventListener('click', () => {
+  if (current < order.length - 1) current++;
+  render();
+});
+rightEl.addEventListener('click', () => {
+  if (current < order.length - 1) current++;
+  render();
+});
+
+// Keyboard navigation
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space') {
     e.preventDefault();
@@ -342,5 +330,4 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* Start when DOM ready */
 document.addEventListener('DOMContentLoaded', init);
