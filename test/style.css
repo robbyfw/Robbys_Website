@@ -90,25 +90,25 @@ body {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Buttons hover effect from main page (.visit-btn:hover) */
+/* Buttons (removed old hover color change, replaced with white outline) */
 .btn,
 .btn.primary,
 .side {
-  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  transition: outline 0.2s ease-in-out;
+  outline: none;
 }
 
-/* Apply hover effect from main page */
+/* White thin outline on hover, focus, click */
 .btn:hover,
-.side:hover {
-  background: #0078ff;
-  color: white;
-  border-color: #0078ff;
-}
-
-.btn.primary:hover {
-  background: #005fcc;
-  color: white;
-  border-color: #005fcc;
+.btn:focus,
+.btn:active,
+.btn.primary:hover,
+.btn.primary:focus,
+.btn.primary:active,
+.side:hover,
+.side:focus,
+.side:active {
+  outline: 1px solid white;
 }
 
 /* Existing Would You Rather styles below */
