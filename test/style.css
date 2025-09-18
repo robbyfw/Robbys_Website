@@ -92,14 +92,19 @@ body {
 
 /* Buttons hover effect from main page (.visit-btn:hover) */
 .btn,
-.btn.primary {
+.btn.primary,
+.side {
   transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
-.btn:hover {
+
+/* Apply hover effect from main page */
+.btn:hover,
+.side:hover {
   background: #0078ff;
   color: white;
   border-color: #0078ff;
 }
+
 .btn.primary:hover {
   background: #005fcc;
   color: white;
