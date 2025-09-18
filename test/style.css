@@ -12,7 +12,7 @@
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* Waterflow animated background from main page */
+/* Waterflow animated background */
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
@@ -23,9 +23,7 @@ body {
   line-height: 1.6;
 }
 @media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
+  body { background-attachment: scroll; }
 }
 @keyframes waterflow {
   0% { background-position: 0% 50%; }
@@ -33,7 +31,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Sidebar styles from main page */
+/* Sidebar */
 .sidebar {
   height: 100%;
   width: 0;
@@ -60,11 +58,9 @@ body {
   color: white;
   background: rgba(255, 255, 255, 0.05);
 }
-.sidebar.open {
-  width: 250px;
-}
+.sidebar.open { width: 250px; }
 
-/* Hamburger styles from main page */
+/* Hamburger */
 .hamburger {
   position: fixed;
   top: 20px;
@@ -83,22 +79,21 @@ body {
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
+.hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Buttons (removed old hover color change, replaced with white outline) */
+/* Button + Choice Box hover animation (copied from main page .project-item) */
 .btn,
 .btn.primary,
 .side {
-  transition: outline 0.2s ease-in-out;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.06);
   outline: none;
 }
 
-/* White thin outline on hover, focus, click */
+/* Hover: slight lift + white outline */
 .btn:hover,
 .btn:focus,
 .btn:active,
@@ -108,13 +103,13 @@ body {
 .side:hover,
 .side:focus,
 .side:active {
-  outline: 1px solid white;
+  transform: translateY(-5px);
+  border-color: #ffffff;
 }
 
-/* Existing Would You Rather styles below */
+/* Would You Rather specific */
 *{box-sizing:border-box}
 html,body{height:100%}
-/* .bg-blobs removed since we're using new background */
 .app{
   position:relative;
   z-index:2;
@@ -142,7 +137,15 @@ html,body{height:100%}
 }
 .meta{ display:flex; justify-content:space-between; align-items:center }
 #indexLabel{ color:var(--muted) }
-.small{ font-size:13px; padding:6px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:var(--muted); cursor:pointer }
+.small{
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+}
 .wyr-row{
   display:grid;
   grid-template-columns: 1fr auto 1fr;
@@ -169,8 +172,14 @@ html,body{height:100%}
   user-select:none;
   cursor:pointer;
 }
-.left{ background: linear-gradient(180deg, rgba(89,193,255,0.04), transparent 40%); border:1px solid rgba(89,193,255,0.06) }
-.right{ background: linear-gradient(180deg, rgba(14,102,255,0.03), transparent 40%); border:1px solid rgba(14,102,255,0.04) }
+.left{
+  background: linear-gradient(180deg, rgba(89,193,255,0.04), transparent 40%);
+  border:1px solid rgba(89,193,255,0.06);
+}
+.right{
+  background: linear-gradient(180deg, rgba(14,102,255,0.03), transparent 40%);
+  border:1px solid rgba(14,102,255,0.04);
+}
 .or-divider{
   padding:10px 12px;
   border-radius:10px;
@@ -183,8 +192,19 @@ html,body{height:100%}
   justify-content:center;
 }
 .controls{ display:flex; gap:12px; justify-content:center }
-.btn{ padding:10px 16px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); cursor:pointer; min-width:110px; }
-.btn.primary{ background: linear-gradient(90deg, rgba(89,193,255,0.10), rgba(14,102,255,0.06)); color:var(--text); border-color: rgba(89,193,255,0.12) }
+.btn{
+  padding:10px 16px;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  min-width:110px;
+}
+.btn.primary{
+  background: linear-gradient(90deg, rgba(89,193,255,0.10), rgba(14,102,255,0.06));
+  color:var(--text);
+  border-color: rgba(89,193,255,0.12);
+}
 .site-footer {
   text-align: center;
   margin-top: 3rem;
