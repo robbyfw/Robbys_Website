@@ -84,16 +84,19 @@ body {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Button + Choice Box hover animation (copied from main page .project-item) */
+/* Button + Choice Box hover animation (unified style) */
 .btn,
 .btn.primary,
 .side {
   transition: transform 0.3s ease, border-color 0.3s ease;
   border: 1px solid rgba(255,255,255,0.06);
   outline: none;
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  cursor: pointer;
 }
 
-/* Hover: slight lift + white outline */
+/* Hover + Active: slight lift + white outline */
 .btn:hover,
 .btn:focus,
 .btn:active,
@@ -130,7 +133,8 @@ html,body{height:100%}
   border-radius:var(--radius);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border: 1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 10px 24px rgba(2,6,23,0.48);
+  /* removed blue glow */
+  box-shadow: none;
   display:flex;
   flex-direction:column;
   gap:12px;
@@ -170,15 +174,6 @@ html,body{height:100%}
   line-height:1.25;
   color:var(--text);
   user-select:none;
-  cursor:pointer;
-}
-.left{
-  background: linear-gradient(180deg, rgba(89,193,255,0.04), transparent 40%);
-  border:1px solid rgba(89,193,255,0.06);
-}
-.right{
-  background: linear-gradient(180deg, rgba(14,102,255,0.03), transparent 40%);
-  border:1px solid rgba(14,102,255,0.04);
 }
 .or-divider{
   padding:10px 12px;
@@ -196,14 +191,11 @@ html,body{height:100%}
   padding:10px 16px;
   border-radius:10px;
   background:transparent;
-  color:var(--muted);
-  cursor:pointer;
   min-width:110px;
 }
 .btn.primary{
-  background: linear-gradient(90deg, rgba(89,193,255,0.10), rgba(14,102,255,0.06));
+  background: transparent;
   color:var(--text);
-  border-color: rgba(89,193,255,0.12);
 }
 .site-footer {
   text-align: center;
