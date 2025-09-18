@@ -8,25 +8,8 @@
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-  background-size: 600% 600%;
-  animation: waterflow 20s ease infinite;
-  background-attachment: fixed;
   line-height: 1.6;
-}
-
-/* Mobile fix: disable fixed background to prevent white box */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
-}
-
-/* Background animation */
-@keyframes waterflow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  /* ❌ Removed old gradient background animation */
 }
 
 .container {
@@ -74,7 +57,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .project-item:hover {
