@@ -1,54 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
-    <loc>https://yourdomain.com/</loc>
+    <loc>https://fwrobby.site/</loc>
     <priority>1.0</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/about/</loc>
+    <loc>https://fwrobby.site/about/</loc>
     <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/calculator/</loc>
+    <loc>https://fwrobby.site/calculator/</loc>
     <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/coin_flip/</loc>
+    <loc>https://fwrobby.site/coin_flip/</loc>
     <priority>0.7</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/contact/</loc>
+    <loc>https://fwrobby.site/contact/</loc>
     <priority>0.9</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/donate/</loc>
+    <loc>https://fwrobby.site/donate/</loc>
     <priority>0.7</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/quiz/</loc>
+    <loc>https://fwrobby.site/quiz/</loc>
     <priority>0.7</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/sukho_history/</loc>
+    <loc>https://fwrobby.site/sukho_history/</loc>
     <priority>0.6</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/weather_app/</loc>
+    <loc>https://fwrobby.site/weather_app/</loc>
     <priority>0.7</priority>
   </url>
-
   <url>
-    <loc>https://yourdomain.com/would_you_rather/</loc>
+    <loc>https://fwrobby.site/would_you_rather/</loc>
     <priority>0.9</priority>
   </url>
-
 </urlset>
