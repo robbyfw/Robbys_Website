@@ -2,63 +2,63 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://yourdomain.com/</loc>
+    <loc>https://fwrobby.website/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/about/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://fwrobby.website/about/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/calculator/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://fwrobby.website/contact/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/coin_flip/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://fwrobby.website/donate/</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/contact/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/sukho_history/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/donate/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/calculator/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/quiz/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/coin_flip/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/sukho_history/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/weather_app/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/weather_app/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/quiz/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://yourdomain.com/would_you_rather/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://fwrobby.website/would_you_rather/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
