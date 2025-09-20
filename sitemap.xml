@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://fwrobby.website/</loc>
+    <loc>https://fwrobby.site/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/about/</loc>
+    <loc>https://fwrobby.site/about/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/contact/</loc>
+    <loc>https://fwrobby.site/contact/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/donate/</loc>
+    <loc>https://fwrobby.site/donate/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/sukho_history/</loc>
+    <loc>https://fwrobby.site/sukho_history/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/calculator/</loc>
+    <loc>https://fwrobby.site/calculator/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/coin_flip/</loc>
+    <loc>https://fwrobby.site/coin_flip/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/weather_app/</loc>
+    <loc>https://fwrobby.site/weather_app/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/quiz/</loc>
+    <loc>https://fwrobby.site/quiz/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.website/would_you_rather/</loc>
+    <loc>https://fwrobby.site/would_you_rather/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
