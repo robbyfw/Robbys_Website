@@ -1,86 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby's Effects Playground</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://fwrobby.site/Studio-Project.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfect Circle Fun</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
-    <a href="#">Donations</a>
+    <h2>Menu</h2>
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Tools</li>
+      <li>Contact</li>
+    </ul>
   </div>
 
-  <!-- Hamburger as span -->
-  <span class="hamburger" id="hamburger">
+  <!-- Hamburger -->
+  <div id="hamburger" class="hamburger">
     <span></span>
     <span></span>
     <span></span>
-  </span>
-
-  <div class="container">
-    <!-- Effects Section -->
-    <section class="effects">
-      <h1>Effects Playground</h1>
-      <div class="dropdowns">
-        <div class="dropdown">
-          <button class="dropbtn">Background Themes ▼</button>
-          <div class="dropdown-content" id="backgrounds">
-            <span data-bg="default">Default Water</span>
-            <span data-bg="prism">Prism</span>
-            <span data-bg="darkveil">Dark Veil</span>
-            <span data-bg="silk">Silk</span>
-            <span data-bg="aurora">Aurora</span>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button class="dropbtn">Mouse Cursor Effects ▼</button>
-          <div class="dropdown-content" id="cursor-effects">
-            <span data-effect="trail">Trail</span>
-            <span data-effect="particles">Particles</span>
-            <span data-effect="magnetic">Magnetic Lag</span>
-            <span data-effect="ripple">Ripple</span>
-            <span data-effect="sparkle">Sparkle</span>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button class="dropbtn">Mouse Click Effects ▼</button>
-          <div class="dropdown-content" id="click-effects">
-            <span data-click="explosion">Explosion</span>
-            <span data-click="circle">Circle</span>
-            <span data-click="spark">Spark</span>
-            <span data-click="pulse">Pulse</span>
-            <span data-click="wave">Wave</span>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button class="dropbtn">Text Animations ▼</button>
-          <div class="dropdown-content" id="text-effects">
-            <span data-text="blur">Blur</span>
-            <span data-text="gradient">Gradient</span>
-            <span data-text="glitch">Glitch</span>
-            <span data-text="split">Split Text</span>
-            <span data-text="wave">Wave Text</span>
-          </div>
-        </div>
-      </div>
-
-      <button id="clear-effects">Clear Effects</button>
-    </section>
-
-    <footer class="credits">
-      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤 • Effects Playground</p>
-    </footer>
   </div>
+
+  <!-- Canvas -->
+  <canvas id="circleCanvas"></canvas>
+
+  <!-- Sound -->
+  <audio id="drawSound" src="https://freesound.org/data/previews/341/341695_62431-lq.mp3"></audio>
 
   <script src="script.js"></script>
 </body>

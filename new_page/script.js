@@ -1,76 +1,92 @@
-const hamburger = document.getElementById("hamburger");
-const sidebar = document.getElementById("sidebar");
-hamburger.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
+const canvas = document.getElementById('circleCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const drawSound = document.getElementById('drawSound');
+
+// Hamburger & sidebar
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  sidebar.classList.toggle('active');
 });
 
-// Background Themes
-const backgrounds = document.querySelectorAll("#backgrounds span");
-backgrounds.forEach(bg => {
-  bg.addEventListener("click", () => {
-    switch(bg.dataset.bg) {
-      case "default":
-        document.body.style.background = "linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c)";
-        break;
-      case "prism":
-        document.body.style.background = "linear-gradient(45deg, #ff4f4f, #4f7fff, #4fff9e)";
-        break;
-      case "darkveil":
-        document.body.style.background = "linear-gradient(45deg, #0f0f0f, #1a1a1a, #0f0f0f)";
-        break;
-      case "silk":
-        document.body.style.background = "linear-gradient(45deg, #f5f5f5, #c2c2c2, #f5f5f5)";
-        break;
-      case "aurora":
-        document.body.style.background = "linear-gradient(45deg, #ff00ff, #00ffff, #ffff00)";
-        break;
+// Circle drawing
+let startX, startY;
+let isDrawing = false;
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  drawSound.currentTime = 0;
+  drawSound.play();
+  startX = e.clientX;
+  startY = e.clientY;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!isDrawing) return;
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Black water motion background
+  drawBackground();
+
+  // Calculate radius
+  const radius = Math.sqrt(Math.pow(mouseX - startX, 2) + Math.pow(mouseY - startY, 2));
+
+  // Draw perfect circle
+  ctx.beginPath();
+  ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+});
+
+canvas.addEventListener('mouseup', () => {
+  isDrawing = false;
+  drawSound.pause();
+});
+
+canvas.addEventListener('mouseleave', () => {
+  isDrawing = false;
+  drawSound.pause();
+});
+
+// --- Black water motion effect ---
+let time = 0;
+function drawBackground() {
+  const imageData = ctx.createImageData(canvas.width, canvas.height);
+  const data = imageData.data;
+
+  for (let y = 0; y < canvas.height; y++) {
+    for (let x = 0; x < canvas.width; x++) {
+      const index = (y * canvas.width + x) * 4;
+      const value = Math.floor(50 + 50 * Math.sin((x+y)/50 + time));
+      data[index] = value; // R
+      data[index+1] = value; // G
+      data[index+2] = value; // B
+      data[index+3] = 255; // A
     }
-    document.body.style.backgroundSize = "600% 600%";
-    document.body.style.animation = "waterflow 20s ease infinite";
-  });
-});
+  }
 
-// Text Effects
-const textEffects = document.querySelectorAll("#text-effects span");
-textEffects.forEach(effect => {
-  effect.addEventListener("click", () => {
-    const allText = document.querySelectorAll("body, body *:not(script):not(.dropbtn)");
-    allText.forEach(el => {
-      el.classList.remove("text-blur","text-gradient","text-glitch","text-split","text-wave");
-      switch(effect.dataset.text) {
-        case "blur": el.classList.add("text-blur"); break;
-        case "gradient": el.classList.add("text-gradient"); break;
-        case "glitch": el.classList.add("text-glitch"); break;
-        case "split": 
-          el.classList.add("text-split");
-          el.innerHTML = el.textContent.split("").map(c => `<span>${c}</span>`).join("");
-          break;
-        case "wave": el.classList.add("text-wave"); break;
-      }
-    });
-  });
-});
+  ctx.putImageData(imageData, 0, 0);
+  time += 0.05;
+}
 
-// Clear Effects
-document.getElementById("clear-effects").addEventListener("click", () => {
-  const allText = document.querySelectorAll("body, body *:not(script):not(.dropbtn)");
-  allText.forEach(el => {
-    el.classList.remove("text-blur","text-gradient","text-glitch","text-split","text-wave");
-    el.innerHTML = el.textContent; // reset split text
-  });
-});
+// Animate background even when not drawing
+function animate() {
+  if (!isDrawing) drawBackground();
+  requestAnimationFrame(animate);
+}
+animate();
 
-// Magnetic cursor effect
-let mouseX = 0, mouseY = 0;
-document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-// Add cursor trail
-const trail = document.createElement("div");
-trail.classList.add("cursor-trail");
-trail.style.width = "15px";
-trail.style.height = "15px";
-document.body.appendChild(trail);
-document.addEventListener("mousemove", e => {
-  trail.style.left = e.clientX + "px";
-  trail.style.top = e.clientY + "px";
+// Handle window resize
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 });
