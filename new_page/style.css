@@ -15,6 +15,13 @@ body {
   line-height: 1.6;
 }
 
+/* Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
 /* Background animation */
 @keyframes waterflow {
   0% { background-position: 0% 50%; }
@@ -68,20 +75,25 @@ body {
   color: white;
 }
 
+/* Generate Button styled like main page "Visit →" */
 .tts-tool button {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
+  border-radius: 12px;
+  font-size: 0.85rem;
   background: #0078ff;
   color: white;
+  font-weight: bold;
   cursor: pointer;
-  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
-.tts-tool button:hover {
-  background: #005fcc;
+.tts-tool button:hover,
+.tts-tool button:focus {
+  border: 1px solid white;
+  background: rgba(0,120,255,0.2);
 }
 
+/* Audio and download link */
 .tts-tool audio {
   width: 100%;
   max-width: 700px;
@@ -97,12 +109,12 @@ body {
   color: #005fcc;
 }
 
-/* Footer */
+/* Footer with only one line */
 .site-footer {
   text-align: center;
   margin-top: 2rem;
   padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* single line */
   font-size: 0.9rem;
   color: #ccc;
 }
