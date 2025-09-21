@@ -75,12 +75,12 @@ body {
   color: white;
 }
 
-/* Generate Button: transparent black */
+/* Generate Button: transparent white */
 .tts-tool button {
   padding: 0.5rem 1rem;
   border-radius: 12px;
   font-size: 0.85rem;
-  background: rgba(0,0,0,0.5); /* transparent black */
+  background: rgba(255, 255, 255, 0.05); /* transparent white */
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -90,7 +90,7 @@ body {
 .tts-tool button:hover,
 .tts-tool button:focus {
   border: 1px solid white;
-  background: rgba(0,0,0,0.6);
+  background: rgba(255, 255, 255, 0.1); /* slightly brighter on hover */
 }
 
 /* Audio player spacing */
