@@ -75,12 +75,12 @@ body {
   color: white;
 }
 
-/* Generate Button styled like main page "Visit →" */
+/* Generate Button: transparent black */
 .tts-tool button {
   padding: 0.5rem 1rem;
   border-radius: 12px;
   font-size: 0.85rem;
-  background: #0078ff;
+  background: rgba(0,0,0,0.5); /* transparent black */
   color: white;
   font-weight: bold;
   cursor: pointer;
@@ -90,20 +90,22 @@ body {
 .tts-tool button:hover,
 .tts-tool button:focus {
   border: 1px solid white;
-  background: rgba(0,120,255,0.2);
+  background: rgba(0,0,0,0.6);
 }
 
-/* Audio and download link */
+/* Audio player spacing */
 .tts-tool audio {
   width: 100%;
   max-width: 700px;
-  margin-bottom: 1rem;
+  margin: 1rem 0 0.5rem 0; /* moved below button */
 }
 
+/* Download link: single underline */
 .tts-tool a {
   color: #0078ff;
-  text-decoration: none;
+  text-decoration: underline; /* only one underline */
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 .tts-tool a:hover {
   color: #005fcc;

@@ -8,7 +8,7 @@ generateBtn.addEventListener("click", () => {
   if (!text) return alert("Please enter some text!");
 
   // VoiceRSS API key
-  const apiKey = "9e71ade63af14f2682df4ca279ad6e68";
+  const apiKey = "1010ac1c09c14b088b3202b9d21c37f4";
 
   // Build API URL
   const url = `https://api.voicerss.org/?key=${apiKey}&hl=en-us&src=${encodeURIComponent(text)}&c=MP3&f=44khz_16bit_stereo`;
