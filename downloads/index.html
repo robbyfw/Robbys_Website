@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Clone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #87CEEB, #ffffff);
+            text-align: center;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 30px 0;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        .game-image {
+            width: 300px;
+            height: 500px;
+            background-color: #f0f0f0;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .description {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #FF9800;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #e68a00;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        @media(max-width: 500px) {
+            .game-image {
+                width: 80%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>Flappy Bird Clone</header>
+
+    <main>
+        <div class="game-image">Game Preview</div>
+        <div class="description">
+            Experience the fun of Flappy Bird! Click the button below to download the game and play on your PC.  
+            Navigate the bird through the pipes and try to get the highest score.
+        </div>
+        <a href="/downloads/game.exe" download class="download-btn">Download Game</a>
+    </main>
+
+    <footer>
+        &copy; 2025 YourName. All rights reserved.
+    </footer>
+</body>
+</html>
