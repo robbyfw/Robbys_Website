@@ -61,4 +61,10 @@
     <priority>0.5</priority>
   </url>
 
+  <url>
+    <loc>https://fwrobby.site/text_to_speech/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>
