@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfect Circle Fun</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text-to-Speech Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Sidebar -->
+  <!-- Sidebar Menu -->
   <div id="sidebar" class="sidebar">
-    <h2>Menu</h2>
-    <ul>
-      <li>Home</li>
-      <li>About</li>
-      <li>Tools</li>
-      <li>Contact</li>
-    </ul>
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about">About Me</a>
+    <a href="https://fwrobby.site/contact">Contact Me</a>
+    <a href="https://fwrobby.site/donate">Donations</a>
   </div>
 
-  <!-- Hamburger -->
-  <div id="hamburger" class="hamburger">
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- Canvas -->
-  <canvas id="circleCanvas"></canvas>
+  <div class="container">
+    <section class="hero">
+      <h1>Text-to-Speech Generator</h1>
+      <p class="tagline">Turn your text into audio in seconds!</p>
+      <p>Enter any text below, click "Generate Speech", and listen or download your audio instantly.</p>
+    </section>
 
-  <!-- Sound -->
-  <audio id="drawSound" src="https://freesound.org/data/previews/341/341695_62431-lq.mp3"></audio>
+    <section class="tts-tool">
+      <textarea id="ttsText" placeholder="Enter your text here..."></textarea>
+      <button id="generateBtn">Generate Speech</button>
+      <audio id="audio" controls></audio>
+      <a id="downloadBtn" href="#" download="speech.mp3">Download Audio</a>
+    </section>
+
+    <hr />
+    <footer class="site-footer">
+      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+    </footer>
+  </div>
 
   <script src="script.js"></script>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+  </script>
 </body>
 </html>
