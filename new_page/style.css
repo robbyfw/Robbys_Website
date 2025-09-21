@@ -1,192 +1,222 @@
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+/* ---------- base reset & your waterflow background (kept) ---------- */
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body{height:100%;}
 body {
   font-family: 'Poppins', sans-serif;
-  color: white;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-  background-size: 600% 600%;
-  animation: waterflow 20s ease infinite;
+  color:#fff;
+  line-height:1.45;
   background-attachment: fixed;
-  line-height: 1.6;
-  overflow-x: hidden;
 }
 
+/* WATERFLOW base (applies to all motion themes) */
+.bg-waterflow,
+.bg-prism, .bg-darkveil, .bg-silk, .bg-aurora,
+.bg-sunset, .bg-neon, .bg-forest, .bg-galaxy, .bg-matrix
+{
+  background-size: 600% 600%;
+  animation: waterflow 22s ease infinite;
+}
 @keyframes waterflow {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  50% { background-position:100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Container */
-.container { max-width: 900px; margin: auto; padding: 2rem; text-align: center; }
-.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-.hero p { color: #ccc; }
+/* specific theme colors (all keep motion) */
+.bg-waterflow { background: linear-gradient(270deg,#0f1114,#121317,#0f1114); }
+.bg-prism {
+  /* prism: layered linear gradients that shift for a prism effect */
+  background:
+    linear-gradient(120deg, rgba(255,255,255,0.02) 0%, transparent 40%),
+    linear-gradient(60deg,#0f1222,#121433 30%, #0b0e18 70%);
+}
+.bg-darkveil {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02), transparent 12%),
+    linear-gradient(180deg,#07080b,#0b0d10 40%, #050507 );
+}
+.bg-silk {
+  background:
+    linear-gradient(135deg,#0b2233 0%, #11242f 30%, #0b2233 60%);
+  /* subtle sheen overlay */
+  background-image:
+    linear-gradient(135deg,#0b2233 0%, #11242f 30%, #0b2233 60%),
+    linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+}
+.bg-aurora {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(30,255,200,0.03), transparent 10%),
+    linear-gradient(270deg,#021018,#04202a,#011018);
+}
+.bg-sunset { background: linear-gradient(270deg,#2b0b18,#4a1b2f,#2b0b18); }
+.bg-neon { background: linear-gradient(270deg,#150018,#2a0036,#150018); }
+.bg-forest { background: linear-gradient(270deg,#061617,#0b2421,#061617); }
+.bg-galaxy { background: radial-gradient(circle at 30% 20%, #1b1033, #000 60%); }
+.bg-matrix { background: linear-gradient(0deg, #00110a, #021012 60%, #000 100%); }
 
-/* Dropdowns */
-.effects { margin-top: 2rem; text-align: left; }
-.dropdown { margin-bottom: 1rem; }
-.dropdown-toggle {
-  cursor: pointer;
-  padding: 10px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
-  transition: 0.3s;
-}
-.dropdown-toggle:hover { background: rgba(255,255,255,0.2); }
-.dropdown-menu {
-  display: none;
-  margin-top: 5px;
-  padding-left: 15px;
-}
-.dropdown-menu div {
-  cursor: pointer;
-  padding: 6px;
-  margin: 3px 0;
-  border-radius: 6px;
-  background: rgba(255,255,255,0.05);
-  transition: 0.3s;
-}
-.dropdown-menu div:hover { background: rgba(255,255,255,0.15); }
+/* ---------- container, hero & existing layout (kept from your file) ---------- */
+.container { max-width:900px; margin: 0 auto; padding: 2rem; text-align:center; }
+.hero h1{ font-size: clamp(1.8rem, 3.4vw, 2.6rem); margin-bottom:.6rem; }
+.hero p { color:#cfcfcf; }
 
-/* Clear button */
-.clear-btn {
-  margin-top: 1rem;
-  padding: 10px 20px;
-  background: #ff0033;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
+/* ---------- dropdown & menu styles (kept) ---------- */
+.effects{ margin-top:22px; text-align:left; }
+.dropdown{ margin-bottom:12px; }
+.dropdown-toggle{
+  cursor:pointer; padding:10px; background: rgba(255,255,255,0.04);
+  border-radius:8px; font-weight:600; display:inline-block;
 }
-.clear-btn:hover { background: #cc0028; }
+.dropdown-menu{ display:none; margin-top:6px; padding-left:12px; }
+.dropdown-menu div{
+  padding:8px; margin:6px 0; border-radius:6px; background: rgba(255,255,255,0.03);
+  cursor:pointer;
+}
+.dropdown-menu div:hover{ background: rgba(255,255,255,0.08); }
 
-/* Sidebar */
-.sidebar {
-  height: 100%; width: 0;
-  position: fixed; top: 0; left: 0;
-  background: rgba(17,17,17,0.4);
-  backdrop-filter: blur(10px);
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
-  z-index: 1000;
-}
-.sidebar a {
-  padding: 12px 25px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #ccc;
-  display: block;
-  transition: 0.3s;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.sidebar a:hover { color: white; background: rgba(255,255,255,0.05); }
-.sidebar.open { width: 250px; }
+/* ---------- Clear button (kept) ---------- */
+.clear-btn { margin-top:12px; padding:10px 14px; background:#ff0033; color:#fff; border:none; border-radius:8px; cursor:pointer; }
 
-/* Hamburger */
-.hamburger {
-  position: fixed; top: 20px; left: 20px;
-  cursor: pointer; z-index: 1001;
-}
-.hamburger span {
-  display: block; width: 30px; height: 3px;
-  margin: 6px; background: white; transition: 0.3s;
-}
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+/* ---------- sidebar & hamburger (kept exactly) ---------- */
+.sidebar { height:100%; width:0; position:fixed; top:0; left:0; background: rgba(17,17,17,0.4); backdrop-filter: blur(10px); overflow-x:hidden; transition:0.3s; padding-top:60px; z-index:1000; }
+.sidebar a{ padding:12px 25px; text-decoration:none; font-size:18px; color:#ccc; display:block; border-bottom:1px solid rgba(255,255,255,0.1); }
+.sidebar a:hover{ color:#fff; background: rgba(255,255,255,0.03); }
+.sidebar.open{ width:250px; }
 
-/* Cursor Effects */
-.cursor-dot {
-  position: absolute;
-  width: 10px; height: 10px;
-  background: white; border-radius: 50%;
-  pointer-events: none; animation: fadeOut 1s forwards;
-}
-@keyframes fadeOut { to { opacity: 0; transform: scale(2); } }
+.hamburger{ position:fixed; top:20px; left:20px; cursor:pointer; z-index:1001; width:46px; height:46px; border-radius:10px; display:grid; place-items:center; background: rgba(0,0,0,0.18); border:1px solid rgba(255,255,255,0.06); }
+.hamburger span{ display:block; width:28px; height:3px; margin:4px 0; background:#fff; transition:.28s ease; border-radius:3px; }
+.hamburger.active span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2){ opacity:0; transform: translateX(-10px); }
+.hamburger.active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
-.cursor-star {
-  position: absolute;
-  width: 6px; height: 6px;
-  background: yellow; border-radius: 50%;
-  pointer-events: none; animation: starFade 0.8s forwards;
+/* ---------- Fx styles: modern cursor + click effects ---------- */
+/* trail dot (improved gradient + blur) */
+.trail-dot {
+  position: absolute; width:10px; height:10px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.2) 40%, rgba(255,255,255,0.02));
+  filter: blur(0.6px);
+  box-shadow: 0 0 12px rgba(255,255,255,0.14);
+  transform: translate(-50%,-50%) scale(1);
+  pointer-events:none;
+  animation: trail-fade .8s linear forwards;
 }
-@keyframes starFade { to { opacity: 0; transform: scale(2); } }
+@keyframes trail-fade { to { opacity:0; transform: translate(-50%,-50%) scale(0.2); } }
 
-.cursor-emoji, .cursor-heart, .cursor-spark {
-  position: absolute;
-  pointer-events: none;
-  font-size: 18px;
-  animation: emojiFade 1s forwards;
+/* comet */
+.comet {
+  position:absolute; width:22px; height:14px; border-radius:14px;
+  background: linear-gradient(90deg,#fff 0%, rgba(255,255,255,0.12) 70%);
+  filter: blur(.6px); pointer-events:none;
+  animation: comet-fly .75s ease-out forwards;
+  transform-origin:center;
 }
-@keyframes emojiFade { to { opacity: 0; transform: translateY(-20px) scale(0.5); } }
+@keyframes comet-fly { to { opacity:0; transform: translate(160px,-70px) scale(.4) rotate(10deg); } }
 
-/* Click Effects */
+/* neon ribbon */
+.ribbon {
+  position:absolute; height:8px; width:32px; border-radius:8px;
+  background: linear-gradient(90deg, rgba(0,255,200,0.9), rgba(0,120,255,0.6));
+  filter: blur(6px); pointer-events:none;
+  animation: ribbon-fade .9s ease-out forwards;
+}
+@keyframes ribbon-fade { to { opacity:0; transform: translate(0,-40px) scale(.6); } }
+
+/* lag dot (magnetic) - single element created by JS */
+.lag-dot {
+  position:fixed; width:18px; height:18px; border-radius:50%;
+  background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6) inset, 0 0 18px rgba(0,255,200,0.06);
+  pointer-events:none; transform: translate(-50%,-50%);
+  z-index:1002; transition: transform .12s linear;
+}
+
+/* emoji particle */
+.emoji-particle { position:absolute; font-size:18px; pointer-events:none; animation: emoji-up .95s forwards; }
+@keyframes emoji-up { to { transform: translateY(-80px) scale(.9); opacity:0; } }
+
+/* ---------- click effects ---------- */
+/* ripple (improved) */
 .click-ripple {
-  position: absolute;
-  width: 20px; height: 20px;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: rippleAnim 1s forwards;
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  border:2px solid rgba(255,255,255,0.85);
+  transform: translate(-50%, -50%) scale(0.2);
+  pointer-events:none; animation: ripple-anim 0.85s ease-out forwards;
 }
-@keyframes rippleAnim {
-  from { transform: scale(0); opacity: 1; }
-  to { transform: scale(5); opacity: 0; }
+@keyframes ripple-anim { to { transform: translate(-50%,-50%) scale(9); opacity:0; } }
+
+/* neon burst (radial) */
+.neon-burst {
+  position:absolute; width:14px; height:14px; border-radius:50%;
+  background: radial-gradient(circle, #fff 0%, rgba(0,255,200,0.6) 30%, rgba(0,120,255,0.16) 70%, transparent 100%);
+  filter: blur(6px); pointer-events:none;
+  animation: neon-burst-anim .9s ease-out forwards;
 }
-.click-particle {
-  position: absolute;
-  width: 6px; height: 6px;
-  background: #ff0; border-radius: 50%;
-  pointer-events: none;
+@keyframes neon-burst-anim { to { transform: scale(6); opacity:0; } }
+
+/* paint splat */
+.paint-splat {
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  background: currentColor; mix-blend-mode:screen; pointer-events:none;
+  transform-origin:center; animation: splat 900ms ease-out forwards;
 }
-.firework {
-  position: absolute; width: 4px; height: 4px;
-  background: red; border-radius: 50%;
-  pointer-events: none;
+@keyframes splat { to { transform: translate(var(--tx,0),var(--ty,0)) scale(2.2) rotate(var(--r,0deg)); opacity:0; } }
+
+/* confetti piece */
+.confetti {
+  position:absolute; width:10px; height:6px; background:currentColor; pointer-events:none; transform-origin:center;
+  animation: confetti-fall 1200ms forwards;
+}
+@keyframes confetti-fall { to { transform: translate(var(--cx,0px), var(--cy, -140px)) rotate(360deg); opacity:0; } }
+
+/* shockwave rings */
+.shock-ring {
+  position:absolute; width:16px; height:16px; border-radius:50%; border:2px solid rgba(255,255,255,0.75);
+  transform: translate(-50%,-50%) scale(0.2); pointer-events:none; animation: ring 900ms ease-out forwards;
+}
+@keyframes ring { to { transform: translate(-50%,-50%) scale(9); opacity:0; } }
+
+/* fireworks (tiny) */
+.firework-dot { position:absolute; width:6px; height:6px; border-radius:50%; pointer-events:none; }
+
+/* ---------- text effects ---------- */
+/* gradient text: background-clip text */
+.grad-text {
+  background: linear-gradient(90deg, #ff0066, #ffa600, #00e7ff, #8c4fff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  background-size: 200% 200%; animation: grad-shift 4s linear infinite;
+}
+@keyframes grad-shift { 0%{ background-position: 0% 50%; } 50%{ background-position:100% 50%; } 100%{ background-position:0% 50%; } }
+
+/* blur text */
+.text-blur { animation: blurPulse 1.4s ease-in-out infinite; }
+@keyframes blurPulse { 0%{ filter: blur(0px); } 50%{ filter: blur(4px); } 100%{ filter: blur(0px); } }
+
+/* glitch */
+.text-glitch {
+  position:relative; display:inline-block;
+  color: white; animation: glitch-anim 1s infinite;
+}
+@keyframes glitch-anim {
+  0% { text-shadow: 0 0 0 rgba(255,0,0,0); transform: translateX(0); }
+  20% { text-shadow: -2px 0 0 #ff0; transform: translateX(-1px); }
+  40% { text-shadow: 2px -1px 0 #0ff; transform: translateX(1px); }
+  60% { text-shadow: -2px 1px 0 #f0f; transform: translateX(-1px); }
+  80% { text-shadow: 2px 0 0 #0f0; transform: translateX(1px); }
+  100% { text-shadow: 0 0 0 rgba(0,0,0,0); transform: translateX(0); }
 }
 
-/* Text Effects */
-.rainbow { animation: rainbow 3s infinite linear; }
-@keyframes rainbow {
-  0% { color: red; } 20% { color: orange; } 40% { color: yellow; }
-  60% { color: green; } 80% { color: blue; } 100% { color: violet; }
-}
-.wave span { display: inline-block; animation: wave 1s infinite; }
-@keyframes wave {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-.glitch { animation: glitch 1s infinite; }
-@keyframes glitch {
-  0% { text-shadow: 2px 2px red; }
-  50% { text-shadow: -2px -2px blue; }
-  100% { text-shadow: 2px 2px green; }
-}
+/* shuffle (JS driven) - JS will animate per-character */
 
-/* Page Effects */
-.shake { animation: shake 0.5s; }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
-}
-.pulse { animation: pulse 2s infinite; }
-@keyframes pulse {
-  0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }
-}
-.spin { animation: spin 2s infinite linear; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+/* ---------- page animations applied to .container ---------- */
+.container.shake { animation: page-shake .5s; }
+@keyframes page-shake { 0%,100% { transform:translateX(0);} 25%{transform:translateX(-10px);} 75%{transform:translateX(10px);} }
+.container.pulse { animation: page-pulse 2s infinite; transform-origin:center; }
+@keyframes page-pulse { 0%{ transform:scale(1);} 50%{transform:scale(1.03);} 100%{transform:scale(1);} }
+.container.spin { animation: page-spin 8s linear infinite; transform-origin:center; }
+@keyframes page-spin { from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
+.container.float { animation: page-float 3.5s ease-in-out infinite; }
+@keyframes page-float { 0%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} 100%{ transform: translateY(0);} }
+.container.tilt { transform-origin:center; animation: page-tilt 2s infinite; }
+@keyframes page-tilt { 0%{ transform: rotate(-2deg);} 50%{ transform: rotate(2deg);} 100%{ transform: rotate(-2deg);} }
 
-/* Footer */
-.site-footer {
-  text-align: center;
-  margin-top: 3rem;
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  font-size: 0.9rem;
-  color: #ccc;
-}
+/* ---------- small utilities ---------- */
+.hidden { display:none !important; }

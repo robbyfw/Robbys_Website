@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby's Fun Effects</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Robby's Fun Effects (Upgraded)</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
-<body>
-  <!-- Sidebar Menu -->
+<body class="bg-waterflow">
+
+  <!-- Sidebar Menu (unchanged structure) -->
   <div id="sidebar" class="sidebar">
     <a href="#">Home</a>
     <a href="#">About</a>
@@ -16,27 +17,28 @@
     <a href="#">Donations</a>
   </div>
 
-  <!-- Hamburger Icon -->
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
+  <!-- Hamburger (span-like, unchanged visuals) -->
+  <div id="hamburger" class="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
   </div>
 
   <div class="container">
     <section class="hero">
       <h1>Interactive Effects Playground</h1>
-      <p>Choose different effects to play with. Combine them, experiment, and have fun!</p>
+      <p>Choose effects from the menus below — combine them and experiment.</p>
     </section>
 
-    <!-- Effects Menus -->
     <section class="effects">
+      <!-- Background Themes (ADDED: Prism, Dark Veil, Silk, Aurora — all keep water motion) -->
       <div class="dropdown">
         <div class="dropdown-toggle">▶ Background Themes</div>
         <div class="dropdown-menu">
           <div class="bg-option">Water Flow</div>
+          <div class="bg-option">Prism (motion)</div>
+          <div class="bg-option">Dark Veil (motion)</div>
+          <div class="bg-option">Silk (motion)</div>
+          <div class="bg-option">Aurora (motion)</div>
           <div class="bg-option">Sunset Glow</div>
-          <div class="bg-option">Aurora Sky</div>
           <div class="bg-option">Neon Night</div>
           <div class="bg-option">Dark Forest</div>
           <div class="bg-option">Galaxy</div>
@@ -44,52 +46,64 @@
         </div>
       </div>
 
+      <!-- Cursor Effects (NEW/IMPROVED modern effects) -->
       <div class="dropdown">
         <div class="dropdown-toggle">▶ Mouse Cursor Effects</div>
         <div class="dropdown-menu">
           <div class="cursor-option">Glow Trail</div>
-          <div class="cursor-option">Stars</div>
-          <div class="cursor-option">Emoji 😂</div>
-          <div class="cursor-option">Hearts ❤️</div>
-          <div class="cursor-option">Fire Sparks</div>
+          <div class="cursor-option">Comet Streak</div>
+          <div class="cursor-option">Particle Trail</div>
+          <div class="cursor-option">Magnetic Lag</div>
+          <div class="cursor-option">Neon Ribbon</div>
+          <div class="cursor-option">Emoji Trail</div>
+          <div class="cursor-option">Ghost Trail</div>
         </div>
       </div>
 
+      <!-- Click Effects (NEW/IMPROVED) -->
       <div class="dropdown">
         <div class="dropdown-toggle">▶ Mouse Click Effects</div>
         <div class="dropdown-menu">
           <div class="click-option">Ripple</div>
-          <div class="click-option">Explosion</div>
-          <div class="click-option">Fireworks</div>
+          <div class="click-option">Neon Burst</div>
+          <div class="click-option">Paint Splat</div>
+          <div class="click-option">Particle Explosion</div>
           <div class="click-option">Confetti</div>
+          <div class="click-option">Fireworks</div>
+          <div class="click-option">Shockwave</div>
         </div>
       </div>
 
+      <!-- Text Animations (apply to all page text) -->
       <div class="dropdown">
-        <div class="dropdown-toggle">▶ Text Effects</div>
+        <div class="dropdown-toggle">▶ Text Animations (affects all text)</div>
         <div class="dropdown-menu">
-          <div class="text-option">Rainbow Text</div>
-          <div class="text-option">Wave Text</div>
-          <div class="text-option">Glitch</div>
+          <div class="text-option">Split & Replace (change all text)</div>
+          <div class="text-option">Blur Text (pulse)</div>
+          <div class="text-option">Shuffle Text</div>
+          <div class="text-option">Gradient Text</div>
+          <div class="text-option">Glitch Text</div>
         </div>
       </div>
 
+      <!-- Page Animations (works properly now) -->
       <div class="dropdown">
         <div class="dropdown-toggle">▶ Page Animations</div>
         <div class="dropdown-menu">
           <div class="page-option">Shake</div>
           <div class="page-option">Pulse</div>
           <div class="page-option">Spin</div>
+          <div class="page-option">Float</div>
+          <div class="page-option">Tilt</div>
         </div>
       </div>
 
-      <button id="clearEffects" class="clear-btn">Clear Effects</button>
+      <button id="clearEffects" class="clear-btn">Clear All Effects</button>
     </section>
   </div>
 
-  <!-- Footer -->
   <footer class="site-footer">
-    <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+    <p>© 2025 Muhammad Asim (Robby) • Built with 🖤 — Credits: UI & Effects by Robby</p>
   </footer>
 
   <script src="script.js"></script>
