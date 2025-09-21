@@ -1,177 +1,124 @@
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+/* General */
 body {
-  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: black;
   color: white;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-  background-size: 600% 600%;
-  animation: waterflow 20s ease infinite;
-  background-attachment: fixed;
   overflow-x: hidden;
-}
-
-/* Water Background Motion */
-@keyframes waterflow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 3rem 2rem;
-  text-align: center;
 }
 
 /* Sidebar */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  top: 0; left: 0;
-  background: rgba(17, 17, 17, 0.6);
-  backdrop-filter: blur(10px);
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
-  z-index: 1000;
-}
-.sidebar a {
-  padding: 12px 25px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #ccc;
-  display: block;
-  transition: 0.3s;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.sidebar a:hover {
+#hamburger {
+  font-size: 28px;
+  padding: 12px;
+  cursor: pointer;
+  background: #111;
   color: white;
-  background: rgba(255, 255, 255, 0.05);
-}
-.sidebar.open { width: 250px; }
-
-/* Hamburger */
-.hamburger {
   position: fixed;
-  top: 20px; left: 20px;
-  cursor: pointer;
+  top: 10px;
+  left: 10px;
   z-index: 1001;
+  border-radius: 6px;
 }
-.hamburger span {
-  display: block;
-  width: 30px; height: 3px;
-  margin: 6px;
-  background: white;
-  transition: 0.3s;
-}
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* Dropdowns */
-.dropdown { margin: 1rem 0; text-align: left; }
-.dropdown-toggle {
-  background: rgba(255,255,255,0.1);
-  padding: 12px 15px;
-  cursor: pointer;
-  font-weight: 600;
-  border-radius: 8px;
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: #111;
   transition: 0.3s;
+  padding-top: 20px;
+  z-index: 1000;
+  overflow-y: auto;
 }
-.dropdown-toggle:hover { background: rgba(255,255,255,0.2); }
+#sidebar.open { left: 0; }
+#sidebar h2 { text-align: center; margin: 10px; }
+
+#sidebar ul { list-style: none; padding: 0; margin: 0; }
+#sidebar ul li { padding: 10px; cursor: pointer; }
+#sidebar ul li:hover { background: #222; }
+
 .dropdown-menu {
   display: none;
-  margin-top: 5px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  padding: 10px;
+  background: #222;
+  margin-left: 10px;
 }
-.dropdown-menu div {
+.dropdown-menu li {
+  font-size: 14px;
   padding: 8px;
+}
+.dropdown-toggle.active::after { content: " ▼"; }
+
+/* Main */
+main { margin-left: 20px; padding: 80px 20px; }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  margin-top: 50px;
+}
+
+/* Clear Effects button */
+#clear-effects {
+  width: 90%;
+  margin: 15px auto;
+  display: block;
+  padding: 10px;
+  background: crimson;
+  color: white;
+  border: none;
   cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
+  border-radius: 6px;
 }
-.dropdown-menu div:hover {
-  background: rgba(255,255,255,0.2);
-}
+#clear-effects:hover { background: darkred; }
 
-/* Effects */
-.cursor-dot, .cursor-star, .cursor-bubble, .cursor-spark, .cursor-rainbow {
+/* Background animations */
+@keyframes waterflow { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+
+/* Cursor Effects */
+.cursor-dot, .cursor-star, .cursor-spark, .cursor-rainbow {
   position: absolute;
-  pointer-events: none;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
+  pointer-events: none;
 }
-
-.cursor-dot {
-  width: 8px; height: 8px;
-  background: white;
-  box-shadow: 0 0 10px white;
-  animation: fadeOut 1s forwards;
-}
-.cursor-star {
-  width: 6px; height: 6px;
-  background: yellow;
-  box-shadow: 0 0 10px yellow;
-  animation: fadeOut 0.8s forwards;
-}
-.cursor-bubble {
-  width: 10px; height: 10px;
-  background: rgba(0, 200, 255, 0.6);
-  animation: floatUp 1.5s forwards;
-}
-.cursor-spark {
-  width: 6px; height: 6px;
-  background: orange;
-  box-shadow: 0 0 6px red;
-  animation: fadeOut 0.5s forwards;
-}
-.cursor-rainbow {
-  width: 10px; height: 10px;
-  background: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta);
-  animation: fadeOut 1s forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; transform: scale(0.5); }
-}
-@keyframes floatUp {
-  to { transform: translateY(-50px); opacity: 0; }
-}
+.cursor-dot { background: cyan; box-shadow: 0 0 10px cyan; }
+.cursor-star { background: yellow; box-shadow: 0 0 8px gold; }
+.cursor-spark { background: white; box-shadow: 0 0 6px orange; }
+.cursor-rainbow { background: linear-gradient(45deg, red, yellow, green, cyan, blue, violet); }
 
 /* Click Effects */
 .click-ripple {
   position: absolute;
-  width: 20px; height: 20px;
-  border: 2px solid #fff;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: rippleAnim 0.8s ease-out;
+  border: 2px solid cyan;
+  transform: scale(0);
+  animation: ripple 0.8s linear;
   pointer-events: none;
 }
-@keyframes rippleAnim {
-  from { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
-  to { transform: translate(-50%, -50%) scale(4); opacity: 0; }
-}
-.click-particle {
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+.click-particle, .click-heart, .click-confetti, .click-firework {
   position: absolute;
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: white;
   pointer-events: none;
 }
-.click-heart {
-  position: absolute;
-  font-size: 20px;
-  animation: floatUp 1.2s forwards;
-  pointer-events: none;
-}
-.click-emoji {
-  position: absolute;
-  font-size: 20px;
-  animation: floatUp 1.5s forwards;
-  pointer-events: none;
-}
+
+/* Text Effects */
+.typewriter { border-right: 2px solid white; white-space: nowrap; overflow: hidden; animation: typing 3s steps(30) infinite alternate; }
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+
+.glitch { color: red; animation: glitch 0.5s infinite; }
+@keyframes glitch { 0%{text-shadow:2px 2px blue;} 50%{text-shadow:-2px -2px lime;} 100%{text-shadow:2px 2px blue;} }
+
+.neon { color: cyan; text-shadow: 0 0 5px cyan, 0 0 15px cyan; }
+.rainbow-text { animation: rainbow 3s linear infinite; }
+@keyframes rainbow { 0%{color:red;}20%{color:orange;}40%{color:yellow;}60%{color:green;}80%{color:blue;}100%{color:violet;} }
+.wavy span { display:inline-block; animation:wave 1s infinite alternate; }
+@keyframes wave { to{ transform: translateY(-6px); } }
