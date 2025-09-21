@@ -3,91 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fun Effects Playground</title>
+  <title>Robby's Fun Effects</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Hamburger -->
-  <span id="hamburger">&#9776;</span>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Donations</a>
+  </div>
 
-  <!-- Sidebar -->
-  <aside id="sidebar">
-    <h2>Menu</h2>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Donations</a></li>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-      <!-- Effects Sections -->
-      <li class="dropdown">
-        <span class="dropdown-toggle">Background Themes ▸</span>
-        <ul class="dropdown-menu">
-          <li class="bg-option">Water Flow</li>
-          <li class="bg-option">Sunset Glow</li>
-          <li class="bg-option">Aurora Sky</li>
-          <li class="bg-option">Neon Night</li>
-          <li class="bg-option">Dark Forest</li>
-          <li class="bg-option">Matrix Rain</li>
-          <li class="bg-option">Space Warp</li>
-        </ul>
-      </li>
+  <div class="container">
+    <section class="hero">
+      <h1>Interactive Effects Playground</h1>
+      <p>Choose different effects to play with. Combine them, experiment, and have fun!</p>
+    </section>
 
-      <li class="dropdown">
-        <span class="dropdown-toggle">Background Effects ▸</span>
-        <ul class="dropdown-menu">
-          <li class="bgfx-option">Snowfall</li>
-          <li class="bgfx-option">Rain</li>
-          <li class="bgfx-option">Floating Bubbles</li>
-          <li class="bgfx-option">Fireflies</li>
-          <li class="bgfx-option">Matrix Code</li>
-        </ul>
-      </li>
+    <!-- Effects Menus -->
+    <section class="effects">
+      <div class="dropdown">
+        <div class="dropdown-toggle">▶ Background Themes</div>
+        <div class="dropdown-menu">
+          <div class="bg-option">Water Flow</div>
+          <div class="bg-option">Sunset Glow</div>
+          <div class="bg-option">Aurora Sky</div>
+          <div class="bg-option">Neon Night</div>
+          <div class="bg-option">Dark Forest</div>
+          <div class="bg-option">Galaxy</div>
+          <div class="bg-option">Matrix</div>
+        </div>
+      </div>
 
-      <li class="dropdown">
-        <span class="dropdown-toggle">Mouse Cursor Effects ▸</span>
-        <ul class="dropdown-menu">
-          <li class="cursor-option">Glow Trail</li>
-          <li class="cursor-option">Stars</li>
-          <li class="cursor-option">Rainbow Trail</li>
-          <li class="cursor-option">Sparkles</li>
-          <li class="cursor-option">Ghost Trail</li>
-        </ul>
-      </li>
+      <div class="dropdown">
+        <div class="dropdown-toggle">▶ Mouse Cursor Effects</div>
+        <div class="dropdown-menu">
+          <div class="cursor-option">Glow Trail</div>
+          <div class="cursor-option">Stars</div>
+          <div class="cursor-option">Emoji 😂</div>
+          <div class="cursor-option">Hearts ❤️</div>
+          <div class="cursor-option">Fire Sparks</div>
+        </div>
+      </div>
 
-      <li class="dropdown">
-        <span class="dropdown-toggle">Mouse Click Effects ▸</span>
-        <ul class="dropdown-menu">
-          <li class="click-option">Ripple</li>
-          <li class="click-option">Explosion</li>
-          <li class="click-option">Hearts</li>
-          <li class="click-option">Confetti</li>
-          <li class="click-option">Fireworks</li>
-        </ul>
-      </li>
+      <div class="dropdown">
+        <div class="dropdown-toggle">▶ Mouse Click Effects</div>
+        <div class="dropdown-menu">
+          <div class="click-option">Ripple</div>
+          <div class="click-option">Explosion</div>
+          <div class="click-option">Fireworks</div>
+          <div class="click-option">Confetti</div>
+        </div>
+      </div>
 
-      <li class="dropdown">
-        <span class="dropdown-toggle">Text Effects ▸</span>
-        <ul class="dropdown-menu">
-          <li class="textfx-option">Typewriter</li>
-          <li class="textfx-option">Glitch</li>
-          <li class="textfx-option">Neon Glow</li>
-          <li class="textfx-option">Rainbow Text</li>
-          <li class="textfx-option">Wavy</li>
-        </ul>
-      </li>
-    </ul>
-    <button id="clear-effects">Clear All Effects</button>
-  </aside>
+      <div class="dropdown">
+        <div class="dropdown-toggle">▶ Text Effects</div>
+        <div class="dropdown-menu">
+          <div class="text-option">Rainbow Text</div>
+          <div class="text-option">Wave Text</div>
+          <div class="text-option">Glitch</div>
+        </div>
+      </div>
 
-  <!-- Main -->
-  <main>
-    <h1>Welcome to the Effects Playground 🎉</h1>
-    <p>Use the sidebar to explore different fun effects!</p>
-  </main>
+      <div class="dropdown">
+        <div class="dropdown-toggle">▶ Page Animations</div>
+        <div class="dropdown-menu">
+          <div class="page-option">Shake</div>
+          <div class="page-option">Pulse</div>
+          <div class="page-option">Spin</div>
+        </div>
+      </div>
 
-  <!-- Credits -->
-  <footer>
+      <button id="clearEffects" class="clear-btn">Clear Effects</button>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
     <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
   </footer>
 

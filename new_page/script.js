@@ -1,129 +1,185 @@
-// ===== Sidebar =====
+// ===== SIDEBAR TOGGLE =====
 const hamburger = document.getElementById("hamburger");
 const sidebar = document.getElementById("sidebar");
-hamburger.addEventListener("click", () => sidebar.classList.toggle("open"));
+hamburger.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+  hamburger.classList.toggle("active");
+});
 
-// ===== Dropdowns =====
+// ===== DROPDOWNS =====
 document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
   toggle.addEventListener("click", () => {
     toggle.classList.toggle("active");
-    let menu = toggle.nextElementSibling;
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    const menu = toggle.nextElementSibling;
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
   });
 });
 
-// ===== Background Themes =====
+// ===== BACKGROUND THEMES =====
 const backgrounds = {
   "Water Flow": "linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c)",
   "Sunset Glow": "linear-gradient(270deg, #ff6a00, #ee0979, #ff6a00)",
   "Aurora Sky": "linear-gradient(270deg, #00c6ff, #0072ff, #00c6ff)",
   "Neon Night": "linear-gradient(270deg, #8e2de2, #4a00e0, #8e2de2)",
   "Dark Forest": "linear-gradient(270deg, #0f2027, #203a43, #2c5364)",
-  "Matrix Rain": "black",
-  "Space Warp": "radial-gradient(circle, #000, #111, #000)"
+  "Galaxy": "radial-gradient(circle at 20% 20%, #2b1055, #000)",
+  "Matrix": "repeating-linear-gradient(#0f0, #000 20px)"
 };
-document.querySelectorAll(".bg-option").forEach(option => {
-  option.addEventListener("click", () => {
-    let theme = option.textContent;
-    document.body.style.background = backgrounds[theme];
+document.querySelectorAll(".bg-option").forEach(opt => {
+  opt.addEventListener("click", () => {
+    document.body.style.background = backgrounds[opt.textContent];
     document.body.style.backgroundSize = "600% 600%";
     document.body.style.animation = "waterflow 20s ease infinite";
   });
 });
 
-// ===== Cursor Effects =====
+// ===== CURSOR EFFECTS =====
 let cursorEffect = null;
-document.querySelectorAll(".cursor-option").forEach(option => {
-  option.addEventListener("click", () => cursorEffect = option.textContent);
+document.querySelectorAll(".cursor-option").forEach(opt => {
+  opt.addEventListener("click", () => { cursorEffect = opt.textContent; });
 });
 document.addEventListener("mousemove", e => {
   if (!cursorEffect) return;
-  let dot;
-  if (cursorEffect === "Glow Trail") dot = createCursor("cursor-dot", e);
-  if (cursorEffect === "Stars") dot = createCursor("cursor-star", e);
-  if (cursorEffect === "Rainbow Trail") dot = createCursor("cursor-rainbow", e);
-  if (cursorEffect === "Sparkles") dot = createCursor("cursor-spark", e);
-  if (cursorEffect === "Ghost Trail") dot = createCursor("cursor-dot", e, "rgba(255,255,255,0.3)");
-  if (dot) setTimeout(() => dot.remove(), 1000);
+  if (cursorEffect === "Glow Trail") {
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot";
+    dot.style.left = e.pageX + "px";
+    dot.style.top = e.pageY + "px";
+    document.body.appendChild(dot);
+    setTimeout(() => dot.remove(), 1000);
+  }
+  if (cursorEffect === "Stars") {
+    const star = document.createElement("div");
+    star.className = "cursor-star";
+    star.style.left = e.pageX + "px";
+    star.style.top = e.pageY + "px";
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 800);
+  }
+  if (cursorEffect === "Emoji 😂" || cursorEffect === "Hearts ❤️") {
+    const emoji = document.createElement("div");
+    emoji.className = "cursor-emoji";
+    emoji.textContent = cursorEffect.includes("😂") ? "😂" : "❤️";
+    emoji.style.left = e.pageX + "px";
+    emoji.style.top = e.pageY + "px";
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 1000);
+  }
+  if (cursorEffect === "Fire Sparks") {
+    const spark = document.createElement("div");
+    spark.className = "cursor-spark";
+    spark.textContent = "✨";
+    spark.style.left = e.pageX + "px";
+    spark.style.top = e.pageY + "px";
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 800);
+  }
 });
-function createCursor(cls, e, color) {
-  const el = document.createElement("div");
-  el.className = cls;
-  el.style.left = e.pageX + "px";
-  el.style.top = e.pageY + "px";
-  if (color) el.style.background = color;
-  document.body.appendChild(el);
-  return el;
-}
 
-// ===== Click Effects =====
+// ===== CLICK EFFECTS =====
 let clickEffect = null;
-document.querySelectorAll(".click-option").forEach(option => {
-  option.addEventListener("click", () => clickEffect = option.textContent);
+document.querySelectorAll(".click-option").forEach(opt => {
+  opt.addEventListener("click", () => { clickEffect = opt.textContent; });
 });
 document.addEventListener("click", e => {
   if (!clickEffect) return;
-  if (clickEffect === "Ripple") ripple(e);
-  if (clickEffect === "Explosion") explosion(e);
-  if (clickEffect === "Hearts") hearts(e);
-  if (clickEffect === "Confetti") confetti(e);
-  if (clickEffect === "Fireworks") fireworks(e);
-});
-function ripple(e) {
-  const r = document.createElement("span");
-  r.className = "click-ripple";
-  r.style.left = e.pageX + "px";
-  r.style.top = e.pageY + "px";
-  r.style.width = r.style.height = "50px";
-  document.body.appendChild(r);
-  setTimeout(() => r.remove(), 800);
-}
-function explosion(e) {
-  for (let i=0;i<10;i++) particle(e,"click-particle","cyan");
-}
-function hearts(e) {
-  for (let i=0;i<5;i++) particle(e,"click-heart","pink","❤️");
-}
-function confetti(e) {
-  for (let i=0;i<15;i++) particle(e,"click-confetti",randomColor());
-}
-function fireworks(e) {
-  for (let i=0;i<20;i++) particle(e,"click-firework",randomColor());
-}
-function particle(e,cls,color,char) {
-  const p=document.createElement("span");
-  p.className=cls; p.style.left=e.pageX+"px"; p.style.top=e.pageY+"px";
-  p.style.background=color||"white"; if(char) p.textContent=char;
-  document.body.appendChild(p);
-  const a=Math.random()*2*Math.PI; const d=Math.random()*80;
-  const x=Math.cos(a)*d, y=Math.sin(a)*d;
-  p.animate([{transform:"translate(0,0)",opacity:1},{transform:`translate(${x}px,${y}px)`,opacity:0}],{duration:700});
-  setTimeout(()=>p.remove(),700);
-}
-function randomColor(){return `hsl(${Math.random()*360},100%,50%)`;}
-
-// ===== Text Effects =====
-let textEffect = null;
-const mainTitle = document.querySelector("main h1");
-document.querySelectorAll(".textfx-option").forEach(opt=>{
-  opt.addEventListener("click",()=>{
-    textEffect = opt.textContent;
-    mainTitle.className="";
-    if(textEffect==="Typewriter") mainTitle.classList.add("typewriter");
-    if(textEffect==="Glitch") mainTitle.classList.add("glitch");
-    if(textEffect==="Neon Glow") mainTitle.classList.add("neon");
-    if(textEffect==="Rainbow Text") mainTitle.classList.add("rainbow-text");
-    if(textEffect==="Wavy") {
-      mainTitle.innerHTML = mainTitle.textContent.split("").map(ch=>`<span>${ch}</span>`).join("");
-      mainTitle.classList.add("wavy");
+  if (clickEffect === "Ripple") {
+    const ripple = document.createElement("span");
+    ripple.className = "click-ripple";
+    ripple.style.left = e.pageX + "px";
+    ripple.style.top = e.pageY + "px";
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 1000);
+  }
+  if (clickEffect === "Explosion") {
+    for (let i = 0; i < 10; i++) {
+      const particle = document.createElement("span");
+      particle.className = "click-particle";
+      particle.style.left = e.pageX + "px";
+      particle.style.top = e.pageY + "px";
+      document.body.appendChild(particle);
+      const angle = Math.random() * 2 * Math.PI;
+      const dist = Math.random() * 80;
+      particle.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity: 0 }
+      ], { duration: 700, easing: "ease-out" });
+      setTimeout(() => particle.remove(), 700);
     }
+  }
+  if (clickEffect === "Fireworks") {
+    for (let i = 0; i < 20; i++) {
+      const fw = document.createElement("div");
+      fw.className = "firework";
+      fw.style.left = e.pageX + "px";
+      fw.style.top = e.pageY + "px";
+      document.body.appendChild(fw);
+      const angle = Math.random() * 2 * Math.PI;
+      const dist = Math.random() * 100;
+      fw.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity: 0 }
+      ], { duration: 1000 });
+      setTimeout(() => fw.remove(), 1000);
+    }
+  }
+  if (clickEffect === "Confetti") {
+    for (let i = 0; i < 15; i++) {
+      const conf = document.createElement("div");
+      conf.className = "cursor-emoji";
+      conf.textContent = "🎉";
+      conf.style.left = e.pageX + "px";
+      conf.style.top = e.pageY + "px";
+      document.body.appendChild(conf);
+      const x = (Math.random() - 0.5) * 200;
+      const y = Math.random() * -150;
+      conf.animate([
+        { transform: "translate(0,0)", opacity: 1 },
+        { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+      ], { duration: 1200 });
+      setTimeout(() => conf.remove(), 1200);
+    }
+  }
+});
+
+// ===== TEXT EFFECTS =====
+document.querySelectorAll(".text-option").forEach(opt => {
+  opt.addEventListener("click", () => {
+    const heroTitle = document.querySelector(".hero h1");
+    heroTitle.className = "";
+    if (opt.textContent === "Rainbow Text") heroTitle.classList.add("rainbow");
+    if (opt.textContent === "Wave Text") {
+      heroTitle.innerHTML = "";
+      "Interactive Effects Playground".split("").forEach((ch,i) => {
+        const span = document.createElement("span");
+        span.textContent = ch;
+        span.style.animationDelay = (i*0.1)+"s";
+        heroTitle.appendChild(span);
+      });
+      heroTitle.classList.add("wave");
+    }
+    if (opt.textContent === "Glitch") heroTitle.classList.add("glitch");
   });
 });
 
-// ===== Clear Effects =====
-document.getElementById("clear-effects").addEventListener("click",()=>{
-  document.body.style.background="black";
-  document.body.style.animation="none";
-  cursorEffect=null; clickEffect=null; textEffect=null;
-  mainTitle.className=""; mainTitle.textContent="Welcome to the Effects Playground 🎉";
+// ===== PAGE EFFECTS =====
+document.querySelectorAll(".page-option").forEach(opt => {
+  opt.addEventListener("click", () => {
+    document.body.classList.remove("shake","pulse","spin");
+    if (opt.textContent === "Shake") document.body.classList.add("shake");
+    if (opt.textContent === "Pulse") document.body.classList.add("pulse");
+    if (opt.textContent === "Spin") document.body.classList.add("spin");
+  });
+});
+
+// ===== CLEAR EFFECTS BUTTON =====
+document.getElementById("clearEffects").addEventListener("click", () => {
+  document.body.removeAttribute("style");
+  document.body.style.background = "linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c)";
+  document.body.style.backgroundSize = "600% 600%";
+  document.body.style.animation = "waterflow 20s ease infinite";
+  cursorEffect = null;
+  clickEffect = null;
+  document.querySelector(".hero h1").className = "";
+  document.body.classList.remove("shake","pulse","spin");
 });
