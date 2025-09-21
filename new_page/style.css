@@ -1,61 +1,41 @@
-/* ========== Reset & Base ========== */
-* { margin:0; padding:0; box-sizing:border-box; }
-html,body { height:100%; }
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
   font-family: 'Poppins', sans-serif;
-  color: #fff;
-  overflow-x: hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.4;
-}
-
-/* ========== Water-like dark animated background (kept like your original) ========== */
-.bg-waterflow {
-  background: linear-gradient(270deg, #0f1114, #12141a, #0f1114);
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
   background-size: 600% 600%;
   animation: waterflow 20s ease infinite;
   background-attachment: fixed;
+  overflow-x: hidden;
 }
+
+/* Water Background Motion */
 @keyframes waterflow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-/* other theme examples (switchable via JS) */
-.bg-galaxy {
-  background: radial-gradient(ellipse at bottom, #0b1224 0%, #06060a 60%, #000 100%);
-  background-image: radial-gradient(ellipse at 50% 20%, rgba(20,40,80,0.3), transparent), linear-gradient(270deg, #061018, #0a0c12);
-  background-size: 600% 600%;
-}
-.bg-gradientflow {
-  background: linear-gradient(270deg,#081018,#15202a,#081018);
-  background-size: 600% 600%;
-  animation: waterflow 26s ease infinite;
-}
-.bg-matrix {
-  background: linear-gradient(0deg, #00110a, #021012 60%, #000 100%);
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 3rem 2rem;
+  text-align: center;
 }
 
-/* ========== Layout ========== */
-.container { max-width:1080px; margin: 0 auto; padding: 28px; }
-.hero { text-align:center; margin: 28px 0; }
-h1 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight:800; margin-bottom:6px; }
-.tagline { color:#bdbdbd; margin-bottom:6px; }
-.small { color:#9f9f9f; font-size:0.95rem; }
-
-/* ========== Sidebar (kept like your original) ========== */
+/* Sidebar */
 .sidebar {
   height: 100%;
   width: 0;
   position: fixed;
   top: 0; left: 0;
-  background: rgba(17, 17, 17, 0.4); /* blurred dark */
+  background: rgba(17, 17, 17, 0.6);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   overflow-x: hidden;
   transition: 0.3s;
-  padding-top: 64px;
+  padding-top: 60px;
   z-index: 1000;
 }
 .sidebar a {
@@ -64,124 +44,134 @@ h1 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight:800; margin-bottom:6px
   font-size: 18px;
   color: #ccc;
   display: block;
-  transition: 0.2s;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .sidebar a:hover {
   color: white;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.05);
 }
 .sidebar.open { width: 250px; }
 
-/* ========== Hamburger (same visual) ========== */
+/* Hamburger */
 .hamburger {
   position: fixed;
-  top: 18px; left: 18px;
-  cursor: pointer; z-index: 1001;
-  width: 46px; height:46px; border-radius:10px;
-  display:grid; place-items:center;
-  background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06);
+  top: 20px; left: 20px;
+  cursor: pointer;
+  z-index: 1001;
 }
-.hamburger span { display:block; width:28px; height:3px; margin:4px 0; background:white; transition: .28s ease; border-radius:3px; }
-.hamburger.active span:nth-child(1){ transform: rotate(45deg) translate(4px,4px); }
-.hamburger.active span:nth-child(2){ opacity:0; transform: translateX(-10px); }
-.hamburger.active span:nth-child(3){ transform: rotate(-45deg) translate(4px,-4px); }
-
-/* ========== Controls Panel ========== */
-.controls { margin: 18px 0 30px; display:flex; flex-direction:column; gap:12px; }
-.glass { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); padding:14px; border-radius:12px; backdrop-filter: blur(6px); }
-.control-row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-.dropdown { position:relative; }
-.dropbtn {
-  background: rgba(255,255,255,0.03); color: #fff; border:1px solid rgba(255,255,255,0.06);
-  padding:10px 14px; border-radius:10px; cursor:pointer; min-width:190px; text-align:left;
+.hamburger span {
+  display: block;
+  width: 30px; height: 3px;
+  margin: 6px;
+  background: white;
+  transition: 0.3s;
 }
-.dropmenu {
-  position:absolute; left:0; top:calc(100% + 8px); min-width:220px;
-  background: rgba(6,6,6,0.6); border:1px solid rgba(255,255,255,0.06);
-  border-radius:8px; padding:8px; display:none; z-index:1002;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Dropdowns */
+.dropdown { margin: 1rem 0; text-align: left; }
+.dropdown-toggle {
+  background: rgba(255,255,255,0.1);
+  padding: 12px 15px;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
 }
-.dropdown.open .dropmenu { display:block; }
-.dropmenu .item { list-style:none; padding:8px 10px; cursor:pointer; border-radius:6px; color:#ddd; }
-.dropmenu .item:hover { background: rgba(255,255,255,0.03); color:#fff; }
-.dropmenu .item.active { background: rgba(255,255,255,0.05); border-left:3px solid rgba(255,255,255,0.14); }
-
-/* actions */
-.actions { gap: 10px; margin-top:6px; align-items:center; }
-.btn { padding:10px 14px; border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); color:#fff; cursor:pointer; }
-.status { color:#bfbfbf; font-size:0.95rem; margin-left:8px; }
-
-/* ========== Play area center card ========== */
-.play-area { min-height: 380px; display:flex; align-items:center; justify-content:center; margin-top:20px; }
-.center-card { max-width:760px; text-align:center; padding:18px; }
-
-/* ========== FX layer ========== */
-#fx-layer { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
-
-/* canvas helper */
-.fx-canvas { position: absolute; inset: 0; width:100%; height:100%; pointer-events:none; display:block; }
-
-/* ========== Trail dot / comet / ripple / spark / emoji styles ========== */
-.trail-dot {
-  position: absolute; width:8px; height:8px; border-radius:50%;
-  background: rgba(255,255,255,0.9); transform: translate(-50%,-50%) scale(1);
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.55));
-  animation: trailFade .6s linear forwards;
+.dropdown-toggle:hover { background: rgba(255,255,255,0.2); }
+.dropdown-menu {
+  display: none;
+  margin-top: 5px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  padding: 10px;
 }
-@keyframes trailFade { to { transform: translate(-50%,-50%) scale(.1); opacity:0; } }
-
-.comet {
-  position:absolute; width:20px; height:20px; border-radius:50%;
-  background: radial-gradient(circle at 20% 20%, #fff, rgba(255,255,255,0.12) 50%);
-  box-shadow: 0 0 18px rgba(255,255,255,0.6);
-  transform: translate(-50%,-50%);
-  animation: cometFly .8s ease-out forwards;
+.dropdown-menu div {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
 }
-@keyframes cometFly {
-  0% { opacity:1; transform: translate(-50%,-50%) scale(1); }
-  100% { opacity:0; transform: translate(120px,-70px) scale(.4); }
+.dropdown-menu div:hover {
+  background: rgba(255,255,255,0.2);
 }
 
-.ripple {
-  position:absolute; width:10px; height:10px; border-radius:50%;
-  border:2px solid rgba(255,255,255,0.9);
-  transform: translate(-50%,-50%) scale(1);
-  animation: rippleAnim .7s ease-out forwards;
-}
-@keyframes rippleAnim { to { transform: translate(-50%,-50%) scale(18); opacity:0; } }
-
-.spark {
-  position:absolute; width:6px; height:6px; border-radius:50%;
-  background: #fff; transform: translate(-50%,-50%);
-  animation: sparkAnim .6s ease-out forwards;
-}
-@keyframes sparkAnim {
-  to { transform: translate(calc(-50% + var(--vx) * 40px), calc(-50% + var(--vy) * 40px)); opacity:0; }
+/* Effects */
+.cursor-dot, .cursor-star, .cursor-bubble, .cursor-spark, .cursor-rainbow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
 }
 
-.emoji-pop {
-  position:absolute; font-size:20px; transform: translate(-50%,-50%);
-  animation: emojiUp .85s ease-out forwards;
-  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: white;
+  box-shadow: 0 0 10px white;
+  animation: fadeOut 1s forwards;
 }
-@keyframes emojiUp {
-  0% { transform: translate(-50%,-50%) scale(1); opacity:1; }
-  60% { transform: translate(-50%,-120%) scale(1.2); opacity:1; }
-  100% { transform: translate(-50%,-180%) scale(.9); opacity:0; }
+.cursor-star {
+  width: 6px; height: 6px;
+  background: yellow;
+  box-shadow: 0 0 10px yellow;
+  animation: fadeOut 0.8s forwards;
+}
+.cursor-bubble {
+  width: 10px; height: 10px;
+  background: rgba(0, 200, 255, 0.6);
+  animation: floatUp 1.5s forwards;
+}
+.cursor-spark {
+  width: 6px; height: 6px;
+  background: orange;
+  box-shadow: 0 0 6px red;
+  animation: fadeOut 0.5s forwards;
+}
+.cursor-rainbow {
+  width: 10px; height: 10px;
+  background: linear-gradient(45deg, red, yellow, lime, cyan, blue, magenta);
+  animation: fadeOut 1s forwards;
 }
 
-/* ========== Cursor aura ========== */
-.cursor-aura {
-  position: fixed; width:44px; height:44px; border-radius:50%;
-  pointer-events:none; z-index:1002; opacity:0; transform:translate(-50%,-50%);
-  border:1px solid rgba(255,255,255,0.6); box-shadow: 0 0 20px rgba(255,255,255,0.08) inset;
-  transition:opacity .2s ease;
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(0.5); }
+}
+@keyframes floatUp {
+  to { transform: translateY(-50px); opacity: 0; }
 }
 
-/* ========== small responsive adjustments ========== */
-@media (max-width:720px){
-  .container { padding:16px; }
-  .dropbtn { min-width:140px; }
-  .dropmenu { min-width:160px; }
+/* Click Effects */
+.click-ripple {
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleAnim 0.8s ease-out;
+  pointer-events: none;
+}
+@keyframes rippleAnim {
+  from { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+  to { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+.click-particle {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+}
+.click-heart {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 1.2s forwards;
+  pointer-events: none;
+}
+.click-emoji {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 1.5s forwards;
+  pointer-events: none;
 }

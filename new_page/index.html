@@ -1,544 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Robby's Effects Playground</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Effects Playground</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-waterflow">
-  <!-- Sidebar (kept style like your original) -->
+<body>
+  <!-- Sidebar Menu -->
   <div id="sidebar" class="sidebar">
-    <a href="#" class="menu-link">Home</a>
-    <a href="#" class="menu-link">Contact</a>
-    <a href="#" class="menu-link">About</a>
-    <a href="#" class="menu-link">Donations</a>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Donations</a>
   </div>
 
-  <!-- Hamburger -->
-  <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-  <!-- Cursor aura (for aura cursor effect) -->
-  <div id="cursorAura" class="cursor-aura" aria-hidden="true"></div>
+  <!-- Main Content -->
+  <div class="container">
+    <h1>🎨 Fun Effects Playground</h1>
+    <p>Select effects below and play around!</p>
 
-  <!-- Effects layer (all visual effect elements render here) -->
-  <div id="fx-layer" aria-hidden="true"></div>
-
-  <main class="container">
-    <header class="hero">
-      <h1>Robby's Effects Playground</h1>
-      <p class="tagline">Explore backgrounds, cursor trails, click fireworks & more — have fun!</p>
-      <p class="small">Tip: use the menu on the left. Expand any category and click effects to enable them. Background effects stack.</p>
-    </header>
-
-    <section class="controls glass">
-      <div class="control-row">
-        <div class="dropdown" data-group="bg-themes">
-          <button class="dropbtn">Background Themes ▾</button>
-          <ul class="dropmenu">
-            <li class="item" data-type="bg-theme" data-value="waterflow">Water — dark (default)</li>
-            <li class="item" data-type="bg-theme" data-value="galaxy">Galaxy (deep)</li>
-            <li class="item" data-type="bg-theme" data-value="gradientflow">Gradient Flow</li>
-            <li class="item" data-type="bg-theme" data-value="matrix">Matrix Green</li>
-          </ul>
-        </div>
-
-        <div class="dropdown" data-group="bg-effects">
-          <button class="dropbtn">Background Effects ▾</button>
-          <ul class="dropmenu">
-            <li class="item toggle" data-type="bg-effect" data-value="particles">Particles</li>
-            <li class="item toggle" data-type="bg-effect" data-value="bubbles">Bubbles</li>
-            <li class="item toggle" data-type="bg-effect" data-value="stars">Stars</li>
-            <li class="item toggle" data-type="bg-effect" data-value="matrixRain">Matrix Rain</li>
-          </ul>
-        </div>
+    <!-- Background Themes -->
+    <div class="dropdown">
+      <div class="dropdown-toggle">Background Themes ⬇</div>
+      <div class="dropdown-menu">
+        <div class="bg-option">Water Flow</div>
+        <div class="bg-option">Sunset Glow</div>
+        <div class="bg-option">Aurora Sky</div>
+        <div class="bg-option">Neon Night</div>
+        <div class="bg-option">Dark Forest</div>
+        <div class="bg-option">Galaxy</div>
       </div>
+    </div>
 
-      <div class="control-row">
-        <div class="dropdown" data-group="cursor-effects">
-          <button class="dropbtn">Mouse Cursor Effects ▾</button>
-          <ul class="dropmenu">
-            <li class="item" data-type="cursor" data-value="none">None</li>
-            <li class="item" data-type="cursor" data-value="trail">Trail Dots</li>
-            <li class="item" data-type="cursor" data-value="aura">Aura Follower</li>
-            <li class="item" data-type="cursor" data-value="comet">Comet Streak</li>
-          </ul>
-        </div>
-
-        <div class="dropdown" data-group="click-effects">
-          <button class="dropbtn">Mouse Click Effects ▾</button>
-          <ul class="dropmenu">
-            <li class="item" data-type="click" data-value="none">None</li>
-            <li class="item" data-type="click" data-value="ripple">Ripple</li>
-            <li class="item" data-type="click" data-value="sparks">Sparks</li>
-            <li class="item" data-type="click" data-value="emoji">Emoji Pop</li>
-          </ul>
-        </div>
+    <!-- Cursor Effects -->
+    <div class="dropdown">
+      <div class="dropdown-toggle">Mouse Cursor Effects ⬇</div>
+      <div class="dropdown-menu">
+        <div class="cursor-option">Glow Trail</div>
+        <div class="cursor-option">Stars</div>
+        <div class="cursor-option">Bubbles</div>
+        <div class="cursor-option">Fire Sparks</div>
+        <div class="cursor-option">Rainbow Tail</div>
       </div>
+    </div>
 
-      <div class="control-row actions">
-        <button id="clearAll" class="btn">Clear All Effects</button>
-        <span class="status" id="status">Active: Theme=waterflow</span>
+    <!-- Click Effects -->
+    <div class="dropdown">
+      <div class="dropdown-toggle">Mouse Click Effects ⬇</div>
+      <div class="dropdown-menu">
+        <div class="click-option">Ripple</div>
+        <div class="click-option">Explosion</div>
+        <div class="click-option">Hearts</div>
+        <div class="click-option">Stars Burst</div>
+        <div class="click-option">Emoji Rain</div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="play-area" id="playArea">
-      <!-- Optional: a subtle center panel -->
-      <div class="center-card glass">
-        <h2>Play — click / move / tap</h2>
-        <p>Enable effects above and interact with the page. Background effects stack; choose one cursor and one click effect.</p>
-      </div>
-    </section>
-
-    <footer class="site-footer">© 2025 Muhammad Asim (Robby) • Built for fun</footer>
-  </main>
-
-  <script>
-  /* ========== State & helpers ========== */
-  const state = {
-    bgTheme: 'waterflow',            // single theme
-    bgEffects: new Set(),            // particles, bubbles, stars, matrixRain
-    cursor: 'none',                  // none, trail, aura, comet
-    click: 'none'                    // none, ripple, sparks, emoji
-  };
-
-  const body = document.body;
-  const fxLayer = document.getElementById('fx-layer');
-  const aura = document.getElementById('cursorAura');
-  const statusSpan = document.getElementById('status');
-
-  function setStatus() {
-    statusSpan.textContent = `Active: Theme=${state.bgTheme} | BG effects=${[...state.bgEffects].join(',') || 'none'} | Cursor=${state.cursor} | Click=${state.click}`;
-  }
-
-  /* ========== Sidebar toggle (keep style from your original) ========== */
-  const hamburger = document.getElementById('hamburger');
-  const sidebar = document.getElementById('sidebar');
-  hamburger.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-    hamburger.classList.toggle('active');
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', (!expanded).toString());
-  });
-
-  /* ========== Dropdown UI behavior ========== */
-  document.querySelectorAll('.dropbtn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const parent = btn.closest('.dropdown');
-      parent.classList.toggle('open');
-    });
-  });
-
-  // click outside to close dropdowns
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('.dropdown')) return;
-    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
-  });
-
-  /* ========== Handle clicks on effect items ========== */
-  document.querySelectorAll('.item').forEach(el => {
-    el.addEventListener('click', (e) => {
-      const type = el.dataset.type;
-      const value = el.dataset.value;
-      if (type === 'bg-theme') {
-        // single-select theme
-        applyBgTheme(value);
-        // update active styles
-        document.querySelectorAll('[data-type="bg-theme"]').forEach(x => x.classList.remove('active'));
-        el.classList.add('active');
-      } else if (type === 'bg-effect') {
-        // toggle background effect (stackable)
-        if (state.bgEffects.has(value)) {
-          state.bgEffects.delete(value);
-          el.classList.remove('active');
-          stopBgEffect(value);
-        } else {
-          state.bgEffects.add(value);
-          el.classList.add('active');
-          startBgEffect(value);
-        }
-      } else if (type === 'cursor') {
-        // single cursor effect
-        applyCursor(value);
-        document.querySelectorAll('[data-type="cursor"]').forEach(x => x.classList.remove('active'));
-        el.classList.add('active');
-      } else if (type === 'click') {
-        applyClick(value);
-        document.querySelectorAll('[data-type="click"]').forEach(x => x.classList.remove('active'));
-        el.classList.add('active');
-      }
-      setStatus();
-    });
-  });
-
-  /* ========== Background Themes (single) ========== */
-  function applyBgTheme(name) {
-    // remove previous bg-* classes
-    body.classList.remove('bg-waterflow','bg-galaxy','bg-gradientflow','bg-matrix');
-    // add chosen
-    switch(name) {
-      case 'waterflow': body.classList.add('bg-waterflow'); break;
-      case 'galaxy':    body.classList.add('bg-galaxy'); break;
-      case 'gradientflow': body.classList.add('bg-gradientflow'); break;
-      case 'matrix':    body.classList.add('bg-matrix'); break;
-    }
-    state.bgTheme = name;
-  }
-
-  /* ========== Background Effects (stackable) ========== */
-  // We'll create/destroy canvases inside fx-layer for each effect
-  const bgEffectHandlers = {
-    particles: { canvas: null, raf: null, start: startParticles, stop: stopParticles },
-    bubbles:   { canvas: null, raf: null, start: startBubbles, stop: stopBubbles },
-    stars:     { canvas: null, raf: null, start: startStars, stop: stopStars },
-    matrixRain:{ canvas: null, raf: null, start: startMatrix, stop: stopMatrix }
-  };
-
-  function startBgEffect(name) {
-    if (bgEffectHandlers[name]) bgEffectHandlers[name].start();
-  }
-  function stopBgEffect(name) {
-    if (bgEffectHandlers[name]) bgEffectHandlers[name].stop();
-  }
-
-  /* ------------- Particles ------------- */
-  function startParticles(){
-    if (bgEffectHandlers.particles.canvas) return; // already running
-    const c = document.createElement('canvas'); c.className = 'fx-canvas particles';
-    const ctx = c.getContext('2d');
-    fxLayer.appendChild(c);
-    bgEffectHandlers.particles.canvas = c;
-
-    function resize(){ c.width = window.innerWidth; c.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-
-    const pcount = Math.round((c.width * c.height) / 90000); // density scaling
-    const parts = Array.from({length: Math.max(30,pcount)}, ()=>{
-      return { x: Math.random()*c.width, y: Math.random()*c.height, r: 1 + Math.random()*2, dx: (Math.random()-0.5)*0.6, dy: (Math.random()-0.5)*0.6, alpha: 0.3 + Math.random()*0.7 };
-    });
-
-    function frame(){
-      ctx.clearRect(0,0,c.width,c.height);
-      for (const p of parts){
-        p.x += p.dx; p.y += p.dy;
-        if (p.x < 0) p.x = c.width;
-        if (p.x > c.width) p.x = 0;
-        if (p.y < 0) p.y = c.height;
-        if (p.y > c.height) p.y = 0;
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha*0.18})`;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fill();
-      }
-      bgEffectHandlers.particles.raf = requestAnimationFrame(frame);
-    }
-    frame();
-  }
-  function stopParticles(){
-    const h = bgEffectHandlers.particles;
-    if (!h.canvas) return;
-    cancelAnimationFrame(h.raf);
-    h.canvas.remove();
-    h.canvas = null;
-    window.removeEventListener('resize', ()=>{});
-  }
-
-  /* ------------- Bubbles ------------- */
-  function startBubbles(){
-    if (bgEffectHandlers.bubbles.canvas) return;
-    const c = document.createElement('canvas'); c.className = 'fx-canvas bubbles';
-    const ctx = c.getContext('2d');
-    fxLayer.appendChild(c);
-    bgEffectHandlers.bubbles.canvas = c;
-
-    function resize(){ c.width = window.innerWidth; c.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-
-    const bubbles = [];
-    for (let i=0;i<35;i++){
-      bubbles.push({ x: Math.random()*c.width, y: c.height + Math.random()*c.height*0.2, r: 8 + Math.random()*28, vy: 0.2 + Math.random()*0.8, alpha: 0.06 + Math.random()*0.2 });
-    }
-
-    function frame(){
-      ctx.clearRect(0,0,c.width,c.height);
-      for (const b of bubbles){
-        b.y -= b.vy;
-        if (b.y + b.r < -50) { b.y = c.height + Math.random()*200; b.x = Math.random()*c.width; }
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${b.alpha})`;
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
-        ctx.fill();
-        // subtle sheen
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${b.alpha*0.6})`;
-        ctx.arc(b.x - b.r*0.3, b.y - b.r*0.4, b.r*0.45, 0, Math.PI*2);
-        ctx.fill();
-      }
-      bgEffectHandlers.bubbles.raf = requestAnimationFrame(frame);
-    }
-    frame();
-  }
-  function stopBubbles(){
-    const h = bgEffectHandlers.bubbles;
-    if (!h.canvas) return;
-    cancelAnimationFrame(h.raf);
-    h.canvas.remove();
-    h.canvas = null;
-  }
-
-  /* ------------- Stars ------------- */
-  function startStars(){
-    if (bgEffectHandlers.stars.canvas) return;
-    const c = document.createElement('canvas'); c.className = 'fx-canvas stars';
-    const ctx = c.getContext('2d');
-    fxLayer.appendChild(c);
-    bgEffectHandlers.stars.canvas = c;
-
-    function resize(){ c.width = window.innerWidth; c.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-
-    const stars = [];
-    for (let i=0;i<120;i++){
-      stars.push({ x: Math.random()*c.width, y: Math.random()*c.height, r: Math.random()*1.6, tw: Math.random()*1.6, phase: Math.random()*Math.PI*2 });
-    }
-
-    function frame(t){
-      ctx.clearRect(0,0,c.width,c.height);
-      for (const s of stars){
-        const glow = 0.5 + 0.5*Math.sin((t/500) + s.phase);
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${0.2 * glow})`;
-        ctx.arc(s.x, s.y, s.r * (0.6 + glow), 0, Math.PI*2);
-        ctx.fill();
-      }
-      bgEffectHandlers.stars.raf = requestAnimationFrame(frame);
-    }
-    frame();
-  }
-  function stopStars(){
-    const h = bgEffectHandlers.stars;
-    if (!h.canvas) return;
-    cancelAnimationFrame(h.raf);
-    h.canvas.remove();
-    h.canvas = null;
-  }
-
-  /* ------------- Matrix Rain (background effect) ------------- */
-  function startMatrix(){
-    if (bgEffectHandlers.matrixRain.canvas) return;
-    const c = document.createElement('canvas'); c.className = 'fx-canvas matrix';
-    const ctx = c.getContext('2d');
-    fxLayer.appendChild(c);
-    bgEffectHandlers.matrixRain.canvas = c;
-
-    function resize(){ c.width = window.innerWidth; c.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-
-    const fontSize = 14;
-    let cols = Math.floor(window.innerWidth / fontSize);
-    let drops = new Array(cols).fill(1);
-
-    function frame(){
-      ctx.fillStyle = 'rgba(0,0,0,0.06)';
-      ctx.fillRect(0,0,c.width,c.height);
-      ctx.fillStyle = '#0f0';
-      ctx.font = fontSize + 'px monospace';
-      for (let i=0;i<drops.length;i++){
-        const text = Math.random() > 0.5 ? '01' : '10';
-        ctx.fillText(text[Math.floor(Math.random()*text.length)], i*fontSize, drops[i]*fontSize);
-        if (drops[i]*fontSize > c.height && Math.random() > 0.975) drops[i]=0;
-        drops[i]++;
-      }
-      bgEffectHandlers.matrixRain.raf = requestAnimationFrame(frame);
-    }
-    frame();
-  }
-  function stopMatrix(){
-    const h = bgEffectHandlers.matrixRain;
-    if (!h.canvas) return;
-    cancelAnimationFrame(h.raf);
-    h.canvas.remove();
-    h.canvas = null;
-  }
-
-  /* ========== Cursor Effects ========== */
-  let trailThrottle = 0;
-  function applyCursor(name){
-    // cleanup previous
-    removeCursorListeners();
-    state.cursor = name;
-    aura.style.opacity = '0';
-
-    if (name === 'trail'){
-      document.addEventListener('mousemove', trailHandler);
-      document.addEventListener('touchmove', trailTouchHandler, {passive:true});
-    } else if (name === 'aura'){
-      aura.style.opacity = '1';
-      document.addEventListener('mousemove', auraHandler);
-      document.addEventListener('touchmove', auraTouchHandler, {passive:true});
-    } else if (name === 'comet'){
-      document.addEventListener('mousemove', cometHandler);
-      document.addEventListener('touchmove', cometTouchHandler, {passive:true});
-    }
-  }
-
-  function removeCursorListeners(){
-    document.removeEventListener('mousemove', trailHandler);
-    document.removeEventListener('touchmove', trailTouchHandler);
-    document.removeEventListener('mousemove', auraHandler);
-    document.removeEventListener('touchmove', auraTouchHandler);
-    document.removeEventListener('mousemove', cometHandler);
-    document.removeEventListener('touchmove', cometTouchHandler);
-  }
-
-  // Trail dots
-  function trailHandler(e){
-    const now = performance.now();
-    if (now - trailThrottle < 10) return;
-    trailThrottle = now;
-    spawnTrailDot(e.clientX, e.clientY);
-  }
-  function trailTouchHandler(e){
-    const t = e.touches[0];
-    if (!t) return;
-    spawnTrailDot(t.clientX, t.clientY);
-  }
-  function spawnTrailDot(x,y){
-    const d = document.createElement('span');
-    d.className = 'trail-dot';
-    d.style.left = x + 'px';
-    d.style.top = y + 'px';
-    fxLayer.appendChild(d);
-    d.addEventListener('animationend', ()=> d.remove());
-  }
-
-  // Aura follower
-  function auraHandler(e){
-    aura.style.transform = `translate(${e.clientX - 22}px, ${e.clientY - 22}px)`;
-  }
-  function auraTouchHandler(e){
-    const t = e.touches[0];
-    if (!t) return;
-    aura.style.transform = `translate(${t.clientX - 22}px, ${t.clientY - 22}px)`;
-  }
-
-  // Comet
-  let cometCooldown = 0;
-  function cometHandler(e){
-    const now = performance.now();
-    if (now - cometCooldown < 100) return;
-    cometCooldown = now;
-    spawnComet(e.clientX, e.clientY);
-  }
-  function cometTouchHandler(e){
-    const t = e.touches[0];
-    if (!t) return;
-    spawnComet(t.clientX, t.clientY);
-  }
-  function spawnComet(x,y){
-    const c = document.createElement('span');
-    c.className = 'comet';
-    c.style.left = (x-12) + 'px';
-    c.style.top  = (y-12) + 'px';
-    fxLayer.appendChild(c);
-    c.addEventListener('animationend', ()=> c.remove());
-  }
-
-  /* ========== Click Effects ========== */
-  function applyClick(name){
-    state.click = name;
-    // remove previous listener
-    document.removeEventListener('click', clickHandler);
-    document.removeEventListener('touchstart', touchClickHandler);
-    if (name !== 'none'){
-      document.addEventListener('click', clickHandler);
-      document.addEventListener('touchstart', touchClickHandler, {passive:true});
-    }
-  }
-
-  function clickHandler(e){
-    runClickEffect(state.click, e.clientX, e.clientY);
-  }
-  function touchClickHandler(e){
-    const t = e.touches[0];
-    if (!t) return;
-    runClickEffect(state.click, t.clientX, t.clientY);
-  }
-
-  function runClickEffect(type, x, y){
-    if (!type || type === 'none') return;
-    if (type === 'ripple') {
-      const r = document.createElement('span');
-      r.className = 'ripple';
-      r.style.left = x + 'px';
-      r.style.top = y + 'px';
-      fxLayer.appendChild(r);
-      r.addEventListener('animationend', ()=> r.remove());
-      return;
-    }
-    if (type === 'sparks'){
-      for (let i=0;i<14;i++){
-        const s = document.createElement('span');
-        s.className = 'spark';
-        const ang = Math.PI*2*(i/14) + (Math.random()-0.5)*0.3;
-        const speed = 1 + Math.random()*3;
-        s.style.setProperty('--vx', Math.cos(ang)*speed);
-        s.style.setProperty('--vy', Math.sin(ang)*speed);
-        s.style.left = x + 'px'; s.style.top = y + 'px';
-        fxLayer.appendChild(s);
-        s.addEventListener('animationend', ()=> s.remove());
-      }
-      return;
-    }
-    if (type === 'emoji'){
-      const EMO = ['✨','🔥','💫','⚡','🌟','💎','🚀','🪄'];
-      for (let i=0;i<6;i++){
-        const e = document.createElement('span');
-        e.className = 'emoji-pop';
-        e.textContent = EMO[Math.floor(Math.random()*EMO.length)];
-        e.style.left = (x + (Math.random()-0.5)*40) + 'px';
-        e.style.top = (y + (Math.random()-0.2)*10) + 'px';
-        fxLayer.appendChild(e);
-        e.addEventListener('animationend', ()=> e.remove());
-      }
-      return;
-    }
-  }
-
-  /* ========== Clear All Effects ========= */
-  document.getElementById('clearAll').addEventListener('click', () => {
-    // stop bg effects
-    for (const e of Array.from(state.bgEffects)) stopBgEffect(e);
-    state.bgEffects.clear();
-    document.querySelectorAll('[data-type="bg-effect"]').forEach(x => x.classList.remove('active'));
-    // reset theme
-    applyBgTheme('waterflow');
-    document.querySelectorAll('[data-type="bg-theme"]').forEach(x => x.classList.remove('active'));
-    document.querySelector('[data-type="bg-theme"][data-value="waterflow"]')?.classList.add('active');
-    // reset cursor & click
-    applyCursor('none');
-    applyClick('none');
-    document.querySelectorAll('[data-type="cursor"], [data-type="click"]').forEach(x => x.classList.remove('active'));
-    // remove any stray fx nodes
-    document.querySelectorAll('.fx-canvas, .ripple, .spark, .trail-dot, .comet, .emoji-pop').forEach(n=>n.remove());
-    setStatus();
-  });
-
-  /* Initialize default selection UI */
-  document.querySelector('[data-type="bg-theme"][data-value="waterflow"]')?.classList.add('active');
-  document.querySelector('[data-type="cursor"][data-value="none"]')?.classList.add('active');
-  document.querySelector('[data-type="click"][data-value="none"]')?.classList.add('active');
-
-  setStatus();
-
-  /* ========== Small accessibility: keyboard toggle of hamburger (space/enter) ========== */
-  hamburger.addEventListener('keydown', (e)=>{
-    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); hamburger.click(); }
-  });
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
