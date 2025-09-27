@@ -1,3 +1,11 @@
 User-agent: *
 Allow: /
+
+# Block common unnecessary files/folders (optional)
+Disallow: /wp-admin/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Sitemap location
 Sitemap: https://fwrobby.site/sitemap.xml
