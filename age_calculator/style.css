@@ -130,7 +130,7 @@ body {
 }
 
 /* ---------------------------
-   SIDEBAR & HAMBURGER (copied)
+   SIDEBAR & HAMBURGER (modified)
    --------------------------- */
 
 /* Sidebar */
@@ -166,7 +166,7 @@ body {
   width: 250px;
 }
 
-/* Hamburger */
+/* Hamburger - changed so lines are vertical bars stacked (tall thin rectangles) */
 .hamburger {
   position: fixed;
   top: 20px;
@@ -177,31 +177,34 @@ body {
   border: none;
   padding: 6px;
   display: inline-flex;
+  flex-direction: column; /* stack vertically */
   align-items: center;
   justify-content: center;
 }
 .hamburger span {
   display: block;
-  width: 30px;
-  height: 3px;
-  margin: 6px;
+  width: 4px;       /* narrow (vertical) */
+  height: 26px;     /* tall (vertical bar) */
+  margin: 6px 0;    /* space between bars vertically */
   background: white;
-  transition: 0.3s;
+  transition: transform 0.35s, opacity 0.25s;
   border-radius: 2px;
+  transform-origin: center;
 }
 .hamburger:focus {
   outline: 2px solid rgba(255,255,255,0.12);
 }
 
-/* hamburger transform when active */
+/* Adjusted transforms so the vertical bars transform into an X nicely */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 .hamburger.active span:nth-child(2) {
   opacity: 0;
+  transform: scale(0.6);
 }
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* ---------------------------
@@ -229,15 +232,52 @@ input[type="date"] {
   font-size: 1rem;
 }
 
+/* date icon contrast */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) brightness(1.2);
 }
 
+/* small hint below date input */
+.hint {
+  display: block;
+  margin-top: 6px;
+  color: #bfc9d6;
+  font-size: 0.85rem;
+}
+
+/* result area: nicer card with pills */
 .result {
   margin-top: 14px;
-  font-size: 1rem;
-  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* pills row */
+.pill-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* single pill */
+.pill {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
   color: #eaf6ff;
+  min-width: 90px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 -2px 0 rgba(255,255,255,0.02);
+}
+
+/* descriptive line */
+.result .msg {
+  color: #cde6ff;
+  font-weight: 600;
 }
 
 /* responsive tweaks */
@@ -249,6 +289,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 1rem;
   }
   .hamburger span {
-    width: 24px;
+    height: 22px;
+    width: 4px;
+  }
+  .pill {
+    min-width: 70px;
+    font-size: 0.95rem;
+    padding: 8px 10px;
   }
 }

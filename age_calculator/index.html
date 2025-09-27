@@ -24,7 +24,7 @@
     <a href="https://fwrobby.site/donate">Donations</a>
   </div>
 
-  <!-- Hamburger Icon (copied) -->
+  <!-- Hamburger Icon (vertical bars) -->
   <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span>
     <span></span>
@@ -37,7 +37,7 @@
     <section class="hero">
       <h1>Age Calculator</h1>
       <p class="tagline" aria-hidden="true">Calculate your exact age — years, months & days</p>
-      <p>Enter your date of birth below and click <strong>Calculate Age</strong>.</p>
+      <p>Enter your date of birth below and click <strong>Calculate Age</strong>. You can also press Enter after selecting the date.</p>
     </section>
 
     <!-- Age Calculator card -->
@@ -46,10 +46,17 @@
         <div style="width:100%">
           <label for="dob" class="project-title" style="margin-bottom:8px; display:block; color:#fff; font-size:1rem;">Date of Birth</label>
           <input type="date" id="dob" aria-label="Date of birth" />
+          <small class="hint">Choose your birth date (future dates are disabled).</small>
+
           <div style="margin-top:12px;">
             <button id="calcBtn" class="visit-btn">Calculate Age</button>
+            <button id="clearBtn" class="visit-btn" style="background:#6c6c6c; margin-left:8px;">Clear</button>
           </div>
-          <div id="result" class="result" role="status" aria-live="polite"></div>
+
+          <!-- nicer result: pills + message -->
+          <div id="result" class="result" role="status" aria-live="polite" aria-atomic="true">
+            <!-- Filled by JS -->
+          </div>
         </div>
       </div>
     </section>

@@ -21,7 +21,24 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// AGE calculator logic
+// AGE calculator logic (improved UX: date max, instant calc on change, clear)
+const calcBtn = document.getElementById("calcBtn");
+const clearBtn = document.getElementById("clearBtn");
+const resultEl = document.getElementById("result");
+const dobInput = document.getElementById("dob");
+
+// set max date to today to prevent future selection
+(function setMaxDate() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const max = `${yyyy}-${mm}-${dd}`;
+  dobInput.setAttribute('max', max);
+  // optional: set a reasonable min (1900-01-01)
+  dobInput.setAttribute('min', '1900-01-01');
+})();
+
 function calculateAgeFrom(dobString) {
   if (!dobString) return null;
   const today = new Date();
@@ -34,7 +51,6 @@ function calculateAgeFrom(dobString) {
 
   if (days < 0) {
     months--;
-    // days in previous month relative to today
     const daysInPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
     days += daysInPrevMonth;
   }
@@ -47,27 +63,58 @@ function calculateAgeFrom(dobString) {
   return { years, months, days };
 }
 
-const calcBtn = document.getElementById("calcBtn");
-const resultEl = document.getElementById("result");
-const dobInput = document.getElementById("dob");
+function renderResult(age) {
+  if (!age) {
+    resultEl.innerHTML = '';
+    return;
+  }
 
+  // build pills
+  const html = `
+    <div class="pill-row" aria-hidden="false">
+      <div class="pill">${age.years} yrs</div>
+      <div class="pill">${age.months} mos</div>
+      <div class="pill">${age.days} days</div>
+    </div>
+    <div class="msg">Exact age: ${age.years} years, ${age.months} months, and ${age.days} days.</div>
+  `;
+  resultEl.innerHTML = html;
+}
+
+// calculate on button click
 calcBtn.addEventListener("click", () => {
   const dob = dobInput.value;
   if (!dob) {
-    resultEl.textContent = "⚠️ Please select your date of birth.";
+    resultEl.innerHTML = `<div class="msg">Please select your date of birth above.</div>`;
     return;
   }
-
   const age = calculateAgeFrom(dob);
   if (!age) {
-    resultEl.textContent = "⚠️ Invalid date. Please try again.";
+    resultEl.innerHTML = `<div class="msg">Invalid date. Please try again.</div>`;
     return;
   }
-
-  resultEl.textContent = `🎂 You are ${age.years} years, ${age.months} months, and ${age.days} days old.`;
+  renderResult(age);
 });
 
-// Allow Enter key to calculate when date input focused
+// clear button
+clearBtn.addEventListener("click", () => {
+  dobInput.value = '';
+  resultEl.innerHTML = '';
+  dobInput.focus();
+});
+
+// instant calculate when date changes
+dobInput.addEventListener("change", () => {
+  const dob = dobInput.value;
+  if (!dob) {
+    resultEl.innerHTML = '';
+    return;
+  }
+  const age = calculateAgeFrom(dob);
+  renderResult(age);
+});
+
+// Enter key support
 dobInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     calcBtn.click();
