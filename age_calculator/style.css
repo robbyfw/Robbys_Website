@@ -1,112 +1,254 @@
-/* === Reset === */
+/* ---------------------------
+   BASE (copied from your CSS)
+   --------------------------- */
+
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
-  height: 100vh;
-  background: url('https://i.ibb.co/9n8wFZs/water-bg.jpg') no-repeat center center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  line-height: 1.6;
 }
 
-/* === Sidebar === */
-.sidebar {
-  position: fixed;
-  left: -250px;
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background: rgba(0, 0, 50, 0.9);
-  color: #fff;
-  padding: 20px;
-  transition: 0.3s;
+/* Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
-.sidebar.active {
-  left: 0;
+/* Background animation */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.sidebar h2 {
-  margin-bottom: 20px;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Hero Section */
+.hero {
   text-align: center;
+  margin: 2rem 0;
 }
 
-.sidebar ul {
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+/* Project Cards */
+.cards {
+  margin-top: 2.5rem;
+}
+.cards h2 {
+  margin-bottom: 1rem;
+}
+
+.project-list {
   list-style: none;
 }
 
-.sidebar ul li {
-  margin: 15px 0;
+.project-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.sidebar ul li a {
-  color: #fff;
+.project-item:hover {
+  transform: translateY(-5px);
+  border-color: #ffffff;
+}
+
+.project-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+/* Visit Button (reused for action) */
+.visit-btn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background: #0078ff;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.25s;
+  border: none;
+  cursor: pointer;
+}
+.visit-btn:hover {
+  background: #005fcc;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* ---------------------------
+   SIDEBAR & HAMBURGER (copied)
+   --------------------------- */
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(17, 17, 17, 0.45); /* blurred dark */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  transition: width 0.28s ease;
+  padding-top: 60px;
+  z-index: 1000;
+}
+
+.sidebar a {
+  padding: 12px 25px;
   text-decoration: none;
   font-size: 18px;
+  color: #ddd;
+  display: block;
   transition: 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.sidebar a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.sidebar ul li a:hover {
-  color: #1e90ff;
+.sidebar.open {
+  width: 250px;
 }
 
-/* === Hamburger === */
+/* Hamburger */
 .hamburger {
   position: fixed;
   top: 20px;
   left: 20px;
-  font-size: 30px;
   cursor: pointer;
-  color: #fff;
-  z-index: 1000;
-}
-
-/* === Calculator Box === */
-.container {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
-
-.container h1 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.container input {
-  padding: 10px;
-  width: 100%;
-  margin-bottom: 15px;
-  border: 2px solid #1e90ff;
-  border-radius: 8px;
-}
-
-.container button {
-  padding: 10px 20px;
-  background: #1e90ff;
-  color: #fff;
+  z-index: 1001;
+  background: transparent;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.hamburger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin: 6px;
+  background: white;
   transition: 0.3s;
+  border-radius: 2px;
+}
+.hamburger:focus {
+  outline: 2px solid rgba(255,255,255,0.12);
 }
 
-.container button:hover {
-  background: #0b6cd4;
+/* hamburger transform when active */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ---------------------------
+   AGE CALCULATOR SPECIFIC
+   --------------------------- */
+
+.calculator-card {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 12px;
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-size: 1rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.2);
 }
 
 .result {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  margin-top: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #eaf6ff;
+}
+
+/* responsive tweaks */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .container {
+    padding: 1rem;
+  }
+  .hamburger span {
+    width: 24px;
+  }
 }
