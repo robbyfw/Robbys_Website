@@ -130,7 +130,7 @@ body {
 }
 
 /* ---------------------------
-   SIDEBAR & HAMBURGER (modified)
+   SIDEBAR & HAMBURGER (horizontal spans)
    --------------------------- */
 
 /* Sidebar */
@@ -166,7 +166,7 @@ body {
   width: 250px;
 }
 
-/* Hamburger - changed so lines are vertical bars stacked (tall thin rectangles) */
+/* Hamburger - classic horizontal lines */
 .hamburger {
   position: fixed;
   top: 20px;
@@ -177,15 +177,15 @@ body {
   border: none;
   padding: 6px;
   display: inline-flex;
-  flex-direction: column; /* stack vertically */
+  flex-direction: column; /* stack the lines */
   align-items: center;
   justify-content: center;
 }
 .hamburger span {
   display: block;
-  width: 4px;       /* narrow (vertical) */
-  height: 26px;     /* tall (vertical bar) */
-  margin: 6px 0;    /* space between bars vertically */
+  width: 28px;      /* wide line (horizontal) */
+  height: 4px;      /* thin thickness */
+  margin: 5px 0;    /* spacing between lines */
   background: white;
   transition: transform 0.35s, opacity 0.25s;
   border-radius: 2px;
@@ -195,9 +195,9 @@ body {
   outline: 2px solid rgba(255,255,255,0.12);
 }
 
-/* Adjusted transforms so the vertical bars transform into an X nicely */
+/* Transforms to make the 3 lines become an “X” */
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: rotate(45deg) translate(5px, 6px);
 }
 .hamburger.active span:nth-child(2) {
   opacity: 0;
@@ -289,8 +289,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 1rem;
   }
   .hamburger span {
-    height: 22px;
-    width: 4px;
+    width: 24px;
+    height: 3px;
   }
   .pill {
     min-width: 70px;
