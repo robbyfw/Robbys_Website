@@ -183,13 +183,12 @@ body {
 }
 .hamburger span {
   display: block;
-  width: 28px;      /* wide line (horizontal) */
-  height: 4px;      /* thin thickness */
-  margin: 5px 0;    /* spacing between lines */
+  width: 26px;     /* wide (horizontal bar) */
+  height: 4px;     /* thin */
+  margin: 6px 0;
   background: white;
   transition: transform 0.35s, opacity 0.25s;
   border-radius: 2px;
-  transform-origin: center;
 }
 .hamburger:focus {
   outline: 2px solid rgba(255,255,255,0.12);
