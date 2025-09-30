@@ -38,6 +38,12 @@
   </url>
 
   <url>
+    <loc>https://fwrobby.site/age_calculator/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
     <loc>https://fwrobby.site/coin_flip/</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
