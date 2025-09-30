@@ -1,5 +1,5 @@
 /* ---------------------------
-   BASE (copied from your CSS)
+   BASE
    --------------------------- */
 
 /* General Reset */
@@ -19,7 +19,7 @@ body {
   line-height: 1.6;
 }
 
-/* Mobile fix: disable fixed background to prevent white box */
+/* Mobile fix: disable fixed background */
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
@@ -102,7 +102,7 @@ body {
   font-size: 0.85rem;
 }
 
-/* Visit Button (reused for action) */
+/* Visit Button */
 .visit-btn {
   padding: 0.45rem 0.9rem;
   border-radius: 12px;
@@ -130,7 +130,7 @@ body {
 }
 
 /* ---------------------------
-   SIDEBAR & HAMBURGER (horizontal spans)
+   SIDEBAR & HAMBURGER
    --------------------------- */
 
 /* Sidebar */
@@ -139,7 +139,7 @@ body {
   width: 0;
   position: fixed;
   top: 0; left: 0;
-  background: rgba(17, 17, 17, 0.45); /* blurred dark */
+  background: rgba(17, 17, 17, 0.45);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   overflow-x: hidden;
@@ -166,25 +166,18 @@ body {
   width: 250px;
 }
 
-/* Hamburger - classic horizontal lines */
+/* Hamburger - span lines */
 .hamburger {
   position: fixed;
   top: 20px;
   left: 20px;
   cursor: pointer;
   z-index: 1001;
-  background: transparent;
-  border: none;
-  padding: 6px;
-  display: inline-flex;
-  flex-direction: column; /* stack the lines */
-  align-items: center;
-  justify-content: center;
 }
 .hamburger span {
   display: block;
-  width: 26px;     /* wide (horizontal bar) */
-  height: 4px;     /* thin */
+  width: 30px;
+  height: 3px;
   margin: 6px 0;
   background: white;
   transition: transform 0.35s, opacity 0.25s;
@@ -194,7 +187,7 @@ body {
   outline: 2px solid rgba(255,255,255,0.12);
 }
 
-/* Transforms to make the 3 lines become an “X” */
+/* Transform to "X" */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 6px);
 }
@@ -207,7 +200,7 @@ body {
 }
 
 /* ---------------------------
-   AGE CALCULATOR SPECIFIC
+   AGE CALCULATOR
    --------------------------- */
 
 .calculator-card {
@@ -236,7 +229,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1) brightness(1.2);
 }
 
-/* small hint below date input */
+/* hint text */
 .hint {
   display: block;
   margin-top: 6px;
@@ -244,7 +237,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 0.85rem;
 }
 
-/* result area: nicer card with pills */
+/* result area */
 .result {
   margin-top: 14px;
   display: flex;
