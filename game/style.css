@@ -1,3 +1,4 @@
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -5,32 +6,334 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #70c5ce;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Background animation */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #FFD700, #FF8C00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Game Section */
+.game-section {
+  margin: 3rem 0;
 }
 
 .game-container {
-  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .instructions {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-  font-size: 14px;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 10;
+  color: #ccc;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 1rem;
 }
 
+/* Canvas */
 canvas {
-  border: 2px solid black;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
   display: block;
-  background-color: #70c5ce;
+  background: linear-gradient(180deg, #87CEEB, #98D8E8);
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+/* Game Controls */
+.game-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #0078ff, #005fcc);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 120, 255, 0.4);
+  background: linear-gradient(45deg, #005fcc, #0047ab);
+}
+
+.control-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+/* Project Cards */
+.cards {
+  margin-top: 3rem;
+}
+
+.cards h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.project-list {
+  list-style: none;
+}
+
+.project-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.project-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.project-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.status {
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status.live {
+  background: linear-gradient(45deg, #00c853, #009624);
+  color: white;
+}
+
+/* Visit Button */
+.visit-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  background: linear-gradient(45deg, #0078ff, #005fcc);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.visit-btn:hover {
+  background: linear-gradient(45deg, #005fcc, #0047ab);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 120, 255, 0.3);
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 80px;
+  z-index: 1000;
+}
+
+.sidebar a {
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  padding-left: 35px;
+}
+
+.sidebar.open {
+  width: 280px;
+}
+
+/* Hamburger - Fixed: No button styling */
+.hamburger {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px 0;
+  background: white;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .project-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .sidebar.open {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    width: 200px;
+    justify-content: center;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .cards h2 {
+    font-size: 1.6rem;
+  }
 }
