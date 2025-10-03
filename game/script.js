@@ -20,8 +20,8 @@ pathImg.src = "path.png";
 // Game variables
 let birdX = 50;
 let birdY = 150;
-let birdW = 34;
-let birdH = 24;
+let birdW = 34;   // crop width
+let birdH = 24;   // crop height
 let gravity = 0.5;
 let lift = -8;
 let velocity = 0;
@@ -33,19 +33,24 @@ let pipeSpeed = 2;
 let score = 0;
 let gameOver = false;
 
-// Bird control
-document.addEventListener("keydown", () => {
-  if (!gameOver) velocity = lift;
-  else restartGame();
-});
-document.addEventListener("click", () => {
-  if (!gameOver) velocity = lift;
-  else restartGame();
-});
+// Bird flap animation
+let frame = 0;
+
+// Controls
+document.addEventListener("keydown", handleJump);
+document.addEventListener("click", handleJump);
+
+function handleJump() {
+  if (!gameOver) {
+    velocity = lift;
+  } else {
+    restartGame();
+  }
+}
 
 // Spawn pipes
 function spawnPipe() {
-  let topHeight = Math.floor(Math.random() * (canvas.height - pipeGap - 100)) + 20;
+  let topHeight = Math.floor(Math.random() * (canvas.height - pipeGap - 120)) + 20;
   pipes.push({
     x: canvas.width,
     y: topHeight
@@ -59,18 +64,34 @@ function restartGame() {
   pipes = [];
   score = 0;
   gameOver = false;
+  draw();
 }
 
 // Main game loop
 function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
   ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
 
-  // Bird
+  // Bird physics
   velocity += gravity;
   birdY += velocity;
-  ctx.drawImage(birdImg, birdX, birdY, birdW, birdH);
 
-  // Path (ground)
+  // Bird animation (3-frame cycle if sprite sheet)
+  frame++;
+  let spriteY = 0;
+  if (frame % 20 < 7) spriteY = 0;
+  else if (frame % 20 < 14) spriteY = birdH;
+  else spriteY = birdH * 2;
+
+  try {
+    ctx.drawImage(birdImg, 0, spriteY, birdW, birdH, birdX, birdY, birdW, birdH);
+  } catch (e) {
+    ctx.drawImage(birdImg, birdX, birdY, birdW, birdH); // fallback
+  }
+
+  // Ground
   ctx.drawImage(pathImg, 0, canvas.height - 100, canvas.width, 100);
 
   // Pipes
@@ -81,7 +102,7 @@ function draw() {
     // Top pipe
     ctx.save();
     ctx.translate(pipeX + pipeWidth / 2, topHeight / 2);
-    ctx.rotate(Math.PI); // flip
+    ctx.rotate(Math.PI); 
     ctx.drawImage(pipeImg, -pipeWidth / 2, -topHeight / 2, pipeWidth, topHeight);
     ctx.restore();
 
@@ -102,16 +123,16 @@ function draw() {
       gameOver = true;
     }
 
-    // Score update
+    // Score
     if (pipeX + pipeWidth === birdX) score++;
   }
 
-  // Bird hits ground or ceiling
+  // Ground/ceiling collision
   if (birdY + birdH >= canvas.height - 100 || birdY <= 0) {
     gameOver = true;
   }
 
-  // Remove off-screen pipes
+  // Remove old pipes
   if (pipes.length > 0 && pipes[0].x + pipeWidth < 0) {
     pipes.shift();
   }
@@ -121,7 +142,7 @@ function draw() {
   ctx.font = "24px Arial";
   ctx.fillText("Score: " + score, 10, 30);
 
-  // Game over
+  // Game over screen
   if (gameOver) {
     ctx.fillStyle = "red";
     ctx.font = "40px Arial";
@@ -134,7 +155,7 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-// Pipe spawning interval
+// Pipe spawner
 setInterval(() => {
   if (!gameOver) spawnPipe();
 }, 2000);
