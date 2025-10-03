@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flappy Bird Clone</title>
+  <title>Robby's Website - FlappyBird Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="gameCanvas"></canvas>
+  <div class="game-container">
+    <div class="instructions">Press SPACE or CLICK to jump</div>
+    <canvas id="gameCanvas"></canvas>
+    <div class="game-controls" id="gameControls">
+      <button id="restartBtn" class="control-btn">🔄 Restart</button>
+      <button id="shareBtn" class="control-btn">📤 Share Score</button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

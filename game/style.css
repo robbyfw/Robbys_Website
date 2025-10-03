@@ -8,11 +8,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #70c5ce; /* fallback if bg image not loaded */
+  background: #70c5ce;
   height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.game-container {
+  position: relative;
+}
+
+.instructions {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 10;
 }
 
 canvas {
   border: 2px solid black;
   display: block;
+  background-color: #70c5ce;
 }
