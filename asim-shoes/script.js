@@ -1,4 +1,4 @@
-// Replace with your Supabase project credentials
+// Supabase credentials
 const SUPABASE_URL = "https://whqdidslbwkljaygfsvt.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndocWRpZHNsYndrbGpheWdmc3Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NzM3NTYsImV4cCI6MjA3NTI0OTc1Nn0.L3_Np0jQXUF_t3HjHs7CsOOM_MHXb0mItmq4-FSafr8";
 
@@ -26,7 +26,8 @@ async function loadProducts() {
     div.innerHTML = `
       <img src="${product.image_url}" alt="${product.name}">
       <h3>${product.name}</h3>
-      <p>$${product.price}</p>
+      <p>${product.description}</p>
+      <p><strong>$${product.price}</strong></p>
       <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
     `;
     container.appendChild(div);
@@ -66,7 +67,7 @@ async function placeOrder() {
   }
 
   const message = `Hello, I want to order:\n${cart.map(i => `${i.name} x${i.quantity}`).join('\n')}\nName: ${buyerName}\nContact: ${buyerContact}`;
-  const whatsappLink = `https://wa.me/YOUR_NUMBER?text=${encodeURIComponent(message)}`;
+  const whatsappLink = `https://wa.me/03140170570?text=${encodeURIComponent(message)}`;
   window.open(whatsappLink, '_blank');
 }
 

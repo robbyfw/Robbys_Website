@@ -3,25 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoe Shop</title>
+  <title>My Shoe Store</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <!-- Header / Navigation -->
   <header>
-    <h1>My Shoe Shop</h1>
+    <div class="container">
+      <h1 class="logo">ShoeStore</h1>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#checkout">Checkout</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section id="products-container" class="products-grid"></section>
+  <!-- Hero / Banner -->
+  <section class="hero">
+    <div class="container">
+      <h2>Step into Style</h2>
+      <p>Premium shoes for every occasion. Quality and comfort guaranteed.</p>
+    </div>
+  </section>
 
-    <section class="checkout">
+  <!-- Products Section -->
+  <section id="products" class="products-section">
+    <div class="container">
+      <h2>Our Shoes</h2>
+      <div id="products-container" class="products-grid"></div>
+    </div>
+  </section>
+
+  <!-- About / Shop Info -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <h2>About Our Shop</h2>
+      <p>We are a local shoe store dedicated to providing stylish and comfortable shoes for everyone. Contact us via WhatsApp to place your order or ask about products.</p>
+      <ul>
+        <li>📍 Location: 123 Main Street, City</li>
+        <li>📞 WhatsApp: +1234567890</li>
+        <li>⏰ Working Hours: Mon-Sat 10am - 8pm</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Checkout Section -->
+  <section id="checkout" class="checkout-section">
+    <div class="container">
       <h2>Checkout</h2>
       <input id="buyerName" type="text" placeholder="Your Name">
       <input id="buyerContact" type="text" placeholder="WhatsApp Number">
       <button id="buyBtn">Buy via WhatsApp</button>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 ShoeStore. All rights reserved.</p>
+      <p>Follow us: <a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
