@@ -1,4 +1,4 @@
-/* General Reset */
+/* ===================== GENERAL RESET ===================== */
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +17,7 @@ body {
   overflow: hidden;
 }
 
-/* Chat Container */
+/* ===================== CHAT APP CONTAINER ===================== */
 .chat-app {
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ body {
   border: 1px solid #1c1c1c;
 }
 
-/* Chat Header */
+/* ===================== CHAT HEADER ===================== */
 .chat-header {
   background-color: #202225;
   padding: 15px 20px;
@@ -50,7 +50,7 @@ body {
   text-overflow: ellipsis;
 }
 
-/* Messages Area */
+/* ===================== CHAT MESSAGES ===================== */
 .chat-messages {
   flex: 1;
   padding: 15px;
@@ -59,6 +59,7 @@ body {
   gap: 10px;
   overflow-y: auto;
   background-color: #36393f;
+  scroll-behavior: smooth;
 }
 
 /* Scrollbar */
@@ -75,7 +76,12 @@ body {
   background-color: #2f3136;
 }
 
-/* Individual Message */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: #202225 #2f3136;
+}
+
+/* ===================== INDIVIDUAL MESSAGE ===================== */
 .message {
   display: flex;
   gap: 10px;
@@ -88,19 +94,26 @@ body {
   border-radius: 5px;
 }
 
-/* Avatar */
+/* ===================== AVATAR ===================== */
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background: #7289da url('https://fwrobby.site/nopfp.jpg') center/cover no-repeat;
   flex-shrink: 0;
+  transition: border 0.2s;
 }
 
-/* Message Content */
+/* Hover avatar border */
+.message:hover .avatar {
+  border: 2px solid #fff;
+}
+
+/* ===================== MESSAGE CONTENT ===================== */
 .message-content {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .message-header {
@@ -118,6 +131,7 @@ body {
 .timestamp {
   font-size: 11px;
   color: #b9bbbe;
+  margin-left: 4px;
 }
 
 .message-text {
@@ -129,21 +143,30 @@ body {
   color: #dcddde;
   font-size: 14px;
   margin-top: 2px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
 }
 
-/* Input Area */
+/* Hover effect for messages */
+.message:hover .message-text {
+  background-color: #4f545c;
+}
+
+/* ===================== INPUT AREA ===================== */
 .chat-input {
   display: flex;
   padding: 10px;
   border-top: 1px solid #1c1c1c;
-  background-color: #202225;
+  background-color: #36393f;
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 }
 
 #messageInput {
   flex: 1;
   padding: 10px 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   background-color: #40444b;
   color: #dcddde;
@@ -156,23 +179,67 @@ body {
   background-color: #50555c;
 }
 
+#messageInput::placeholder {
+  color: #b9bbbe;
+}
+
 #sendBtn {
   padding: 10px 20px;
   margin-left: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
-  background-color: #7289da;
+  background-color: #40444b;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.1s;
 }
 
 #sendBtn:hover {
-  background-color: #5b6eae;
+  background-color: #50555c;
 }
 
-/* Mobile Responsiveness */
+#sendBtn:active {
+  transform: scale(0.98);
+}
+
+/* ===================== INLINE CODE, EMOJI, MENTION ===================== */
+.message-text code {
+  background: rgba(220, 221, 222, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.message-text span.mention {
+  color: #00b0f4;
+  font-weight: 600;
+}
+
+.message-text img.emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* ===================== ADVANCED DISCORD STYLING ===================== */
+/* Different user message color */
+.message.you .message-text {
+  background-color: #3ba55d;
+  color: white;
+}
+
+/* Header gradient */
+.chat-header {
+  background: linear-gradient(90deg, #2c2f33, #202225);
+}
+
+/* Message break-word */
+.message-text {
+  word-break: break-word;
+}
+
+/* ===================== MOBILE RESPONSIVENESS ===================== */
 @media (max-width: 480px) {
   body {
     padding: 10px;
@@ -190,65 +257,11 @@ body {
   #sendBtn {
     padding: 10px 12px;
   }
-}
 
-/* Advanced Discord-like Styling */
+  .chat-input {
+    padding: 8px;
+  }
 
-/* Different user hover effect */
-.message.you .message-text {
-  background-color: #3ba55d;
-  color: white;
-}
-
-/* Inline code style */
-.message-text code {
-  background: rgba(220, 221, 222, 0.1);
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-family: monospace;
-}
-
-/* Mention style */
-.message-text span.mention {
-  color: #00b0f4;
-  font-weight: 600;
-}
-
-/* Emoji style */
-.message-text img.emoji {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-}
-
-/* Timestamp hover show */
-.message:hover .timestamp {
-  opacity: 1;
-}
-
-/* Scroll behavior */
-.chat-messages {
-  scroll-behavior: smooth;
-}
-
-/* Add subtle gradients for header */
-.chat-header {
-  background: linear-gradient(90deg, #2c2f33, #202225);
-}
-
-/* Avatar border for hover */
-.message:hover .avatar {
-  border: 2px solid #fff;
-  transition: border 0.2s;
-}
-
-/* Rounded corners for input and button */
-#messageInput, #sendBtn {
-  border-radius: 8px;
-}
-
-/* Adjust spacing for mobile */
-@media (max-width: 480px) {
   .message-text {
     max-width: 75%;
     font-size: 13px;
@@ -260,57 +273,7 @@ body {
   }
 }
 
-/* Sticky input for mobile */
-.chat-input {
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
-}
-
-/* Placeholder styling */
-#messageInput::placeholder {
-  color: #b9bbbe;
-}
-
-/* Message spacing adjustments */
-.message-content {
-  gap: 2px;
-}
-
-/* Shadow effects for messages */
-.message-text {
-  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
-}
-
-/* Add more spacing for large screens */
-@media (min-width: 768px) {
-  .chat-messages {
-    padding: 20px;
-  }
-}
-
-/* Extra hover effects */
-#sendBtn:active {
-  transform: scale(0.98);
-}
-
-/* Scrollbar hover */
-.chat-messages::-webkit-scrollbar-thumb:hover {
-  background-color: #40444b;
-}
-
-/* Custom scrollbar for Firefox */
-.chat-messages {
-  scrollbar-width: thin;
-  scrollbar-color: #202225 #2f3136;
-}
-
-/* Message break-word */
-.message-text {
-  word-break: break-word;
-}
-
-/* Smooth background gradient animation (optional Discord feel) */
+/* ===================== SCROLLBAR ANIMATION ===================== */
 body {
   background: linear-gradient(270deg, #2f3136, #36393f, #2f3136);
   background-size: 600% 600%;
@@ -322,3 +285,40 @@ body {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* ===================== OPTIONAL SHADOWS AND TRANSITIONS ===================== */
+.message-text {
+  transition: background 0.2s, color 0.2s;
+}
+
+#messageInput, #sendBtn {
+  transition: background 0.2s, transform 0.1s;
+}
+
+.message:hover {
+  transition: background 0.2s;
+}
+
+/* ===================== EXTRA SPACING ===================== */
+.chat-messages {
+  padding: 15px;
+}
+
+.message-content {
+  gap: 2px;
+}
+
+/* ===================== PLACEHOLDER STYLING ===================== */
+#messageInput::placeholder {
+  color: #b9bbbe;
+  font-style: italic;
+}
+
+/* ===================== STICKY INPUT ===================== */
+.chat-input {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* ===================== END OF STYLE.CSS ===================== */
