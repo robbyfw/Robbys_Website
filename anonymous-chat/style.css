@@ -260,10 +260,13 @@ body {
 
   .chat-input {
     padding: 8px;
-    bottom: 0;
+    bottom: 10px; /* 🔥 FIX: moved input slightly up */
     left: 0;
     right: 0;
     flex-wrap: wrap;
+    background-color: #36393f;
+    border-top: 1px solid #1c1c1c;
+    position: sticky;
   }
 
   #messageInput {
@@ -281,7 +284,7 @@ body {
   }
 
   .chat-messages {
-    max-height: calc(95vh - 120px);
+    max-height: calc(95vh - 140px);
   }
 }
 
