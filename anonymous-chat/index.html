@@ -5,10 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anonymous Chat 💬</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Load Supabase JS first -->
+  <!-- Supabase JS -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about/">About Me</a>
+    <a href="https://fwrobby.site/contact/">Contact Me</a>
+    <a href="https://fwrobby.site/donate/">Donations</a>
+  </div>
+
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <div class="chat-container">
     <h2>Anonymous Chat 💬</h2>
     <div id="messages" class="messages"></div>

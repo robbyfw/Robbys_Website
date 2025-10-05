@@ -1,24 +1,45 @@
-body {
-  background: #111;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* General Reset */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .chat-container {
   width: 95%;
   max-width: 450px;
-  background: #1b1b1b;
+  background: rgba(17, 17, 17, 0.6);
   border: 2px solid #222;
   border-radius: 15px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   height: 80vh;
+  margin: 50px auto;
+  position: relative;
+  z-index: 1;
 }
 
 h2 {
@@ -29,13 +50,13 @@ h2 {
 .messages {
   flex: 1;
   overflow-y: auto;
-  background: #141414;
+  background: rgba(0,0,0,0.2);
   padding: 10px;
   border-radius: 10px;
 }
 
 .message {
-  background: #2a2a2a;
+  background: rgba(42,42,42,0.6);
   padding: 8px 12px;
   border-radius: 10px;
   margin-bottom: 8px;
@@ -45,7 +66,7 @@ h2 {
 .timestamp {
   float: right;
   font-size: 11px;
-  color: #999;
+  color: #ccc;
   margin-left: 10px;
 }
 
@@ -75,4 +96,63 @@ h2 {
 
 #sendBtn:hover {
   background: #005ecb;
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(17, 17, 17, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 1000;
+}
+
+.sidebar a {
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #ccc;
+  display: block;
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+/* Hamburger */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1001;
+}
+.hamburger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin: 6px;
+  background: white;
+  transition: 0.3s;
+}
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }

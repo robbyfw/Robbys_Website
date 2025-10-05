@@ -1,12 +1,12 @@
-// 🔧 Supabase credentials (your new project)
+// 🔧 Supabase credentials
 const SUPABASE_URL = "https://dwivklunuucddhbnzmbl.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3aXZrbHVudXVjZGRoYm56bWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NTU4NDEsImV4cCI6MjA3NTIzMTg0MX0.Rj800uYlaO4TtV6TA_ThUoHhhQy55E2A9boADLStuUI";
 
 // Initialize Supabase client
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Generate a random anonymous ID per user
-const userId = localStorage.getItem("anon_id") || "anon_" + Math.random().toString(36).substring(2, 10);
+// Generate a random anonymous ID per user like Anonymous#1234
+const userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
 localStorage.setItem("anon_id", userId);
 
 const messagesDiv = document.getElementById("messages");
@@ -78,3 +78,12 @@ supabaseClient
 
 // Load old messages
 loadMessages();
+
+// Sidebar toggle
+const hamburger = document.getElementById("hamburger");
+const sidebar = document.getElementById("sidebar");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  sidebar.classList.toggle("open");
+});
