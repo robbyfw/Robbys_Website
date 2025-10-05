@@ -3,7 +3,7 @@ const SUPABASE_URL = "https://dwivklunuucddhbnzmbl.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3aXZrbHVudXVjZGRoYm56bWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NTU4NDEsImV4cCI6MjA3NTIzMTg0MX0.Rj800uYlaO4TtV6TA_ThUoHhhQy55E2A9boADLStuUI";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Generate random anonymous ID
+// Random anonymous ID
 let userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
 localStorage.setItem("anon_id", userId);
 
@@ -11,7 +11,7 @@ const messagesDiv = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 
-// Rate limit: 1 message every 3 seconds
+// Rate limit
 let lastSent = 0;
 
 // Format timestamps
@@ -22,7 +22,7 @@ function formatTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-// Display a message
+// Display message
 function displayMessage(msg) {
   const div = document.createElement("div");
   div.classList.add("message");
@@ -53,14 +53,14 @@ function displayMessage(msg) {
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-// Load messages from Supabase
+// Load messages
 async function loadMessages() {
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
     .order("created_at", { ascending: true });
 
-  if (error) console.error(error);
+  if(error) console.error(error);
   else data.forEach(displayMessage);
 }
 
@@ -70,7 +70,7 @@ async function sendMessage() {
   const content = messageInput.value.trim();
   if (!content) return;
 
-  if (now - lastSent < 3000) {
+  if(now - lastSent < 3000){
     alert("Slow down! 1 message every 3 seconds.");
     return;
   }
@@ -80,13 +80,13 @@ async function sendMessage() {
     .from("messages")
     .insert([{ user_id: userId, content }]);
 
-  if (error) console.error(error);
+  if(error) console.error(error);
   messageInput.value = "";
 }
 
 // Event listeners
 sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+messageInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
 
 // Realtime listener
 supabaseClient
