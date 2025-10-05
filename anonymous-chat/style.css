@@ -35,7 +35,7 @@ body {
   width: 100%;
   max-width: 700px;
   background: rgba(30, 30, 30, 0.85);
-  border: 2px solid #222;
+  border: 1px solid #444; /* changed to same as note box */
   border-radius: 15px;
   padding: 20px;
   display: flex;
@@ -47,8 +47,8 @@ body {
 }
 
 .chat-container:hover, .chat-container:active {
+  border-color: #888; /* subtle hover like note box */
   box-shadow: none;
-  border-color: #fff;
 }
 
 /* Messages container */
@@ -78,12 +78,12 @@ body {
 
 /* Name, Message and Timestamp */
 .message strong {
-  margin-right: 3px; /* no extra space after name */
+  margin-right: 3px;
 }
 .timestamp {
   font-size: 11px;
   color: #ccc;
-  margin-left: auto; /* timestamp aligned to right */
+  margin-left: auto;
   white-space: nowrap;
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 #messageInput:focus {
-  border-color: #fff;
+  border-color: #888;
 }
 
 #sendBtn {
