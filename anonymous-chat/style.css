@@ -6,6 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
 .chat-container {
@@ -39,6 +40,13 @@ h2 {
   border-radius: 10px;
   margin-bottom: 8px;
   word-wrap: break-word;
+}
+
+.timestamp {
+  float: right;
+  font-size: 11px;
+  color: #999;
+  margin-left: 10px;
 }
 
 .input-area {
