@@ -18,9 +18,30 @@ body {
   min-height: 100vh;
 }
 
+/* Mobile fix: disable fixed background to prevent white box */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Background animation */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container helper */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
 /* Chat Container */
 .chat-container {
-  width: 90%;                 /* slightly reduced from 100% to prevent touching edges */
+  width: 90%;
   max-width: 700px;
   background: rgba(30, 30, 30, 0.85);
   border: 1px solid #444;
@@ -29,7 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 70vh;
-  margin: 50px auto 10px auto; /* auto margins keep it centered on PC and mobile */
+  margin: 50px auto 10px auto;
   position: relative;
   transition: all 0.3s ease;
 }
@@ -124,7 +145,7 @@ body {
   padding: 8px 12px;
   border-radius: 10px;
   width: fit-content;
-  max-width: 90%;  /* prevent touching edges on mobile */
+  max-width: 90%;
 }
 
 /* Horizontal line above credits */
@@ -142,7 +163,7 @@ body {
   margin: 0 auto 20px auto;
   color: #888;
   font-size: 0.9em;
-  max-width: 90%; /* prevent touching edges on mobile */
+  max-width: 90%;
 }
 
 /* Sidebar */
@@ -220,7 +241,7 @@ body {
   }
 
   .chat-container {
-    max-width: 95%;  /* slightly smaller on mobile */
+    max-width: 95%;
   }
 
   .note,
