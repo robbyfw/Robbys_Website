@@ -7,68 +7,97 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #36393f;
+  background-color: #36393f;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   padding: 10px;
+  overflow: hidden;
 }
 
-/* Chat App */
+/* Chat Container */
 .chat-app {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 600px;
   height: 90vh;
-  background: #2f3136;
+  background-color: #2f3136;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  border: 1px solid #1c1c1c;
 }
 
-/* Header */
+/* Chat Header */
 .chat-header {
-  background: #202225;
+  background-color: #202225;
   padding: 15px 20px;
   border-bottom: 1px solid #1c1c1c;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .chat-header h2 {
   font-size: 16px;
   font-weight: 600;
-  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Messages */
+/* Messages Area */
 .chat-messages {
   flex: 1;
   padding: 15px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   overflow-y: auto;
-  background: #36393f;
+  background-color: #36393f;
 }
 
-/* Individual message */
+/* Scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #202225;
+  border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background-color: #2f3136;
+}
+
+/* Individual Message */
 .message {
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  transition: background 0.2s;
 }
 
+.message:hover {
+  background-color: rgba(79, 84, 92, 0.2);
+  border-radius: 5px;
+}
+
+/* Avatar */
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #7289da url('no_pfp.png') center/cover no-repeat;
+  background: #7289da url('no_pfp.jpg') center/cover no-repeat;
   flex-shrink: 0;
 }
 
+/* Message Content */
 .message-content {
   display: flex;
   flex-direction: column;
@@ -77,36 +106,37 @@ body {
 .message-header {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .message-header strong {
   font-weight: 600;
   color: #fff;
+  font-size: 14px;
 }
 
 .timestamp {
   font-size: 11px;
   color: #b9bbbe;
-  margin-left: 5px;
 }
 
 .message-text {
-  background: #40444b;
+  background-color: #40444b;
   padding: 8px 12px;
   border-radius: 5px;
   max-width: 90%;
   word-wrap: break-word;
   color: #dcddde;
   font-size: 14px;
+  margin-top: 2px;
 }
 
-/* Input */
+/* Input Area */
 .chat-input {
   display: flex;
   padding: 10px;
   border-top: 1px solid #1c1c1c;
-  background: #202225;
+  background-color: #202225;
   flex-shrink: 0;
 }
 
@@ -115,10 +145,15 @@ body {
   padding: 10px 12px;
   border-radius: 5px;
   border: none;
-  background: #40444b;
+  background-color: #40444b;
   color: #dcddde;
   outline: none;
   font-size: 14px;
+  transition: background 0.2s;
+}
+
+#messageInput:focus {
+  background-color: #50555c;
 }
 
 #sendBtn {
@@ -126,35 +161,23 @@ body {
   margin-left: 10px;
   border-radius: 5px;
   border: none;
-  background: #7289da;
+  background-color: #7289da;
   color: #fff;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s;
 }
 
 #sendBtn:hover {
-  background: #5b6eae;
+  background-color: #5b6eae;
 }
 
-/* Scrollbar */
-.chat-messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-  background: #202225;
-  border-radius: 3px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-  background: #2f3136;
-}
-
-/* Mobile */
+/* Mobile Responsiveness */
 @media (max-width: 480px) {
   body {
     padding: 10px;
   }
+
   .chat-app {
     max-width: 100%;
     height: 95vh;
@@ -167,4 +190,135 @@ body {
   #sendBtn {
     padding: 10px 12px;
   }
+}
+
+/* Advanced Discord-like Styling */
+
+/* Different user hover effect */
+.message.you .message-text {
+  background-color: #3ba55d;
+  color: white;
+}
+
+/* Inline code style */
+.message-text code {
+  background: rgba(220, 221, 222, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+/* Mention style */
+.message-text span.mention {
+  color: #00b0f4;
+  font-weight: 600;
+}
+
+/* Emoji style */
+.message-text img.emoji {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* Timestamp hover show */
+.message:hover .timestamp {
+  opacity: 1;
+}
+
+/* Scroll behavior */
+.chat-messages {
+  scroll-behavior: smooth;
+}
+
+/* Add subtle gradients for header */
+.chat-header {
+  background: linear-gradient(90deg, #2c2f33, #202225);
+}
+
+/* Avatar border for hover */
+.message:hover .avatar {
+  border: 2px solid #fff;
+  transition: border 0.2s;
+}
+
+/* Rounded corners for input and button */
+#messageInput, #sendBtn {
+  border-radius: 8px;
+}
+
+/* Adjust spacing for mobile */
+@media (max-width: 480px) {
+  .message-text {
+    max-width: 75%;
+    font-size: 13px;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Sticky input for mobile */
+.chat-input {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* Placeholder styling */
+#messageInput::placeholder {
+  color: #b9bbbe;
+}
+
+/* Message spacing adjustments */
+.message-content {
+  gap: 2px;
+}
+
+/* Shadow effects for messages */
+.message-text {
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+}
+
+/* Add more spacing for large screens */
+@media (min-width: 768px) {
+  .chat-messages {
+    padding: 20px;
+  }
+}
+
+/* Extra hover effects */
+#sendBtn:active {
+  transform: scale(0.98);
+}
+
+/* Scrollbar hover */
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background-color: #40444b;
+}
+
+/* Custom scrollbar for Firefox */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: #202225 #2f3136;
+}
+
+/* Message break-word */
+.message-text {
+  word-break: break-word;
+}
+
+/* Smooth background gradient animation (optional Discord feel) */
+body {
+  background: linear-gradient(270deg, #2f3136, #36393f, #2f3136);
+  background-size: 600% 600%;
+  animation: gradientFlow 20s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
