@@ -29,16 +29,14 @@ function displayMessage(msg) {
   const div = document.createElement("div");
   div.classList.add("message");
 
-let displayName;
-if (msg.user_id === userId) {
-  displayName = "You";
-  // div.classList.add("you"); <- removed as requested
-  const randomFourDigits = Math.floor(1000 + Math.random() * 9000);
-  userId = `Anonymous#${randomFourDigits}`;
-} else {
-  displayName = msg.user_id;
-  // div.classList.add("other"); <- optional, can keep for styling
-}
+  let displayName;
+  if (msg.user_id === userId) {
+    displayName = "You";
+    const randomFourDigits = Math.floor(1000 + Math.random() * 9000);
+    userId = `Anonymous#${randomFourDigits}`;
+  } else {
+    displayName = msg.user_id;
+  }
 
   div.innerHTML = `<strong>${displayName}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
   messagesDiv.appendChild(div);

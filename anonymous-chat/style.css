@@ -32,8 +32,8 @@ body {
 
 /* Chat Container */
 .chat-container {
-  width: 95%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 700px; /* increased width */
   background: rgba(30, 30, 30, 0.85);
   border: 2px solid #222;
   border-radius: 15px;
@@ -47,8 +47,8 @@ body {
 }
 
 .chat-container:hover, .chat-container:active {
-  box-shadow: 0 0 15px 3px #fff;
-  border-color: #fff;
+  box-shadow: none; /* removed glow */
+  border-color: #fff; /* subtle white outline only */
 }
 
 /* Messages container */
@@ -60,26 +60,30 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px; /* spacing between messages */
+  gap: 4px; /* smaller spacing */
 }
 
 /* Message styling - neutral for all */
 .message {
   padding: 8px 12px;
   border-radius: 10px;
-  background: rgba(42, 42, 42, 0.7); /* same neutral for all */
+  background: rgba(42, 42, 42, 0.7);
   color: #ddd;
   word-wrap: break-word;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* name + message aligned */
   align-items: center;
+  gap: 6px;
 }
 
-/* Timestamp */
+/* Name, Message and Timestamp */
+.message strong {
+  margin-right: 5px;
+}
 .timestamp {
   font-size: 11px;
   color: #ccc;
-  margin-left: 10px;
+  margin-left: auto; /* timestamp at right end */
   white-space: nowrap;
 }
 
@@ -88,30 +92,28 @@ body {
   font-size: 0.8em;
   color: #ccc;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px auto;
   border: 1px solid #444;
   padding: 8px 12px;
   border-radius: 10px;
   width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Credits container like note box */
+/* Horizontal line above credits */
+.credits-line {
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto 5px auto;
+  border: 0;
+  border-top: 1px solid #555;
+}
+
+/* Credits container below line */
 .credits-container {
   text-align: center;
-  margin: 10px auto 20px auto;
-  display: inline-block;
-  border: 1px solid #444;
-  padding: 8px 12px;
-  border-radius: 10px;
+  margin: 0 auto 20px auto;
   color: #888;
-  transition: all 0.3s ease;
-}
-
-.credits-container:hover, .credits-container:active {
-  color: #fff;
-  border-color: #fff;
+  font-size: 0.9em;
 }
 
 /* Sidebar */
