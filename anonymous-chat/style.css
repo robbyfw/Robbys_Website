@@ -60,6 +60,7 @@ body {
   overflow-y: auto;
   background-color: #36393f;
   scroll-behavior: smooth;
+  max-height: calc(100% - 130px);
 }
 
 /* Scrollbar */
@@ -99,12 +100,11 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #7289da url('https://fwrobby.site/nopfp.jpg') center/cover no-repeat;
+  background: #7289da url('no_pfp.jpg') center/cover no-repeat;
   flex-shrink: 0;
   transition: border 0.2s;
 }
 
-/* Hover avatar border */
 .message:hover .avatar {
   border: 2px solid #fff;
 }
@@ -138,12 +138,15 @@ body {
   background-color: #40444b;
   padding: 8px 12px;
   border-radius: 5px;
-  max-width: 90%;
+  max-width: 100%;
   word-wrap: break-word;
   color: #dcddde;
   font-size: 14px;
   margin-top: 2px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Hover effect for messages */
@@ -223,18 +226,15 @@ body {
 }
 
 /* ===================== ADVANCED DISCORD STYLING ===================== */
-/* Different user message color */
 .message.you .message-text {
   background-color: #3ba55d;
   color: white;
 }
 
-/* Header gradient */
 .chat-header {
   background: linear-gradient(90deg, #2c2f33, #202225);
 }
 
-/* Message break-word */
 .message-text {
   word-break: break-word;
 }
@@ -260,20 +260,32 @@ body {
 
   .chat-input {
     padding: 8px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-wrap: wrap;
+  }
+
+  #messageInput {
+    font-size: 13px;
   }
 
   .message-text {
-    max-width: 75%;
     font-size: 13px;
+    max-width: 90%;
   }
 
   .avatar {
     width: 35px;
     height: 35px;
   }
+
+  .chat-messages {
+    max-height: calc(95vh - 120px);
+  }
 }
 
-/* ===================== SCROLLBAR ANIMATION ===================== */
+/* ===================== BACKGROUND ANIMATION ===================== */
 body {
   background: linear-gradient(270deg, #2f3136, #36393f, #2f3136);
   background-size: 600% 600%;
@@ -286,7 +298,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ===================== OPTIONAL SHADOWS AND TRANSITIONS ===================== */
+/* ===================== EXTRA TRANSITIONS & SHADOWS ===================== */
 .message-text {
   transition: background 0.2s, color 0.2s;
 }
@@ -299,22 +311,11 @@ body {
   transition: background 0.2s;
 }
 
-/* ===================== EXTRA SPACING ===================== */
-.chat-messages {
-  padding: 15px;
-}
-
-.message-content {
-  gap: 2px;
-}
-
-/* ===================== PLACEHOLDER STYLING ===================== */
 #messageInput::placeholder {
   color: #b9bbbe;
   font-style: italic;
 }
 
-/* ===================== STICKY INPUT ===================== */
 .chat-input {
   position: sticky;
   bottom: 0;
