@@ -27,10 +27,11 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* Chat Container */
 .chat-container {
   width: 95%;
   max-width: 450px;
-  background: rgba(17, 17, 17, 0.6);
+  background: rgba(30, 30, 30, 0.85); /* slightly lighter */
   border: 2px solid #222;
   border-radius: 15px;
   padding: 20px;
@@ -55,21 +56,34 @@ h2 {
   border-radius: 10px;
 }
 
+/* Message styling */
 .message {
-  background: rgba(42,42,42,0.6);
   padding: 8px 12px;
   border-radius: 10px;
   margin-bottom: 8px;
   word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message.you {
+  background: rgba(0, 128, 0, 0.7); /* green for your messages */
+  color: #fff;
+}
+
+.message.other {
+  background: rgba(42, 42, 42, 0.7); /* gray for others */
+  color: #ddd;
 }
 
 .timestamp {
-  float: right;
   font-size: 11px;
   color: #ccc;
   margin-left: 10px;
 }
 
+/* Input area */
 .input-area {
   display: flex;
   gap: 10px;
@@ -98,6 +112,20 @@ h2 {
   background: #005ecb;
 }
 
+/* Note & Credits */
+.note {
+  font-size: 0.8em;
+  color: #ccc;
+  margin-top: 8px;
+}
+
+.credits {
+  font-size: 0.75em;
+  color: #888;
+  margin-top: 5px;
+  text-align: center;
+}
+
 /* Sidebar */
 .sidebar {
   height: 100%;
@@ -122,6 +150,7 @@ h2 {
   transition: 0.3s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .sidebar a:hover {
   color: white;
   background: rgba(255, 255, 255, 0.05);
@@ -139,6 +168,7 @@ h2 {
   cursor: pointer;
   z-index: 1001;
 }
+
 .hamburger span {
   display: block;
   width: 30px;
@@ -147,12 +177,15 @@ h2 {
   background: white;
   transition: 0.3s;
 }
+
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
+
 .hamburger.active span:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(5px, -5px);
 }

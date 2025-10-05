@@ -5,8 +5,8 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Initialize Supabase client
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Generate a random anonymous ID per user like Anonymous#1234
-const userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
+// Generate a random anonymous ID per user
+let userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
 localStorage.setItem("anon_id", userId);
 
 const messagesDiv = document.getElementById("messages");
@@ -28,7 +28,20 @@ function formatTime(timestamp) {
 function displayMessage(msg) {
   const div = document.createElement("div");
   div.classList.add("message");
-  div.innerHTML = `<strong>${msg.user_id}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
+
+  let displayName;
+  if(msg.user_id === userId) {
+    displayName = "You";
+    div.classList.add("you"); // style your messages
+    // Change your anonymous number for next message
+    const randomFourDigits = Math.floor(1000 + Math.random()*9000);
+    userId = `Anonymous#${randomFourDigits}`;
+  } else {
+    displayName = msg.user_id;
+    div.classList.add("other"); // style other messages
+  }
+
+  div.innerHTML = `<strong>${displayName}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
   messagesDiv.appendChild(div);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
@@ -40,7 +53,7 @@ async function loadMessages() {
     .select("*")
     .order("created_at", { ascending: true });
 
-  if (error) console.error(error);
+  if(error) console.error(error);
   else data.forEach(displayMessage);
 }
 
@@ -48,9 +61,9 @@ async function loadMessages() {
 async function sendMessage() {
   const now = Date.now();
   const content = messageInput.value.trim();
-  if (!content) return;
+  if(!content) return;
 
-  if (now - lastSent < 3000) {
+  if(now - lastSent < 3000) {
     alert("Slow down! 1 message every 3 seconds.");
     return;
   }
@@ -60,23 +73,20 @@ async function sendMessage() {
     .from("messages")
     .insert([{ user_id: userId, content }]);
 
-  if (error) console.error(error);
+  if(error) console.error(error);
   messageInput.value = "";
 }
 
 // Event listeners
 sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", e => { if(e.key==="Enter") sendMessage(); });
+messageInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
 
 // Realtime listener
 supabaseClient
   .channel("public:messages")
-  .on("postgres_changes", { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
-    displayMessage(payload.new)
-  })
+  .on("postgres_changes", { event: 'INSERT', schema: 'public', table: 'messages' }, payload => displayMessage(payload.new))
   .subscribe();
 
-// Load old messages
 loadMessages();
 
 // Sidebar toggle
