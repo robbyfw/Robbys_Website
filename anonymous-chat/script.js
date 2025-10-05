@@ -1,11 +1,9 @@
-// 🔧 Supabase credentials
+// Supabase setup
 const SUPABASE_URL = "https://dwivklunuucddhbnzmbl.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3aXZrbHVudXVjZGRoYm56bWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NTU4NDEsImV4cCI6MjA3NTIzMTg0MX0.Rj800uYlaO4TtV6TA_ThUoHhhQy55E2A9boADLStuUI";
-
-// Initialize Supabase client
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Generate a random anonymous ID per user
+// Generate random anonymous ID
 let userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
 localStorage.setItem("anon_id", userId);
 
@@ -29,39 +27,50 @@ function displayMessage(msg) {
   const div = document.createElement("div");
   div.classList.add("message");
 
-  let displayName;
-  if (msg.user_id === userId) {
-    displayName = "You";
-    const randomFourDigits = Math.floor(1000 + Math.random() * 9000);
-    userId = `Anonymous#${randomFourDigits}`;
-  } else {
-    displayName = msg.user_id;
-  }
+  const avatar = document.createElement("div");
+  avatar.classList.add("avatar");
 
-  // Removed extra spaces after colon
-  div.innerHTML = `<strong>${displayName}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
+  let displayName = msg.user_id === userId ? "You" : msg.user_id;
+
+  const contentDiv = document.createElement("div");
+  contentDiv.classList.add("message-content");
+
+  const headerDiv = document.createElement("div");
+  headerDiv.classList.add("message-header");
+  headerDiv.innerHTML = `<strong>${displayName}</strong> <span class="timestamp">${formatTime(msg.created_at)}</span>`;
+
+  const textDiv = document.createElement("div");
+  textDiv.classList.add("message-text");
+  textDiv.textContent = msg.content;
+
+  contentDiv.appendChild(headerDiv);
+  contentDiv.appendChild(textDiv);
+
+  div.appendChild(avatar);
+  div.appendChild(contentDiv);
+
   messagesDiv.appendChild(div);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-// Load existing messages
+// Load messages from Supabase
 async function loadMessages() {
   const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
     .order("created_at", { ascending: true });
 
-  if(error) console.error(error);
+  if (error) console.error(error);
   else data.forEach(displayMessage);
 }
 
-// Send a message
+// Send message
 async function sendMessage() {
   const now = Date.now();
   const content = messageInput.value.trim();
-  if(!content) return;
+  if (!content) return;
 
-  if(now - lastSent < 3000) {
+  if (now - lastSent < 3000) {
     alert("Slow down! 1 message every 3 seconds.");
     return;
   }
@@ -71,13 +80,13 @@ async function sendMessage() {
     .from("messages")
     .insert([{ user_id: userId, content }]);
 
-  if(error) console.error(error);
+  if (error) console.error(error);
   messageInput.value = "";
 }
 
 // Event listeners
 sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+messageInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
 
 // Realtime listener
 supabaseClient
@@ -86,12 +95,3 @@ supabaseClient
   .subscribe();
 
 loadMessages();
-
-// Sidebar toggle
-const hamburger = document.getElementById("hamburger");
-const sidebar = document.getElementById("sidebar");
-
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  sidebar.classList.toggle("open");
-});
