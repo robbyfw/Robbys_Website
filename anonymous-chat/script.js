@@ -3,9 +3,13 @@ const SUPABASE_URL = "https://dwivklunuucddhbnzmbl.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3aXZrbHVudXVjZGRoYm56bWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NTU4NDEsImV4cCI6MjA3NTIzMTg0MX0.Rj800uYlaO4TtV6TA_ThUoHhhQy55E2A9boADLStuUI";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Random anonymous ID
-let userId = localStorage.getItem("anon_id") || `Anonymous#${Math.floor(1000 + Math.random()*9000)}`;
-localStorage.setItem("anon_id", userId);
+// Generate random anonymous ID for each user (only once per device)
+let userId = localStorage.getItem("anon_id");
+if (!userId) {
+  const randomFourDigits = Math.floor(1000 + Math.random() * 9000);
+  userId = `Anonymous#${randomFourDigits}`;
+  localStorage.setItem("anon_id", userId);
+}
 
 const messagesDiv = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
@@ -17,8 +21,8 @@ let lastSent = 0;
 // Format timestamps
 function formatTime(timestamp) {
   const date = new Date(timestamp);
-  const hours = date.getHours().toString().padStart(2,"0");
-  const minutes = date.getMinutes().toString().padStart(2,"0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${hours}:${minutes}`;
 }
 
@@ -27,11 +31,25 @@ function displayMessage(msg) {
   const div = document.createElement("div");
   div.classList.add("message");
 
+  // Avatar
   const avatar = document.createElement("div");
   avatar.classList.add("avatar");
 
-  let displayName = msg.user_id === userId ? "You" : msg.user_id;
+  // Display name
+  let displayName;
+  if (msg.user_id === userId) {
+    displayName = "You";
+  } else {
+    // Ensure name always appears as Anonymous#XXXX for others
+    if (!msg.user_id.startsWith("Anonymous#")) {
+      const randomFourDigits = Math.floor(1000 + Math.random() * 9000);
+      displayName = `Anonymous#${randomFourDigits}`;
+    } else {
+      displayName = msg.user_id;
+    }
+  }
 
+  // Message content
   const contentDiv = document.createElement("div");
   contentDiv.classList.add("message-content");
 
@@ -60,7 +78,7 @@ async function loadMessages() {
     .select("*")
     .order("created_at", { ascending: true });
 
-  if(error) console.error(error);
+  if (error) console.error(error);
   else data.forEach(displayMessage);
 }
 
@@ -70,7 +88,7 @@ async function sendMessage() {
   const content = messageInput.value.trim();
   if (!content) return;
 
-  if(now - lastSent < 3000){
+  if (now - lastSent < 3000) {
     alert("Slow down! 1 message every 3 seconds.");
     return;
   }
@@ -80,18 +98,25 @@ async function sendMessage() {
     .from("messages")
     .insert([{ user_id: userId, content }]);
 
-  if(error) console.error(error);
+  if (error) console.error(error);
   messageInput.value = "";
 }
 
 // Event listeners
 sendBtn.addEventListener("click", sendMessage);
-messageInput.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+messageInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
 
-// Realtime listener
+// Realtime listener for new messages
 supabaseClient
   .channel("public:messages")
-  .on("postgres_changes", { event: 'INSERT', schema: 'public', table: 'messages' }, payload => displayMessage(payload.new))
+  .on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "messages" },
+    (payload) => displayMessage(payload.new)
+  )
   .subscribe();
 
+// Initial load
 loadMessages();
