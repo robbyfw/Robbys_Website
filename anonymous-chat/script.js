@@ -32,13 +32,12 @@ function displayMessage(msg) {
   let displayName;
   if(msg.user_id === userId) {
     displayName = "You";
-    div.classList.add("you"); // style your messages
-    // Change your anonymous number for next message
+    div.classList.add("you");
     const randomFourDigits = Math.floor(1000 + Math.random()*9000);
     userId = `Anonymous#${randomFourDigits}`;
   } else {
     displayName = msg.user_id;
-    div.classList.add("other"); // style other messages
+    div.classList.add("other");
   }
 
   div.innerHTML = `<strong>${displayName}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
