@@ -27,52 +27,51 @@ async function loadProducts() {
       <img src="${product.image_url}" alt="${product.name}">
       <h3>${product.name}</h3>
       <p>${product.description}</p>
-      <p><strong>$${product.price}</strong></p>
-      <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+      <p class="price">$${product.price}</p>
+      <button onclick="addToCart('${product.name}')">Buy This</button>
     `;
     container.appendChild(div);
   });
 }
 
 // Add product to cart
-function addToCart(id, name, price) {
-  const existing = cart.find(item => item.id === id);
-  if (existing) {
-    existing.quantity += 1;
+function addToCart(name) {
+  const textarea = document.getElementById("buyerOrder");
+  if(textarea.value){
+    textarea.value += `, ${name}`;
   } else {
-    cart.push({ id, name, price, quantity: 1 });
+    textarea.value = name;
   }
-  alert(`${name} added to cart!`);
+  alert(`${name} added to your order!`);
 }
 
-// Place order and send WhatsApp message
-async function placeOrder() {
-  const buyerName = document.getElementById('buyerName').value.trim();
-  const buyerContact = document.getElementById('buyerContact').value.trim();
+// Place order and WhatsApp
+document.getElementById("buyBtn").addEventListener("click", async () => {
+  const buyerName = document.getElementById("buyerName").value.trim();
+  const buyerOrder = document.getElementById("buyerOrder").value.trim();
+  const buyerContact = document.getElementById("buyerContact").value.trim();
 
-  if (!buyerName || !buyerContact) {
-    alert("Please enter your name and WhatsApp number.");
+  if(!buyerName || !buyerOrder || !buyerContact){
+    alert("Please fill all your details!");
     return;
   }
 
-  for (let item of cart) {
-    await supabase.from('orders').insert([
-      {
-        product_id: item.id,
-        quantity: item.quantity,
-        buyer_name: buyerName,
-        buyer_contact: buyerContact
-      }
-    ]);
+  // Save order in Supabase
+  const { error } = await supabase.from('orders').insert([
+    { product_name: buyerOrder, buyer_name: buyerName, buyer_contact: buyerContact }
+  ]);
+
+  if(error){
+    console.error(error);
+    alert("Something went wrong while saving order!");
+    return;
   }
 
-  const message = `Hello, I want to order:\n${cart.map(i => `${i.name} x${i.quantity}`).join('\n')}\nName: ${buyerName}\nContact: ${buyerContact}`;
-  const whatsappLink = `https://wa.me/03140170570?text=${encodeURIComponent(message)}`;
-  window.open(whatsappLink, '_blank');
-}
-
-// Event listener for Buy button
-document.getElementById('buyBtn').addEventListener('click', placeOrder);
+  // Open WhatsApp link
+  const message = `Hello, I want to order: ${buyerOrder}\nName: ${buyerName}\nContact: ${buyerContact}`;
+  const whatsappLink = `https://wa.me/YOUR_NUMBER?text=${encodeURIComponent(message)}`;
+  window.open(whatsappLink, "_blank");
+});
 
 // Load products on page load
 loadProducts();
