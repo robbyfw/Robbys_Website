@@ -3,7 +3,7 @@ const SUPABASE_URL = "https://dwivklunuucddhbnzmbl.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3aXZrbHVudXVjZGRoYm56bWJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk2NTU4NDEsImV4cCI6MjA3NTIzMTg0MX0.Rj800uYlaO4TtV6TA_ThUoHhhQy55E2A9boADLStuUI";
 
 // Initialize Supabase client
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Generate a random anonymous ID per user
 const userId = localStorage.getItem("anon_id") || "anon_" + Math.random().toString(36).substring(2, 10);
@@ -35,7 +35,7 @@ function displayMessage(msg) {
 
 // Load existing messages
 async function loadMessages() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
     .order("created_at", { ascending: true });
@@ -56,7 +56,7 @@ async function sendMessage() {
   }
   lastSent = now;
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from("messages")
     .insert([{ user_id: userId, content }]);
 
@@ -69,7 +69,7 @@ sendBtn.addEventListener("click", sendMessage);
 messageInput.addEventListener("keypress", e => { if(e.key==="Enter") sendMessage(); });
 
 // Realtime listener
-supabase
+supabaseClient
   .channel("public:messages")
   .on("postgres_changes", { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
     displayMessage(payload.new)
