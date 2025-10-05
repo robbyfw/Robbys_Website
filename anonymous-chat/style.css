@@ -33,7 +33,7 @@ body {
 /* Chat Container */
 .chat-container {
   width: 100%;
-  max-width: 700px; /* increased width */
+  max-width: 700px;
   background: rgba(30, 30, 30, 0.85);
   border: 2px solid #222;
   border-radius: 15px;
@@ -47,8 +47,8 @@ body {
 }
 
 .chat-container:hover, .chat-container:active {
-  box-shadow: none; /* removed glow */
-  border-color: #fff; /* subtle white outline only */
+  box-shadow: none;
+  border-color: #fff;
 }
 
 /* Messages container */
@@ -60,10 +60,10 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px; /* smaller spacing */
+  gap: 4px;
 }
 
-/* Message styling - neutral for all */
+/* Message styling */
 .message {
   padding: 8px 12px;
   border-radius: 10px;
@@ -71,20 +71,58 @@ body {
   color: #ddd;
   word-wrap: break-word;
   display: flex;
-  justify-content: flex-start; /* name + message aligned */
+  justify-content: flex-start;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 /* Name, Message and Timestamp */
 .message strong {
-  margin-right: 5px;
+  margin-right: 3px; /* no extra space after name */
 }
 .timestamp {
   font-size: 11px;
   color: #ccc;
-  margin-left: auto; /* timestamp at right end */
+  margin-left: auto; /* timestamp aligned to right */
   white-space: nowrap;
+}
+
+/* Input Area */
+.input-area {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+#messageInput {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background: rgba(20, 20, 20, 0.8);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+#messageInput:focus {
+  border-color: #fff;
+}
+
+#sendBtn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #555;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#sendBtn:hover {
+  background: #777;
 }
 
 /* Note below chat container */

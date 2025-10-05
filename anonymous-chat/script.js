@@ -38,6 +38,7 @@ function displayMessage(msg) {
     displayName = msg.user_id;
   }
 
+  // Removed extra spaces after colon
   div.innerHTML = `<strong>${displayName}</strong>: ${msg.content} <span class="timestamp">${formatTime(msg.created_at)}</span>`;
   messagesDiv.appendChild(div);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
