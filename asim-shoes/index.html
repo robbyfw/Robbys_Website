@@ -3,1303 +3,1153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StepStyle - Premium Shoes Store</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+    <title>StepStyle - Quality Footwear Store</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
         body {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Modern Navigation */
+        .luxury-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="%23667eea" opacity="0.1"/><circle cx="75" cy="75" r="0.3" fill="%23764ba2" opacity="0.05"/><circle cx="50" cy="10" r="0.4" fill="%23667eea" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Physical Shop Info */
+        .shop-info-section {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #667eea;
+            letter-spacing: 1px;
+        }
+
+        .shop-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .shop-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .shop-card:hover::before {
+            left: 100%;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .shop-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .shop-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .shop-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .shop-details {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image::before {
+            transform: translateX(100%);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .buy-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .product-card:hover .buy-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Enhanced Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 3% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #667eea;
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            font-family: 'Poppins', sans-serif;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .payment-option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-size: 0.8rem;
+        }
+
+        .payment-option:hover,
+        .payment-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Quality Features */
+        .luxury-features {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .products-grid,
+            .shop-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .modal-content {
+                margin: 5% 20px;
+                padding: 2rem;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-brand">
-                <h1>StepStyle</h1>
-            </div>
-            <nav class="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#products" class="nav-link">Products</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-            <div class="nav-actions">
-                <button class="cart-btn" onclick="toggleCart()">
-                    🛒 Cart (<span id="cart-count">0</span>)
-                </button>
-            </div>
+</head>
+<body>
+    <!-- Modern Navigation -->
+    <nav class="luxury-nav">
+        <div class="nav-container">
+            <div class="logo">👟 StepStyle</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#shop">Our Shop</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>Step Into Style</h2>
-                <p>Discover our premium collection of shoes crafted for comfort and elegance</p>
-                <button class="cta-btn" onclick="scrollToProducts()">Shop Now</button>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>StepStyle</h1>
+            <div class="hero-subtitle">Quality Footwear Store</div>
+            <p class="hero-description">
+                Welcome to StepStyle, your trusted destination for quality footwear at affordable prices. 
+                We offer a wide range of comfortable and stylish shoes for every occasion, from casual sneakers to formal dress shoes.
+            </p>
+            <button class="cta-button" onclick="document.getElementById('collections').scrollIntoView({behavior: 'smooth'})">
+                Shop Now
+            </button>
+        </div>
+    </section>
+
+    <!-- Physical Shop Information -->
+    <section class="shop-info-section" id="shop">
+        <h2 class="section-title fade-in">Visit Our Store & Services</h2>
+        <div class="shop-grid">
+            <div class="shop-card fade-in">
+                <div class="shop-icon">🏪</div>
+                <h3>Our Physical Store</h3>
+                <p>Visit our friendly neighborhood shoe store for a personal shopping experience.</p>
+                <div class="shop-details">
+                    <strong>Address:</strong> 123 Main Street, Shopping Plaza<br>
+                    <strong>Hours:</strong> Mon-Sat 9:00 AM - 9:00 PM<br>
+                    <strong>Sunday:</strong> 11:00 AM - 7:00 PM<br>
+                    <strong>Phone:</strong> +92 314 017 0570
+                </div>
+            </div>
+
+            <div class="shop-card fade-in">
+                <div class="shop-icon">👥</div>
+                <h3>Personal Service</h3>
+                <p>Our knowledgeable staff will help you find the perfect fit and style for your needs.</p>
+                <div class="shop-details">
+                    <strong>Fitting Service:</strong> Free size consultation<br>
+                    <strong>Style Advice:</strong> Professional recommendations<br>
+                    <strong>Try Before Buy:</strong> Test comfort in-store<br>
+                    <strong>Expert Staff:</strong> 10+ years experience
+                </div>
+            </div>
+
+            <div class="shop-card fade-in">
+                <div class="shop-icon">🚚</div>
+                <h3>Delivery & Pickup</h3>
+                <p>Convenient delivery options and easy pickup service for online orders.</p>
+                <div class="shop-details">
+                    <strong>Local Delivery:</strong> Same day available<br>
+                    <strong>City Wide:</strong> 1-2 business days<br>
+                    <strong>Store Pickup:</strong> Ready in 2 hours<br>
+                    <strong>Free Delivery:</strong> Orders above $50
+                </div>
+            </div>
+
+            <div class="shop-card fade-in">
+                <div class="shop-icon">🔄</div>
+                <h3>Easy Returns</h3>
+                <p>Hassle-free return and exchange policy to ensure your complete satisfaction.</p>
+                <div class="shop-details">
+                    <strong>Return Period:</strong> 15 days from purchase<br>
+                    <strong>Exchange:</strong> Size and color options<br>
+                    <strong>Condition:</strong> Unworn with original box<br>
+                    <strong>Refund:</strong> Full money back guarantee
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 class="section-title">Featured Products</h2>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
-                <button class="filter-btn" onclick="filterProducts('sneakers')">Sneakers</button>
-                <button class="filter-btn" onclick="filterProducts('boots')">Boots</button>
-                <button class="filter-btn" onclick="filterProducts('formal')">Formal</button>
-            </div>
-            <div class="products-grid" id="products-grid">
-                <!-- Products will be loaded here by JavaScript -->
-            </div>
+    <section class="products-section" id="collections">
+        <h2 class="section-title fade-in">Our Collections</h2>
+        <div class="category-filters fade-in">
+            <button class="filter-btn active" data-category="all">All Shoes</button>
+            <button class="filter-btn" data-category="sneakers">Sneakers</button>
+            <button class="filter-btn" data-category="formal">Formal</button>
+            <button class="filter-btn" data-category="boots">Boots</button>
+            <button class="filter-btn" data-category="sandals">Sandals</button>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <h2>About StepStyle</h2>
-                <p>We're passionate about creating shoes that combine style, comfort, and quality. Our curated collection features the finest materials and craftsmanship to ensure every step you take is confident and comfortable.</p>
-                <div class="features">
-                    <div class="feature">
-                        <div class="feature-icon">🏆</div>
-                        <h3>Premium Quality</h3>
-                        <p>Only the finest materials and craftsmanship</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">🚚</div>
-                        <h3>Free Shipping</h3>
-                        <p>Free delivery on orders over $100</p>
-                    </div>
-                    <div class="feature">
-                        <div class="feature-icon">↩️</div>
-                        <h3>Easy Returns</h3>
-                        <p>30-day hassle-free return policy</p>
-                    </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Sneakers -->
+            <div class="product-card fade-in" data-category="sneakers">
+                <div class="product-image">👟</div>
+                <div class="product-info">
+                    <div class="product-name">Air Max Pro</div>
+                    <div class="product-price">$89.99</div>
+                    <div class="product-description">Comfortable running sneakers with advanced cushioning technology and breathable mesh</div>
+                    <button class="buy-btn" onclick="openOrderModal('Air Max Pro', '$89.99', '👟')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" data-category="sneakers">
+                <div class="product-image">🏃</div>
+                <div class="product-info">
+                    <div class="product-name">Sport Runner</div>
+                    <div class="product-price">$75.99</div>
+                    <div class="product-description">Lightweight athletic shoes perfect for daily workouts and casual wear</div>
+                    <button class="buy-btn" onclick="openOrderModal('Sport Runner', '$75.99', '🏃')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Formal -->
+            <div class="product-card fade-in" data-category="formal">
+                <div class="product-image">👞</div>
+                <div class="product-info">
+                    <div class="product-name">Oxford Classic</div>
+                    <div class="product-price">$129.99</div>
+                    <div class="product-description">Elegant leather dress shoes perfect for business meetings and formal occasions</div>
+                    <button class="buy-btn" onclick="openOrderModal('Oxford Classic', '$129.99', '👞')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" data-category="formal">
+                <div class="product-image">🥿</div>
+                <div class="product-info">
+                    <div class="product-name">Business Loafer</div>
+                    <div class="product-price">$99.99</div>
+                    <div class="product-description">Sophisticated slip-on shoes with premium leather finish and comfortable sole</div>
+                    <button class="buy-btn" onclick="openOrderModal('Business Loafer', '$99.99', '🥿')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Boots -->
+            <div class="product-card fade-in" data-category="boots">
+                <div class="product-image">🥾</div>
+                <div class="product-info">
+                    <div class="product-name">Adventure Boot</div>
+                    <div class="product-price">$149.99</div>
+                    <div class="product-description">Durable hiking boots with waterproof protection and excellent grip</div>
+                    <button class="buy-btn" onclick="openOrderModal('Adventure Boot', '$149.99', '🥾')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" data-category="boots">
+                <div class="product-image">👢</div>
+                <div class="product-info">
+                    <div class="product-name">Chelsea Boot</div>
+                    <div class="product-price">$119.99</div>
+                    <div class="product-description">Stylish ankle boots perfect for casual and semi-formal occasions</div>
+                    <button class="buy-btn" onclick="openOrderModal('Chelsea Boot', '$119.99', '👢')">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Sandals -->
+            <div class="product-card fade-in" data-category="sandals">
+                <div class="product-image">👡</div>
+                <div class="product-info">
+                    <div class="product-name">Summer Sandal</div>
+                    <div class="product-price">$45.99</div>
+                    <div class="product-description">Comfortable open-toe sandals perfect for warm weather and casual outings</div>
+                    <button class="buy-btn" onclick="openOrderModal('Summer Sandal', '$45.99', '👡')">Buy Now</button>
+                </div>
+            </div>
+
+            <div class="product-card fade-in" data-category="sandals">
+                <div class="product-image">🩴</div>
+                <div class="product-info">
+                    <div class="product-name">Beach Flip-Flop</div>
+                    <div class="product-price">$25.99</div>
+                    <div class="product-description">Casual flip-flops ideal for beach, pool, and everyday comfort</div>
+                    <button class="buy-btn" onclick="openOrderModal('Beach Flip-Flop', '$25.99', '🩴')">Buy Now</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <strong>📍 Address</strong>
-                        <p>123 Fashion Street, Style City, SC 12345</p>
-                    </div>
-                    <div class="contact-item">
-                        <strong>📞 Phone</strong>
-                        <p>+1 (555) 123-4567</p>
-                    </div>
-                    <div class="contact-item">
-                        <strong>✉️ Email</strong>
-                        <p>hello@stepstyle.com</p>
-                    </div>
-                </div>
-                <form class="contact-form" onsubmit="handleContactForm(event)">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
+    <!-- Quality Features -->
+    <section class="luxury-features" id="services">
+        <h2 class="section-title fade-in">Why Choose StepStyle</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🚚</div>
+                <h3>Free Shipping</h3>
+                <p>Enjoy free delivery on orders over $50. Fast and reliable shipping to your doorstep within 1-3 business days.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🔄</div>
+                <h3>Easy Returns</h3>
+                <p>15-day return policy with no questions asked. Not satisfied with your purchase? Return it hassle-free.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">⭐</div>
+                <h3>Quality Guarantee</h3>
+                <p>All our shoes are made with quality materials and tested for comfort. We guarantee satisfaction with every purchase.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">💬</div>
+                <h3>Customer Support</h3>
+                <p>Friendly customer service available via WhatsApp, phone, and in-store. We're here to help you find the perfect fit.</p>
             </div>
         </div>
     </section>
 
-    <!-- Shopping Cart Modal -->
-    <div id="cart-modal" class="cart-modal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h3>Shopping Cart</h3>
-                <button class="close-btn" onclick="toggleCart()">×</button>
+    <!-- Enhanced Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeOrderModal()">&times;</button>
+            <h2>Complete Your Order</h2>
+            
+            <div class="order-summary" id="orderSummary">
+                <!-- Order details will be populated here -->
             </div>
-            <div class="cart-items" id="cart-items">
-                <!-- Cart items will be displayed here -->
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <strong>Total: $<span id="cart-total">0.00</span></strong>
+
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="customerName">FULL NAME</label>
+                    <input type="text" id="customerName" required>
                 </div>
-                <button class="checkout-btn" onclick="checkout()">Checkout</button>
-            </div>
+
+                <div class="form-group">
+                    <label for="customerPhone">PHONE NUMBER</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerEmail">EMAIL ADDRESS</label>
+                    <input type="email" id="customerEmail">
+                </div>
+
+                <div class="form-group">
+                    <label for="shippingAddress">DELIVERY ADDRESS</label>
+                    <textarea id="shippingAddress" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="shoeSize">SIZE</label>
+                    <select id="shoeSize" required>
+                        <option value="">SELECT SIZE</option>
+                        <option value="6">6 (EU 39)</option>
+                        <option value="7">7 (EU 40)</option>
+                        <option value="8">8 (EU 41)</option>
+                        <option value="9">9 (EU 42)</option>
+                        <option value="10">10 (EU 43)</option>
+                        <option value="11">11 (EU 44)</option>
+                        <option value="12">12 (EU 45)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">QUANTITY</label>
+                    <select id="quantity" required onchange="updateTotal()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>PAYMENT METHOD</label>
+                    <div class="payment-methods">
+                        <div class="payment-option" onclick="selectPayment('Cash on Delivery')">
+                            <div class="payment-icon">💵</div>
+                            <div>Cash on Delivery</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('Bank Transfer')">
+                            <div class="payment-icon">🏦</div>
+                            <div>Bank Transfer</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('Credit Card')">
+                            <div class="payment-icon">💳</div>
+                            <div>Credit Card</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('Digital Wallet')">
+                            <div class="payment-icon">📱</div>
+                            <div>Digital Wallet</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="paymentMethod" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialRequests">SPECIAL REQUESTS</label>
+                    <textarea id="specialRequests" rows="2" placeholder="Gift wrapping, personalization, delivery instructions..."></textarea>
+                </div>
+
+                <button type="submit" class="whatsapp-btn">
+                    📱 CONFIRM ORDER VIA WHATSAPP
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>StepStyle</h4>
-                    <p>Your premium destination for quality footwear</p>
+    <!-- Contact Information Section -->
+    <section style="padding: 4rem 0; background: rgba(255, 255, 255, 0.95);">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem; color: #667eea; letter-spacing: 1px;">Contact Information</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <div style="font-size: 3rem; color: #667eea; margin-bottom: 1.5rem;">📍</div>
+                    <h3 style="font-family: 'Poppins', sans-serif; color: #667eea; margin-bottom: 1rem; font-size: 1.3rem;">Store Location</h3>
+                    <p style="color: #666; line-height: 1.8; margin: 0;">123 Main Street, Shopping Plaza<br>City Center, Downtown Area</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#home">Home</a>
-                    <a href="#products">Products</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <div style="font-size: 3rem; color: #667eea; margin-bottom: 1.5rem;">📞</div>
+                    <h3 style="font-family: 'Poppins', sans-serif; color: #667eea; margin-bottom: 1rem; font-size: 1.3rem;">Phone & WhatsApp</h3>
+                    <p style="color: #666; line-height: 1.8; margin: 0;">+92 314 017 0570<br>Available for calls & WhatsApp</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" target="_blank">Facebook</a>
-                        <a href="#" target="_blank">Instagram</a>
-                        <a href="#" target="_blank">Twitter</a>
-                    </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <div style="font-size: 3rem; color: #667eea; margin-bottom: 1.5rem;">⏰</div>
+                    <h3 style="font-family: 'Poppins', sans-serif; color: #667eea; margin-bottom: 1rem; font-size: 1.3rem;">Store Hours</h3>
+                    <p style="color: #666; line-height: 1.8; margin: 0;">Mon-Sat: 9:00 AM - 9:00 PM<br>Sunday: 11:00 AM - 7:00 PM</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 StepStyle. All rights reserved.</p>
-            </div>
+        </div>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer style="background: #333; color: #999; padding: 2rem 0; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <p style="margin: 0; font-size: 0.9rem;">© 2024 StepStyle - Quality Footwear Store. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'989dcf830147167a',t:'MTc1OTY3NjY1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
-
-<!-- style.css -->
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header */
-.header {
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 20px;
-}
-
-.nav-brand h1 {
-    color: #2563eb;
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.nav-menu {
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: #2563eb;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.theme-selector select {
-    background: #f8fafc;
-    border: 2px solid #e5e7eb;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.theme-selector select:hover {
-    border-color: #2563eb;
-}
-
-.cart-btn {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.3s;
-}
-
-.cart-btn:hover {
-    background: #1d4ed8;
-}
-
-/* Hero Section */
-.hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 120px 0 80px;
-    text-align: center;
-}
-
-.hero-content h2 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.cta-btn {
-    background: #fff;
-    color: #2563eb;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* Products Section */
-.products-section {
-    padding: 80px 0;
-    background: #f8fafc;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
-    color: #1f2937;
-}
-
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-}
-
-.filter-btn {
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
-    background: #2563eb;
-    color: white;
-    border-color: #2563eb;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.product-card {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.product-image {
-    width: 100%;
-    height: 250px;
-    background: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-}
-
-.product-info {
-    padding: 1.5rem;
-}
-
-.product-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #1f2937;
-}
-
-.product-price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2563eb;
-    margin-bottom: 1rem;
-}
-
-.add-to-cart {
-    width: 100%;
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.add-to-cart:hover {
-    background: #1d4ed8;
-}
-
-/* About Section */
-.about-section {
-    padding: 80px 0;
-    background: white;
-}
-
-.about-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.about-content h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #1f2937;
-}
-
-.about-content p {
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-    color: #6b7280;
-}
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.feature {
-    text-align: center;
-    padding: 2rem;
-}
-
-.feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.feature h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #1f2937;
-}
-
-.feature p {
-    color: #6b7280;
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 80px 0;
-    background: #f8fafc;
-}
-
-.contact-section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
-    color: #1f2937;
-}
-
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.contact-item strong {
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: #1f2937;
-}
-
-.contact-item p {
-    color: #6b7280;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: #2563eb;
-}
-
-.contact-form button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.contact-form button:hover {
-    background: #1d4ed8;
-}
-
-/* Cart Modal */
-.cart-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 2000;
-}
-
-.cart-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #6b7280;
-}
-
-.cart-items {
-    padding: 1rem;
-    min-height: 200px;
-}
-
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid #f3f4f6;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.item-info h4 {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.item-info p {
-    color: #6b7280;
-    font-size: 0.9rem;
-}
-
-.item-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.qty-btn {
-    background: #f3f4f6;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.qty-btn:hover {
-    background: #e5e7eb;
-}
-
-.cart-footer {
-    padding: 1.5rem;
-    border-top: 1px solid #e5e7eb;
-}
-
-.cart-total {
-    text-align: center;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-}
-
-.checkout-btn {
-    width: 100%;
-    background: #10b981;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.checkout-btn:hover {
-    background: #059669;
-}
-
-/* Footer */
-.footer {
-    background: #1f2937;
-    color: white;
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-.footer-section a {
-    display: block;
-    color: #d1d5db;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
-}
-
-.footer-section a:hover {
-    color: white;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .hero-content h2 {
-        font-size: 2.5rem;
-    }
-    
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .filters {
-        flex-wrap: wrap;
-    }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.empty-cart {
-    text-align: center;
-    padding: 2rem;
-    color: #6b7280;
-}
-
-/* Checkout Modal */
-.checkout-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 2000;
-}
-
-.checkout-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.checkout-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.checkout-form {
-    padding: 1.5rem;
-}
-
-.form-section {
-    margin-bottom: 2rem;
-}
-
-.form-section h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #1f2937;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.checkout-form input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    transition: border-color 0.3s;
-}
-
-.checkout-form input:focus {
-    outline: none;
-    border-color: #2563eb;
-}
-
-.checkout-summary {
-    background: #f8fafc;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.summary-item:last-child {
-    border-bottom: none;
-}
-
-.checkout-total {
-    text-align: center;
-    font-size: 1.25rem;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: #f0f9ff;
-    border-radius: 8px;
-}
-
-.place-order-btn {
-    width: 100%;
-    background: #25d366;
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.place-order-btn:hover {
-    background: #22c55e;
-}
-
-/* Theme Variables */
-:root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --secondary-color: #667eea;
-    --background-color: #ffffff;
-    --text-color: #333333;
-    --card-background: #ffffff;
-    --border-color: #e5e7eb;
-}
-
-[data-theme="dark"] {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
-    --secondary-color: #6366f1;
-    --background-color: #1f2937;
-    --text-color: #f9fafb;
-    --card-background: #374151;
-    --border-color: #4b5563;
-}
-
-[data-theme="nature"] {
-    --primary-color: #10b981;
-    --primary-hover: #059669;
-    --secondary-color: #34d399;
-    --background-color: #f0fdf4;
-    --text-color: #064e3b;
-    --card-background: #ffffff;
-    --border-color: #bbf7d0;
-}
-
-[data-theme="sunset"] {
-    --primary-color: #f59e0b;
-    --primary-hover: #d97706;
-    --secondary-color: #fbbf24;
-    --background-color: #fffbeb;
-    --text-color: #92400e;
-    --card-background: #ffffff;
-    --border-color: #fed7aa;
-}
-
-[data-theme="ocean"] {
-    --primary-color: #0891b2;
-    --primary-hover: #0e7490;
-    --secondary-color: #06b6d4;
-    --background-color: #f0f9ff;
-    --text-color: #164e63;
-    --card-background: #ffffff;
-    --border-color: #bae6fd;
-}
-</style>
-
-<!-- script.js -->
-<script>
-// Sample product data (in a real app, this would come from Supabase)
-const products = [
-    {
-        id: 1,
-        name: "Classic Sneakers",
-        price: 89.99,
-        category: "sneakers",
-        emoji: "👟"
-    },
-    {
-        id: 2,
-        name: "Leather Boots",
-        price: 149.99,
-        category: "boots",
-        emoji: "🥾"
-    },
-    {
-        id: 3,
-        name: "Formal Oxford",
-        price: 199.99,
-        category: "formal",
-        emoji: "👞"
-    },
-    {
-        id: 4,
-        name: "Running Shoes",
-        price: 119.99,
-        category: "sneakers",
-        emoji: "🏃‍♂️"
-    },
-    {
-        id: 5,
-        name: "High Heels",
-        price: 129.99,
-        category: "formal",
-        emoji: "👠"
-    },
-    {
-        id: 6,
-        name: "Combat Boots",
-        price: 169.99,
-        category: "boots",
-        emoji: "🥾"
-    }
-];
-
-// Shopping cart
-let cart = [];
-
-// Initialize the website
-document.addEventListener('DOMContentLoaded', function() {
-    displayProducts(products);
-    updateCartCount();
-});
-
-// Display products
-function displayProducts(productsToShow) {
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = '';
-    
-    productsToShow.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <div class="product-image">${product.emoji}</div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-price">$${product.price}</p>
-                <button class="add-to-cart" onclick="addToCart(${product.id})">
-                    Add to Cart
-                </button>
-            </div>
-        `;
-        grid.appendChild(productCard);
-    });
-}
-
-// Filter products
-function filterProducts(category) {
-    // Update active filter button
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Filter and display products
-    const filteredProducts = category === 'all' 
-        ? products 
-        : products.filter(product => product.category === category);
-    
-    displayProducts(filteredProducts);
-}
-
-// Add product to cart
-function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            ...product,
-            quantity: 1
+    <script>
+        // Smooth scrolling and animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
         });
-    }
-    
-    updateCartCount();
-    showAddedToCartMessage(product.name);
-}
 
-// Update cart count
-function updateCartCount() {
-    const count = cart.reduce((total, item) => total + item.quantity, 0);
-    document.getElementById('cart-count').textContent = count;
-}
+        // Category filtering with luxury animations
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
 
-// Show added to cart message
-function showAddedToCartMessage(productName) {
-    // Create a temporary notification
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        z-index: 3000;
-        animation: slideIn 0.3s ease;
-    `;
-    notification.textContent = `${productName} added to cart!`;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-}
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-// Toggle cart modal
-function toggleCart() {
-    const modal = document.getElementById('cart-modal');
-    const isVisible = modal.style.display === 'block';
-    
-    if (isVisible) {
-        modal.style.display = 'none';
-    } else {
-        modal.style.display = 'block';
-        displayCartItems();
-    }
-}
+                const category = btn.getAttribute('data-category');
 
-// Display cart items
-function displayCartItems() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
-            <div class="empty-cart">
-                <p>Your cart is empty</p>
-                <p>Add some shoes to get started!</p>
-            </div>
-        `;
-    } else {
-        cartItemsContainer.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <div class="item-info">
-                    <h4>${item.name}</h4>
-                    <p>$${item.price} each</p>
+                productCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                            card.style.animation = `fadeInUp 0.6s ease forwards`;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }, index * 100);
+                });
+            });
+        });
+
+        // Enhanced modal functionality
+        let currentProduct = {};
+        let selectedPayment = '';
+
+        function openOrderModal(name, price, emoji) {
+            currentProduct = { name, price, emoji };
+            
+            document.getElementById('orderSummary').innerHTML = `
+                <h3>ORDER SUMMARY</h3>
+                <div style="display: flex; align-items: center; gap: 1.5rem; margin: 1.5rem 0;">
+                    <span style="font-size: 3rem;">${emoji}</span>
+                    <div>
+                        <div style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.2rem; color: #d4af37;">${name}</div>
+                        <div style="color: #ffffff; font-weight: 700; font-size: 1.4rem;" id="displayPrice">${price}</div>
+                    </div>
                 </div>
-                <div class="item-controls">
-                    <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                    <button class="qty-btn" onclick="removeFromCart(${item.id})" style="margin-left: 10px; background: #ef4444; color: white;">×</button>
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    updateCartTotal();
-}
-
-// Update item quantity
-function updateQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
-    if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) {
-            removeFromCart(productId);
-        } else {
-            displayCartItems();
-            updateCartCount();
+            `;
+            
+            document.getElementById('orderModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
-    }
-}
 
-// Remove item from cart
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    displayCartItems();
-    updateCartCount();
-}
-
-// Update cart total
-function updateCartTotal() {
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    document.getElementById('cart-total').textContent = total.toFixed(2);
-}
-
-// Checkout function
-function checkout() {
-    if (cart.length === 0) {
-        alert('Your cart is empty!');
-        return;
-    }
-    
-    // Close cart modal and open checkout modal
-    toggleCart();
-    showCheckoutModal();
-}
-
-// Show checkout modal
-function showCheckoutModal() {
-    const modal = document.getElementById('checkout-modal');
-    modal.style.display = 'block';
-    
-    // Display order summary
-    displayCheckoutSummary();
-}
-
-// Close checkout modal
-function closeCheckout() {
-    const modal = document.getElementById('checkout-modal');
-    modal.style.display = 'none';
-}
-
-// Display checkout summary
-function displayCheckoutSummary() {
-    const summaryContainer = document.getElementById('checkout-summary');
-    const totalElement = document.getElementById('checkout-total');
-    
-    summaryContainer.innerHTML = cart.map(item => `
-        <div class="summary-item">
-            <span>${item.name} x${item.quantity}</span>
-            <span>$${(item.price * item.quantity).toFixed(2)}</span>
-        </div>
-    `).join('');
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    totalElement.textContent = total.toFixed(2);
-}
-
-// Process order and send to WhatsApp
-function processOrder(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const customerInfo = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        address: formData.get('address'),
-        city: formData.get('city'),
-        zipCode: formData.get('zipCode'),
-        country: formData.get('country')
-    };
-    
-    // Create order message for WhatsApp
-    const orderItems = cart.map(item => 
-        `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
-    ).join('\n');
-    
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
-    const message = `🛍️ *New Order from StepStyle*\n\n` +
-        `👤 *Customer Information:*\n` +
-        `Name: ${customerInfo.firstName} ${customerInfo.lastName}\n` +
-        `Email: ${customerInfo.email}\n` +
-        `Phone: ${customerInfo.phone}\n\n` +
-        `📍 *Shipping Address:*\n` +
-        `${customerInfo.address}\n` +
-        `${customerInfo.city}, ${customerInfo.zipCode}\n` +
-        `${customerInfo.country}\n\n` +
-        `🛒 *Order Details:*\n` +
-        `${orderItems}\n\n` +
-        `💰 *Total: $${total.toFixed(2)}*\n\n` +
-        `Please confirm this order and provide payment details.`;
-    
-    // WhatsApp number and URL
-    const whatsappNumber = '923140170570'; // Added country code for Pakistan
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp in new tab
-    window.open(whatsappURL, '_blank', 'noopener,noreferrer');
-    
-    // Clear cart and close modal
-    cart = [];
-    updateCartCount();
-    closeCheckout();
-    
-    // Show success message
-    alert('Order sent to WhatsApp! Please complete your order there.');
-}
-
-// Scroll to products section
-function scrollToProducts() {
-    document.getElementById('products').scrollIntoView({ 
-        behavior: 'smooth' 
-    });
-}
-
-// Handle contact form
-function handleContactForm(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const name = formData.get('name') || event.target.querySelector('input[type="text"]').value;
-    const email = formData.get('email') || event.target.querySelector('input[type="email"]').value;
-    const message = formData.get('message') || event.target.querySelector('textarea').value;
-    
-    alert(`Thank you ${name}! We've received your message and will get back to you at ${email} soon.`);
-    event.target.reset();
-}
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+        function closeOrderModal() {
+            document.getElementById('orderModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('orderForm').reset();
+            selectedPayment = '';
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
             });
         }
-    });
-});
 
-// Theme switching functionality
-function changeTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('selectedTheme', theme);
-    
-    // Apply theme colors to elements
-    applyThemeColors(theme);
-}
-
-function applyThemeColors(theme) {
-    const root = document.documentElement;
-    const computedStyle = getComputedStyle(root);
-    
-    // Update CSS custom properties based on theme
-    const primaryColor = computedStyle.getPropertyValue('--primary-color');
-    const backgroundColor = computedStyle.getPropertyValue('--background-color');
-    const textColor = computedStyle.getPropertyValue('--text-color');
-    const cardBackground = computedStyle.getPropertyValue('--card-background');
-    
-    // Apply to body and main elements
-    document.body.style.backgroundColor = backgroundColor;
-    document.body.style.color = textColor;
-    
-    // Update product cards
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.style.backgroundColor = cardBackground;
-        card.style.color = textColor;
-    });
-    
-    // Update modals
-    document.querySelectorAll('.cart-content, .checkout-content').forEach(modal => {
-        modal.style.backgroundColor = cardBackground;
-        modal.style.color = textColor;
-    });
-}
-
-// Load saved theme on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const savedTheme = localStorage.getItem('selectedTheme') || 'default';
-    document.getElementById('theme-select').value = savedTheme;
-    changeTheme(savedTheme);
-});
-
-// Close modals when clicking outside
-document.getElementById('cart-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        toggleCart();
-    }
-});
-
-document.getElementById('checkout-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeCheckout();
-    }
-});
-
-// Add CSS animation for notifications
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.getElementById('paymentMethod').value = method;
+            
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            event.currentTarget.classList.add('selected');
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+
+        function updateTotal() {
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const basePrice = parseFloat(currentProduct.price.replace('$', ''));
+            const total = (basePrice * quantity).toFixed(2);
+            document.getElementById('displayPrice').textContent = `$${total} ${quantity > 1 ? `(${quantity} × ${currentProduct.price})` : ''}`;
         }
-    }
-`;
-document.head.appendChild(style);
-</script>
+
+        // Enhanced form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedPayment) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            const formData = {
+                name: document.getElementById('customerName').value,
+                phone: document.getElementById('customerPhone').value,
+                email: document.getElementById('customerEmail').value,
+                address: document.getElementById('shippingAddress').value,
+                size: document.getElementById('shoeSize').value,
+                quantity: document.getElementById('quantity').value,
+                payment: selectedPayment,
+                requests: document.getElementById('specialRequests').value
+            };
+
+            const quantity = parseInt(formData.quantity);
+            const basePrice = parseFloat(currentProduct.price.replace('$', ''));
+            const total = (basePrice * quantity).toFixed(2);
+
+            const message = `🏛️ *STEPSTYLE MAISON - LUXURY ORDER*
+
+👤 *CLIENT INFORMATION:*
+Name: ${formData.name}
+Phone: ${formData.phone}
+${formData.email ? `Email: ${formData.email}` : ''}
+
+📦 *ORDER DETAILS:*
+Product: ${currentProduct.emoji} ${currentProduct.name}
+Size: ${formData.size}
+Quantity: ${formData.quantity}
+Unit Price: ${currentProduct.price}
+*Total Amount: $${total}*
+
+📍 *DELIVERY ADDRESS:*
+${formData.address}
+
+💳 *PAYMENT METHOD:*
+${formData.payment}
+
+${formData.requests ? `📝 *SPECIAL REQUESTS:*\n${formData.requests}` : ''}
+
+Thank you for choosing STEPSTYLE MAISON. Our concierge team will contact you shortly to confirm your luxury footwear order. 👞✨`;
+
+            const whatsappUrl = `https://wa.me/923140170570?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            
+            closeOrderModal();
+        });
+
+        // Close modal events
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('orderModal');
+            if (e.target === modal) {
+                closeOrderModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeOrderModal();
+            }
+        });
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a50ff555bb167a',t:'MTc1OTc1MjY5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
