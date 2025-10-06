@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StepStyle - Quality Footwear Store</title>
+    <title>Asim Shoes - Quality Footwear Store</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -44,11 +44,21 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-family: 'Poppins', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
             color: #667eea;
             letter-spacing: 1px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 8px;
         }
 
         .nav-links {
@@ -85,6 +95,53 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #667eea;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            padding: 1rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-nav li {
+            text-align: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .mobile-nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         /* Hero Section */
@@ -600,33 +657,134 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-description {
+                padding: 0 1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo img {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .hero {
+                padding: 0 1rem;
+                height: 90vh;
+            }
+            
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+                padding: 0;
+                margin-bottom: 2rem;
             }
             
             .section-title {
                 font-size: 2rem;
+                padding: 0 1rem;
             }
             
             .products-grid,
             .shop-grid,
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .shop-info-section,
+            .products-section,
+            .luxury-features {
+                padding: 4rem 0;
             }
             
             .modal-content {
-                margin: 5% 20px;
-                padding: 2rem;
+                margin: 5% 1rem;
+                padding: 1.5rem;
+                max-height: 85vh;
+            }
+            
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            
+            .category-filters {
+                padding: 0 1rem;
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-card,
+            .shop-card,
+            .feature-card {
+                margin: 0 0.5rem;
+            }
+            
+            .modal-content {
+                margin: 2% 0.5rem;
+                padding: 1rem;
             }
             
             .payment-methods {
                 grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .logo img {
+                width: 30px;
+                height: 30px;
             }
         }
 
@@ -647,12 +805,25 @@
     <!-- Modern Navigation -->
     <nav class="luxury-nav">
         <div class="nav-container">
-            <div class="logo">👟 StepStyle</div>
+            <div class="logo">
+                <img src="https://fwrobby.site/images/AS.png" alt="AS" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span style="display: none;">AS</span>
+                Asim Shoes
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#collections">Collections</a></li>
                 <li><a href="#shop">Our Shop</a></li>
                 <li><a href="#services">Services</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#collections" onclick="closeMobileMenu()">Collections</a></li>
+                <li><a href="#shop" onclick="closeMobileMenu()">Our Shop</a></li>
+                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
             </ul>
         </div>
     </nav>
@@ -660,10 +831,10 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>StepStyle</h1>
+            <h1>Asim Shoes</h1>
             <div class="hero-subtitle">Quality Footwear Store</div>
             <p class="hero-description">
-                Welcome to StepStyle, your trusted destination for quality footwear at affordable prices. 
+                Welcome to Asim Shoes, your trusted destination for quality footwear at affordable prices. 
                 We offer a wide range of comfortable and stylish shoes for every occasion, from casual sneakers to formal dress shoes.
             </p>
             <button class="cta-button" onclick="document.getElementById('collections').scrollIntoView({behavior: 'smooth'})">
@@ -826,7 +997,7 @@
 
     <!-- Quality Features -->
     <section class="luxury-features" id="services">
-        <h2 class="section-title fade-in">Why Choose StepStyle</h2>
+        <h2 class="section-title fade-in">Why Choose Asim Shoes</h2>
         <div class="features-grid">
             <div class="feature-card fade-in">
                 <div class="feature-icon">🚚</div>
@@ -1135,6 +1306,27 @@ Thank you for choosing ASIM SHOES. Our team will contact you shortly to confirm 
             }
         });
 
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
         // Add CSS animation keyframes
         const style = document.createElement('style');
         style.textContent = `
@@ -1151,5 +1343,5 @@ Thank you for choosing ASIM SHOES. Our team will contact you shortly to confirm 
         `;
         document.head.appendChild(style);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a52831b253167a',t:'MTc1OTc1MzY5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a586c920f1167a',t:'MTc1OTc1NzU2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
