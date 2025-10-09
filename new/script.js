@@ -1,52 +1,60 @@
-const btn = document.getElementById("dropBtn");
+const btn = document.getElementById("destroyBtn");
 
-const words = ["Hello!", "Random!", "Fun!", "Click me!", "Play!", "Wow!", "Surprise!", "Yay!", "Boom!", "Crazy!"];
+// Grab all existing text elements
+const elements = document.querySelectorAll("h1, p, span, button");
 
 btn.addEventListener("click", () => {
-    // Create a new random word
-    const word = words[Math.floor(Math.random() * words.length)];
-    const span = document.createElement("span");
-    span.textContent = word;
-    span.classList.add("droppable");
+    elements.forEach(el => {
+        // Make draggable
+        makeDraggable(el);
 
-    // Random horizontal position at top
-    span.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    span.style.top = "0px";
+        // Random position on screen
+        el.style.position = "absolute";
+        el.style.left = Math.random() * (window.innerWidth - el.offsetWidth) + "px";
+        el.style.top = Math.random() * (window.innerHeight - el.offsetHeight) + "px";
 
-    document.body.appendChild(span);
+        // Random rotation
+        el.style.transform = `rotate(${Math.random() * 360}deg)`;
 
-    // Drop animation
-    let position = 0;
-    const dropInterval = setInterval(() => {
-        if (position < window.innerHeight - 50) {
-            position += 5;
-            span.style.top = position + "px";
-        } else {
-            clearInterval(dropInterval);
-        }
-    }, 20);
+        // Random color
+        el.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
 
-    // Make draggable
+        // Falling effect
+        let pos = parseInt(el.style.top);
+        const fall = setInterval(() => {
+            if(pos < window.innerHeight - el.offsetHeight){
+                pos += Math.random() * 5 + 1;
+                el.style.top = pos + "px";
+                el.style.transform = `rotate(${Math.random() * 360}deg)`;
+            } else {
+                clearInterval(fall);
+            }
+        }, 20);
+    });
+});
+
+// Drag function
+function makeDraggable(el){
     let offsetX, offsetY, dragging = false;
 
-    span.addEventListener("mousedown", (e) => {
+    el.addEventListener("mousedown", (e) => {
         dragging = true;
-        span.classList.add("dragging");
-        offsetX = e.clientX - span.offsetLeft;
-        offsetY = e.clientY - span.offsetTop;
+        el.classList.add("dragging");
+        offsetX = e.clientX - el.offsetLeft;
+        offsetY = e.clientY - el.offsetTop;
     });
 
     document.addEventListener("mousemove", (e) => {
-        if (dragging) {
-            span.style.left = e.clientX - offsetX + "px";
-            span.style.top = e.clientY - offsetY + "px";
+        if(dragging){
+            el.style.left = e.clientX - offsetX + "px";
+            el.style.top = e.clientY - offsetY + "px";
         }
     });
 
     document.addEventListener("mouseup", () => {
-        if (dragging) {
+        if(dragging){
             dragging = false;
-            span.classList.remove("dragging");
+            el.classList.remove("dragging");
         }
     });
-});
+}
