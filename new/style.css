@@ -1,0 +1,47 @@
+/* Basic page styling */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    overflow: hidden; /* Hide overflow so texts stay in viewport */
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff1a1a;
+}
+
+/* Droppable text styling */
+.droppable {
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.5s ease;
+}
+
+/* Dragging effect */
+.droppable.dragging {
+    opacity: 0.8;
+    transform: scale(1.2);
+    cursor: grabbing;
+}
