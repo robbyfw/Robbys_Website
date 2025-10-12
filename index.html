@@ -4,21 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Robby's Website</title>
+
+  <!-- Styles & Fonts -->
   <link rel="stylesheet" href="main_style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 
-  <!-- Website Logo / Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
   <link rel="apple-touch-icon" href="https://fwrobby.site/images/Studio-Project.png">
 
   <!-- ✅ SEO Meta Tags -->
   <meta name="description" content="Hey! On this website, you’ll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
   <meta name="author" content="Muhammad Asim (Robby)" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Robby, web design, creative projects, tools, experiments, coding, programming, portfolio" />
 
-  <!-- ✅ Open Graph (for social media + link previews) -->
+  <!-- ✅ Open Graph -->
   <meta property="og:title" content="Robby's Website" />
   <meta property="og:description" content="Hey! On this website, you’ll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
-  <meta property="og:image" content="https://fwrobby.site/Studio-Project.png" />
+  <meta property="og:image" content="https://fwrobby.site/images/Studio-Project.png" />
   <meta property="og:url" content="https://fwrobby.site" />
   <meta property="og:type" content="website" />
 
@@ -26,45 +30,35 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Robby's Website" />
   <meta name="twitter:description" content="Hey! On this website, you’ll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
-  <meta name="twitter:image" content="https://fwrobby.site/Studio-Project.png" />
+  <meta name="twitter:image" content="https://fwrobby.site/images/Studio-Project.png" />
 
-  <!-- ✅ Structured Data for Subsections (Google Sitelinks) -->
+  <!-- ✅ Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Robby's Website",
     "url": "https://fwrobby.site",
+    "description": "Hey! On this website, you’ll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding.",
+    "author": {
+      "@type": "Person",
+      "name": "Muhammad Asim (Robby)"
+    },
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://fwrobby.site/search?q={search_term_string}",
       "query-input": "required name=search_term_string"
     },
     "hasPart": [
-      {
-        "@type": "WebPage",
-        "name": "Home",
-        "url": "https://fwrobby.site"
-      },
-      {
-        "@type": "WebPage",
-        "name": "About Me",
-        "url": "https://fwrobby.site/about"
-      },
-      {
-        "@type": "WebPage",
-        "name": "Contact Me",
-        "url": "https://fwrobby.site/contact"
-      },
-      {
-        "@type": "WebPage",
-        "name": "Donations",
-        "url": "https://fwrobby.site/donate"
-      }
+      { "@type": "WebPage", "name": "Home", "url": "https://fwrobby.site" },
+      { "@type": "WebPage", "name": "About Me", "url": "https://fwrobby.site/about" },
+      { "@type": "WebPage", "name": "Contact Me", "url": "https://fwrobby.site/contact" },
+      { "@type": "WebPage", "name": "Donations", "url": "https://fwrobby.site/donate" }
     ]
   }
   </script>
 </head>
+
 <body>
   <!-- Sidebar Menu -->
   <div id="sidebar" class="sidebar">
@@ -96,6 +90,7 @@
     <section class="cards">
       <h2>Featured Projects</h2>
       <ul class="project-list">
+
         <li class="project-item">
           <div>
             <p class="project-title">Sukho History</p>
@@ -144,10 +139,10 @@
           <a href="https://fwrobby.site/would_you_rather" class="status visit-btn">Visit →</a>
         </li>
 
-                <li class="project-item">
+        <li class="project-item">
           <div>
             <p class="project-title">Text-to-Speech Generator</p>
-            <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly</p>
+            <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
           </div>
           <a href="https://fwrobby.site/text_to_speech" class="status visit-btn">Visit →</a>
         </li>
@@ -155,7 +150,7 @@
         <li class="project-item">
           <div>
             <p class="project-title">Age Calculator</p>
-            <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease</p>
+            <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
           </div>
           <a href="https://fwrobby.site/age_calculator" class="status visit-btn">Visit →</a>
         </li>
@@ -167,6 +162,7 @@
           </div>
           <a href="https://fwrobby.site/anonymous-chat" class="status visit-btn">Visit →</a>
         </li>
+
       </ul>
     </section>
 
