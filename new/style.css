@@ -140,7 +140,7 @@ body {
   font-size: 1rem;
   border: none;
   border-radius: 8px;
-  background: rgba(26, 27, 38, 0.8);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   outline: none;
 }
