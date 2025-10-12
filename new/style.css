@@ -8,9 +8,9 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
-  background-size: 600% 600%;
-  animation: waterflow 20s ease infinite;
+  background: linear-gradient(-45deg, #1e1f29, #2a2b38, #3b3c4f, #1b1c26);
+  background-size: 300% 300%;
+  animation: waterflow 10s ease infinite;
   color: #fff;
 }
 
@@ -21,8 +21,7 @@ body {
   top: 0;
   width: 220px;
   height: 100%;
-  background: rgba(17, 17, 17, 0.85);
-  backdrop-filter: blur(8px);
+  background: #12121a;
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
@@ -46,7 +45,7 @@ body {
   color: #00c8ff;
 }
 
-/* Hamburger Icon */
+/* Hamburger */
 .hamburger {
   position: fixed;
   top: 20px;
@@ -100,15 +99,18 @@ body {
   margin-bottom: 1rem;
 }
 
-/* Generator Box */
+/* Generator Box (with blur effect) */
 .generator-box {
-  background: #22232d;
+  background: rgba(44, 45, 60, 0.5); /* semi-transparent background */
+  backdrop-filter: blur(15px); /* blur effect */
   padding: 2rem;
   border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   margin-top: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: none; /* no outline or glow */
 }
 
+/* Input Group */
 .input-group {
   display: flex;
   justify-content: center;
@@ -122,14 +124,9 @@ body {
   font-size: 1rem;
   border: none;
   border-radius: 8px;
-  background: #1a1b26;
+  background: rgba(26, 27, 38, 0.8);
   color: #fff;
   outline: none;
-}
-
-#passwordOutput:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 #copyBtn {
@@ -140,18 +137,13 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
-  outline: none;
 }
 
 #copyBtn:hover {
   background: #00a2cc;
 }
 
-#copyBtn:focus {
-  outline: none;
-  box-shadow: none;
-}
-
+/* Options */
 .options {
   margin-top: 1.5rem;
   text-align: left;
@@ -167,6 +159,7 @@ body {
   margin: 0.3rem 0;
 }
 
+/* Generate Button */
 .generate-btn {
   margin-top: 1rem;
   padding: 12px 25px;
@@ -177,18 +170,13 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
-  outline: none;
 }
 
 .generate-btn:hover {
   background: #00a2cc;
 }
 
-.generate-btn:focus {
-  outline: none;
-  box-shadow: none;
-}
-
+/* Footer */
 .site-footer {
   margin-top: 3rem;
   text-align: center;
@@ -202,12 +190,8 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Mobile fix */
+/* Mobile */
 @media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
-
   .input-group {
     flex-direction: column;
   }

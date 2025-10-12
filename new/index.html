@@ -9,10 +9,10 @@
 <body>
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <a href="https://fwrobby.site">Home</a>
-    <a href="https://fwrobby.site/about/">About Me</a>
-    <a href="https://fwrobby.site/contact/">Contact Me</a>
-    <a href="https://fwrobby.site/donate/">Donations</a>
+    <a href="#">Home</a>
+    <a href="#">Projects</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
   </div>
 
   <!-- Hamburger -->
@@ -22,93 +22,87 @@
     <span></span>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Container -->
   <div class="container">
-    <div class="hero">
+    <section class="hero">
       <h1>Password Generator</h1>
-      <p class="tagline">Create secure passwords instantly 🔒</p>
-    </div>
+      <p class="tagline">Create strong and secure passwords instantly!</p>
+    </section>
 
     <div class="generator-box">
       <div class="input-group">
-        <input type="text" id="passwordOutput" placeholder="Generated password..." readonly />
+        <input type="text" id="passwordOutput" placeholder="Your password will appear here..." readonly />
         <button id="copyBtn">Copy</button>
       </div>
 
       <div class="options">
         <label for="lengthSlider">Password Length: <span id="lengthValue">12</span></label>
-        <input type="range" id="lengthSlider" min="6" max="32" value="12" />
+        <input type="range" id="lengthSlider" min="4" max="32" value="12" />
 
         <div class="checkboxes">
-          <label><input type="checkbox" id="includeUppercase" checked> Include Uppercase</label>
-          <label><input type="checkbox" id="includeLowercase" checked> Include Lowercase</label>
-          <label><input type="checkbox" id="includeNumbers" checked> Include Numbers</label>
-          <label><input type="checkbox" id="includeSymbols"> Include Symbols</label>
+          <label><input type="checkbox" id="uppercase" checked> Include Uppercase Letters</label>
+          <label><input type="checkbox" id="lowercase" checked> Include Lowercase Letters</label>
+          <label><input type="checkbox" id="numbers" checked> Include Numbers</label>
+          <label><input type="checkbox" id="symbols"> Include Symbols</label>
         </div>
-      </div>
 
-      <button class="generate-btn" id="generateBtn">Generate Password</button>
+        <button class="generate-btn" id="generateBtn">Generate Password</button>
+      </div>
     </div>
 
     <footer class="site-footer">
-      <p>© 2025 Robby | All Rights Reserved</p>
+      <p>© 2025 YourWebsite. All rights reserved.</p>
     </footer>
   </div>
 
   <script>
-    // Sidebar toggle
-    const hamburger = document.getElementById("hamburger");
-    const sidebar = document.getElementById("sidebar");
-    hamburger.onclick = () => {
-      sidebar.classList.toggle("open");
-      hamburger.classList.toggle("active");
-    };
+    // Sidebar Toggle
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
 
-    // Elements
-    const passwordOutput = document.getElementById("passwordOutput");
-    const copyBtn = document.getElementById("copyBtn");
-    const generateBtn = document.getElementById("generateBtn");
-    const lengthSlider = document.getElementById("lengthSlider");
-    const lengthValue = document.getElementById("lengthValue");
-    const includeUppercase = document.getElementById("includeUppercase");
-    const includeLowercase = document.getElementById("includeLowercase");
-    const includeNumbers = document.getElementById("includeNumbers");
-    const includeSymbols = document.getElementById("includeSymbols");
-
-    // Update length display
-    lengthSlider.addEventListener("input", () => {
-      lengthValue.textContent = lengthSlider.value;
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      hamburger.classList.toggle('active');
     });
 
-    // Generate password
-    function generatePassword() {
-      let chars = "";
-      if (includeUppercase.checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      if (includeLowercase.checked) chars += "abcdefghijklmnopqrstuvwxyz";
-      if (includeNumbers.checked) chars += "0123456789";
-      if (includeSymbols.checked) chars += "!@#$%^&*()_+[]{}|;:,.<>?";
-      if (chars === "") {
-        passwordOutput.value = "Select at least one option!";
-        return;
-      }
+    // Password Generator
+    const output = document.getElementById("passwordOutput");
+    const lengthSlider = document.getElementById("lengthSlider");
+    const lengthValue = document.getElementById("lengthValue");
+    const copyBtn = document.getElementById("copyBtn");
+    const generateBtn = document.getElementById("generateBtn");
+
+    lengthSlider.oninput = () => lengthValue.textContent = lengthSlider.value;
+
+    const generatePassword = () => {
+      const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lower = "abcdefghijklmnopqrstuvwxyz";
+      const nums = "0123456789";
+      const syms = "!@#$%^&*()_+{}[]<>?";
+
+      let charset = "";
+      if (document.getElementById("uppercase").checked) charset += upper;
+      if (document.getElementById("lowercase").checked) charset += lower;
+      if (document.getElementById("numbers").checked) charset += nums;
+      if (document.getElementById("symbols").checked) charset += syms;
 
       let password = "";
       for (let i = 0; i < lengthSlider.value; i++) {
-        password += chars.charAt(Math.floor(Math.random() * chars.length));
+        password += charset.charAt(Math.floor(Math.random() * charset.length));
       }
-      passwordOutput.value = password;
-    }
 
-    // Copy password
-    copyBtn.addEventListener("click", () => {
-      if (passwordOutput.value.trim() !== "") {
-        navigator.clipboard.writeText(passwordOutput.value);
-        copyBtn.textContent = "Copied!";
-        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
-      }
-    });
+      output.value = password || "Select at least one option!";
+    };
 
     generateBtn.addEventListener("click", generatePassword);
+
+    copyBtn.addEventListener("click", () => {
+      if (output.value) {
+        navigator.clipboard.writeText(output.value);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1000);
+      }
+    });
   </script>
 </body>
 </html>
