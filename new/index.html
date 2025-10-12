@@ -80,7 +80,7 @@
       lengthValue.textContent = lengthSlider.value;
     });
 
-    // Password generator
+    // Generate password
     function generatePassword() {
       let chars = "";
       if (includeUppercase.checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -99,7 +99,7 @@
       passwordOutput.value = password;
     }
 
-    // Copy to clipboard
+    // Copy password
     copyBtn.addEventListener("click", () => {
       if (passwordOutput.value.trim() !== "") {
         navigator.clipboard.writeText(passwordOutput.value);

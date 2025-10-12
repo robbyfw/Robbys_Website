@@ -8,9 +8,9 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(-45deg, #1e1f29, #2a2b38, #3b3c4f, #1b1c26);
-  background-size: 300% 300%;
-  animation: waterflow 10s ease infinite;
+  background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  background-size: 600% 600%;
+  animation: waterflow 20s ease infinite;
   color: #fff;
 }
 
@@ -21,7 +21,8 @@ body {
   top: 0;
   width: 220px;
   height: 100%;
-  background: #12121a;
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
@@ -101,11 +102,11 @@ body {
 
 /* Generator Box */
 .generator-box {
-  background: #2c2d3c;
+  background: #22232d;
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
   margin-top: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .input-group {
@@ -124,7 +125,6 @@ body {
   background: #1a1b26;
   color: #fff;
   outline: none;
-  box-shadow: none;
 }
 
 #passwordOutput:focus {
