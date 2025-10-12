@@ -1,37 +1,199 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 50px;
-    background: linear-gradient(to right, #ffe6e6, #ffb3b3);
-    overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #1e1f29, #2a2b38, #3b3c4f, #1b1c26);
+  background-size: 300% 300%;
+  animation: waterflow 10s ease infinite;
+  color: #fff;
 }
 
-button {
-    padding: 15px 30px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #ff3333;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 220px;
+  height: 100%;
+  background: #12121a;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  transition: 0.3s;
+  z-index: 999;
 }
 
-button:hover {
-    background-color: #cc0000;
+.sidebar.open {
+  left: 0;
 }
 
-.droppable {
-    position: absolute;
-    cursor: grab;
-    user-select: none;
-    font-size: 24px;
-    font-weight: bold;
-    transition: all 0.3s ease;
+.sidebar a {
+  color: #fff;
+  text-decoration: none;
+  margin: 1rem 0;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
-.droppable.dragging {
-    opacity: 0.8;
-    transform: scale(1.2) rotate(0deg);
-    cursor: grabbing;
+.sidebar a:hover {
+  color: #00c8ff;
+}
+
+/* Hamburger Icon */
+.hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger span {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin: 6px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.tagline {
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+/* Generator Box */
+.generator-box {
+  background: #2c2d3c;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  margin-top: 2rem;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#passwordOutput {
+  width: 70%;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #1a1b26;
+  color: #fff;
+}
+
+#copyBtn {
+  padding: 10px 15px;
+  background: #00c8ff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#copyBtn:hover {
+  background: #00a2cc;
+}
+
+.options {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+#lengthSlider {
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+}
+
+.checkboxes label {
+  display: block;
+  margin: 0.3rem 0;
+}
+
+.generate-btn {
+  margin-top: 1rem;
+  padding: 12px 25px;
+  background: #00c8ff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.generate-btn:hover {
+  background: #00a2cc;
+}
+
+.site-footer {
+  margin-top: 3rem;
+  text-align: center;
+  color: #aaa;
+}
+
+/* Background animation */
+@keyframes waterflow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  #passwordOutput {
+    width: 100%;
+  }
 }

@@ -1,16 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Destroy the Page</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Generator | Robby’s Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- ✅ SEO Meta -->
+  <meta name="description" content="Generate strong, secure, and random passwords with Robby’s Password Generator. Customize length and character types easily." />
+  <meta name="author" content="Muhammad Asim (Robby)" />
+
+  <!-- ✅ Favicon -->
+  <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
+
 </head>
 <body>
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://fwrobby.site">Home</a>
+    <a href="https://fwrobby.site/about/">About Me</a>
+    <a href="https://fwrobby.site/contact/">Contact Me</a>
+    <a href="https://fwrobby.site/donate/">Donations</a>
+  </div>
 
-<h1>Click the Button to Destroy the Page!</h1>
-<button id="destroyBtn">Destroy!</button>
+  <!-- Hamburger Icon -->
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-<script src="script.js"></script>
+  <!-- Main Content -->
+  <div class="container">
+    <section class="hero">
+      <h1>Password Generator</h1>
+      <p class="tagline">SECURE • RANDOM • RELIABLE</p>
+      <p>Create strong passwords instantly and keep your accounts safe 🔒</p>
+    </section>
+
+    <section class="generator-box">
+      <div class="input-group">
+        <input type="text" id="passwordOutput" readonly placeholder="Your password will appear here">
+        <button id="copyBtn">Copy</button>
+      </div>
+
+      <div class="options">
+        <label>Password Length: <span id="lengthValue">12</span></label>
+        <input type="range" id="lengthSlider" min="6" max="30" value="12">
+
+        <div class="checkboxes">
+          <label><input type="checkbox" id="includeUppercase" checked> Uppercase</label>
+          <label><input type="checkbox" id="includeLowercase" checked> Lowercase</label>
+          <label><input type="checkbox" id="includeNumbers" checked> Numbers</label>
+          <label><input type="checkbox" id="includeSymbols" checked> Symbols</label>
+        </div>
+      </div>
+
+      <button id="generateBtn" class="generate-btn">Generate Password</button>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+    </footer>
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+
+    hamburger.addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+      hamburger.classList.toggle("active");
+    });
+
+    // Password generator
+    const passwordOutput = document.getElementById("passwordOutput");
+    const copyBtn = document.getElementById("copyBtn");
+    const lengthSlider = document.getElementById("lengthSlider");
+    const lengthValue = document.getElementById("lengthValue");
+    const generateBtn = document.getElementById("generateBtn");
+
+    const includeUppercase = document.getElementById("includeUppercase");
+    const includeLowercase = document.getElementById("includeLowercase");
+    const includeNumbers = document.getElementById("includeNumbers");
+    const includeSymbols = document.getElementById("includeSymbols");
+
+    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+    const numberChars = "0123456789";
+    const symbolChars = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+    lengthSlider.addEventListener("input", () => {
+      lengthValue.textContent = lengthSlider.value;
+    });
+
+    generateBtn.addEventListener("click", () => {
+      const length = lengthSlider.value;
+      let chars = "";
+      if (includeUppercase.checked) chars += uppercaseChars;
+      if (includeLowercase.checked) chars += lowercaseChars;
+      if (includeNumbers.checked) chars += numberChars;
+      if (includeSymbols.checked) chars += symbolChars;
+
+      if (chars === "") {
+        alert("Please select at least one character type!");
+        return;
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      passwordOutput.value = password;
+    });
+
+    copyBtn.addEventListener("click", () => {
+      if (!passwordOutput.value) return;
+      navigator.clipboard.writeText(passwordOutput.value);
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => copyBtn.textContent = "Copy", 1500);
+    });
+  </script>
 </body>
 </html>
