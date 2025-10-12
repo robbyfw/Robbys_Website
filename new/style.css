@@ -199,3 +199,30 @@ body {
   padding: 1rem 0;
   color: #aaa;
 }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .generator-box {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  #passwordOutput {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  #copyBtn {
+    width: 100%;
+  }
+
+  .generate-btn {
+    width: 100%;
+    padding: 10px;
+  }
+}
