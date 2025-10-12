@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="../main_style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png" />
-  
+
+  <!-- Meta Info -->
   <meta name="description" content="Generate strong, secure, and customizable passwords instantly with Robby's Password Generator — simple, sleek, and safe." />
   <meta name="author" content="Muhammad Asim (Robby)" />
 </head>
@@ -27,18 +28,26 @@
     <span></span>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Container -->
   <div class="container">
     <section class="hero">
       <h1>Password Generator</h1>
       <p class="tagline">Generate strong & secure passwords easily</p>
-      <p>Customize your password strength with options below and copy it with one click.</p>
+      <p>Customize your password strength with the options below and copy it with one click.</p>
     </section>
 
     <section class="cards">
       <div class="project-item" style="flex-direction: column; text-align:center; align-items:center;">
-        <input type="text" id="passwordOutput" readonly placeholder="Your password will appear here" style="width:80%; text-align:center; padding:10px; border-radius:8px; border:none; margin-bottom:15px; background:rgba(255,255,255,0.1); color:white; font-size:1.1rem;">
         
+        <!-- Password Display -->
+        <input 
+          type="text" 
+          id="passwordOutput" 
+          readonly 
+          placeholder="Your password will appear here" 
+          style="width:80%; text-align:center; padding:10px; border-radius:8px; border:none; margin-bottom:15px; background:rgba(255,255,255,0.1); color:white; font-size:1.1rem; outline:none;">
+        
+        <!-- Options -->
         <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:20px;">
           <label><input type="checkbox" id="includeUppercase" checked> Uppercase</label>
           <label><input type="checkbox" id="includeLowercase" checked> Lowercase</label>
@@ -46,9 +55,11 @@
           <label><input type="checkbox" id="includeSymbols" checked> Symbols</label>
         </div>
 
+        <!-- Length Slider -->
         <label for="lengthRange">Length: <span id="lengthValue">12</span></label>
         <input type="range" id="lengthRange" min="4" max="50" value="12" style="width:80%; margin:10px 0;">
 
+        <!-- Buttons -->
         <div style="margin-top:15px; display:flex; gap:15px; justify-content:center;">
           <button id="generateBtn" class="visit-btn">Generate</button>
           <button id="copyBtn" class="visit-btn" style="background:#28a745;">Copy</button>
@@ -56,12 +67,15 @@
       </div>
     </section>
 
+    <!-- Footer -->
     <footer class="site-footer">
       <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
     </footer>
   </div>
 
+  <!-- JavaScript -->
   <script>
+    // Sidebar toggle
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
     hamburger.addEventListener("click", () => {
@@ -69,6 +83,7 @@
       hamburger.classList.toggle("active");
     });
 
+    // Password Generator Logic
     const lengthRange = document.getElementById("lengthRange");
     const lengthValue = document.getElementById("lengthValue");
     const passwordOutput = document.getElementById("passwordOutput");
