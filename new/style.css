@@ -123,6 +123,13 @@ body {
   border-radius: 8px;
   background: #1a1b26;
   color: #fff;
+  outline: none;
+  box-shadow: none;
+}
+
+#passwordOutput:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 #copyBtn {
@@ -133,10 +140,16 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
+  outline: none;
 }
 
 #copyBtn:hover {
   background: #00a2cc;
+}
+
+#copyBtn:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .options {
@@ -164,10 +177,16 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
+  outline: none;
 }
 
 .generate-btn:hover {
   background: #00a2cc;
+}
+
+.generate-btn:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .site-footer {

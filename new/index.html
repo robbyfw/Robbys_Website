@@ -3,134 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Password Generator | Robby's Website</title>
-  <link rel="stylesheet" href="../main_style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png" />
-
-  <!-- Meta Info -->
-  <meta name="description" content="Generate strong, secure, and customizable passwords instantly with Robby's Password Generator — simple, sleek, and safe." />
-  <meta name="author" content="Muhammad Asim (Robby)" />
+  <title>Password Generator</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Sidebar Menu -->
-  <div id="sidebar" class="sidebar">
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
     <a href="https://fwrobby.site">Home</a>
     <a href="https://fwrobby.site/about/">About Me</a>
     <a href="https://fwrobby.site/contact/">Contact Me</a>
     <a href="https://fwrobby.site/donate/">Donations</a>
   </div>
 
-  <!-- Hamburger Icon -->
+  <!-- Hamburger -->
   <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <!-- Main Container -->
+  <!-- Main Content -->
   <div class="container">
-    <section class="hero">
+    <div class="hero">
       <h1>Password Generator</h1>
-      <p class="tagline">Generate strong & secure passwords easily</p>
-      <p>Customize your password strength with the options below and copy it with one click.</p>
-    </section>
+      <p class="tagline">Create secure passwords instantly 🔒</p>
+    </div>
 
-    <section class="cards">
-      <div class="project-item" style="flex-direction: column; text-align:center; align-items:center;">
-        
-        <!-- Password Display -->
-        <input 
-          type="text" 
-          id="passwordOutput" 
-          readonly 
-          placeholder="Your password will appear here" 
-          style="width:80%; text-align:center; padding:10px; border-radius:8px; border:none; margin-bottom:15px; background:rgba(255,255,255,0.1); color:white; font-size:1.1rem; outline:none;">
-        
-        <!-- Options -->
-        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:20px;">
-          <label><input type="checkbox" id="includeUppercase" checked> Uppercase</label>
-          <label><input type="checkbox" id="includeLowercase" checked> Lowercase</label>
-          <label><input type="checkbox" id="includeNumbers" checked> Numbers</label>
-          <label><input type="checkbox" id="includeSymbols" checked> Symbols</label>
-        </div>
+    <div class="generator-box">
+      <div class="input-group">
+        <input type="text" id="passwordOutput" placeholder="Generated password..." readonly />
+        <button id="copyBtn">Copy</button>
+      </div>
 
-        <!-- Length Slider -->
-        <label for="lengthRange">Length: <span id="lengthValue">12</span></label>
-        <input type="range" id="lengthRange" min="4" max="50" value="12" style="width:80%; margin:10px 0;">
+      <div class="options">
+        <label for="lengthSlider">Password Length: <span id="lengthValue">12</span></label>
+        <input type="range" id="lengthSlider" min="6" max="32" value="12" />
 
-        <!-- Buttons -->
-        <div style="margin-top:15px; display:flex; gap:15px; justify-content:center;">
-          <button id="generateBtn" class="visit-btn">Generate</button>
-          <button id="copyBtn" class="visit-btn" style="background:#28a745;">Copy</button>
+        <div class="checkboxes">
+          <label><input type="checkbox" id="includeUppercase" checked> Include Uppercase</label>
+          <label><input type="checkbox" id="includeLowercase" checked> Include Lowercase</label>
+          <label><input type="checkbox" id="includeNumbers" checked> Include Numbers</label>
+          <label><input type="checkbox" id="includeSymbols"> Include Symbols</label>
         </div>
       </div>
-    </section>
 
-    <!-- Footer -->
+      <button class="generate-btn" id="generateBtn">Generate Password</button>
+    </div>
+
     <footer class="site-footer">
-      <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
+      <p>© 2025 Robby | All Rights Reserved</p>
     </footer>
   </div>
 
-  <!-- JavaScript -->
   <script>
     // Sidebar toggle
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
-    hamburger.addEventListener("click", () => {
+    hamburger.onclick = () => {
       sidebar.classList.toggle("open");
       hamburger.classList.toggle("active");
-    });
+    };
 
-    // Password Generator Logic
-    const lengthRange = document.getElementById("lengthRange");
-    const lengthValue = document.getElementById("lengthValue");
+    // Elements
     const passwordOutput = document.getElementById("passwordOutput");
-    const generateBtn = document.getElementById("generateBtn");
     const copyBtn = document.getElementById("copyBtn");
+    const generateBtn = document.getElementById("generateBtn");
+    const lengthSlider = document.getElementById("lengthSlider");
+    const lengthValue = document.getElementById("lengthValue");
+    const includeUppercase = document.getElementById("includeUppercase");
+    const includeLowercase = document.getElementById("includeLowercase");
+    const includeNumbers = document.getElementById("includeNumbers");
+    const includeSymbols = document.getElementById("includeSymbols");
 
-    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-    const numberChars = "0123456789";
-    const symbolChars = "!@#$%^&*()_+{}[]<>?/|~";
-
-    lengthRange.addEventListener("input", () => {
-      lengthValue.textContent = lengthRange.value;
+    // Update length display
+    lengthSlider.addEventListener("input", () => {
+      lengthValue.textContent = lengthSlider.value;
     });
 
-    generateBtn.addEventListener("click", () => {
-      const length = parseInt(lengthRange.value);
-      const includeUppercase = document.getElementById("includeUppercase").checked;
-      const includeLowercase = document.getElementById("includeLowercase").checked;
-      const includeNumbers = document.getElementById("includeNumbers").checked;
-      const includeSymbols = document.getElementById("includeSymbols").checked;
-
+    // Password generator
+    function generatePassword() {
       let chars = "";
-      if (includeUppercase) chars += uppercaseChars;
-      if (includeLowercase) chars += lowercaseChars;
-      if (includeNumbers) chars += numberChars;
-      if (includeSymbols) chars += symbolChars;
-
-      if (!chars) {
+      if (includeUppercase.checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      if (includeLowercase.checked) chars += "abcdefghijklmnopqrstuvwxyz";
+      if (includeNumbers.checked) chars += "0123456789";
+      if (includeSymbols.checked) chars += "!@#$%^&*()_+[]{}|;:,.<>?";
+      if (chars === "") {
         passwordOutput.value = "Select at least one option!";
         return;
       }
 
       let password = "";
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < lengthSlider.value; i++) {
         password += chars.charAt(Math.floor(Math.random() * chars.length));
       }
-
       passwordOutput.value = password;
+    }
+
+    // Copy to clipboard
+    copyBtn.addEventListener("click", () => {
+      if (passwordOutput.value.trim() !== "") {
+        navigator.clipboard.writeText(passwordOutput.value);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+      }
     });
 
-    copyBtn.addEventListener("click", () => {
-      if (passwordOutput.value.trim() === "") return;
-      navigator.clipboard.writeText(passwordOutput.value);
-      copyBtn.textContent = "Copied!";
-      setTimeout(() => copyBtn.textContent = "Copy", 1500);
-    });
+    generateBtn.addEventListener("click", generatePassword);
   </script>
 </body>
 </html>
