@@ -194,36 +194,37 @@ body {
 
 /* Footer */
 .site-footer {
-  text-align: center;
   margin-top: 3rem;
-  padding: 1rem 0;
-  color: #aaa;
+  text-align: center;
+  color: #ccc;
 }
 
-/* Mobile adjustments */
+.site-footer hr {
+  border: none;
+  height: 1px;
+  background: #555;
+  margin: 0 20px 10px 20px;
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2rem;
   }
-
   .tagline {
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
   }
 
   .generator-box {
     padding: 1rem;
-    margin-top: 1rem;
   }
 
   .input-group {
     flex-direction: column;
-    gap: 5px;
   }
 
   #passwordOutput {
     width: 100%;
-    font-size: 0.9rem;
   }
 
   #copyBtn, .generate-btn {
