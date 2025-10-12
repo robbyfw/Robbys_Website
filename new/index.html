@@ -26,7 +26,7 @@
   <div class="container">
     <section class="hero">
       <h1>Password Generator</h1>
-      <p class="tagline">Create strong and secure passwords instantly!</p>
+      <p class="tagline">Create strong, secure, and random passwords easily!</p>
     </section>
 
     <div class="generator-box">
@@ -56,16 +56,15 @@
   </div>
 
   <script>
-    // Sidebar Toggle
+    // Sidebar toggle
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
-
     hamburger.addEventListener('click', () => {
       sidebar.classList.toggle('open');
       hamburger.classList.toggle('active');
     });
 
-    // Password Generator
+    // Password generator logic
     const output = document.getElementById("passwordOutput");
     const lengthSlider = document.getElementById("lengthSlider");
     const lengthValue = document.getElementById("lengthValue");
