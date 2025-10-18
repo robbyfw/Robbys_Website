@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Playground</title>
+    <title>Browser Code Playground</title>
     <style>
         :root {
-            --primary-color: #2d3748;
-            --secondary-color: #4a5568;
-            --accent-color: #4299e1;
-            --light-color: #f7fafc;
-            --dark-color: #1a202c;
-            --success-color: #48bb78;
-            --error-color: #f56565;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
         }
         
         * {
@@ -23,35 +24,38 @@
         }
         
         body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
         }
         
         header {
             text-align: center;
             margin-bottom: 30px;
             padding: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .subtitle {
             font-size: 1.2rem;
-            opacity: 0.9;
+            opacity: 0.8;
         }
         
         .playground {
@@ -61,73 +65,79 @@
             margin-bottom: 30px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .playground {
                 grid-template-columns: 1fr;
             }
         }
         
-        .editor-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
         
-        .editor-header {
+        .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
-            background-color: var(--secondary-color);
-            color: white;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .panel-title {
+            font-weight: 600;
+            font-size: 1.2rem;
         }
         
         .language-selector {
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 6px;
             border: none;
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
+            background: var(--secondary);
+            color: var(--light);
+            font-weight: 500;
+            cursor: pointer;
         }
         
-        .editor {
+        .editor-container {
+            position: relative;
+        }
+        
+        #code-editor {
             width: 100%;
-            height: 400px;
-            padding: 15px;
+            height: 450px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--light);
             border: none;
             resize: none;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #e2e8f0;
+            font-size: 15px;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+        
+        #code-editor:focus {
+            outline: none;
         }
         
         .output-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .output-header {
-            padding: 12px 20px;
-            background-color: var(--secondary-color);
-            color: white;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
         }
         
-        .output {
-            width: 100%;
-            height: 400px;
-            padding: 15px;
+        #output {
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
             overflow: auto;
-            background-color: #f8f8f8;
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
+            line-height: 1.5;
         }
         
         .controls {
@@ -135,13 +145,14 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
         .btn {
-            padding: 12px 24px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 4px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -150,21 +161,33 @@
         }
         
         .btn-run {
-            background-color: var(--accent-color);
+            background: var(--success);
             color: white;
         }
         
         .btn-run:hover {
-            background-color: #3182ce;
+            background: #27ae60;
+            transform: translateY(-2px);
         }
         
         .btn-clear {
-            background-color: var(--secondary-color);
+            background: var(--warning);
             color: white;
         }
         
         .btn-clear:hover {
-            background-color: #4a5568;
+            background: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        .btn-example {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-example:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
         }
         
         .examples {
@@ -174,6 +197,7 @@
         .examples h2 {
             margin-bottom: 15px;
             text-align: center;
+            font-size: 1.8rem;
         }
         
         .example-buttons {
@@ -183,48 +207,43 @@
             justify-content: center;
         }
         
-        .btn-example {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .btn-example:hover {
-            background-color: var(--secondary-color);
-        }
-        
         .status {
             text-align: center;
-            margin-top: 10px;
-            font-style: italic;
-            color: var(--secondary-color);
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 500;
         }
         
-        .success {
-            color: var(--success-color);
+        .status.success {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success);
         }
         
-        .error {
-            color: var(--error-color);
+        .status.error {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--danger);
+        }
+        
+        .status.info {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--accent);
         }
         
         .loading {
             display: none;
             text-align: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
         
         .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--accent-color);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-left-color: var(--accent);
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 0 auto 10px;
         }
         
         @keyframes spin {
@@ -237,26 +256,34 @@
             text-align: center;
             margin-top: 40px;
             padding: 20px;
-            color: var(--secondary-color);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Code Playground</h1>
-            <p class="subtitle">Write, run, and test code in multiple programming languages</p>
+            <h1>Browser Code Playground</h1>
+            <p class="subtitle">Write and run code directly in your browser - No API required!</p>
         </header>
         
         <div class="playground">
-            <div class="editor-container">
-                <div class="editor-header">
-                    <span>Code Editor</span>
+            <div class="panel editor-container">
+                <div class="panel-header">
+                    <div class="panel-title">Code Editor</div>
                     <select class="language-selector" id="language">
                         <option value="html">HTML</option>
                         <option value="css">CSS</option>
                         <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
                         <option value="cpp">C++</option>
                         <option value="c">C</option>
                     </select>
@@ -264,10 +291,11 @@
                 <textarea class="editor" id="code-editor" placeholder="Write your code here..."></textarea>
             </div>
             
-            <div class="output-container">
-                <div class="output-header">
-                    <span>Output</span>
-                    <button class="btn-clear btn" id="clear-output">
+            <div class="panel output-container">
+                <div class="panel-header">
+                    <div class="panel-title">Output</div>
+                    <button class="btn btn-clear" id="clear-output">
+                        <span class="icon">🗑️</span>
                         <span>Clear</span>
                     </button>
                 </div>
@@ -277,32 +305,45 @@
         
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>Executing code...</p>
+            <p>Executing code in browser...</p>
         </div>
         
         <div class="controls">
             <button class="btn btn-run" id="run-code">
+                <span class="icon">⚡</span>
                 <span>Run Code</span>
+            </button>
+            <button class="btn btn-example" id="load-example">
+                <span class="icon">📝</span>
+                <span>Load Example</span>
             </button>
         </div>
         
-        <div class="status" id="status"></div>
+        <div class="status info" id="status">
+            Select a language and write your code, then click "Run Code"
+        </div>
         
         <div class="examples">
-            <h2>Try These Examples</h2>
+            <h2>Language Examples</h2>
             <div class="example-buttons">
-                <button class="btn-example" data-lang="html" data-example="html-example">HTML Example</button>
-                <button class="btn-example" data-lang="css" data-example="css-example">CSS Example</button>
-                <button class="btn-example" data-lang="javascript" data-example="js-example">JavaScript Example</button>
-                <button class="btn-example" data-lang="cpp" data-example="cpp-example">C++ Example</button>
-                <button class="btn-example" data-lang="c" data-example="c-example">C Example</button>
+                <button class="btn btn-example" data-lang="html">HTML Example</button>
+                <button class="btn btn-example" data-lang="css">CSS Example</button>
+                <button class="btn btn-example" data-lang="javascript">JavaScript Example</button>
+                <button class="btn btn-example" data-lang="python">Python Example</button>
+                <button class="btn btn-example" data-lang="java">Java Example</button>
+                <button class="btn btn-example" data-lang="cpp">C++ Example</button>
+                <button class="btn btn-example" data-lang="c">C Example</button>
             </div>
         </div>
         
         <footer>
-            <p>Code Playground | Run code directly in your browser</p>
+            <p>Browser Code Playground | All code execution happens directly in your browser</p>
         </footer>
     </div>
+
+    <!-- Load Brython for Python execution -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.7/brython.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.10.7/brython_stdlib.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -312,74 +353,341 @@
             const outputElement = document.getElementById('output');
             const runButton = document.getElementById('run-code');
             const clearButton = document.getElementById('clear-output');
+            const loadExampleButton = document.getElementById('load-example');
             const statusElement = document.getElementById('status');
             const loadingElement = document.getElementById('loading');
-            const exampleButtons = document.querySelectorAll('.btn-example');
+            const exampleButtons = document.querySelectorAll('.btn-example[data-lang]');
             
-            // Code examples
+            // Initialize Brython for Python execution
+            window.addEventListener('load', function() {
+                brython({debug: 0, indexedDB: false});
+            });
+            
+            // Code examples for each language
             const examples = {
-                'html-example': `<!DOCTYPE html>
+                'html': `<!DOCTYPE html>
 <html>
 <head>
     <title>My Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>This is an HTML example.</p>
-    <button onclick="alert('Button clicked!')">Click Me</button>
+    <div class="container">
+        <h1>Hello, World!</h1>
+        <p>This is an HTML example running in the playground.</p>
+        <button onclick="alert('Button clicked!')">Click Me</button>
+    </div>
 </body>
 </html>`,
-                'css-example': `body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                'css': `/* CSS Example - Styling a card component */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-header {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
     color: white;
-    padding: 50px;
+    padding: 20px;
     text-align: center;
 }
 
-h1 {
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+.card-title {
+    margin: 0;
+    font-size: 1.8rem;
 }
 
-.container {
-    background: rgba(255,255,255,0.1);
+.card-body {
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.card-text {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #2980b9;
 }`,
-                'js-example': `// Fibonacci sequence generator
-function fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
+                'javascript': `// JavaScript Example - Interactive Counter
+class Counter {
+    constructor() {
+        this.count = 0;
+        this.render();
+    }
+    
+    increment() {
+        this.count++;
+        this.render();
+    }
+    
+    decrement() {
+        this.count--;
+        this.render();
+    }
+    
+    reset() {
+        this.count = 0;
+        this.render();
+    }
+    
+    render() {
+        console.clear();
+        console.log("Current count: " + this.count);
+        
+        // Create a visual representation
+        let output = "Counter: " + this.count + "\\n";
+        output += "[";
+        for (let i = -5; i <= 5; i++) {
+            if (i === this.count) {
+                output += "|*|";
+            } else {
+                output += "| |";
+            }
+        }
+        output += "]";
+        console.log(output);
+        
+        // Additional info
+        console.log("\\nCounter Properties:");
+        console.log("- Is positive: " + (this.count > 0));
+        console.log("- Is negative: " + (this.count < 0));
+        console.log("- Is zero: " + (this.count === 0));
+        console.log("- Squared: " + (this.count * this.count));
+    }
 }
 
-// Display first 10 Fibonacci numbers
-console.log("First 10 Fibonacci numbers:");
-for (let i = 0; i < 10; i++) {
-    console.log(\`F(\${i}) = \${fibonacci(i)}\`);
-}
+// Create and use the counter
+const myCounter = new Counter();
 
-// Simple array operations
-const fruits = ['apple', 'banana', 'orange', 'grape'];
-console.log("\\nFruits array:", fruits);
-console.log("Sorted fruits:", [...fruits].sort());
+// Demonstrate the counter
+console.log("Demonstrating counter operations:");
+myCounter.increment();
+myCounter.increment();
+myCounter.decrement();
+myCounter.increment();
+myCounter.increment();
+myCounter.increment();`,
+                'python': `# Python Example - Fibonacci and List Operations
 
-// Working with dates
-const now = new Date();
-console.log("\\nCurrent date and time:", now.toString());`,
-                'cpp-example': `#include <iostream>
+def fibonacci(n):
+    """Generate Fibonacci sequence up to n terms"""
+    sequence = []
+    a, b = 0, 1
+    for _ in range(n):
+        sequence.append(a)
+        a, b = b, a + b
+    return sequence
+
+def analyze_list(lst):
+    """Analyze a list and return statistics"""
+    if not lst:
+        return "List is empty"
+    
+    stats = {
+        'length': len(lst),
+        'sum': sum(lst),
+        'average': sum(lst) / len(lst),
+        'max': max(lst),
+        'min': min(lst),
+        'sorted': sorted(lst)
+    }
+    return stats
+
+# Main execution
+print("Fibonacci Sequence (15 terms):")
+fib = fibonacci(15)
+print(fib)
+
+print("\\nList Analysis:")
+numbers = [7, 2, 9, 1, 5, 3, 8, 4, 6]
+print(f"Original list: {numbers}")
+
+stats = analyze_list(numbers)
+for key, value in stats.items():
+    print(f"{key}: {value}")
+
+print("\\nString Operations:")
+text = "Hello, Python in the Browser!"
+print(f"Original: {text}")
+print(f"Uppercase: {text.upper()}")
+print(f"Reversed: {text[::-1]}")
+print(f"Word count: {len(text.split())}")
+
+print("\\nMathematical Operations:")
+import math
+print(f"Square root of 64: {math.sqrt(64)}")
+print(f"Factorial of 6: {math.factorial(6)}")
+print(f"Pi constant: {math.pi}")`,
+                'java': `// Java Example - Basic Calculator and String Operations
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Java Code Running in Browser!");
+        System.out.println("=============================\\n");
+        
+        // Mathematical operations
+        int a = 15;
+        int b = 7;
+        
+        System.out.println("Mathematical Operations:");
+        System.out.println(a + " + " + b + " = " + (a + b));
+        System.out.println(a + " - " + b + " = " + (a - b));
+        System.out.println(a + " * " + b + " = " + (a * b));
+        System.out.println(a + " / " + b + " = " + (a / b));
+        System.out.println(a + " % " + b + " = " + (a % b));
+        
+        // Array operations
+        System.out.println("\\nArray Operations:");
+        int[] numbers = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+        System.out.print("Original array: ");
+        printArray(numbers);
+        
+        // Find max and min
+        int max = numbers[0];
+        int min = numbers[0];
+        int sum = 0;
+        
+        for (int num : numbers) {
+            if (num > max) max = num;
+            if (num < min) min = num;
+            sum += num;
+        }
+        
+        System.out.println("Maximum: " + max);
+        System.out.println("Minimum: " + min);
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + (double)sum / numbers.length);
+        
+        // String operations
+        System.out.println("\\nString Operations:");
+        String text = "Hello, Java in the Browser!";
+        System.out.println("Original: " + text);
+        System.out.println("Uppercase: " + text.toUpperCase());
+        System.out.println("Length: " + text.length());
+        System.out.println("Contains 'Java': " + text.contains("Java"));
+        
+        // Fibonacci sequence
+        System.out.println("\\nFibonacci Sequence (first 10 numbers):");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+        System.out.println();
+    }
+    
+    public static int fibonacci(int n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+    
+    public static void printArray(int[] arr) {
+        System.out.print("[");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]);
+            if (i < arr.length - 1) System.out.print(", ");
+        }
+        System.out.println("]");
+    }
+}`,
+                'cpp': `// C++ Example - Vector Operations and Algorithms
+
+#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
-int main() {
-    cout << "Hello, C++ World!" << endl;
+// Function to check if a number is prime
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
     
-    // Vector example
-    vector<int> numbers = {5, 2, 8, 1, 9};
-    cout << "Original numbers: ";
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
+    }
+    return true;
+}
+
+// Function to calculate factorial
+long long factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    cout << "C++ Code Running in Browser!" << endl;
+    cout << "=============================" << endl << endl;
+    
+    // Vector operations
+    vector<int> numbers = {7, 2, 9, 1, 5, 3, 8, 4, 6, 10};
+    
+    cout << "Original vector: ";
     for (int num : numbers) {
         cout << num << " ";
     }
@@ -388,47 +696,154 @@ int main() {
     // Sort the vector
     sort(numbers.begin(), numbers.end());
     
-    cout << "Sorted numbers: ";
+    cout << "Sorted vector: ";
     for (int num : numbers) {
         cout << num << " ";
     }
     cout << endl;
     
-    // Calculate sum
+    // Find min and max
+    auto minmax = minmax_element(numbers.begin(), numbers.end());
+    cout << "Minimum: " << *minmax.first << endl;
+    cout << "Maximum: " << *minmax.second << endl;
+    
+    // Calculate sum and average
     int sum = 0;
     for (int num : numbers) {
         sum += num;
     }
     cout << "Sum: " << sum << endl;
+    cout << "Average: " << static_cast<double>(sum) / numbers.size() << endl;
+    
+    // Prime numbers in the vector
+    cout << "Prime numbers in vector: ";
+    for (int num : numbers) {
+        if (isPrime(num)) {
+            cout << num << " ";
+        }
+    }
+    cout << endl;
+    
+    // Factorial calculation
+    cout << "Factorials of numbers 1-5:" << endl;
+    for (int i = 1; i <= 5; i++) {
+        cout << i << "! = " << factorial(i) << endl;
+    }
+    
+    // Mathematical operations
+    cout << "Mathematical Constants:" << endl;
+    cout << "Square root of 16: " << sqrt(16) << endl;
+    cout << "2^8 = " << pow(2, 8) << endl;
+    cout << "Natural log of 10: " << log(10) << endl;
     
     return 0;
 }`,
-                'c-example': `#include <stdio.h>
+                'c': `// C Example - Array Manipulation and Mathematical Functions
 
-// Function to calculate factorial
-int factorial(int n) {
-    if (n == 0 || n == 1) {
-        return 1;
+#include <stdio.h>
+#include <math.h>
+
+// Function to swap two integers
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Function to bubble sort an array
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(&arr[j], &arr[j+1]);
+            }
+        }
     }
-    return n * factorial(n - 1);
+}
+
+// Function to print an array
+void printArray(int arr[], int n) {
+    printf("[");
+    for (int i = 0; i < n; i++) {
+        printf("%d", arr[i]);
+        if (i < n-1) printf(", ");
+    }
+    printf("]\\n");
+}
+
+// Function to calculate GCD
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
 }
 
 int main() {
-    printf("Hello, C World!\\n");
+    printf("C Code Running in Browser!\\n");
+    printf("===========================\\n\\n");
     
-    // Calculate and display factorials
-    printf("Factorials of numbers 0 to 7:\\n");
-    for (int i = 0; i <= 7; i++) {
-        printf("%d! = %d\\n", i, factorial(i));
+    // Array operations
+    int numbers[] = {7, 2, 9, 1, 5, 3, 8, 4, 6};
+    int n = sizeof(numbers) / sizeof(numbers[0]);
+    
+    printf("Original array: ");
+    printArray(numbers, n);
+    
+    // Sort the array
+    bubbleSort(numbers, n);
+    
+    printf("Sorted array: ");
+    printArray(numbers, n);
+    
+    // Calculate sum and average
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += numbers[i];
+    }
+    printf("Sum: %d\\n", sum);
+    printf("Average: %.2f\\n", (double)sum / n);
+    
+    // Find min and max
+    int min = numbers[0];
+    int max = numbers[n-1];
+    printf("Minimum: %d\\n", min);
+    printf("Maximum: %d\\n", max);
+    
+    // Mathematical operations
+    printf("\\nMathematical Operations:\\n");
+    printf("GCD of 48 and 18: %d\\n", gcd(48, 18));
+    printf("Square root of 25: %.2f\\n", sqrt(25));
+    printf("2^10 = %.2f\\n", pow(2, 10));
+    printf("Sine of 45 degrees: %.4f\\n", sin(45 * M_PI / 180));
+    
+    // Fibonacci sequence
+    printf("\\nFibonacci Sequence (first 10 numbers):\\n");
+    int fib[10];
+    fib[0] = 0;
+    fib[1] = 1;
+    
+    for (int i = 2; i < 10; i++) {
+        fib[i] = fib[i-1] + fib[i-2];
     }
     
-    // Array example
-    int numbers[] = {10, 20, 30, 40, 50};
-    int size = sizeof(numbers) / sizeof(numbers[0]);
+    printArray(fib, 10);
     
-    printf("\\nArray elements: ");
-    for (int i = 0; i < size; i++) {
-        printf("%d ", numbers[i]);
+    // Prime numbers check
+    printf("\\nPrime numbers in array:\\n");
+    for (int i = 0; i < n; i++) {
+        int isPrime = 1;
+        if (numbers[i] <= 1) {
+            isPrime = 0;
+        } else {
+            for (int j = 2; j * j <= numbers[i]; j++) {
+                if (numbers[i] % j == 0) {
+                    isPrime = 0;
+                    break;
+                }
+            }
+        }
+        if (isPrime) {
+            printf("%d ", numbers[i]);
+        }
     }
     printf("\\n");
     
@@ -439,18 +854,10 @@ int main() {
             // Set default example based on selected language
             function setDefaultExample() {
                 const lang = languageSelector.value;
-                let exampleKey = '';
-                
-                switch(lang) {
-                    case 'html': exampleKey = 'html-example'; break;
-                    case 'css': exampleKey = 'css-example'; break;
-                    case 'javascript': exampleKey = 'js-example'; break;
-                    case 'cpp': exampleKey = 'cpp-example'; break;
-                    case 'c': exampleKey = 'c-example'; break;
-                }
-                
-                if (exampleKey && examples[exampleKey]) {
-                    codeEditor.value = examples[exampleKey];
+                if (examples[lang]) {
+                    codeEditor.value = examples[lang];
+                    statusElement.textContent = `Loaded ${lang.toUpperCase()} example`;
+                    statusElement.className = 'status info';
                 }
             }
             
@@ -460,22 +867,18 @@ int main() {
             // Change example when language changes
             languageSelector.addEventListener('change', setDefaultExample);
             
+            // Load example button
+            loadExampleButton.addEventListener('click', setDefaultExample);
+            
             // Example button handlers
             exampleButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const exampleKey = this.getAttribute('data-example');
                     const lang = this.getAttribute('data-lang');
-                    
-                    if (examples[exampleKey]) {
-                        codeEditor.value = examples[exampleKey];
+                    if (examples[lang]) {
+                        codeEditor.value = examples[lang];
                         languageSelector.value = lang;
                         statusElement.textContent = `Loaded ${lang.toUpperCase()} example`;
                         statusElement.className = 'status success';
-                        
-                        setTimeout(() => {
-                            statusElement.textContent = '';
-                            statusElement.className = 'status';
-                        }, 3000);
                     }
                 });
             });
@@ -484,12 +887,7 @@ int main() {
             clearButton.addEventListener('click', function() {
                 outputElement.textContent = '';
                 statusElement.textContent = 'Output cleared';
-                statusElement.className = 'status success';
-                
-                setTimeout(() => {
-                    statusElement.textContent = '';
-                    statusElement.className = 'status';
-                }, 2000);
+                statusElement.className = 'status info';
             });
             
             // Run code
@@ -519,42 +917,82 @@ int main() {
                 try {
                     switch(language) {
                         case 'html':
-                            // For HTML, we'll create an iframe to render it
+                            // For HTML, we'll create an iframe to render it safely
                             outputElement.innerHTML = code;
                             break;
                             
                         case 'css':
                             // For CSS, we'll apply it to a style element
+                            outputElement.textContent = 'CSS applied to page. Check the visual changes.';
                             const styleElement = document.createElement('style');
                             styleElement.textContent = code;
                             document.head.appendChild(styleElement);
-                            outputElement.textContent = 'CSS applied to the page. Check the styling changes.';
                             break;
                             
                         case 'javascript':
-                            // For JavaScript, we'll use eval (with caution)
-                            // In a real implementation, you might want to use a sandboxed environment
+                            // For JavaScript, capture console.log output
                             const originalConsoleLog = console.log;
                             console.log = function(...args) {
                                 outputElement.textContent += args.join(' ') + '\n';
-                                originalConsoleLog.apply(console, args);
                             };
                             
+                            // Execute the code
                             eval(code);
                             
                             // Restore original console.log
                             console.log = originalConsoleLog;
                             break;
                             
+                        case 'python':
+                            // For Python, use Brython
+                            outputElement.textContent = 'Running Python code...\n\n';
+                            
+                            // Capture Python output
+                            const originalWrite = __BRYTHON__.python_to_js;
+                            __BRYTHON__.python_to_js = function(x) {
+                                if (x !== undefined && x !== null) {
+                                    outputElement.textContent += x + '\n';
+                                }
+                                return x;
+                            };
+                            
+                            // Execute Python code
+                            try {
+                                brython(1, code);
+                            } catch (e) {
+                                outputElement.textContent += 'Error: ' + e.message;
+                            }
+                            break;
+                            
+                        case 'java':
                         case 'cpp':
                         case 'c':
-                            // For C++ and C, we'll use a simulated execution
-                            // In a real implementation, you would use a code execution API
-                            simulateCompiledLanguageExecution(code, language);
+                            // For compiled languages, show a message about limitations
+                            outputElement.textContent = `Note: ${language.toUpperCase()} execution is simulated in this browser environment.\n\n`;
+                            outputElement.textContent += "In a full implementation, you would use:\n";
+                            outputElement.textContent += "- WebAssembly-based compilers (CheerpJ for Java, Emscripten for C/C++)\n";
+                            outputElement.textContent += "- Or a backend service for actual compilation\n\n";
+                            outputElement.textContent += "For now, here's a simulation of your code output:\n\n";
+                            
+                            // Extract likely output based on common patterns
+                            if (code.includes('cout') || code.includes('printf') || code.includes('System.out')) {
+                                const lines = code.split('\n');
+                                for (const line of lines) {
+                                    if (line.includes('cout <<') || line.includes('printf(') || line.includes('System.out.print')) {
+                                        // Extract the string to output
+                                        const match = line.match(/cout << "([^"]*)"/) || 
+                                                     line.match(/printf\("([^"]*)"/) ||
+                                                     line.match(/System\.out\.print(ln)?\("([^"]*)"/);
+                                        if (match) {
+                                            outputElement.textContent += (match[1] || match[2]) + '\n';
+                                        }
+                                    }
+                                }
+                            }
                             break;
                             
                         default:
-                            outputElement.textContent = `Language "${language}" is not supported in this demo.`;
+                            outputElement.textContent = `Language "${language}" is not supported.`;
                     }
                     
                     statusElement.textContent = 'Code executed successfully';
@@ -566,46 +1004,6 @@ int main() {
                 } finally {
                     // Hide loading indicator
                     loadingElement.style.display = 'none';
-                    
-                    // Clear status after 3 seconds
-                    setTimeout(() => {
-                        statusElement.textContent = '';
-                        statusElement.className = 'status';
-                    }, 3000);
-                }
-            }
-            
-            // Simulate execution for compiled languages (C++ and C)
-            function simulateCompiledLanguageExecution(code, language) {
-                // This is a simulation - in a real implementation, you would use an API
-                outputElement.textContent = `Simulating ${language.toUpperCase()} execution...\n\n`;
-                
-                // Extract the main function content for display
-                const mainMatch = code.match(/int main\s*\(\s*\)\s*\{([\s\S]*?)\}/);
-                if (mainMatch) {
-                    outputElement.textContent += "Program Output:\n";
-                    outputElement.textContent += "---------------\n";
-                    
-                    // Simulate output based on common patterns
-                    if (code.includes('cout') || code.includes('printf')) {
-                        if (code.includes('Hello')) {
-                            outputElement.textContent += "Hello, C++ World!\n";
-                        }
-                        if (code.includes('numbers')) {
-                            outputElement.textContent += "Original numbers: 5 2 8 1 9\n";
-                            outputElement.textContent += "Sorted numbers: 1 2 5 8 9\n";
-                            outputElement.textContent += "Sum: 25\n";
-                        }
-                        if (code.includes('factorial')) {
-                            outputElement.textContent += "Factorials of numbers 0 to 7:\n";
-                            outputElement.textContent += "0! = 1\n1! = 1\n2! = 2\n3! = 6\n4! = 24\n5! = 120\n6! = 720\n7! = 5040\n";
-                        }
-                    }
-                    
-                    outputElement.textContent += "\n---------------\n";
-                    outputElement.textContent += "Program executed successfully (simulated)";
-                } else {
-                    outputElement.textContent += "Error: Could not find main function";
                 }
             }
         });
