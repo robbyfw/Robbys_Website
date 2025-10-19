@@ -199,6 +199,19 @@
           border-color: #0078ff;
         }
 
+        .sound-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          margin: 1rem 0;
+          color: #ccc;
+        }
+
+        .sound-toggle input {
+          margin-right: 0.5rem;
+        }
+
         .controls {
           display: flex;
           gap: 1rem;
@@ -354,6 +367,11 @@
                 <button class="difficulty-btn" data-difficulty="hard">Hard</button>
             </div>
 
+            <div class="sound-toggle">
+                <input type="checkbox" id="sound-toggle" checked>
+                <label for="sound-toggle">Enable typing sounds</label>
+            </div>
+
             <div class="text-display" id="text-display">
                 <!-- Text to type will appear here -->
             </div>
@@ -426,6 +444,7 @@
         const difficultyBtns = document.querySelectorAll('.difficulty-btn');
         const results = document.getElementById('results');
         const timerElement = document.getElementById('timer');
+        const soundToggle = document.getElementById('sound-toggle');
 
         // Result elements
         const finalWpmElement = document.getElementById('final-wpm');
@@ -433,22 +452,64 @@
         const finalTimeElement = document.getElementById('final-time');
         const finalCharactersElement = document.getElementById('final-characters');
 
+        // Create audio context for typing sounds
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playTypingSound() {
+            if (!soundToggle.checked) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 800 + Math.random() * 200;
+            gainNode.gain.value = 0.1;
+            
+            oscillator.start();
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
         // Sample texts for different difficulty levels
         const sampleTexts = {
             easy: [
                 "The quick brown fox jumps over the lazy dog. This sentence contains every letter in the alphabet.",
                 "Programming is the process of creating a set of instructions that tell a computer how to perform a task.",
-                "Practice makes perfect when it comes to typing. The more you type, the faster you will become."
+                "Practice makes perfect when it comes to typing. The more you type, the faster you will become.",
+                "Learning to type quickly and accurately is an essential skill in today's digital world.",
+                "Typing tests help you measure your progress and identify areas for improvement.",
+                "Consistent practice is the key to becoming a faster and more accurate typist.",
+                "Focus on accuracy first, then gradually increase your speed over time.",
+                "Proper finger placement on the keyboard can significantly improve your typing efficiency.",
+                "Take regular breaks during typing practice to avoid fatigue and maintain focus.",
+                "Set realistic goals for your typing speed and work towards achieving them step by step."
             ],
             medium: [
                 "JavaScript is a versatile programming language that enables interactive web pages. It is an essential part of web applications.",
                 "Web development is the work involved in developing a website for the Internet or an intranet. It can range from simple pages to complex applications.",
-                "Responsive web design makes your web page look good on all devices. It uses HTML and CSS to resize, hide, or enlarge content."
+                "Responsive web design makes your web page look good on all devices. It uses HTML and CSS to resize, hide, or enlarge content.",
+                "The internet has revolutionized how we communicate, work, and access information in our daily lives.",
+                "Modern technology continues to evolve at an incredible pace, transforming various industries and creating new opportunities.",
+                "Digital literacy has become as important as traditional literacy in today's interconnected world.",
+                "Cloud computing allows users to access files and applications from any device with an internet connection.",
+                "Artificial intelligence is changing how we interact with technology and solve complex problems.",
+                "Cybersecurity has become increasingly important as more of our lives move online.",
+                "Mobile applications have transformed how we shop, bank, socialize, and access entertainment."
             ],
             hard: [
                 "The Document Object Model is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.",
                 "Asynchronous JavaScript and XML is a set of web development techniques using many web technologies on the client side to create asynchronous web applications.",
-                "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML."
+                "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML.",
+                "Quantum computing represents a paradigm shift in computational capabilities, leveraging quantum mechanical phenomena to process information.",
+                "Machine learning algorithms can identify patterns in data and make predictions or decisions without being explicitly programmed for specific tasks.",
+                "Blockchain technology provides a decentralized and distributed digital ledger that is used to record transactions across many computers.",
+                "The Internet of Things refers to the network of physical objects embedded with sensors, software, and connectivity to exchange data.",
+                "Natural language processing enables computers to understand, interpret, and generate human language in valuable ways.",
+                "Virtual reality creates immersive simulated environments while augmented reality overlays digital information onto the real world.",
+                "Big data analytics involves examining large and varied data sets to uncover hidden patterns, correlations, and other insights."
             ]
         };
 
@@ -583,6 +644,11 @@
         textInput.addEventListener('input', function() {
             if (!isTestRunning && this.value.length > 0) {
                 startTest();
+            }
+            
+            // Play typing sound for each character typed
+            if (this.value.length > 0) {
+                playTypingSound();
             }
             
             updateTextDisplay();
