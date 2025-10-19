@@ -437,31 +437,25 @@
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
         function playTypingSound() {
-            // Create a more realistic keyboard typing sound
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            const filter = audioContext.createBiquadFilter();
-            
-            oscillator.connect(filter);
-            filter.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            // Configure filter for more natural sound
-            filter.type = 'lowpass';
-            filter.frequency.value = 1500;
-            
-            // Configure oscillator
-            oscillator.type = 'square';
-            oscillator.frequency.value = 100 + Math.random() * 50;
-            
-            // Configure volume envelope
-            gainNode.gain.value = 0.1;
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.08);
-            
-            // Play the sound
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.08);
-        }
+    // Create a keyboard button click sound
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Configure oscillator for a sharp, click-like sound
+    oscillator.type = 'square';
+    oscillator.frequency.value = 80 + Math.random() * 40; // Lower frequency for click sound
+    
+    // Configure volume envelope for a quick, sharp click
+    gainNode.gain.value = 0.15;
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.05);
+    
+    // Play the sound
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.05);
+}
 
         // Sample texts for different difficulty levels
         const sampleTexts = {
