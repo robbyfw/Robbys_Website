@@ -199,19 +199,6 @@
           border-color: #0078ff;
         }
 
-        .sound-toggle {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          margin: 1rem 0;
-          color: #ccc;
-        }
-
-        .sound-toggle input {
-          margin-right: 0.5rem;
-        }
-
         .controls {
           display: flex;
           gap: 1rem;
@@ -367,11 +354,6 @@
                 <button class="difficulty-btn" data-difficulty="hard">Hard</button>
             </div>
 
-            <div class="sound-toggle">
-                <input type="checkbox" id="sound-toggle" checked>
-                <label for="sound-toggle">Enable typing sounds</label>
-            </div>
-
             <div class="text-display" id="text-display">
                 <!-- Text to type will appear here -->
             </div>
@@ -444,7 +426,6 @@
         const difficultyBtns = document.querySelectorAll('.difficulty-btn');
         const results = document.getElementById('results');
         const timerElement = document.getElementById('timer');
-        const soundToggle = document.getElementById('sound-toggle');
 
         // Result elements
         const finalWpmElement = document.getElementById('final-wpm');
@@ -456,21 +437,30 @@
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         
         function playTypingSound() {
-            if (!soundToggle.checked) return;
-            
+            // Create a more realistic keyboard typing sound
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
             
-            oscillator.connect(gainNode);
+            oscillator.connect(filter);
+            filter.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.type = 'sine';
-            oscillator.frequency.value = 800 + Math.random() * 200;
-            gainNode.gain.value = 0.1;
+            // Configure filter for more natural sound
+            filter.type = 'lowpass';
+            filter.frequency.value = 1500;
             
+            // Configure oscillator
+            oscillator.type = 'square';
+            oscillator.frequency.value = 100 + Math.random() * 50;
+            
+            // Configure volume envelope
+            gainNode.gain.value = 0.1;
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.08);
+            
+            // Play the sound
             oscillator.start();
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
-            oscillator.stop(audioContext.currentTime + 0.1);
+            oscillator.stop(audioContext.currentTime + 0.08);
         }
 
         // Sample texts for different difficulty levels
@@ -638,6 +628,9 @@
             finalCharactersElement.textContent = totalCharacters;
             
             results.classList.add('show');
+            
+            // Scroll to results section
+            results.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         // Event Listeners
