@@ -3,50 +3,634 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Chess</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Typing Speed Test</title>
+    <style>
+        /* General Reset */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Poppins', sans-serif;
+          color: white;
+          background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+          background-size: 600% 600%;
+          animation: waterflow 20s ease infinite;
+          background-attachment: fixed;
+          line-height: 1.6;
+        }
+
+        /* Mobile fix: disable fixed background to prevent white box */
+        @media (max-width: 768px) {
+          body {
+            background-attachment: scroll;
+          }
+        }
+
+        /* Background animation */
+        @keyframes waterflow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .container {
+          max-width: 900px;
+          margin: auto;
+          padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+          text-align: center;
+          margin: 2rem 0;
+        }
+
+        .hero h1 {
+          font-size: 3rem;
+          font-weight: 800;
+          margin-bottom: 1rem;
+        }
+
+        .tagline {
+          font-weight: 600;
+          color: #ccc;
+          margin-bottom: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          top: 0; left: 0;
+          background: rgba(17, 17, 17, 0.4); /* blurred dark */
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          overflow-x: hidden;
+          transition: 0.3s;
+          padding-top: 60px;
+          z-index: 1000;
+        }
+
+        .sidebar a {
+          padding: 12px 25px;
+          text-decoration: none;
+          font-size: 18px;
+          color: #ccc;
+          display: block;
+          transition: 0.3s;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sidebar a:hover {
+          color: white;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar.open {
+          width: 250px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          cursor: pointer;
+          z-index: 1001;
+        }
+        .hamburger span {
+          display: block;
+          width: 30px;
+          height: 3px;
+          margin: 6px;
+          background: white;
+          transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Typing Test Styles */
+        .typing-container {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 10px;
+          padding: 2rem;
+          margin: 2rem 0;
+          transition: transform 0.3s ease;
+        }
+
+        .typing-container:hover {
+          transform: translateY(-5px);
+          border-color: #ffffff;
+        }
+
+        .stats-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .stat-box {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 1rem;
+          border-radius: 8px;
+          text-align: center;
+        }
+
+        .stat-value {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #0078ff;
+        }
+
+        .stat-label {
+          font-size: 0.9rem;
+          color: #aaa;
+        }
+
+        .text-display {
+          background: rgba(0, 0, 0, 0.3);
+          padding: 1.5rem;
+          border-radius: 8px;
+          margin: 1.5rem 0;
+          font-size: 1.2rem;
+          line-height: 1.8;
+          min-height: 150px;
+        }
+
+        .text-input {
+          width: 100%;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 8px;
+          color: white;
+          font-size: 1.1rem;
+          resize: none;
+          margin-bottom: 1rem;
+        }
+
+        .text-input:focus {
+          outline: none;
+          border-color: #0078ff;
+        }
+
+        .controls {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          margin-top: 1.5rem;
+        }
+
+        .btn {
+          padding: 0.8rem 1.5rem;
+          border: none;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+          background: #0078ff;
+          color: white;
+        }
+
+        .btn-primary:hover {
+          background: #005fcc;
+          transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+        }
+
+        .difficulty-selector {
+          display: flex;
+          gap: 0.5rem;
+          justify-content: center;
+          margin: 1rem 0;
+        }
+
+        .difficulty-btn {
+          padding: 0.5rem 1rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 6px;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+          background: #0078ff;
+          border-color: #0078ff;
+        }
+
+        .results {
+          background: rgba(255, 255, 255, 0.05);
+          padding: 1.5rem;
+          border-radius: 8px;
+          margin-top: 2rem;
+          display: none;
+        }
+
+        .results.show {
+          display: block;
+          animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct {
+          color: #4CAF50;
+        }
+
+        .incorrect {
+          color: #f44336;
+          text-decoration: underline;
+        }
+
+        .current {
+          background-color: rgba(0, 120, 255, 0.3);
+          border-radius: 3px;
+        }
+
+        /* Footer */
+        .site-footer {
+          text-align: center;
+          margin-top: 3rem;
+          padding: 1rem 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          font-size: 0.9rem;
+          color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+          .hero h1 {
+            font-size: 2rem;
+          }
+          
+          .stats-container {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .controls {
+            flex-direction: column;
+          }
+        }
+    </style>
 </head>
 <body>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <a href="https://fwrobby.site">Home</a>
+        <a href="https://fwrobby.site/about/">About Me</a>
+        <a href="https://fwrobby.site/contact/">Contact Me</a>
+        <a href="https://fwrobby.site/donate/">Donations</a>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <div class="container">
-        <h1>Simple Chess</h1>
-        
-        <div class="game-info">
-            <div id="status">White's Turn</div>
+        <div class="hero">
+            <h1>Typing Speed Test</h1>
+            <p class="tagline">Test and improve your typing speed and accuracy</p>
+        </div>
+
+        <div class="typing-container">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-value" id="wpm">0</div>
+                    <div class="stat-label">WPM</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="accuracy">100%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="timer">60</div>
+                    <div class="stat-label">Seconds</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="characters">0</div>
+                    <div class="stat-label">Characters</div>
+                </div>
+            </div>
+
+            <div class="difficulty-selector">
+                <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+                <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+                <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+            </div>
+
+            <div class="text-display" id="text-display">
+                <!-- Text to type will appear here -->
+            </div>
+
+            <textarea 
+                class="text-input" 
+                id="text-input" 
+                placeholder="Start typing here... (Timer starts when you begin typing)"
+                rows="4"
+            ></textarea>
+
             <div class="controls">
-                <button id="new-game">New Game</button>
-                <select id="difficulty">
-                    <option value="1">Easy</option>
-                    <option value="2" selected>Medium</option>
-                </select>
+                <button class="btn btn-primary" id="start-btn">Start Test</button>
+                <button class="btn btn-secondary" id="reset-btn">Reset</button>
+                <button class="btn btn-secondary" id="new-text-btn">New Text</button>
             </div>
-        </div>
 
-        <div class="board" id="chessboard">
-            <!-- Board will be generated by JavaScript -->
-        </div>
-
-        <div class="sidebar">
-            <div class="move-history">
-                <h3>Moves</h3>
-                <div id="move-history"></div>
-            </div>
-        </div>
-
-        <!-- Promotion Modal -->
-        <div id="promotion-modal" class="modal">
-            <div class="modal-content">
-                <h3>Promote to:</h3>
-                <div class="promotion-options">
-                    <button data-piece="q">Q</button>
-                    <button data-piece="r">R</button>
-                    <button data-piece="b">B</button>
-                    <button data-piece="n">N</button>
+            <div class="results" id="results">
+                <h3>Test Results</h3>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-value" id="final-wpm">0</div>
+                        <div class="stat-label">Final WPM</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="final-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="final-time">0s</div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="final-characters">0</div>
+                        <div class="stat-label">Characters</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <footer class="site-footer">
+            <p>Typing Speed Test | Improve your typing skills</p>
+        </footer>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Sidebar functionality
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Typing Test Functionality
+        const textDisplay = document.getElementById('text-display');
+        const textInput = document.getElementById('text-input');
+        const startBtn = document.getElementById('start-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const newTextBtn = document.getElementById('new-text-btn');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+        const results = document.getElementById('results');
+
+        // Stats elements
+        const wpmElement = document.getElementById('wpm');
+        const accuracyElement = document.getElementById('accuracy');
+        const timerElement = document.getElementById('timer');
+        const charactersElement = document.getElementById('characters');
+
+        // Result elements
+        const finalWpmElement = document.getElementById('final-wpm');
+        const finalAccuracyElement = document.getElementById('final-accuracy');
+        const finalTimeElement = document.getElementById('final-time');
+        const finalCharactersElement = document.getElementById('final-characters');
+
+        // Sample texts for different difficulty levels
+        const sampleTexts = {
+            easy: [
+                "The quick brown fox jumps over the lazy dog. This sentence contains every letter in the alphabet.",
+                "Programming is the process of creating a set of instructions that tell a computer how to perform a task.",
+                "Practice makes perfect when it comes to typing. The more you type, the faster you will become."
+            ],
+            medium: [
+                "JavaScript is a versatile programming language that enables interactive web pages. It is an essential part of web applications.",
+                "Web development is the work involved in developing a website for the Internet or an intranet. It can range from simple pages to complex applications.",
+                "Responsive web design makes your web page look good on all devices. It uses HTML and CSS to resize, hide, or enlarge content."
+            ],
+            hard: [
+                "The Document Object Model is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.",
+                "Asynchronous JavaScript and XML is a set of web development techniques using many web technologies on the client side to create asynchronous web applications.",
+                "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML."
+            ]
+        };
+
+        let currentText = '';
+        let startTime;
+        let timerInterval;
+        let timeLeft = 60;
+        let isTestRunning = false;
+        let currentDifficulty = 'easy';
+        let correctCharacters = 0;
+        let totalCharacters = 0;
+
+        // Initialize the test
+        function initTest() {
+            loadNewText();
+            resetStats();
+            textInput.disabled = false;
+            textInput.focus();
+        }
+
+        // Load a new text based on difficulty
+        function loadNewText() {
+            const texts = sampleTexts[currentDifficulty];
+            currentText = texts[Math.floor(Math.random() * texts.length)];
+            renderText();
+        }
+
+        // Render the text with proper formatting
+        function renderText() {
+            textDisplay.innerHTML = '';
+            for (let i = 0; i < currentText.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = currentText[i];
+                textDisplay.appendChild(span);
+            }
+        }
+
+        // Reset all stats
+        function resetStats() {
+            timeLeft = 60;
+            correctCharacters = 0;
+            totalCharacters = 0;
+            isTestRunning = false;
+            
+            wpmElement.textContent = '0';
+            accuracyElement.textContent = '100%';
+            timerElement.textContent = timeLeft;
+            charactersElement.textContent = '0';
+            
+            textInput.value = '';
+            textInput.disabled = false;
+            
+            clearInterval(timerInterval);
+            updateTextDisplay();
+            results.classList.remove('show');
+        }
+
+        // Start the test
+        function startTest() {
+            if (isTestRunning) return;
+            
+            isTestRunning = true;
+            startTime = new Date();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endTest();
+                }
+            }, 1000);
+        }
+
+        // Update the text display with correct/incorrect formatting
+        function updateTextDisplay() {
+            const inputText = textInput.value;
+            const textSpans = textDisplay.querySelectorAll('span');
+            
+            // Reset all spans
+            textSpans.forEach(span => {
+                span.className = '';
+            });
+            
+            // Mark correct and incorrect characters
+            for (let i = 0; i < inputText.length; i++) {
+                if (i < textSpans.length) {
+                    if (inputText[i] === currentText[i]) {
+                        textSpans[i].classList.add('correct');
+                    } else {
+                        textSpans[i].classList.add('incorrect');
+                    }
+                }
+            }
+            
+            // Highlight current character
+            if (inputText.length < textSpans.length) {
+                textSpans[inputText.length].classList.add('current');
+            }
+            
+            // Update stats
+            updateStats(inputText);
+        }
+
+        // Update typing statistics
+        function updateStats(inputText) {
+            totalCharacters = inputText.length;
+            correctCharacters = 0;
+            
+            for (let i = 0; i < inputText.length; i++) {
+                if (inputText[i] === currentText[i]) {
+                    correctCharacters++;
+                }
+            }
+            
+            const accuracy = totalCharacters > 0 ? Math.round((correctCharacters / totalCharacters) * 100) : 100;
+            const timeElapsed = (60 - timeLeft) || 1; // Avoid division by zero
+            const wpm = Math.round((correctCharacters / 5) / (timeElapsed / 60));
+            
+            accuracyElement.textContent = `${accuracy}%`;
+            wpmElement.textContent = wpm;
+            charactersElement.textContent = totalCharacters;
+        }
+
+        // End the test and show results
+        function endTest() {
+            isTestRunning = false;
+            clearInterval(timerInterval);
+            textInput.disabled = true;
+            
+            const finalAccuracy = totalCharacters > 0 ? Math.round((correctCharacters / totalCharacters) * 100) : 0;
+            const finalWpm = Math.round((correctCharacters / 5) / (60 / 60));
+            
+            finalWpmElement.textContent = finalWpm;
+            finalAccuracyElement.textContent = `${finalAccuracy}%`;
+            finalTimeElement.textContent = `${60 - timeLeft}s`;
+            finalCharactersElement.textContent = totalCharacters;
+            
+            results.classList.add('show');
+        }
+
+        // Event Listeners
+        textInput.addEventListener('input', function() {
+            if (!isTestRunning && this.value.length > 0) {
+                startTest();
+            }
+            
+            updateTextDisplay();
+            
+            // End test if user finishes typing the text
+            if (this.value.length === currentText.length) {
+                endTest();
+            }
+        });
+
+        startBtn.addEventListener('click', function() {
+            if (!isTestRunning) {
+                startTest();
+                textInput.focus();
+            }
+        });
+
+        resetBtn.addEventListener('click', resetStats);
+
+        newTextBtn.addEventListener('click', function() {
+            resetStats();
+            loadNewText();
+        });
+
+        difficultyBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                difficultyBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentDifficulty = this.dataset.difficulty;
+                resetStats();
+                loadNewText();
+            });
+        });
+
+        // Initialize the test on page load
+        window.addEventListener('load', initTest);
+    </script>
 </body>
 </html>
