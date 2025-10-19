@@ -58,6 +58,10 @@
           font-weight: 600;
           color: #ccc;
           margin-bottom: 1rem;
+          line-height: 1.8;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         /* Sidebar */
@@ -126,37 +130,46 @@
           border-radius: 10px;
           padding: 2rem;
           margin: 2rem 0;
-          transition: transform 0.3s ease;
+          /* Removed the hover transform effect */
         }
 
-        .typing-container:hover {
-          transform: translateY(-5px);
-          border-color: #ffffff;
-        }
-
-        .stats-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          gap: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .stat-box {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 1rem;
-          border-radius: 8px;
+        .timer-container {
           text-align: center;
+          margin-bottom: 1.5rem;
         }
 
-        .stat-value {
-          font-size: 2rem;
+        .timer {
+          font-size: 3rem;
           font-weight: bold;
           color: #0078ff;
+          margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-          font-size: 0.9rem;
+        .timer-label {
+          font-size: 1rem;
           color: #aaa;
+        }
+
+        .difficulty-selector {
+          display: flex;
+          gap: 0.5rem;
+          justify-content: center;
+          margin: 1rem 0;
+        }
+
+        .difficulty-btn {
+          padding: 0.5rem 1rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 6px;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+          background: #0078ff;
+          border-color: #0078ff;
         }
 
         .text-display {
@@ -209,7 +222,6 @@
 
         .btn-primary:hover {
           background: #005fcc;
-          transform: translateY(-2px);
         }
 
         .btn-secondary {
@@ -220,29 +232,6 @@
 
         .btn-secondary:hover {
           background: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-        }
-
-        .difficulty-selector {
-          display: flex;
-          gap: 0.5rem;
-          justify-content: center;
-          margin: 1rem 0;
-        }
-
-        .difficulty-btn {
-          padding: 0.5rem 1rem;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 6px;
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .difficulty-btn.active {
-          background: #0078ff;
-          border-color: #0078ff;
         }
 
         .results {
@@ -256,6 +245,31 @@
         .results.show {
           display: block;
           animation: fadeIn 0.5s ease;
+        }
+
+        .results-stats {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1rem;
+          margin-top: 1rem;
+        }
+
+        .stat-box {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 1rem;
+          border-radius: 8px;
+          text-align: center;
+        }
+
+        .stat-value {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #0078ff;
+        }
+
+        .stat-label {
+          font-size: 0.9rem;
+          color: #aaa;
         }
 
         @keyframes fadeIn {
@@ -292,12 +306,16 @@
             font-size: 2rem;
           }
           
-          .stats-container {
-            grid-template-columns: repeat(2, 1fr);
+          .timer {
+            font-size: 2.5rem;
           }
           
           .controls {
             flex-direction: column;
+          }
+          
+          .results-stats {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
     </style>
@@ -321,27 +339,13 @@
     <div class="container">
         <div class="hero">
             <h1>Typing Speed Test</h1>
-            <p class="tagline">Test and improve your typing speed and accuracy</p>
+            <p class="tagline">Measure your typing speed and accuracy in real-time. Challenge yourself with different difficulty levels and track your progress over time.</p>
         </div>
 
         <div class="typing-container">
-            <div class="stats-container">
-                <div class="stat-box">
-                    <div class="stat-value" id="wpm">0</div>
-                    <div class="stat-label">WPM</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="accuracy">100%</div>
-                    <div class="stat-label">Accuracy</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="timer">60</div>
-                    <div class="stat-label">Seconds</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-value" id="characters">0</div>
-                    <div class="stat-label">Characters</div>
-                </div>
+            <div class="timer-container">
+                <div class="timer" id="timer">60</div>
+                <div class="timer-label">Seconds Remaining</div>
             </div>
 
             <div class="difficulty-selector">
@@ -369,10 +373,10 @@
 
             <div class="results" id="results">
                 <h3>Test Results</h3>
-                <div class="stats-container">
+                <div class="results-stats">
                     <div class="stat-box">
                         <div class="stat-value" id="final-wpm">0</div>
-                        <div class="stat-label">Final WPM</div>
+                        <div class="stat-label">Words Per Minute</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value" id="final-accuracy">0%</div>
@@ -380,18 +384,18 @@
                     </div>
                     <div class="stat-box">
                         <div class="stat-value" id="final-time">0s</div>
-                        <div class="stat-label">Time</div>
+                        <div class="stat-label">Time Taken</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-value" id="final-characters">0</div>
-                        <div class="stat-label">Characters</div>
+                        <div class="stat-label">Characters Typed</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <footer class="site-footer">
-            <p>Typing Speed Test | Improve your typing skills</p>
+            <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
         </footer>
     </div>
 
@@ -421,12 +425,7 @@
         const newTextBtn = document.getElementById('new-text-btn');
         const difficultyBtns = document.querySelectorAll('.difficulty-btn');
         const results = document.getElementById('results');
-
-        // Stats elements
-        const wpmElement = document.getElementById('wpm');
-        const accuracyElement = document.getElementById('accuracy');
         const timerElement = document.getElementById('timer');
-        const charactersElement = document.getElementById('characters');
 
         // Result elements
         const finalWpmElement = document.getElementById('final-wpm');
@@ -494,11 +493,7 @@
             totalCharacters = 0;
             isTestRunning = false;
             
-            wpmElement.textContent = '0';
-            accuracyElement.textContent = '100%';
             timerElement.textContent = timeLeft;
-            charactersElement.textContent = '0';
-            
             textInput.value = '';
             textInput.disabled = false;
             
@@ -564,14 +559,6 @@
                     correctCharacters++;
                 }
             }
-            
-            const accuracy = totalCharacters > 0 ? Math.round((correctCharacters / totalCharacters) * 100) : 100;
-            const timeElapsed = (60 - timeLeft) || 1; // Avoid division by zero
-            const wpm = Math.round((correctCharacters / 5) / (timeElapsed / 60));
-            
-            accuracyElement.textContent = `${accuracy}%`;
-            wpmElement.textContent = wpm;
-            charactersElement.textContent = totalCharacters;
         }
 
         // End the test and show results
@@ -580,12 +567,13 @@
             clearInterval(timerInterval);
             textInput.disabled = true;
             
+            const timeTaken = 60 - timeLeft;
             const finalAccuracy = totalCharacters > 0 ? Math.round((correctCharacters / totalCharacters) * 100) : 0;
-            const finalWpm = Math.round((correctCharacters / 5) / (60 / 60));
+            const finalWpm = Math.round((correctCharacters / 5) / (timeTaken / 60));
             
             finalWpmElement.textContent = finalWpm;
             finalAccuracyElement.textContent = `${finalAccuracy}%`;
-            finalTimeElement.textContent = `${60 - timeLeft}s`;
+            finalTimeElement.textContent = `${timeTaken}s`;
             finalCharactersElement.textContent = totalCharacters;
             
             results.classList.add('show');
