@@ -109,11 +109,71 @@
             box-shadow: 0 6px 15px rgba(255, 71, 87, 0.4);
         }
 
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0; left: 0;
+            background: rgba(17, 17, 17, 0.4); /* blurred dark */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sidebar a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            margin: 6px;
+            background: white;
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
         .footer {
             text-align: center;
             padding: 1rem 0;
-            color: #ccc;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.9rem;
+            color: #ccc;
         }
 
         @media (max-width: 600px) {
@@ -142,6 +202,21 @@
     </style>
 </head>
 <body>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <a href="https://fwrobby.site">Home</a>
+        <a href="https://fwrobby.site/about/">About Me</a>
+        <a href="https://fwrobby.site/contact/">Contact Me</a>
+        <a href="https://fwrobby.site/donate/">Donations</a>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <div class="container">
         <div class="content-box">
             <h1>Discord Bot Template</h1>
@@ -159,7 +234,27 @@
     </div>
 
     <div class="footer">
-        © 2025 Muhammad Asim (Robby) • Built with 🖤
+        <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
     </div>
+
+    <script>
+        // Toggle sidebar
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar when clicking on a link (for mobile)
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
