@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Piano</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .piano {
+            display: flex;
+            background: #2c3e50;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin-top: 50px;
+        }
+
+        .key {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border-radius: 0 0 8px 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            user-select: none;
+        }
+
+        .white-key {
+            width: 60px;
+            height: 200px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid #ddd;
+            margin: 0 2px;
+            z-index: 1;
+        }
+
+        .white-key:hover {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .white-key.active {
+            background: linear-gradient(to bottom, #ffeb3b 0%, #fbc02d 100%);
+            transform: translateY(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .black-key {
+            width: 40px;
+            height: 120px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            margin: 0 -20px;
+            z-index: 2;
+            border: 2px solid #1a252f;
+        }
+
+        .black-key:hover {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        }
+
+        .black-key.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            transform: translateY(3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .key-label {
+            pointer-events: none;
+        }
+
+        .title {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+
+        .instructions {
+            color: white;
+            margin-top: 30px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">🎹 Colorful Piano</h1>
+    <p class="subtitle">Click the keys or use your keyboard (A-S-D-F-G-H-J)</p>
+    
+    <div class="piano">
+        <!-- C4 to B4 - One Octave -->
+        <div class="key white-key" data-note="C4">
+            <span class="key-label">C (A)</span>
+        </div>
+        <div class="key black-key" data-note="C#4">
+            <span class="key-label">C# (W)</span>
+        </div>
+        <div class="key white-key" data-note="D4">
+            <span class="key-label">D (S)</span>
+        </div>
+        <div class="key black-key" data-note="D#4">
+            <span class="key-label">D# (E)</span>
+        </div>
+        <div class="key white-key" data-note="E4">
+            <span class="key-label">E (D)</span>
+        </div>
+        <div class="key white-key" data-note="F4">
+            <span class="key-label">F (F)</span>
+        </div>
+        <div class="key black-key" data-note="F#4">
+            <span class="key-label">F# (T)</span>
+        </div>
+        <div class="key white-key" data-note="G4">
+            <span class="key-label">G (G)</span>
+        </div>
+        <div class="key black-key" data-note="G#4">
+            <span class="key-label">G# (Y)</span>
+        </div>
+        <div class="key white-key" data-note="A4">
+            <span class="key-label">A (H)</span>
+        </div>
+        <div class="key black-key" data-note="A#4">
+            <span class="key-label">A# (U)</span>
+        </div>
+        <div class="key white-key" data-note="B4">
+            <span class="key-label">B (J)</span>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <p>🎵 Click keys with mouse or use keyboard: A-S-D-F-G-H-J for white keys, W-E-T-Y-U for black keys</p>
+        <p>✨ Pro tip: Try playing chords like A-D-F (C-E-G) or S-G-J (D-G-B)</p>
+    </div>
+
+    <script>
+        class Piano {
+            constructor() {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.keys = document.querySelectorAll('.key');
+                this.keyMap = {
+                    'a': 'C4', 'w': 'C#4', 's': 'D4', 'e': 'D#4', 'd': 'E4',
+                    'f': 'F4', 't': 'F#4', 'g': 'G4', 'y': 'G#4', 'h': 'A4',
+                    'u': 'A#4', 'j': 'B4'
+                };
+                
+                this.init();
+            }
+
+            init() {
+                // Mouse events
+                this.keys.forEach(key => {
+                    key.addEventListener('mousedown', () => this.playNote(key.dataset.note));
+                    key.addEventListener('mouseup', () => this.releaseNote(key));
+                    key.addEventListener('mouseleave', () => this.releaseNote(key));
+                    
+                    // Touch events for mobile
+                    key.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        this.playNote(key.dataset.note);
+                    });
+                    key.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        this.releaseNote(key);
+                    });
+                });
+
+                // Keyboard events
+                document.addEventListener('keydown', (e) => {
+                    const note = this.keyMap[e.key.toLowerCase()];
+                    if (note) {
+                        e.preventDefault();
+                        this.playNote(note);
+                        this.highlightKey(note, true);
+                    }
+                });
+
+                document.addEventListener('keyup', (e) => {
+                    const note = this.keyMap[e.key.toLowerCase()];
+                    if (note) {
+                        this.highlightKey(note, false);
+                    }
+                });
+            }
+
+            getFrequency(note) {
+                // Frequency mapping for one octave (C4 to B4)
+                const frequencies = {
+                    'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13,
+                    'E4': 329.63, 'F4': 349.23, 'F#4': 369.99, 'G4': 392.00,
+                    'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88
+                };
+                return frequencies[note] || 440;
+            }
+
+            playNote(note) {
+                const frequency = this.getFrequency(note);
+                
+                // Create oscillator
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                // Configure sound
+                oscillator.type = 'sine';
+                oscillator.frequency.value = frequency;
+                
+                // Smooth attack and release
+                gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.3, this.audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                
+                // Store reference to stop later
+                oscillator._gainNode = gainNode;
+                oscillator.stop(this.audioContext.currentTime + 0.5);
+                
+                // Store oscillator on the key element
+                const keyElement = this.getKeyElement(note);
+                if (keyElement) {
+                    keyElement._oscillator = oscillator;
+                    keyElement.classList.add('active');
+                }
+            }
+
+            releaseNote(key) {
+                if (key._oscillator) {
+                    // Smooth release
+                    key._oscillator._gainNode.gain.exponentialRampToValueAtTime(0.001, this.audioContext.currentTime + 0.2);
+                    setTimeout(() => {
+                        if (key._oscillator) {
+                            key._oscillator.stop();
+                            key._oscillator = null;
+                        }
+                    }, 200);
+                }
+                key.classList.remove('active');
+            }
+
+            highlightKey(note, isActive) {
+                const keyElement = this.getKeyElement(note);
+                if (keyElement) {
+                    if (isActive) {
+                        keyElement.classList.add('active');
+                    } else {
+                        keyElement.classList.remove('active');
+                    }
+                }
+            }
+
+            getKeyElement(note) {
+                return document.querySelector(`[data-note="${note}"]`);
+            }
+        }
+
+        // Initialize piano when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new Piano();
+        });
+
+        // Resume AudioContext on user interaction (required by browsers)
+        document.addEventListener('click', () => {
+            const piano = new Piano();
+            piano.audioContext.resume();
+        }, { once: true });
+    </script>
+</body>
+</html>
