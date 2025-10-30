@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Bot Template</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Discord Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,557 +12,154 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #5865F2;
-            --primary-dark: #4752C4;
-            --secondary: #57F287;
-            --dark: #23272A;
-            --darker: #1A1D21;
-            --light: #FFFFFF;
-            --gray: #99AAB5;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--light);
+            color: white;
+            background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+            background-size: 600% 600%;
+            animation: waterflow 20s ease infinite;
+            background-attachment: fixed;
             line-height: 1.6;
             min-height: 100vh;
-            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes waterflow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header & Navigation */
-        header {
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: rgba(26, 29, 33, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 2rem;
+            flex: 1;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
         }
 
-        .logo {
+        .content-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #7289da;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .button-group {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--light);
-        }
-
-        .logo i {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: var(--gray);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--light);
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 15px;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            text-align: center;
+            font-size: 1rem;
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: var(--light);
+            background: #7289da;
+            color: white;
+            box-shadow: 0 4px 10px rgba(114, 137, 218, 0.3);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+            background: #5b73c4;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(114, 137, 218, 0.4);
         }
 
         .btn-secondary {
-            background: transparent;
-            color: var(--light);
-            border: 1px solid var(--gray);
+            background: #ff4757;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+            background: #ff2e43;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 71, 87, 0.4);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 180px 0 100px;
+        .footer {
             text-align: center;
-            position: relative;
+            padding: 1rem 0;
+            color: #ccc;
+            font-size: 0.9rem;
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 60px;
-        }
-
-        .hero-buttons .btn {
-            padding: 14px 30px;
-            font-size: 1.1rem;
-        }
-
-        .hero-image {
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .hero-image img {
-            width: 100%;
-            display: block;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 30px;
-            transition: transform 0.3s, background 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .feature-icon i {
-            font-size: 1.5rem;
-            color: var(--light);
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-
-        .feature-card p {
-            color: var(--gray);
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .cta p {
-            color: var(--gray);
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--darker);
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--light);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--light);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--gray);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
             }
             
-            .nav-links {
-                display: none;
+            .content-box {
+                padding: 2rem 1.5rem;
             }
             
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-buttons, .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 150px 0 80px;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
+            h1 {
                 font-size: 2rem;
             }
             
-            .features, .cta {
-                padding: 80px 0;
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
             }
         }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fab fa-discord"></i>
-                <span>Discord Bot</span>
-            </div>
+    <div class="container">
+        <div class="content-box">
+            <h1>Discord Bot Template</h1>
+            <p>Hey! If you want to create your own Discord Bot with multiple commands such as moderation commands, games commands, etc. then download the folder below and watch the tutorial on how to configure your bot.</p>
             
-            <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Features</a>
-                <a href="#">Documentation</a>
-                <a href="#">Support</a>
-            </nav>
-            
-            <div class="nav-actions">
+            <div class="button-group">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSe40F3qUsp6q2-Gb8HzMa2wRKYWs3-RgKWClHlaPPRpai_fjQ/viewform?usp=sharing&ouid=101155220497881268324" class="btn btn-primary">
-                    <i class="fas fa-download"></i> Download
+                    Download Bot Template
                 </a>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="https://www.youtube.com/watch?v=IKHL3Fy-EmI" class="btn btn-secondary">
+                    Watch Tutorial
+                </a>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <h1>Create Your Own Discord Bot</h1>
-                <p>Hey! If you want to create your own Discord Bot with multiple commands such as moderation commands, games commands, etc. then download the folder below and watch the tutorial on how to configure your bot.</p>
-                
-                <div class="hero-buttons">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe40F3qUsp6q2-Gb8HzMa2wRKYWs3-RgKWClHlaPPRpai_fjQ/viewform?usp=sharing&ouid=101155220497881268324" class="btn btn-primary">
-                        <i class="fas fa-download"></i> Download Template
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=IKHL3Fy-EmI" class="btn btn-secondary">
-                        <i class="fab fa-youtube"></i> Watch Tutorial
-                    </a>
-                </div>
-            </div>
-            
-            <div class="hero-image fade-in delay-1">
-                <!-- Placeholder for bot dashboard image -->
-                <div style="background: linear-gradient(135deg, #5865F2, #57F287); height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                    <i class="fas fa-robot" style="font-size: 4rem; margin-right: 20px;"></i>
-                    Discord Bot Dashboard Preview
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Powerful Features</h2>
-                <p>Everything you need to create an amazing Discord bot</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card fade-in delay-1">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Moderation Commands</h3>
-                    <p>Keep your server safe with kick, ban, mute, and warning systems to manage your community effectively.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Fun & Games</h3>
-                    <p>Engage your community with trivia, mini-games, and interactive commands that keep members active.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Easy Configuration</h3>
-                    <p>Simple setup process with detailed documentation and customizable options for your specific needs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content fade-in">
-                <h2>Ready to Build Your Bot?</h2>
-                <p>Download our template now and start creating your custom Discord bot in minutes with our easy-to-follow tutorial.</p>
-                
-                <div class="cta-buttons">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe40F3qUsp6q2-Gb8HzMa2wRKYWs3-RgKWClHlaPPRpai_fjQ/viewform?usp=sharing&ouid=101155220497881268324" class="btn btn-primary">
-                        <i class="fas fa-download"></i> Get Started
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=IKHL3Fy-EmI" class="btn btn-secondary">
-                        <i class="fab fa-youtube"></i> Watch Tutorial
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Discord Bot</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">API Documentation</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">GitHub</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>© 2025 Muhammad Asim (Robby) • Built with 🖤</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Simple animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeInOnScroll = function() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-                    
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('active');
-                    }
-                });
-            };
-            
-            // Check on load
-            fadeInOnScroll();
-            
-            // Check on scroll
-            window.addEventListener('scroll', fadeInOnScroll);
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            });
-        });
-    </script>
+    <div class="footer">
+        © 2025 Muhammad Asim (Robby) • Built with 🖤
+    </div>
 </body>
 </html>
