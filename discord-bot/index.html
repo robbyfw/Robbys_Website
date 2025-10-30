@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FW Robby - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Your CSS code */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Poppins', sans-serif;
+          color: white;
+          background: linear-gradient(270deg, #1c1c1c, #2a2a2a, #1c1c1c);
+          background-size: 600% 600%;
+          animation: waterflow 20s ease infinite;
+          background-attachment: fixed;
+          line-height: 1.6;
+        }
+
+        /* Mobile fix: disable fixed background to prevent white box */
+        @media (max-width: 768px) {
+          body {
+            background-attachment: scroll;
+          }
+        }
+
+        /* Background animation */
+        @keyframes waterflow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .container {
+          max-width: 900px;
+          margin: auto;
+          padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+          text-align: center;
+          margin: 2rem 0;
+        }
+
+        .hero h1 {
+          font-size: 3rem;
+          font-weight: 800;
+          margin-bottom: 1rem;
+        }
+
+        .tagline {
+          font-weight: 600;
+          color: #ccc;
+          margin-bottom: 1rem;
+        }
+
+        /* Project Cards */
+        .cards {
+          margin-top: 3rem;
+        }
+        .cards h2 {
+          margin-bottom: 1rem;
+        }
+
+        .project-list {
+          list-style: none;
+        }
+
+        .project-item {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          padding: 1rem;
+          margin-bottom: 1rem;
+          border-radius: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: transform 0.3s ease;
+        }
+
+        .project-item:hover {
+          transform: translateY(-5px);
+          border-color: #ffffff;
+        }
+
+        .project-title {
+          font-weight: 600;
+          font-size: 1.2rem;
+        }
+
+        .project-desc {
+          font-size: 0.9rem;
+          color: #aaa;
+        }
+
+        .status {
+          padding: 0.3rem 0.8rem;
+          border-radius: 12px;
+          font-size: 0.85rem;
+        }
+
+        /* Visit Button */
+        .visit-btn {
+          padding: 0.3rem 0.8rem;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          background: #0078ff;
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+          transition: background 0.3s;
+        }
+        .visit-btn:hover {
+          background: #005fcc;
+        }
+
+        /* Footer */
+        .site-footer {
+          text-align: center;
+          margin-top: 3rem;
+          padding: 1rem 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          font-size: 0.9rem;
+          color: #ccc;
+        }
+
+        /* Sidebar */
+        .sidebar {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          top: 0; left: 0;
+          background: rgba(17, 17, 17, 0.4); /* blurred dark */
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          overflow-x: hidden;
+          transition: 0.3s;
+          padding-top: 60px;
+          z-index: 1000;
+        }
+
+        .sidebar a {
+          padding: 12px 25px;
+          text-decoration: none;
+          font-size: 18px;
+          color: #ccc;
+          display: block;
+          transition: 0.3s;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .sidebar a:hover {
+          color: white;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar.open {
+          width: 250px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          cursor: pointer;
+          z-index: 1001;
+        }
+        .hamburger span {
+          display: block;
+          width: 30px;
+          height: 3px;
+          margin: 6px;
+          background: white;
+          transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Additional styles for the Discord Bot section */
+        .discord-bot {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 15px;
+          padding: 2rem;
+          margin: 2rem 0;
+          text-align: center;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .discord-bot h2 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+
+        .discord-bot p {
+          margin-bottom: 2rem;
+          color: #ccc;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .button-group {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          display: inline-block;
+          padding: 0.8rem 1.5rem;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          min-width: 180px;
+          text-align: center;
+        }
+
+        .btn-primary {
+          background: #0078ff;
+          color: white;
+        }
+
+        .btn-primary:hover {
+          background: #005fcc;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 120, 255, 0.3);
+        }
+
+        .btn-secondary {
+          background: #ff4757;
+          color: white;
+        }
+
+        .btn-secondary:hover {
+          background: #ff2e43;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .feature-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+          margin-top: 2rem;
+        }
+
+        .feature {
+          background: rgba(255, 255, 255, 0.03);
+          padding: 1.5rem;
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature h3 {
+          margin-bottom: 0.5rem;
+          color: #0078ff;
+        }
+
+        .feature p {
+          font-size: 0.9rem;
+          color: #aaa;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+          .hero h1 {
+            font-size: 2.2rem;
+          }
+          
+          .button-group {
+            flex-direction: column;
+            align-items: center;
+          }
+          
+          .btn {
+            width: 100%;
+            max-width: 250px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar">
+        <a href="https://fwrobby.site">Home</a>
+        <a href="https://fwrobby.site/about/">About Me</a>
+        <a href="https://fwrobby.site/contact/">Contact Me</a>
+        <a href="https://fwrobby.site/donate/">Donations</a>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>FW Robby</h1>
+            <p class="tagline">Developer & Content Creator</p>
+            <p>Creating amazing projects and sharing knowledge with the community</p>
+        </section>
+
+        <!-- Discord Bot Section -->
+        <section class="discord-bot">
+            <h2>Discord Bot Template</h2>
+            <p>Hey! If you want to create your own Discord Bot with multiple commands such as moderation commands, games commands, etc. then download the folder below and watch the tutorial on how to configure your bot.</p>
+            
+            <div class="button-group">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSe40F3qUsp6q2-Gb8HzMa2wRKYWs3-RgKWClHlaPPRpai_fjQ/viewform?usp=sharing&ouid=101155220497881268324" class="btn btn-primary">Download Bot Template</a>
+                <a href="https://www.youtube.com/watch?v=IKHL3Fy-EmI" class="btn btn-secondary">Watch Tutorial</a>
+            </div>
+            
+            <div class="feature-list">
+                <div class="feature">
+                    <h3>Moderation Commands</h3>
+                    <p>Kick, ban, mute, and manage your server with ease</p>
+                </div>
+                <div class="feature">
+                    <h3>Games & Fun</h3>
+                    <p>Entertain your community with interactive games</p>
+                </div>
+                <div class="feature">
+                    <h3>Easy Configuration</h3>
+                    <p>Simple setup process with detailed documentation</p>
+                </div>
+                <div class="feature">
+                    <h3>Customizable</h3>
+                    <p>Easily modify and extend the bot to fit your needs</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="cards">
+            <h2>My Projects</h2>
+            <ul class="project-list">
+                <li class="project-item">
+                    <div>
+                        <div class="project-title">Discord Bot Framework</div>
+                        <div class="project-desc">A comprehensive template for creating Discord bots</div>
+                    </div>
+                    <span class="status" style="background: rgba(0, 255, 0, 0.2); color: #0f0;">Active</span>
+                </li>
+                <li class="project-item">
+                    <div>
+                        <div class="project-title">Web Development Tools</div>
+                        <div class="project-desc">Collection of utilities for web developers</div>
+                    </div>
+                    <span class="status" style="background: rgba(255, 255, 0, 0.2); color: #ff0;">In Progress</span>
+                </li>
+                <li class="project-item">
+                    <div>
+                        <div class="project-title">Mobile App UI Kit</div>
+                        <div class="project-desc">Modern UI components for mobile applications</div>
+                    </div>
+                    <a href="#" class="visit-btn">View</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>&copy; 2023 FW Robby. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle sidebar
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('open');
+        });
+
+        // Close sidebar when clicking on a link (for mobile)
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
