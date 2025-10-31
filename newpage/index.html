@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby's Creative Hub</title>
+  <title>Robby's Digital Portfolio</title>
 
   <!-- Styles & Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Favicon -->
@@ -20,7 +20,7 @@
   <meta name="keywords" content="Robby, web design, creative projects, tools, experiments, coding, programming, portfolio" />
 
   <!-- ✅ Open Graph -->
-  <meta property="og:title" content="Robby's Creative Hub" />
+  <meta property="og:title" content="Robby's Digital Portfolio" />
   <meta property="og:description" content="Hey! On this website, you'll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
   <meta property="og:image" content="https://fwrobby.site/images/Studio-Project.png" />
   <meta property="og:url" content="https://fwrobby.site" />
@@ -28,36 +28,10 @@
 
   <!-- ✅ Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Robby's Creative Hub" />
+  <meta name="twitter:title" content="Robby's Digital Portfolio" />
   <meta name="twitter:description" content="Hey! On this website, you'll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
   <meta name="twitter:image" content="https://fwrobby.site/images/Studio-Project.png" />
 
-  <!-- ✅ Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Robby's Creative Hub",
-    "url": "https://fwrobby.site",
-    "description": "Hey! On this website, you'll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding.",
-    "author": {
-      "@type": "Person",
-      "name": "Muhammad Asim (Robby)"
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://fwrobby.site/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    },
-    "hasPart": [
-      { "@type": "WebPage", "name": "Home", "url": "https://fwrobby.site" },
-      { "@type": "WebPage", "name": "About Me", "url": "https://fwrobby.site/about" },
-      { "@type": "WebPage", "name": "Contact Me", "url": "https://fwrobby.site/contact" },
-      { "@type": "WebPage", "name": "Donations", "url": "https://fwrobby.site/donate" }
-    ]
-  }
-  </script>
-  
   <style>
     /* General Reset */
     * {
@@ -67,79 +41,60 @@
     }
 
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
-      --accent: #f59e0b;
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #7c3aed;
+      --accent: #06b6d4;
       --dark: #0f172a;
       --darker: #020617;
       --light: #f8fafc;
       --gray: #64748b;
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --glass-hover: rgba(255, 255, 255, 0.1);
+      --gray-light: #cbd5e1;
+      --success: #10b981;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.08);
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       color: var(--light);
-      background: linear-gradient(135deg, var(--darker), var(--dark));
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
       background-attachment: fixed;
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
 
-    .bg-animation::before {
-      content: '';
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-      animation: float 20s infinite linear;
+    ::-webkit-scrollbar-track {
+      background: var(--darker);
     }
 
-    .bg-animation::after {
-      content: '';
-      position: absolute;
-      width: 150%;
-      height: 150%;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
-      animation: float 15s infinite linear reverse;
-      top: -25%;
-      left: -25%;
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
     }
 
-    @keyframes float {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-    }
-
+    /* Layout */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    /* Header & Navigation */
+    /* Header */
     header {
       padding: 1.5rem 0;
-      position: relative;
+      position: sticky;
+      top: 0;
       z-index: 100;
+      background: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
     }
 
     .nav-container {
@@ -151,10 +106,19 @@
     .logo {
       font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--light);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: inline-block;
     }
 
     .nav-links {
@@ -163,31 +127,29 @@
     }
 
     .nav-links a {
-      color: var(--light);
+      color: var(--gray-light);
       text-decoration: none;
       font-weight: 500;
-      position: relative;
-      padding: 0.5rem 0;
       transition: color 0.3s;
+      position: relative;
     }
 
     .nav-links a:hover {
+      color: var(--light);
+    }
+
+    .nav-links a.active {
       color: var(--primary);
     }
 
-    .nav-links a::after {
+    .nav-links a.active::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -8px;
       left: 0;
-      width: 0;
+      width: 100%;
       height: 2px;
       background: var(--primary);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
     }
 
     .mobile-menu-btn {
@@ -201,160 +163,173 @@
 
     /* Hero Section */
     .hero {
-      min-height: 80vh;
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
       padding: 4rem 0;
       position: relative;
     }
 
     .hero-content {
-      max-width: 800px;
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary-light);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(37, 99, 235, 0.2);
     }
 
     .hero h1 {
-      font-size: 4rem;
-      font-weight: 800;
+      font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: textGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% {
-        text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-      }
-      100% {
-        text-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 30px rgba(99, 102, 241, 0.3);
-      }
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--gray);
-      margin-bottom: 2rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
 
     .hero p {
       font-size: 1.2rem;
+      color: var(--gray-light);
       margin-bottom: 2.5rem;
-      color: #cbd5e1;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    .cta-buttons {
+    .hero-stats {
       display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .btn {
-      padding: 0.8rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    .stat {
+      display: flex;
+      flex-direction: column;
     }
 
-    .btn-primary {
-      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray);
     }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--light);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      background: var(--glass-hover);
-      transform: translateY(-3px);
-    }
-
-    /* Featured Projects */
+    /* Section Titles */
     .section-title {
-      text-align: center;
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 3rem;
       position: relative;
+      display: inline-block;
     }
 
     .section-title::after {
       content: '';
       position: absolute;
       bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
+      left: 0;
+      width: 60px;
       height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: var(--primary);
       border-radius: 2px;
+    }
+
+    /* Projects Grid */
+    .projects-section {
+      padding: 5rem 0;
     }
 
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 2rem;
-      margin-bottom: 4rem;
     }
 
     .project-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
       padding: 1.5rem;
-      transition: all 0.3s;
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .project-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--primary);
+      transform: translateY(-5px);
+      border-color: rgba(37, 99, 235, 0.3);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-    .project-icon {
-      font-size: 2.5rem;
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 1rem;
+    }
+
+    .project-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(37, 99, 235, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .project-badge {
+      background: var(--success);
+      color: white;
+      padding: 0.3rem 0.7rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
     .project-title {
       font-size: 1.3rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
     }
 
     .project-desc {
-      color: #cbd5e1;
+      color: var(--gray-light);
       margin-bottom: 1.5rem;
-      flex-grow: 1;
+      font-size: 0.95rem;
     }
 
     .project-link {
@@ -363,47 +338,44 @@
       gap: 0.5rem;
       color: var(--primary);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       transition: all 0.3s;
-      margin-top: auto;
     }
 
     .project-link:hover {
-      gap: 1rem;
-      color: var(--secondary);
+      gap: 0.8rem;
     }
 
     /* Footer */
     footer {
-      background: rgba(2, 6, 23, 0.8);
-      border-top: 1px solid var(--glass-border);
-      padding: 3rem 0;
+      background: rgba(2, 6, 23, 0.9);
+      border-top: 1px solid var(--card-border);
+      padding: 4rem 0 2rem;
       margin-top: 4rem;
     }
 
     .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
     }
 
-    .footer-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .footer-col h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--light);
     }
 
     .footer-links {
       display: flex;
-      gap: 2rem;
+      flex-direction: column;
+      gap: 0.8rem;
     }
 
     .footer-links a {
-      color: var(--light);
+      color: var(--gray-light);
       text-decoration: none;
       transition: color 0.3s;
     }
@@ -415,6 +387,7 @@
     .social-links {
       display: flex;
       gap: 1rem;
+      margin-top: 1rem;
     }
 
     .social-links a {
@@ -423,52 +396,25 @@
       justify-content: center;
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--light);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--gray-light);
       text-decoration: none;
       transition: all 0.3s;
     }
 
     .social-links a:hover {
       background: var(--primary);
+      color: white;
       transform: translateY(-3px);
     }
 
     .copyright {
       text-align: center;
-      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
       color: var(--gray);
       font-size: 0.9rem;
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .mobile-menu-btn {
-        display: block;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .footer-links {
-        justify-content: center;
-      }
     }
 
     /* Mobile Menu */
@@ -478,8 +424,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(2, 6, 23, 0.95);
-      backdrop-filter: blur(10px);
+      background: var(--darker);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -534,23 +479,65 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Floating elements animation */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating {
+      animation: float 5s ease-in-out infinite;
+    }
   </style>
 </head>
 
 <body>
-  <!-- Animated Background -->
-  <div class="bg-animation"></div>
-
   <!-- Header -->
   <header>
     <div class="container nav-container">
-      <a href="https://fwrobby.site" class="logo">Robby's Hub</a>
+      <a href="https://fwrobby.site" class="logo">
+        Robby<span class="logo-dot"></span>
+      </a>
       
       <nav class="nav-links">
-        <a href="https://fwrobby.site">Home</a>
-        <a href="https://fwrobby.site/about/">About Me</a>
-        <a href="https://fwrobby.site/contact/">Contact Me</a>
-        <a href="https://fwrobby.site/donate/">Donations</a>
+        <a href="https://fwrobby.site" class="active">Home</a>
+        <a href="https://fwrobby.site/about/">About</a>
+        <a href="https://fwrobby.site/contact/">Contact</a>
+        <a href="https://fwrobby.site/donate/">Donate</a>
       </nav>
       
       <button class="mobile-menu-btn">
@@ -566,179 +553,227 @@
     </button>
     <nav class="mobile-nav-links">
       <a href="https://fwrobby.site">Home</a>
-      <a href="https://fwrobby.site/about/">About Me</a>
-      <a href="https://fwrobby.site/contact/">Contact Me</a>
-      <a href="https://fwrobby.site/donate/">Donations</a>
+      <a href="https://fwrobby.site/about/">About</a>
+      <a href="https://fwrobby.site/contact/">Contact</a>
+      <a href="https://fwrobby.site/donate/">Donate</a>
     </nav>
   </div>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="container hero-content">
-      <h1>Robby's Creative Hub</h1>
-      <p class="tagline">CREATIVITY • INNOVATION • EXCELLENCE</p>
-      <p>
-        Welcome to my digital playground! Here you'll find a collection of my creative projects, 
-        useful tools, and experiments that showcase my passion for design and coding.
-      </p>
-      <div class="cta-buttons">
-        <a href="#projects" class="btn btn-primary">
-          <i class="fas fa-rocket"></i> Explore Projects
-        </a>
-        <a href="https://fwrobby.site/about/" class="btn btn-secondary">
-          <i class="fas fa-user"></i> About Me
-        </a>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-rocket"></i> Digital Creator & Developer
+        </div>
+        <h1>Crafting Digital <span>Experiences</span> That Inspire</h1>
+        <p>
+          Welcome to my creative space! I'm Robby, a passionate developer who builds 
+          useful tools, fun experiments, and innovative projects that blend design with technology.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">12+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">5+</span>
+            <span class="stat-label">Tools</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">3+</span>
+            <span class="stat-label">Years</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Projects -->
-  <section class="container" id="projects">
-    <h2 class="section-title">Featured Projects</h2>
-    
-    <div class="projects-grid">
-      <!-- Project 1 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-landmark"></i>
+  <!-- Projects Section -->
+  <section class="projects-section">
+    <div class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-landmark"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Sukho History</h3>
+          <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
+          <a href="https://fwrobby.site/sukho_history/" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Sukho History</h3>
-        <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
-        <a href="https://fwrobby.site/sukho_history/" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 2 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-calculator"></i>
+        <!-- Project 2 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Simple Calculator</h3>
+          <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
+          <a href="https://fwrobby.site/calculator" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Simple Calculator</h3>
-        <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
-        <a href="https://fwrobby.site/calculator" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 3 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-coins"></i>
+        <!-- Project 3 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-coins"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Coin Flip</h3>
+          <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
+          <a href="https://fwrobby.site/coin_flip" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Coin Flip</h3>
-        <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
-        <a href="https://fwrobby.site/coin_flip" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 4 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-cloud-sun"></i>
+        <!-- Project 4 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-cloud-sun"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Weather App</h3>
+          <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
+          <a href="https://fwrobby.site/weather_app" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Weather App</h3>
-        <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
-        <a href="https://fwrobby.site/weather_app" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 5 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-question-circle"></i>
+        <!-- Project 5 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Quiz Time</h3>
+          <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
+          <a href="https://fwrobby.site/quiz" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Quiz Time</h3>
-        <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
-        <a href="https://fwrobby.site/quiz" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 6 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-balance-scale"></i>
+        <!-- Project 6 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-balance-scale"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Would You Rather</h3>
+          <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
+          <a href="https://fwrobby.site/would_you_rather" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Would You Rather</h3>
-        <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
-        <a href="https://fwrobby.site/would_you_rather" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 7 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-volume-up"></i>
+        <!-- Project 7 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-volume-up"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Text-to-Speech Generator</h3>
+          <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
+          <a href="https://fwrobby.site/text_to_speech" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Text-to-Speech Generator</h3>
-        <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
-        <a href="https://fwrobby.site/text_to_speech" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 8 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-birthday-cake"></i>
+        <!-- Project 8 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-birthday-cake"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Age Calculator</h3>
+          <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
+          <a href="https://fwrobby.site/age_calculator" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Age Calculator</h3>
-        <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
-        <a href="https://fwrobby.site/age_calculator" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 9 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-comments"></i>
+        <!-- Project 9 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Anonymous Chat</h3>
+          <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
+          <a href="https://fwrobby.site/anonymous-chat" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Anonymous Chat</h3>
-        <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
-        <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 10 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-key"></i>
+        <!-- Project 10 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-key"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Password Generator</h3>
+          <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
+          <a href="https://fwrobby.site/password-generator" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Password Generator</h3>
-        <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
-        <a href="https://fwrobby.site/password-generator" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 11 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fas fa-keyboard"></i>
+        <!-- Project 11 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fas fa-keyboard"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Typing Speed Test</h3>
+          <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
+          <a href="https://fwrobby.site/typing_speed_test" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Typing Speed Test</h3>
-        <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
-        <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
 
-      <!-- Project 12 -->
-      <div class="project-card fade-in">
-        <div class="project-icon">
-          <i class="fab fa-discord"></i>
+        <!-- Project 12 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <div class="project-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <div class="project-badge">Live</div>
+          </div>
+          <h3 class="project-title">Discord Bot Template</h3>
+          <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
+          <a href="https://fwrobby.site/discord-bot" class="project-link">
+            Explore <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <h3 class="project-title">Discord Bot Template</h3>
-        <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
-        <a href="https://fwrobby.site/discord-bot" class="project-link">
-          Visit Project <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
   </section>
@@ -747,25 +782,42 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        <div class="footer-logo">Robby's Creative Hub</div>
-        
-        <div class="footer-links">
-          <a href="https://fwrobby.site">Home</a>
-          <a href="https://fwrobby.site/about/">About</a>
-          <a href="https://fwrobby.site/contact/">Contact</a>
-          <a href="https://fwrobby.site/donate/">Donate</a>
+        <div class="footer-col">
+          <h3>Robby's Portfolio</h3>
+          <p style="color: var(--gray-light); margin-bottom: 1.5rem;">
+            Building digital experiences that combine creativity with functionality.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-codepen"></i></a>
+          </div>
         </div>
         
-        <div class="social-links">
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-codepen"></i></a>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <div class="footer-links">
+            <a href="https://fwrobby.site">Home</a>
+            <a href="https://fwrobby.site/about/">About Me</a>
+            <a href="https://fwrobby.site/contact/">Contact</a>
+            <a href="https://fwrobby.site/donate/">Donate</a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Projects</h3>
+          <div class="footer-links">
+            <a href="https://fwrobby.site/sukho_history/">Sukho History</a>
+            <a href="https://fwrobby.site/calculator">Calculator</a>
+            <a href="https://fwrobby.site/weather_app">Weather App</a>
+            <a href="https://fwrobby.site/discord-bot">Discord Bot</a>
+          </div>
         </div>
       </div>
       
       <div class="copyright">
-        © 2025 Muhammad Asim (Robby) • Built with 🖤 and lots of coffee
+        © 2025 Muhammad Asim (Robby) • Crafted with precision and passion
       </div>
     </div>
   </footer>
