@@ -3,21 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby | Digital Artisan</title>
+  <title>Robby | Developer</title>
 
   <!-- Styles & Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
   <link rel="apple-touch-icon" href="https://fwrobby.site/images/Studio-Project.png">
-
-  <!-- ✅ SEO Meta Tags -->
-  <meta name="description" content="Hey! On this website, you'll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
-  <meta name="author" content="Muhammad Asim (Robby)" />
-  <meta name="robots" content="index, follow" />
-  <meta name="keywords" content="Robby, web design, creative projects, tools, experiments, coding, programming, portfolio" />
 
   <style>
     /* General Reset */
@@ -28,57 +22,24 @@
     }
 
     :root {
-      --dark-bg: #0a0a0f;
-      --darker-bg: #050508;
-      --card-bg: rgba(20, 20, 30, 0.6);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent-gold: #d4af37;
-      --accent-purple: #8a2be2;
-      --accent-teal: #20b2aa;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-card: #1a1a1a;
       --text-primary: #ffffff;
-      --text-secondary: #b0b0c0;
-      --text-muted: #6c6c80;
-      --glow: 0 0 20px rgba(212, 175, 55, 0.3);
-      --glow-purple: 0 0 20px rgba(138, 43, 226, 0.3);
+      --text-secondary: #888888;
+      --text-muted: #555555;
+      --accent: #ffffff;
+      --border: #333333;
+      --hover: #2a2a2a;
     }
 
     body {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Inter', sans-serif;
       color: var(--text-primary);
-      background: var(--dark-bg);
+      background: var(--bg-primary);
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, rgba(32, 178, 170, 0.03) 0%, transparent 50%);
-    }
-
-    /* Subtle grain texture */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--darker-bg);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, var(--accent-gold), var(--accent-purple));
-      border-radius: 4px;
+      font-weight: 400;
     }
 
     /* Layout */
@@ -90,13 +51,14 @@
 
     /* Header */
     header {
-      padding: 1.5rem 0;
-      position: sticky;
+      padding: 2rem 0;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
-      background: rgba(10, 10, 15, 0.8);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(10px);
     }
 
     .nav-container {
@@ -106,56 +68,30 @@
     }
 
     .logo {
-      font-family: 'Crimson Text', serif;
-      font-size: 1.8rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--text-primary);
       text-decoration: none;
-      position: relative;
-    }
-
-    .logo::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent-gold), transparent);
     }
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 3rem;
     }
 
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: all 0.3s;
-      position: relative;
-      padding: 0.5rem 0;
+      font-weight: 400;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .nav-links a:hover {
-      color: var(--accent-gold);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent-gold);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
+      color: var(--text-primary);
     }
 
     .mobile-menu-btn {
@@ -163,7 +99,7 @@
       background: none;
       border: none;
       color: var(--text-primary);
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       cursor: pointer;
     }
 
@@ -174,125 +110,57 @@
       flex-direction: column;
       justify-content: center;
       padding: 4rem 0;
-      position: relative;
-      overflow: hidden;
     }
 
     .hero-content {
-      max-width: 700px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(212, 175, 55, 0.1);
-      color: var(--accent-gold);
-      padding: 0.7rem 1.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      max-width: 600px;
     }
 
     .hero h1 {
-      font-family: 'Crimson Text', serif;
-      font-size: 4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       line-height: 1.1;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       color: var(--text-secondary);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      font-weight: 400;
+      margin-bottom: 3rem;
+      max-width: 500px;
     }
 
     .cta-buttons {
       display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .btn {
-      padding: 1rem 2.5rem;
-      border-radius: 4px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.4s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-purple));
-      color: var(--dark-bg);
-      box-shadow: var(--glow);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-secondary {
+      padding: 1rem 2rem;
+      border: 1px solid var(--border);
       background: transparent;
       color: var(--text-primary);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(10px);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent-gold);
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
+    .btn:hover {
+      background: var(--hover);
+      border-color: var(--text-primary);
     }
 
     /* Section Titles */
     .section-title {
-      font-family: 'Crimson Text', serif;
-      font-size: 3rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
       font-weight: 600;
       margin-bottom: 3rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      width: 100px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-gold), transparent);
+      color: var(--text-primary);
     }
 
     /* Projects Grid */
@@ -303,40 +171,19 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2.5rem;
+      gap: 2rem;
     }
 
     .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
-      transition: all 0.4s ease;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: all 0.3s ease;
       position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.4s;
     }
 
     .project-card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(212, 175, 55, 0.3);
-      box-shadow: var(--glow);
-    }
-
-    .project-card:hover::before {
-      opacity: 1;
+      border-color: var(--text-primary);
     }
 
     .project-header {
@@ -347,78 +194,59 @@
     }
 
     .project-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      background: var(--bg-secondary);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--accent-gold);
-      font-size: 1.8rem;
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: var(--text-primary);
+      font-size: 1.2rem;
     }
 
     .project-badge {
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
-      color: white;
-      padding: 0.4rem 1rem;
-      border-radius: 4px;
+      color: var(--text-secondary);
       font-size: 0.8rem;
-      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .project-title {
-      font-size: 1.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
       font-weight: 600;
       margin-bottom: 1rem;
-      font-family: 'Crimson Text', serif;
+      color: var(--text-primary);
     }
 
     .project-desc {
       color: var(--text-secondary);
       margin-bottom: 1.5rem;
-      font-size: 1rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     .project-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      color: var(--accent-gold);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-      padding: 0.5rem 0;
-      position: relative;
-    }
-
-    .project-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent-gold);
-      transition: width 0.3s;
+      gap: 0.5rem;
+      transition: gap 0.3s;
     }
 
     .project-link:hover {
       gap: 1rem;
     }
 
-    .project-link:hover::after {
-      width: 100%;
-    }
-
     /* Footer */
     footer {
-      background: var(--darker-bg);
-      border-top: 1px solid var(--card-border);
+      background: var(--bg-secondary);
       padding: 4rem 0 2rem;
-      position: relative;
+      border-top: 1px solid var(--border);
     }
 
     .footer-content {
@@ -429,11 +257,13 @@
     }
 
     .footer-col h3 {
-      font-size: 1.3rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       color: var(--text-primary);
-      font-family: 'Crimson Text', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .footer-links {
@@ -445,12 +275,12 @@
     .footer-links a {
       color: var(--text-secondary);
       text-decoration: none;
+      font-size: 0.9rem;
       transition: color 0.3s;
-      padding: 0.3rem 0;
     }
 
     .footer-links a:hover {
-      color: var(--accent-gold);
+      color: var(--text-primary);
     }
 
     .social-links {
@@ -460,32 +290,22 @@
     }
 
     .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 8px;
-      background: var(--card-bg);
       color: var(--text-secondary);
       text-decoration: none;
-      transition: all 0.3s;
-      border: 1px solid var(--card-border);
+      font-size: 1.1rem;
+      transition: color 0.3s;
     }
 
     .social-links a:hover {
-      background: var(--accent-gold);
-      color: var(--dark-bg);
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
+      color: var(--text-primary);
     }
 
     .copyright {
       text-align: center;
       padding-top: 2rem;
-      border-top: 1px solid var(--card-border);
+      border-top: 1px solid var(--border);
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     /* Mobile Menu */
@@ -495,7 +315,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--darker-bg);
+      background: var(--bg-primary);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -516,7 +336,7 @@
       background: none;
       border: none;
       color: var(--text-primary);
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       cursor: pointer;
     }
 
@@ -530,40 +350,26 @@
     .mobile-nav-links a {
       color: var(--text-primary);
       text-decoration: none;
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       transition: color 0.3s;
-      font-family: 'Crimson Text', serif;
     }
 
     .mobile-nav-links a:hover {
-      color: var(--accent-gold);
+      color: var(--text-secondary);
     }
 
     /* Animation classes */
     .fade-in {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
       transition: opacity 0.6s, transform 0.6s;
     }
 
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    /* Floating Animation */
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    .floating {
-      animation: float 6s ease-in-out infinite;
     }
 
     /* Responsive Design */
@@ -577,7 +383,7 @@
       }
 
       .hero h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
 
       .projects-grid {
@@ -591,38 +397,36 @@
       
       .cta-buttons {
         flex-direction: column;
-        align-items: flex-start;
       }
       
       .section-title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
       }
     }
 
-    /* Elegant cursor effect */
-    .cursor-follower {
+    /* Simple scroll progress */
+    .scroll-progress {
       position: fixed;
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.3;
-      transition: transform 0.1s;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var(--text-primary);
+      z-index: 101;
+      transition: width 0.1s;
     }
   </style>
 </head>
 
 <body>
-  <!-- Elegant Cursor -->
-  <div class="cursor-follower"></div>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress"></div>
 
   <!-- Header -->
   <header>
     <div class="container nav-container">
       <a href="https://fwrobby.site" class="logo">
-        Robby
+        ROBBY
       </a>
       
       <nav class="nav-links">
@@ -655,21 +459,14 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge floating">
-          <i class="fas fa-gem"></i> Digital Artisan
-        </div>
-        <h1>Crafting Digital Elegance</h1>
+        <h1>Developer &<br>Creative Thinker</h1>
         <p>
-          Welcome to my curated collection of digital creations. Each project is meticulously crafted 
-          with attention to detail, blending aesthetics with functionality in perfect harmony.
+          Building digital experiences with focus on simplicity and functionality. 
+          Explore my collection of projects and tools.
         </p>
         <div class="cta-buttons">
-          <a href="#projects" class="btn btn-primary">
-            <i class="fas fa-sparkles"></i> Explore Works
-          </a>
-          <a href="https://fwrobby.site/about/" class="btn btn-secondary">
-            <i class="fas fa-user-cog"></i> My Journey
-          </a>
+          <a href="#projects" class="btn">View Projects</a>
+          <a href="https://fwrobby.site/about/" class="btn">About Me</a>
         </div>
       </div>
     </div>
@@ -678,7 +475,7 @@
   <!-- Projects Section -->
   <section class="projects-section" id="projects">
     <div class="container">
-      <h2 class="section-title">Curated Creations</h2>
+      <h2 class="section-title">Projects</h2>
       
       <div class="projects-grid">
         <!-- Project 1 -->
@@ -692,7 +489,7 @@
           <h3 class="project-title">Sukho History</h3>
           <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
           <a href="https://fwrobby.site/sukho_history/" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -707,7 +504,7 @@
           <h3 class="project-title">Simple Calculator</h3>
           <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
           <a href="https://fwrobby.site/calculator" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -722,7 +519,7 @@
           <h3 class="project-title">Coin Flip</h3>
           <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
           <a href="https://fwrobby.site/coin_flip" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -737,7 +534,7 @@
           <h3 class="project-title">Weather App</h3>
           <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
           <a href="https://fwrobby.site/weather_app" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -752,7 +549,7 @@
           <h3 class="project-title">Quiz Time</h3>
           <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
           <a href="https://fwrobby.site/quiz" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -767,7 +564,7 @@
           <h3 class="project-title">Would You Rather</h3>
           <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
           <a href="https://fwrobby.site/would_you_rather" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -782,7 +579,7 @@
           <h3 class="project-title">Text-to-Speech</h3>
           <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
           <a href="https://fwrobby.site/text_to_speech" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -797,7 +594,7 @@
           <h3 class="project-title">Age Calculator</h3>
           <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
           <a href="https://fwrobby.site/age_calculator" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -812,7 +609,7 @@
           <h3 class="project-title">Anonymous Chat</h3>
           <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
           <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -827,7 +624,7 @@
           <h3 class="project-title">Password Generator</h3>
           <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
           <a href="https://fwrobby.site/password-generator" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -842,7 +639,7 @@
           <h3 class="project-title">Typing Speed Test</h3>
           <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
           <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -857,7 +654,7 @@
           <h3 class="project-title">Discord Bot</h3>
           <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
           <a href="https://fwrobby.site/discord-bot" class="project-link">
-            Discover <i class="fas fa-arrow-right"></i>
+            View <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -869,9 +666,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-col">
-          <h3>Robby's Atelier</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            Where digital craftsmanship meets elegant design. Creating experiences that inspire and delight.
+          <h3>Robby</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
+            Building simple, functional digital tools and experiences.
           </p>
           <div class="social-links">
             <a href="#"><i class="fab fa-github"></i></a>
@@ -882,17 +679,17 @@
         </div>
         
         <div class="footer-col">
-          <h3>Navigation</h3>
+          <h3>Links</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site">Home</a>
-            <a href="https://fwrobby.site/about/">About Me</a>
+            <a href="https://fwrobby.site/about/">About</a>
             <a href="https://fwrobby.site/contact/">Contact</a>
             <a href="https://fwrobby.site/donate/">Donate</a>
           </div>
         </div>
         
         <div class="footer-col">
-          <h3>Featured Works</h3>
+          <h3>Projects</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site/sukho_history/">Sukho History</a>
             <a href="https://fwrobby.site/calculator">Calculator</a>
@@ -903,7 +700,7 @@
       </div>
       
       <div class="copyright">
-        © 2025 Muhammad Asim (Robby) • Crafted with elegance and precision
+        © 2025 Muhammad Asim (Robby)
       </div>
     </div>
   </footer>
@@ -948,27 +745,13 @@
     window.addEventListener('load', fadeInOnScroll);
     window.addEventListener('scroll', fadeInOnScroll);
     
-    // Elegant cursor follower
-    const cursor = document.querySelector('.cursor-follower');
+    // Scroll progress
+    const scrollProgress = document.querySelector('.scroll-progress');
     
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    
-    // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .project-card');
-    
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(1.5)';
-        cursor.style.opacity = '0.5';
-      });
-      
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
-        cursor.style.opacity = '0.3';
-      });
+    window.addEventListener('scroll', () => {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
     });
   </script>
 </body>
