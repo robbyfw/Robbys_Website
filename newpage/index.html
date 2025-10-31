@@ -29,6 +29,64 @@
             --transition: all 0.2s ease-in-out;
         }
 
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --accent: #60a5fa;
+            --accent-light: #93c5fd;
+            --border: #334155;
+            --border-light: #475569;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Green Theme */
+        [data-theme="green"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f0fdf4;
+            --bg-card: #ffffff;
+            --text-primary: #052e16;
+            --text-secondary: #166534;
+            --text-muted: #4d7c0f;
+            --accent: #16a34a;
+            --accent-light: #22c55e;
+            --border: #bbf7d0;
+            --border-light: #dcfce7;
+        }
+
+        /* Purple Theme */
+        [data-theme="purple"] {
+            --bg-primary: #faf5ff;
+            --bg-secondary: #f3e8ff;
+            --bg-card: #ffffff;
+            --text-primary: #581c87;
+            --text-secondary: #7e22ce;
+            --text-muted: #a855f7;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --border: #e9d5ff;
+            --border-light: #f3e8ff;
+        }
+
+        /* Orange Theme */
+        [data-theme="orange"] {
+            --bg-primary: #fff7ed;
+            --bg-secondary: #ffedd5;
+            --bg-card: #ffffff;
+            --text-primary: #7c2d12;
+            --text-secondary: #c2410c;
+            --text-muted: #ea580c;
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --border: #fed7aa;
+            --border-light: #ffedd5;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -36,6 +94,7 @@
             line-height: 1.6;
             font-size: 16px;
             font-weight: 400;
+            transition: var(--transition);
         }
 
         .container {
@@ -44,15 +103,81 @@
             padding: 0 20px;
         }
 
+        /* Theme Switcher */
+        .theme-switcher {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-options {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-option:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-option[data-theme="light"] { background: #3b82f6; }
+        .theme-option[data-theme="dark"] { background: #1e293b; }
+        .theme-option[data-theme="green"] { background: #16a34a; }
+        .theme-option[data-theme="purple"] { background: #8b5cf6; }
+        .theme-option[data-theme="orange"] { background: #f97316; }
+
+        .theme-switcher:hover .theme-options {
+            display: flex;
+        }
+
         /* Header */
         header {
             padding: 24px 0;
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-primary);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
+            transition: var(--transition);
         }
 
         .header-content {
@@ -112,6 +237,7 @@
             padding: 120px 0 80px;
             text-align: center;
             background: var(--bg-secondary);
+            transition: var(--transition);
         }
 
         .hero-content {
@@ -170,6 +296,7 @@
         /* Projects Section */
         .projects {
             padding: 80px 0;
+            transition: var(--transition);
         }
 
         .section-header {
@@ -271,6 +398,7 @@
         .skills {
             padding: 80px 0;
             background: var(--bg-secondary);
+            transition: var(--transition);
         }
 
         .skills-grid {
@@ -322,6 +450,7 @@
             background: var(--text-primary);
             color: white;
             padding: 60px 0 40px;
+            transition: var(--transition);
         }
 
         .footer-content {
@@ -407,6 +536,11 @@
             .cta-buttons {
                 flex-direction: column;
             }
+
+            .theme-switcher {
+                top: 80px;
+                right: 10px;
+            }
         }
 
         /* Animation */
@@ -422,7 +556,19 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn">🎨</button>
+        <div class="theme-options">
+            <div class="theme-option" data-theme="light" title="Light Theme"></div>
+            <div class="theme-option" data-theme="dark" title="Dark Theme"></div>
+            <div class="theme-option" data-theme="green" title="Green Theme"></div>
+            <div class="theme-option" data-theme="purple" title="Purple Theme"></div>
+            <div class="theme-option" data-theme="orange" title="Orange Theme"></div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -618,6 +764,24 @@
     </footer>
 
     <script>
+        // Theme switching functionality
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const body = document.body;
+
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+        }
+
         // Fade in animation on scroll
         const fadeElements = document.querySelectorAll('.fade-in');
         
