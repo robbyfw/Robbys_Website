@@ -43,34 +43,76 @@
             --border-light: #f1f5f9;
         }
 
-        /* Black Theme */
+        /* Black Theme - Fixed */
         [data-theme="black"] {
             --bg-primary: #000000;
-            --bg-secondary: #1a1a1a;
+            --bg-secondary: #0a0a0a;
             --bg-card: #1a1a1a;
             --text-primary: #ffffff;
-            --text-secondary: #a3a3a3;
-            --text-muted: #737373;
+            --text-secondary: #d4d4d4;
+            --text-muted: #a3a3a3;
             --accent: #ffffff;
-            --accent-light: #d4d4d4;
+            --accent-light: #e5e5e5;
             --border: #404040;
             --border-light: #262626;
-            --shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06);
-            --shadow-lg: 0 10px 25px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+            --shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1);
+            --shadow-lg: 0 10px 25px -3px rgba(255, 255, 255, 0.1);
         }
 
-        /* Yellow Theme */
-        [data-theme="yellow"] {
+        /* Blue Theme */
+        [data-theme="blue"] {
             --bg-primary: #ffffff;
-            --bg-secondary: #fefce8;
+            --bg-secondary: #eff6ff;
             --bg-card: #ffffff;
-            --text-primary: #422006;
-            --text-secondary: #854d0e;
-            --text-muted: #a16207;
-            --accent: #eab308;
-            --accent-light: #facc15;
-            --border: #fef08a;
-            --border-light: #fef9c3;
+            --text-primary: #1e3a8a;
+            --text-secondary: #3b82f6;
+            --text-muted: #60a5fa;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --border: #dbeafe;
+            --border-light: #eff6ff;
+        }
+
+        /* Green Theme */
+        [data-theme="green"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f0fdf4;
+            --bg-card: #ffffff;
+            --text-primary: #052e16;
+            --text-secondary: #166534;
+            --text-muted: #4d7c0f;
+            --accent: #16a34a;
+            --accent-light: #22c55e;
+            --border: #bbf7d0;
+            --border-light: #dcfce7;
+        }
+
+        /* Purple Theme */
+        [data-theme="purple"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #faf5ff;
+            --bg-card: #ffffff;
+            --text-primary: #581c87;
+            --text-secondary: #7e22ce;
+            --text-muted: #a855f7;
+            --accent: #8b5cf6;
+            --accent-light: #a78bfa;
+            --border: #e9d5ff;
+            --border-light: #f3e8ff;
+        }
+
+        /* Orange Theme */
+        [data-theme="orange"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fff7ed;
+            --bg-card: #ffffff;
+            --text-primary: #7c2d12;
+            --text-secondary: #c2410c;
+            --text-muted: #ea580c;
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --border: #fed7aa;
+            --border-light: #ffedd5;
         }
 
         /* Pink Theme */
@@ -85,6 +127,20 @@
             --accent-light: #f472b6;
             --border: #fbcfe8;
             --border-light: #fce7f3;
+        }
+
+        /* Yellow Theme */
+        [data-theme="yellow"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fefce8;
+            --bg-card: #ffffff;
+            --text-primary: #422006;
+            --text-secondary: #854d0e;
+            --text-muted: #a16207;
+            --accent: #eab308;
+            --accent-light: #facc15;
+            --border: #fef08a;
+            --border-light: #fef9c3;
         }
 
         body {
@@ -102,79 +158,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-
-        /* Theme Switcher - Floating Style */
-        .theme-switcher {
-            position: fixed;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .theme-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            background: var(--bg-card);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: var(--transition);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-options {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 12px;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .theme-option {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .theme-option:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-option.active::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .theme-option[data-theme="white"] { background: #3b82f6; }
-        .theme-option[data-theme="black"] { background: #000000; }
-        .theme-option[data-theme="yellow"] { background: #eab308; }
-        .theme-option[data-theme="pink"] { background: #ec4899; }
 
         /* Header */
         header {
@@ -209,6 +192,7 @@
             display: flex;
             gap: 32px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -239,6 +223,96 @@
         .nav-links a:hover::after {
             width: 100%;
         }
+
+        /* Theme Dropdown */
+        .theme-dropdown {
+            position: relative;
+        }
+
+        .theme-trigger {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-trigger:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .theme-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 150px;
+            z-index: 1000;
+        }
+
+        .theme-dropdown:hover .theme-menu {
+            display: flex;
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .theme-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .theme-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+        }
+
+        .theme-option.active .theme-color::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .theme-option[data-theme="white"] .theme-color { background: #3b82f6; }
+        .theme-option[data-theme="black"] .theme-color { background: #000000; }
+        .theme-option[data-theme="blue"] .theme-color { background: #2563eb; }
+        .theme-option[data-theme="green"] .theme-color { background: #16a34a; }
+        .theme-option[data-theme="purple"] .theme-color { background: #8b5cf6; }
+        .theme-option[data-theme="orange"] .theme-color { background: #f97316; }
+        .theme-option[data-theme="pink"] .theme-color { background: #ec4899; }
+        .theme-option[data-theme="yellow"] .theme-color { background: #eab308; }
 
         /* Hero Section */
         .hero {
@@ -521,7 +595,7 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                gap: 20px;
             }
             
             .hero h1 {
@@ -545,9 +619,8 @@
                 flex-direction: column;
             }
 
-            .theme-switcher {
-                right: 10px;
-                top: 50%;
+            .theme-menu {
+                right: -50px;
             }
         }
 
@@ -565,17 +638,6 @@
     </style>
 </head>
 <body data-theme="white">
-    <!-- Theme Switcher - Floating on the right side -->
-    <div class="theme-switcher">
-        <button class="theme-btn">🎨</button>
-        <div class="theme-options">
-            <div class="theme-option active" data-theme="white" title="White Theme"></div>
-            <div class="theme-option" data-theme="black" title="Black Theme"></div>
-            <div class="theme-option" data-theme="yellow" title="Yellow Theme"></div>
-            <div class="theme-option" data-theme="pink" title="Pink Theme"></div>
-        </div>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container">
@@ -586,6 +648,45 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/about/">About</a></li>
                         <li><a href="/contact/">Contact</a></li>
+                        <li class="theme-dropdown">
+                            <button class="theme-trigger">
+                                Theme <i>▼</i>
+                            </button>
+                            <div class="theme-menu">
+                                <button class="theme-option active" data-theme="white">
+                                    <div class="theme-color"></div>
+                                    <span>White</span>
+                                </button>
+                                <button class="theme-option" data-theme="black">
+                                    <div class="theme-color"></div>
+                                    <span>Black</span>
+                                </button>
+                                <button class="theme-option" data-theme="blue">
+                                    <div class="theme-color"></div>
+                                    <span>Blue</span>
+                                </button>
+                                <button class="theme-option" data-theme="green">
+                                    <div class="theme-color"></div>
+                                    <span>Green</span>
+                                </button>
+                                <button class="theme-option" data-theme="purple">
+                                    <div class="theme-color"></div>
+                                    <span>Purple</span>
+                                </button>
+                                <button class="theme-option" data-theme="orange">
+                                    <div class="theme-color"></div>
+                                    <span>Orange</span>
+                                </button>
+                                <button class="theme-option" data-theme="pink">
+                                    <div class="theme-color"></div>
+                                    <span>Pink</span>
+                                </button>
+                                <button class="theme-option" data-theme="yellow">
+                                    <div class="theme-color"></div>
+                                    <span>Yellow</span>
+                                </button>
+                            </div>
+                        </li>
                         <li><a href="/donate/">Donate</a></li>
                     </ul>
                 </nav>
