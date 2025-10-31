@@ -269,7 +269,7 @@
             transition: var(--transition);
             border: none;
             background: none;
-            color: var(--text-primary);
+            color: #000000; /* All theme text colors are black */
             font-size: 14px;
             text-align: left;
             width: 100%;
@@ -296,12 +296,15 @@
             height: 100%;
         }
 
-        /* Fixed: Black theme text color in dropdown */
-        [data-theme="black"] .theme-option[data-theme="black"] span {
-            color: #ffffff;
-        }
-
-        [data-theme="white"] .theme-option[data-theme="black"] span {
+        /* Fixed: All theme text colors are black */
+        [data-theme="black"] .theme-option span,
+        [data-theme="white"] .theme-option span,
+        [data-theme="blue"] .theme-option span,
+        [data-theme="green"] .theme-option span,
+        [data-theme="purple"] .theme-option span,
+        [data-theme="orange"] .theme-option span,
+        [data-theme="pink"] .theme-option span,
+        [data-theme="yellow"] .theme-option span {
             color: #000000;
         }
 
@@ -403,6 +406,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 24px;
+            margin-bottom: 40px;
         }
 
         .project-card {
@@ -412,6 +416,10 @@
             padding: 24px;
             transition: var(--transition);
             box-shadow: var(--shadow);
+        }
+
+        .project-card.hidden {
+            display: none;
         }
 
         .project-card:hover {
@@ -474,6 +482,11 @@
 
         .project-link:hover {
             gap: 12px;
+        }
+
+        .view-more-container {
+            text-align: center;
+            margin-top: 20px;
         }
 
         /* Skills Section */
@@ -849,8 +862,8 @@
                     </a>
                 </div>
 
-                <!-- Project 5 -->
-                <div class="project-card fade-in">
+                <!-- Project 5 - Hidden initially -->
+                <div class="project-card fade-in hidden">
                     <div class="project-header">
                         <div class="project-icon">❓</div>
                         <div class="project-badge">Live</div>
@@ -862,8 +875,8 @@
                     </a>
                 </div>
 
-                <!-- Project 6 -->
-                <div class="project-card fade-in">
+                <!-- Project 6 - Hidden initially -->
+                <div class="project-card fade-in hidden">
                     <div class="project-header">
                         <div class="project-icon">⚖️</div>
                         <div class="project-badge">Live</div>
@@ -874,6 +887,10 @@
                         View Project →
                     </a>
                 </div>
+            </div>
+            
+            <div class="view-more-container">
+                <button id="view-more-btn" class="btn">View More Projects</button>
             </div>
         </div>
     </section>
@@ -998,6 +1015,37 @@
         
         window.addEventListener('load', fadeInOnScroll);
         window.addEventListener('scroll', fadeInOnScroll);
+
+        // View More Projects functionality
+        const viewMoreBtn = document.getElementById('view-more-btn');
+        const hiddenProjects = document.querySelectorAll('.project-card.hidden');
+        let showingAllProjects = false;
+
+        viewMoreBtn.addEventListener('click', () => {
+            if (showingAllProjects) {
+                // Hide projects beyond the first 4
+                hiddenProjects.forEach(project => {
+                    project.classList.add('hidden');
+                });
+                viewMoreBtn.textContent = 'View More Projects';
+                showingAllProjects = false;
+                
+                // Scroll to projects section
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Show all projects
+                hiddenProjects.forEach(project => {
+                    project.classList.remove('hidden');
+                });
+                viewMoreBtn.textContent = 'View Less Projects';
+                showingAllProjects = true;
+            }
+            
+            // Re-trigger fade-in animation for newly visible projects
+            setTimeout(() => {
+                fadeInOnScroll();
+            }, 100);
+        });
     </script>
 </body>
 </html>
