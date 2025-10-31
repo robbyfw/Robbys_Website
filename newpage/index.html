@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby's Playground | Creative Developer</title>
+  <title>Robby | Digital Artisan</title>
 
   <!-- Styles & Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Favicon -->
@@ -28,90 +28,57 @@
     }
 
     :root {
-      --yellow: #FFD93D;
-      --orange: #FF6B6B;
-      --purple: #6B5B95;
-      --teal: #4ECDC4;
-      --pink: #FF9FF3;
-      --blue: #54A0FF;
-      --dark: #2D3047;
-      --light: #F7F9FC;
-      --card-bg: rgba(255, 255, 255, 0.9);
-      --shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      --dark-bg: #0a0a0f;
+      --darker-bg: #050508;
+      --card-bg: rgba(20, 20, 30, 0.6);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-gold: #d4af37;
+      --accent-purple: #8a2be2;
+      --accent-teal: #20b2aa;
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0c0;
+      --text-muted: #6c6c80;
+      --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+      --glow-purple: 0 0 20px rgba(138, 43, 226, 0.3);
     }
 
     body {
-      font-family: 'Nunito', sans-serif;
-      color: var(--dark);
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      font-family: 'Manrope', sans-serif;
+      color: var(--text-primary);
+      background: var(--dark-bg);
       line-height: 1.6;
       overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(32, 178, 170, 0.03) 0%, transparent 50%);
     }
 
-    /* Animated Background */
-    .bg-shapes {
+    /* Subtle grain texture */
+    body::before {
+      content: "";
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
       z-index: -1;
-      overflow: hidden;
     }
 
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 15s infinite ease-in-out;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
 
-    .shape-1 {
-      width: 300px;
-      height: 300px;
-      background: var(--yellow);
-      top: 10%;
-      left: 5%;
-      animation-delay: 0s;
+    ::-webkit-scrollbar-track {
+      background: var(--darker-bg);
     }
 
-    .shape-2 {
-      width: 200px;
-      height: 200px;
-      background: var(--teal);
-      top: 60%;
-      right: 10%;
-      animation-delay: 2s;
-    }
-
-    .shape-3 {
-      width: 150px;
-      height: 150px;
-      background: var(--pink);
-      bottom: 10%;
-      left: 20%;
-      animation-delay: 4s;
-    }
-
-    .shape-4 {
-      width: 250px;
-      height: 250px;
-      background: var(--blue);
-      top: 20%;
-      right: 5%;
-      animation-delay: 6s;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      33% {
-        transform: translateY(-20px) rotate(120deg);
-      }
-      66% {
-        transform: translateY(10px) rotate(240deg);
-      }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--accent-gold), var(--accent-purple));
+      border-radius: 4px;
     }
 
     /* Layout */
@@ -127,8 +94,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
     }
 
     .nav-container {
@@ -138,13 +106,12 @@
     }
 
     .logo {
-      font-family: 'Fredoka', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--dark);
+      font-family: 'Crimson Text', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
       text-decoration: none;
       position: relative;
-      display: inline-block;
     }
 
     .logo::after {
@@ -153,9 +120,8 @@
       bottom: -5px;
       left: 0;
       width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--yellow), var(--orange), var(--teal));
-      border-radius: 2px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-gold), transparent);
     }
 
     .nav-links {
@@ -164,38 +130,52 @@
     }
 
     .nav-links a {
-      color: var(--dark);
+      color: var(--text-secondary);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
+      font-weight: 500;
+      font-size: 1rem;
       transition: all 0.3s;
       position: relative;
+      padding: 0.5rem 0;
     }
 
     .nav-links a:hover {
-      background: var(--yellow);
-      transform: translateY(-2px);
+      color: var(--accent-gold);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .mobile-menu-btn {
       display: none;
       background: none;
       border: none;
-      color: var(--dark);
+      color: var(--text-primary);
       font-size: 1.5rem;
       cursor: pointer;
     }
 
     /* Hero Section */
     .hero {
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 4rem 0;
       position: relative;
+      overflow: hidden;
     }
 
     .hero-content {
@@ -206,43 +186,35 @@
 
     .hero-badge {
       display: inline-block;
-      background: var(--yellow);
-      color: var(--dark);
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent-gold);
       padding: 0.7rem 1.5rem;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 700;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 500;
       margin-bottom: 2rem;
-      box-shadow: var(--shadow);
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Crimson Text', serif;
       font-size: 4rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 1.5rem;
       line-height: 1.1;
-      background: linear-gradient(135deg, var(--orange), var(--purple), var(--blue));
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 1.3rem;
-      color: var(--dark);
+      color: var(--text-secondary);
       margin-bottom: 2.5rem;
       max-width: 600px;
-      font-weight: 500;
+      font-weight: 400;
     }
 
     .cta-buttons {
@@ -253,15 +225,13 @@
 
     .btn {
       padding: 1rem 2.5rem;
-      border-radius: 50px;
-      font-weight: 700;
+      border-radius: 4px;
+      font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s;
+      transition: all 0.4s;
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      font-size: 1.1rem;
-      box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
     }
@@ -273,7 +243,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s;
     }
 
@@ -282,38 +252,37 @@
     }
 
     .btn-primary {
-      background: var(--orange);
-      color: white;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-purple));
+      color: var(--dark-bg);
+      box-shadow: var(--glow);
     }
 
     .btn-primary:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: var(--pink);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
     }
 
     .btn-secondary {
       background: transparent;
-      color: var(--dark);
-      border: 3px solid var(--teal);
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
     }
 
     .btn-secondary:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: var(--teal);
-      color: white;
+      border-color: var(--accent-gold);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     /* Section Titles */
     .section-title {
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Crimson Text', serif;
       font-size: 3rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 3rem;
-      text-align: center;
       position: relative;
       display: inline-block;
-      left: 50%;
-      transform: translateX(-50%);
     }
 
     .section-title::after {
@@ -321,10 +290,9 @@
       position: absolute;
       bottom: -10px;
       left: 0;
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(90deg, var(--yellow), var(--orange), var(--teal));
-      border-radius: 3px;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-gold), transparent);
     }
 
     /* Projects Grid */
@@ -340,32 +308,31 @@
 
     .project-card {
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 2rem;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
       transition: all 0.4s ease;
-      box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
-      border: 3px solid transparent;
-      background-clip: padding-box;
+      backdrop-filter: blur(10px);
     }
 
     .project-card::before {
       content: '';
       position: absolute;
-      top: -3px;
-      left: -3px;
-      right: -3px;
-      bottom: -3px;
-      background: linear-gradient(45deg, var(--yellow), var(--orange), var(--teal), var(--blue));
-      border-radius: 23px;
-      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
       opacity: 0;
       transition: opacity 0.4s;
     }
 
     .project-card:hover {
-      transform: translateY(-15px) scale(1.03);
+      transform: translateY(-10px);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: var(--glow);
     }
 
     .project-card:hover::before {
@@ -382,67 +349,76 @@
     .project-icon {
       width: 60px;
       height: 60px;
-      background: var(--yellow);
-      border-radius: 15px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--dark);
+      color: var(--accent-gold);
       font-size: 1.8rem;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
     }
 
     .project-badge {
-      background: var(--teal);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
 
     .project-title {
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 1rem;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Crimson Text', serif;
     }
 
     .project-desc {
-      color: var(--dark);
+      color: var(--text-secondary);
       margin-bottom: 1.5rem;
       font-size: 1rem;
-      opacity: 0.8;
+      line-height: 1.7;
     }
 
     .project-link {
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      color: var(--orange);
+      color: var(--accent-gold);
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 500;
       transition: all 0.3s;
-      padding: 0.5rem 1rem;
-      border-radius: 25px;
-      background: rgba(255, 107, 107, 0.1);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .project-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-gold);
+      transition: width 0.3s;
     }
 
     .project-link:hover {
       gap: 1rem;
-      background: var(--orange);
-      color: white;
-      transform: scale(1.05);
+    }
+
+    .project-link:hover::after {
+      width: 100%;
     }
 
     /* Footer */
     footer {
-      background: var(--dark);
-      color: white;
+      background: var(--darker-bg);
+      border-top: 1px solid var(--card-border);
       padding: 4rem 0 2rem;
       position: relative;
-      overflow: hidden;
     }
 
     .footer-content {
@@ -450,16 +426,14 @@
       grid-template-columns: 2fr 1fr 1fr;
       gap: 3rem;
       margin-bottom: 3rem;
-      position: relative;
-      z-index: 2;
     }
 
     .footer-col h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.3rem;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      color: white;
-      font-family: 'Fredoka', sans-serif;
+      color: var(--text-primary);
+      font-family: 'Crimson Text', serif;
     }
 
     .footer-links {
@@ -469,15 +443,14 @@
     }
 
     .footer-links a {
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-secondary);
       text-decoration: none;
-      transition: all 0.3s;
+      transition: color 0.3s;
       padding: 0.3rem 0;
     }
 
     .footer-links a:hover {
-      color: var(--yellow);
-      transform: translateX(5px);
+      color: var(--accent-gold);
     }
 
     .social-links {
@@ -492,28 +465,27 @@
       justify-content: center;
       width: 45px;
       height: 45px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-secondary);
       text-decoration: none;
       transition: all 0.3s;
-      font-size: 1.2rem;
+      border: 1px solid var(--card-border);
     }
 
     .social-links a:hover {
-      background: var(--yellow);
-      color: var(--dark);
-      transform: translateY(-5px) scale(1.1);
+      background: var(--accent-gold);
+      color: var(--dark-bg);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
     }
 
     .copyright {
       text-align: center;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
       font-size: 0.9rem;
-      position: relative;
-      z-index: 2;
     }
 
     /* Mobile Menu */
@@ -523,7 +495,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, var(--yellow), var(--teal));
+      background: var(--darker-bg);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -543,7 +515,7 @@
       right: 2rem;
       background: none;
       border: none;
-      color: var(--dark);
+      color: var(--text-primary);
       font-size: 1.5rem;
       cursor: pointer;
     }
@@ -556,31 +528,42 @@
     }
 
     .mobile-nav-links a {
-      color: var(--dark);
+      color: var(--text-primary);
       text-decoration: none;
-      font-size: 1.8rem;
-      font-weight: 700;
-      font-family: 'Fredoka', sans-serif;
-      transition: all 0.3s;
-      padding: 0.5rem 2rem;
-      border-radius: 50px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-family: 'Crimson Text', serif;
     }
 
     .mobile-nav-links a:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
+      color: var(--accent-gold);
     }
 
     /* Animation classes */
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.5s, transform 0.5s;
+      transition: opacity 0.6s, transform 0.6s;
     }
 
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
     }
 
     /* Responsive Design */
@@ -615,23 +598,31 @@
         font-size: 2.5rem;
       }
     }
+
+    /* Elegant cursor effect */
+    .cursor-follower {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+      transition: transform 0.1s;
+    }
   </style>
 </head>
 
 <body>
-  <!-- Animated Background -->
-  <div class="bg-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
-  </div>
+  <!-- Elegant Cursor -->
+  <div class="cursor-follower"></div>
 
   <!-- Header -->
   <header>
     <div class="container nav-container">
       <a href="https://fwrobby.site" class="logo">
-        Robby's Playground
+        Robby
       </a>
       
       <nav class="nav-links">
@@ -664,21 +655,20 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">
-          <i class="fas fa-magic"></i> Creative Developer & Fun Maker
+        <div class="hero-badge floating">
+          <i class="fas fa-gem"></i> Digital Artisan
         </div>
-        <h1>Let's Build Something Amazing Together!</h1>
+        <h1>Crafting Digital Elegance</h1>
         <p>
-          Welcome to my creative playground! I'm Robby, and I love building fun, 
-          useful, and sometimes quirky digital projects. Explore my collection of 
-          tools, games, and experiments!
+          Welcome to my curated collection of digital creations. Each project is meticulously crafted 
+          with attention to detail, blending aesthetics with functionality in perfect harmony.
         </p>
         <div class="cta-buttons">
           <a href="#projects" class="btn btn-primary">
-            <i class="fas fa-gamepad"></i> Explore Projects
+            <i class="fas fa-sparkles"></i> Explore Works
           </a>
           <a href="https://fwrobby.site/about/" class="btn btn-secondary">
-            <i class="fas fa-user-ninja"></i> About Me
+            <i class="fas fa-user-cog"></i> My Journey
           </a>
         </div>
       </div>
@@ -688,7 +678,7 @@
   <!-- Projects Section -->
   <section class="projects-section" id="projects">
     <div class="container">
-      <h2 class="section-title">My Creative Projects</h2>
+      <h2 class="section-title">Curated Creations</h2>
       
       <div class="projects-grid">
         <!-- Project 1 -->
@@ -702,7 +692,7 @@
           <h3 class="project-title">Sukho History</h3>
           <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
           <a href="https://fwrobby.site/sukho_history/" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -717,7 +707,7 @@
           <h3 class="project-title">Simple Calculator</h3>
           <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
           <a href="https://fwrobby.site/calculator" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -732,7 +722,7 @@
           <h3 class="project-title">Coin Flip</h3>
           <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
           <a href="https://fwrobby.site/coin_flip" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -747,7 +737,7 @@
           <h3 class="project-title">Weather App</h3>
           <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
           <a href="https://fwrobby.site/weather_app" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -762,7 +752,7 @@
           <h3 class="project-title">Quiz Time</h3>
           <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
           <a href="https://fwrobby.site/quiz" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -777,7 +767,7 @@
           <h3 class="project-title">Would You Rather</h3>
           <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
           <a href="https://fwrobby.site/would_you_rather" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -792,7 +782,7 @@
           <h3 class="project-title">Text-to-Speech</h3>
           <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
           <a href="https://fwrobby.site/text_to_speech" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -807,7 +797,7 @@
           <h3 class="project-title">Age Calculator</h3>
           <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
           <a href="https://fwrobby.site/age_calculator" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -822,7 +812,7 @@
           <h3 class="project-title">Anonymous Chat</h3>
           <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
           <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -837,7 +827,7 @@
           <h3 class="project-title">Password Generator</h3>
           <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
           <a href="https://fwrobby.site/password-generator" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -852,7 +842,7 @@
           <h3 class="project-title">Typing Speed Test</h3>
           <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
           <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -867,7 +857,7 @@
           <h3 class="project-title">Discord Bot</h3>
           <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
           <a href="https://fwrobby.site/discord-bot" class="project-link">
-            Let's Explore <i class="fas fa-arrow-right"></i>
+            Discover <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -879,9 +869,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-col">
-          <h3>Robby's Playground</h3>
-          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">
-            Where creativity meets functionality. Building fun and useful digital experiences!
+          <h3>Robby's Atelier</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Where digital craftsmanship meets elegant design. Creating experiences that inspire and delight.
           </p>
           <div class="social-links">
             <a href="#"><i class="fab fa-github"></i></a>
@@ -892,7 +882,7 @@
         </div>
         
         <div class="footer-col">
-          <h3>Quick Links</h3>
+          <h3>Navigation</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site">Home</a>
             <a href="https://fwrobby.site/about/">About Me</a>
@@ -902,7 +892,7 @@
         </div>
         
         <div class="footer-col">
-          <h3>Popular Projects</h3>
+          <h3>Featured Works</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site/sukho_history/">Sukho History</a>
             <a href="https://fwrobby.site/calculator">Calculator</a>
@@ -913,7 +903,7 @@
       </div>
       
       <div class="copyright">
-        © 2025 Muhammad Asim (Robby) • Made with 💖 and lots of fun!
+        © 2025 Muhammad Asim (Robby) • Crafted with elegance and precision
       </div>
     </div>
   </footer>
@@ -958,16 +948,26 @@
     window.addEventListener('load', fadeInOnScroll);
     window.addEventListener('scroll', fadeInOnScroll);
     
-    // Add random rotation to project cards on hover
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        const randomRotate = (Math.random() * 4) - 2; // -2 to 2 degrees
-        card.style.transform = `translateY(-15px) scale(1.03) rotate(${randomRotate}deg)`;
+    // Elegant cursor follower
+    const cursor = document.querySelector('.cursor-follower');
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Add hover effect to interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .project-card');
+    
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(1.5)';
+        cursor.style.opacity = '0.5';
       });
       
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.opacity = '0.3';
       });
     });
   </script>
