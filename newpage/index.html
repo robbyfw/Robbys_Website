@@ -195,7 +195,7 @@
             align-items: center;
         }
 
-        .nav-links a {
+        .nav-links a, .theme-trigger {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
@@ -203,13 +203,17 @@
             transition: var(--transition);
             padding: 8px 0;
             position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .theme-trigger:hover {
             color: var(--text-primary);
         }
 
-        .nav-links a::after {
+        .nav-links a::after, .theme-trigger::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -220,7 +224,7 @@
             transition: var(--transition);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after, .theme-trigger:hover::after {
             width: 100%;
         }
 
@@ -230,23 +234,9 @@
         }
 
         .theme-trigger {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: var(--radius);
-            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .theme-trigger:hover {
-            color: var(--text-primary);
-            background: var(--bg-secondary);
         }
 
         .theme-menu {
@@ -303,6 +293,11 @@
             align-items: center;
             justify-content: center;
             height: 100%;
+        }
+
+        /* Fixed: Black theme text color in dropdown */
+        [data-theme="black"] .theme-option[data-theme="black"] {
+            color: #ffffff;
         }
 
         .theme-option[data-theme="white"] .theme-color { background: #3b82f6; }
@@ -527,7 +522,7 @@
             font-size: 14px;
         }
 
-        /* Footer */
+        /* Footer - Fixed for black theme */
         footer {
             background: var(--text-primary);
             color: white;
@@ -546,6 +541,7 @@
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 20px;
+            color: white;
         }
 
         .footer-links {
@@ -590,6 +586,23 @@
             border-top: 1px solid #334155;
             color: #94a3b8;
             font-size: 14px;
+        }
+
+        /* Fixed: Ensure footer text colors work properly in black theme */
+        [data-theme="black"] footer {
+            background: #000000;
+        }
+
+        [data-theme="black"] .footer-col p,
+        [data-theme="black"] .footer-links a,
+        [data-theme="black"] .social-links a,
+        [data-theme="black"] .copyright {
+            color: #d4d4d4;
+        }
+
+        [data-theme="black"] .footer-links a:hover,
+        [data-theme="black"] .social-links a:hover {
+            color: white;
         }
 
         /* Responsive Design */
