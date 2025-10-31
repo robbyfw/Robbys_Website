@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robby | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
@@ -13,28 +14,32 @@
         }
 
         :root {
-            --primary-bg: #0a0a0a;
+            --primary-bg: #0f0f0f;
             --secondary-bg: #1a1a1a;
-            --card-bg: #2a2a2a;
+            --card-bg: #242424;
             --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
+            --text-secondary: #a0a0a0;
             --text-muted: #666666;
-            --accent: #3b82f6;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
             --border: #333333;
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 2rem;
+            --border-light: #404040;
+            --spacing-xs: 0.75rem;
+            --spacing-sm: 1.5rem;
+            --spacing-md: 2.5rem;
             --spacing-lg: 4rem;
             --spacing-xl: 6rem;
-            --border-radius: 8px;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--primary-bg);
             color: var(--text-primary);
             line-height: 1.6;
             font-size: 16px;
+            font-weight: 400;
         }
 
         .container {
@@ -46,11 +51,12 @@
         /* Header */
         header {
             padding: var(--spacing-md) 0;
-            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            background: var(--primary-bg);
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
             z-index: 100;
+            border-bottom: 1px solid var(--border);
         }
 
         .header-content {
@@ -64,6 +70,9 @@
             font-weight: 700;
             color: var(--text-primary);
             text-decoration: none;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
@@ -76,23 +85,53 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.2s;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--text-primary);
         }
 
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* Hero Section */
         .hero {
             padding: var(--spacing-xl) 0;
             text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: var(--spacing-sm);
+            line-height: 1.1;
             background: linear-gradient(135deg, var(--text-primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -103,31 +142,45 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto var(--spacing-lg);
+            font-weight: 400;
         }
 
         .cta-buttons {
             display: flex;
             gap: var(--spacing-sm);
             justify-content: center;
+            align-items: center;
         }
 
         .btn {
-            padding: 12px 24px;
-            border: 1px solid var(--border);
+            padding: 14px 32px;
+            border: 1px solid var(--border-light);
             background: transparent;
             color: var(--text-primary);
             text-decoration: none;
             border-radius: var(--border-radius);
-            font-weight: 500;
-            transition: all 0.2s;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            cursor: pointer;
         }
 
         .btn-primary {
             background: var(--accent);
             border-color: var(--accent);
+            box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.2);
         }
 
-        .btn:hover {
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-bg);
+            border-color: var(--accent);
             transform: translateY(-2px);
         }
 
@@ -137,29 +190,61 @@
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: var(--spacing-lg);
             text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: var(--spacing-md);
         }
 
         .project-card {
-            background: var(--secondary-bg);
+            background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: var(--border-radius);
             padding: var(--spacing-md);
-            transition: all 0.2s;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: scaleX(0);
+            transition: var(--transition);
         }
 
         .project-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
+            transform: translateY(-8px);
+            border-color: var(--border-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
         .project-header {
@@ -170,55 +255,84 @@
         }
 
         .project-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--card-bg);
+            width: 52px;
+            height: 52px;
+            background: var(--secondary-bg);
             border-radius: var(--border-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-icon {
+            background: var(--accent);
+            transform: scale(1.05);
         }
 
         .project-badge {
             background: var(--accent);
             color: white;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 20px;
             font-size: 0.875rem;
-            font-weight: 500;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .project-title {
-            font-size: 1.25rem;
+            font-size: 1.375rem;
             font-weight: 600;
             margin-bottom: var(--spacing-xs);
+            color: var(--text-primary);
         }
 
         .project-desc {
             color: var(--text-secondary);
             margin-bottom: var(--spacing-sm);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .project-link {
             color: var(--accent);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.95rem;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: gap 0.2s;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
         }
 
         .project-link:hover {
             gap: 12px;
         }
 
+        .project-link:hover::after {
+            width: 100%;
+        }
+
         /* Footer */
         footer {
             background: var(--secondary-bg);
-            padding: var(--spacing-lg) 0;
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
             border-top: 1px solid var(--border);
+            margin-top: var(--spacing-lg);
         }
 
         .footer-content {
@@ -228,9 +342,10 @@
         }
 
         .footer-col h3 {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
         }
 
         .footer-links {
@@ -243,11 +358,14 @@
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            padding: 4px 0;
         }
 
         .footer-links a:hover {
             color: var(--text-primary);
+            transform: translateX(4px);
         }
 
         .social-links {
@@ -260,11 +378,16 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 1.25rem;
-            transition: color 0.2s;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 8px;
+            background: var(--card-bg);
         }
 
         .social-links a:hover {
             color: var(--text-primary);
+            background: var(--accent);
+            transform: translateY(-2px);
         }
 
         .copyright {
@@ -283,11 +406,16 @@
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.75rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
             }
             
             .projects-grid {
                 grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
             }
             
             .footer-content {
@@ -297,19 +425,28 @@
             
             .cta-buttons {
                 flex-direction: column;
-                align-items: center;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
             }
         }
 
-        /* Utility Classes */
-        .text-center {
-            text-align: center;
+        /* Scroll animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
-        
-        .mb-1 { margin-bottom: var(--spacing-xs); }
-        .mb-2 { margin-bottom: var(--spacing-sm); }
-        .mb-3 { margin-bottom: var(--spacing-md); }
-        .mb-4 { margin-bottom: var(--spacing-lg); }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -337,7 +474,7 @@
             <p>Building digital experiences that combine functionality with clean design. Explore my collection of projects and tools.</p>
             <div class="cta-buttons">
                 <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="/about/" class="btn">About Me</a>
+                <a href="/about/" class="btn btn-secondary">About Me</a>
             </div>
         </div>
     </section>
@@ -348,7 +485,7 @@
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🏛️</div>
                         <div class="project-badge">Live</div>
@@ -361,7 +498,7 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🧮</div>
                         <div class="project-badge">Live</div>
@@ -374,7 +511,7 @@
                 </div>
 
                 <!-- Project 3 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🪙</div>
                         <div class="project-badge">Live</div>
@@ -387,7 +524,7 @@
                 </div>
 
                 <!-- Project 4 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🌤️</div>
                         <div class="project-badge">Live</div>
@@ -400,7 +537,7 @@
                 </div>
 
                 <!-- Project 5 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">❓</div>
                         <div class="project-badge">Live</div>
@@ -413,7 +550,7 @@
                 </div>
 
                 <!-- Project 6 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">⚖️</div>
                         <div class="project-badge">Live</div>
@@ -426,7 +563,7 @@
                 </div>
 
                 <!-- Project 7 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🔊</div>
                         <div class="project-badge">Live</div>
@@ -439,7 +576,7 @@
                 </div>
 
                 <!-- Project 8 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🎂</div>
                         <div class="project-badge">Live</div>
@@ -452,7 +589,7 @@
                 </div>
 
                 <!-- Project 9 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">💬</div>
                         <div class="project-badge">Live</div>
@@ -465,7 +602,7 @@
                 </div>
 
                 <!-- Project 10 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🔑</div>
                         <div class="project-badge">Live</div>
@@ -478,7 +615,7 @@
                 </div>
 
                 <!-- Project 11 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">⌨️</div>
                         <div class="project-badge">Live</div>
@@ -491,7 +628,7 @@
                 </div>
 
                 <!-- Project 12 -->
-                <div class="project-card">
+                <div class="project-card fade-in">
                     <div class="project-header">
                         <div class="project-icon">🤖</div>
                         <div class="project-badge">Live</div>
@@ -512,7 +649,7 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>Robby's Portfolio</h3>
-                    <p class="mb-2" style="color: var(--text-secondary);">Building digital experiences with clean design and functionality.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--spacing-sm);">Building digital experiences with clean design and functionality.</p>
                     <div class="social-links">
                         <a href="#">GitHub</a>
                         <a href="#">Twitter</a>
@@ -547,5 +684,24 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('load', fadeInOnScroll);
+        window.addEventListener('scroll', fadeInOnScroll);
+    </script>
 </body>
 </html>
