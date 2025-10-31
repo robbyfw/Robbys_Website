@@ -29,62 +29,62 @@
             --transition: all 0.2s ease-in-out;
         }
 
-        /* Dark Theme */
-        [data-theme="dark"] {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-muted: #64748b;
-            --accent: #60a5fa;
-            --accent-light: #93c5fd;
-            --border: #334155;
-            --border-light: #475569;
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Green Theme */
-        [data-theme="green"] {
+        /* White Theme (Default) */
+        [data-theme="white"] {
             --bg-primary: #ffffff;
-            --bg-secondary: #f0fdf4;
+            --bg-secondary: #f8fafc;
             --bg-card: #ffffff;
-            --text-primary: #052e16;
-            --text-secondary: #166534;
-            --text-muted: #4d7c0f;
-            --accent: #16a34a;
-            --accent-light: #22c55e;
-            --border: #bbf7d0;
-            --border-light: #dcfce7;
+            --text-primary: #1a1a1a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
         }
 
-        /* Purple Theme */
-        [data-theme="purple"] {
-            --bg-primary: #faf5ff;
-            --bg-secondary: #f3e8ff;
-            --bg-card: #ffffff;
-            --text-primary: #581c87;
-            --text-secondary: #7e22ce;
-            --text-muted: #a855f7;
-            --accent: #8b5cf6;
-            --accent-light: #a78bfa;
-            --border: #e9d5ff;
-            --border-light: #f3e8ff;
+        /* Black Theme */
+        [data-theme="black"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #ffffff;
+            --accent-light: #d4d4d4;
+            --border: #404040;
+            --border-light: #262626;
+            --shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06);
+            --shadow-lg: 0 10px 25px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
         }
 
-        /* Orange Theme */
-        [data-theme="orange"] {
-            --bg-primary: #fff7ed;
-            --bg-secondary: #ffedd5;
+        /* Yellow Theme */
+        [data-theme="yellow"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fefce8;
             --bg-card: #ffffff;
-            --text-primary: #7c2d12;
-            --text-secondary: #c2410c;
-            --text-muted: #ea580c;
-            --accent: #f97316;
-            --accent-light: #fb923c;
-            --border: #fed7aa;
-            --border-light: #ffedd5;
+            --text-primary: #422006;
+            --text-secondary: #854d0e;
+            --text-muted: #a16207;
+            --accent: #eab308;
+            --accent-light: #facc15;
+            --border: #fef08a;
+            --border-light: #fef9c3;
+        }
+
+        /* Pink Theme */
+        [data-theme="pink"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fdf2f8;
+            --bg-card: #ffffff;
+            --text-primary: #831843;
+            --text-secondary: #be185d;
+            --text-muted: #db2777;
+            --accent: #ec4899;
+            --accent-light: #f472b6;
+            --border: #fbcfe8;
+            --border-light: #fce7f3;
         }
 
         body {
@@ -103,12 +103,17 @@
             padding: 0 20px;
         }
 
-        /* Theme Switcher */
+        /* Theme Switcher - Floating Style */
         .theme-switcher {
             position: fixed;
-            top: 100px;
+            top: 50%;
             right: 20px;
+            transform: translateY(-50%);
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
         .theme-btn {
@@ -123,50 +128,53 @@
             justify-content: center;
             font-size: 20px;
             transition: var(--transition);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
         }
 
         .theme-btn:hover {
             transform: scale(1.1);
-            box-shadow: var(--shadow-lg);
         }
 
         .theme-options {
-            position: absolute;
-            top: 60px;
-            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 10px;
-            display: none;
-            flex-direction: column;
-            gap: 8px;
+            padding: 12px;
             box-shadow: var(--shadow-lg);
         }
 
         .theme-option {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             border: 2px solid var(--border);
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
         }
 
         .theme-option:hover {
             transform: scale(1.1);
         }
 
-        .theme-option[data-theme="light"] { background: #3b82f6; }
-        .theme-option[data-theme="dark"] { background: #1e293b; }
-        .theme-option[data-theme="green"] { background: #16a34a; }
-        .theme-option[data-theme="purple"] { background: #8b5cf6; }
-        .theme-option[data-theme="orange"] { background: #f97316; }
-
-        .theme-switcher:hover .theme-options {
-            display: flex;
+        .theme-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
         }
+
+        .theme-option[data-theme="white"] { background: #3b82f6; }
+        .theme-option[data-theme="black"] { background: #000000; }
+        .theme-option[data-theme="yellow"] { background: #eab308; }
+        .theme-option[data-theme="pink"] { background: #ec4899; }
 
         /* Header */
         header {
@@ -538,8 +546,8 @@
             }
 
             .theme-switcher {
-                top: 80px;
                 right: 10px;
+                top: 50%;
             }
         }
 
@@ -556,16 +564,15 @@
         }
     </style>
 </head>
-<body data-theme="light">
-    <!-- Theme Switcher -->
+<body data-theme="white">
+    <!-- Theme Switcher - Floating on the right side -->
     <div class="theme-switcher">
         <button class="theme-btn">🎨</button>
         <div class="theme-options">
-            <div class="theme-option" data-theme="light" title="Light Theme"></div>
-            <div class="theme-option" data-theme="dark" title="Dark Theme"></div>
-            <div class="theme-option" data-theme="green" title="Green Theme"></div>
-            <div class="theme-option" data-theme="purple" title="Purple Theme"></div>
-            <div class="theme-option" data-theme="orange" title="Orange Theme"></div>
+            <div class="theme-option active" data-theme="white" title="White Theme"></div>
+            <div class="theme-option" data-theme="black" title="Black Theme"></div>
+            <div class="theme-option" data-theme="yellow" title="Yellow Theme"></div>
+            <div class="theme-option" data-theme="pink" title="Pink Theme"></div>
         </div>
     </div>
 
@@ -768,11 +775,21 @@
         const themeOptions = document.querySelectorAll('.theme-option');
         const body = document.body;
 
+        function setActiveTheme(theme) {
+            themeOptions.forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-theme') === theme) {
+                    option.classList.add('active');
+                }
+            });
+        }
+
         themeOptions.forEach(option => {
             option.addEventListener('click', () => {
                 const theme = option.getAttribute('data-theme');
                 body.setAttribute('data-theme', theme);
                 localStorage.setItem('theme', theme);
+                setActiveTheme(theme);
             });
         });
 
@@ -780,6 +797,7 @@
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             body.setAttribute('data-theme', savedTheme);
+            setActiveTheme(savedTheme);
         }
 
         // Fade in animation on scroll
