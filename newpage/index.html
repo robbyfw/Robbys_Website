@@ -1,534 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby | Developer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robby | Portfolio</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Styles & Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666666;
+            --accent: #3b82f6;
+            --border: #333333;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            --border-radius: 8px;
+        }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
 
-    :root {
-      --bg: #0a0a0a;
-      --card: #1a1a1a;
-      --text: #ffffff;
-      --text-secondary: #888;
-      --border: #333;
-      --accent: #fff;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      font-size: 14px;
-    }
+        /* Header */
+        header {
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--primary-bg);
+            z-index: 100;
+        }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Header */
-    header {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: var(--bg);
-      z-index: 100;
-    }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
 
-    .logo {
-      font-weight: 600;
-      font-size: 18px;
-      text-decoration: none;
-      color: var(--text);
-    }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
 
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
+        /* Hero Section */
+        .hero {
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
 
-    .nav-links a:hover {
-      color: var(--text);
-    }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    /* Hero */
-    .hero {
-      padding: 120px 0 80px;
-      text-align: center;
-    }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
 
-    .hero h1 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
 
-    .hero p {
-      color: var(--text-secondary);
-      font-size: 16px;
-      max-width: 500px;
-      margin: 0 auto 40px;
-    }
+        .btn {
+            padding: 12px 24px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      border: 1px solid var(--border);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 14px;
-      transition: all 0.2s;
-    }
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
 
-    .btn:hover {
-      background: var(--card);
-      border-color: var(--text);
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
 
-    /* Projects */
-    .projects {
-      padding: 60px 0;
-    }
+        /* Projects Section */
+        .projects {
+            padding: var(--spacing-xl) 0;
+        }
 
-    .section-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 40px;
-    }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-md);
+        }
 
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 24px;
-      transition: border-color 0.2s;
-    }
+        .project-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            transition: all 0.2s;
+        }
 
-    .project-card:hover {
-      border-color: var(--text);
-    }
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
 
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 16px;
-    }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
 
-    .project-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
+        .project-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
 
-    .project-badge {
-      color: var(--text-secondary);
-      font-size: 12px;
-    }
+        .project-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
 
-    .project-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
 
-    .project-desc {
-      color: var(--text-secondary);
-      font-size: 14px;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
 
-    .project-link {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.2s;
+        }
 
-    .project-link:hover {
-      gap: 12px;
-    }
+        .project-link:hover {
+            gap: 12px;
+        }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-      margin-top: 60px;
-    }
+        /* Footer */
+        footer {
+            background: var(--secondary-bg);
+            padding: var(--spacing-lg) 0;
+            border-top: 1px solid var(--border);
+        }
 
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 40px;
-    }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
 
-    .footer-col h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
+        .footer-col h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
 
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
 
-    .footer-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
 
-    .footer-links a:hover {
-      color: var(--text);
-    }
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
 
-    .social-links {
-      display: flex;
-      gap: 16px;
-      margin-top: 20px;
-    }
+        .social-links {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
 
-    .social-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
+        .social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
 
-    .social-links a:hover {
-      color: var(--text);
-    }
+        .social-links a:hover {
+            color: var(--text-primary);
+        }
 
-    .copyright {
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 12px;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
+        .copyright {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
 
-    /* Mobile */
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      
-      .hero h1 {
-        font-size: 28px;
-      }
-      
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .footer-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-    }
-  </style>
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-1 { margin-bottom: var(--spacing-xs); }
+        .mb-2 { margin-bottom: var(--spacing-sm); }
+        .mb-3 { margin-bottom: var(--spacing-md); }
+        .mb-4 { margin-bottom: var(--spacing-lg); }
+    </style>
 </head>
-
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <nav class="nav">
-        <a href="https://fwrobby.site" class="logo">Robby</a>
-        <div class="nav-links">
-          <a href="https://fwrobby.site">Home</a>
-          <a href="https://fwrobby.site/about/">About</a>
-          <a href="https://fwrobby.site/contact/">Contact</a>
-          <a href="https://fwrobby.site/donate/">Donate</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>Developer & Creator</h1>
-      <p>Building useful tools and digital experiences with clean, functional design.</p>
-      <a href="#projects" class="btn">View Projects</a>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section class="projects" id="projects">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <div class="projects-grid">
-        <!-- Project 1 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-landmark"></i>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Robby</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/donate/">Donate</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Sukho History</h3>
-          <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
-          <a href="https://fwrobby.site/sukho_history/" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
         </div>
+    </header>
 
-        <!-- Project 2 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-calculator"></i>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Creative Developer</h1>
+            <p>Building digital experiences that combine functionality with clean design. Explore my collection of projects and tools.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="/about/" class="btn">About Me</a>
             </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Simple Calculator</h3>
-          <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
-          <a href="https://fwrobby.site/calculator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
         </div>
+    </section>
 
-        <!-- Project 3 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-coins"></i>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🏛️</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Sukho History</h3>
+                    <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
+                    <a href="https://fwrobby.site/sukho_history/" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🧮</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Simple Calculator</h3>
+                    <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
+                    <a href="https://fwrobby.site/calculator" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🪙</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Coin Flip</h3>
+                    <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
+                    <a href="https://fwrobby.site/coin_flip" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🌤️</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Weather App</h3>
+                    <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
+                    <a href="https://fwrobby.site/weather_app" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">❓</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Quiz Time</h3>
+                    <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
+                    <a href="https://fwrobby.site/quiz" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">⚖️</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Would You Rather</h3>
+                    <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
+                    <a href="https://fwrobby.site/would_you_rather" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🔊</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Text-to-Speech Generator</h3>
+                    <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
+                    <a href="https://fwrobby.site/text_to_speech" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🎂</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Age Calculator</h3>
+                    <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
+                    <a href="https://fwrobby.site/age_calculator" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 9 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">💬</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Anonymous Chat</h3>
+                    <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
+                    <a href="https://fwrobby.site/anonymous-chat" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 10 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🔑</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Password Generator</h3>
+                    <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
+                    <a href="https://fwrobby.site/password-generator" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 11 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">⌨️</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Typing Speed Test</h3>
+                    <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
+                    <a href="https://fwrobby.site/typing_speed_test" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
+
+                <!-- Project 12 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🤖</div>
+                        <div class="project-badge">Live</div>
+                    </div>
+                    <h3 class="project-title">Discord Bot Template</h3>
+                    <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
+                    <a href="https://fwrobby.site/discord-bot" class="project-link">
+                        Visit Project →
+                    </a>
+                </div>
             </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Coin Flip</h3>
-          <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
-          <a href="https://fwrobby.site/coin_flip" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
         </div>
+    </section>
 
-        <!-- Project 4 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-cloud-sun"></i>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Robby's Portfolio</h3>
+                    <p class="mb-2" style="color: var(--text-secondary);">Building digital experiences with clean design and functionality.</p>
+                    <div class="social-links">
+                        <a href="#">GitHub</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">CodePen</a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/donate/">Donate</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Projects</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://fwrobby.site/sukho_history/">Sukho History</a></li>
+                        <li><a href="https://fwrobby.site/calculator">Calculator</a></li>
+                        <li><a href="https://fwrobby.site/weather_app">Weather App</a></li>
+                        <li><a href="https://fwrobby.site/discord-bot">Discord Bot</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Weather App</h3>
-          <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
-          <a href="https://fwrobby.site/weather_app" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 5 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-question-circle"></i>
+            
+            <div class="copyright">
+                © 2025 Muhammad Asim (Robby). All rights reserved.
             </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Quiz Time</h3>
-          <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
-          <a href="https://fwrobby.site/quiz" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
         </div>
-
-        <!-- Project 6 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-balance-scale"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Would You Rather</h3>
-          <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
-          <a href="https://fwrobby.site/would_you_rather" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 7 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-volume-up"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Text-to-Speech</h3>
-          <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
-          <a href="https://fwrobby.site/text_to_speech" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 8 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-birthday-cake"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Age Calculator</h3>
-          <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
-          <a href="https://fwrobby.site/age_calculator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 9 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-comments"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Anonymous Chat</h3>
-          <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
-          <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 10 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-key"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Password Generator</h3>
-          <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
-          <a href="https://fwrobby.site/password-generator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 11 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fas fa-keyboard"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Typing Speed Test</h3>
-          <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
-          <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Project 12 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-icon">
-              <i class="fab fa-discord"></i>
-            </div>
-            <div class="project-badge">Live</div>
-          </div>
-          <h3 class="project-title">Discord Bot</h3>
-          <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
-          <a href="https://fwrobby.site/discord-bot" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-col">
-          <h3>Robby</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 14px;">
-            Building useful digital tools and experiences.
-          </p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-codepen"></i></a>
-          </div>
-        </div>
-        
-        <div class="footer-col">
-          <h3>Links</h3>
-          <div class="footer-links">
-            <a href="https://fwrobby.site">Home</a>
-            <a href="https://fwrobby.site/about/">About</a>
-            <a href="https://fwrobby.site/contact/">Contact</a>
-            <a href="https://fwrobby.site/donate/">Donate</a>
-          </div>
-        </div>
-        
-        <div class="footer-col">
-          <h3>Projects</h3>
-          <div class="footer-links">
-            <a href="https://fwrobby.site/sukho_history/">Sukho History</a>
-            <a href="https://fwrobby.site/calculator">Calculator</a>
-            <a href="https://fwrobby.site/weather_app">Weather App</a>
-            <a href="https://fwrobby.site/discord-bot">Discord Bot</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="copyright">
-        © 2025 Muhammad Asim (Robby)
-      </div>
-    </div>
-  </footer>
+    </footer>
 </body>
 </html>
