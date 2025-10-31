@@ -29,17 +29,19 @@
       --text-secondary: #888888;
       --text-muted: #555555;
       --accent: #ffffff;
-      --border: #333333;
-      --hover: #2a2a2a;
+      --border: #2a2a2a;
+      --hover: #252525;
+      --glow: rgba(255, 255, 255, 0.1);
     }
 
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-primary);
       background: var(--bg-primary);
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
       font-weight: 400;
+      letter-spacing: 0.2px;
     }
 
     /* Layout */
@@ -51,14 +53,21 @@
 
     /* Header */
     header {
-      padding: 2rem 0;
+      padding: 2.5rem 0;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(10, 10, 10, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.4s ease;
+    }
+
+    header.scrolled {
+      padding: 1.5rem 0;
+      border-bottom-color: var(--border);
     }
 
     .nav-container {
@@ -69,15 +78,32 @@
 
     .logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 600;
       color: var(--text-primary);
       text-decoration: none;
+      position: relative;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--text-primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover::after {
+      transform: scaleX(1);
     }
 
     .nav-links {
       display: flex;
-      gap: 3rem;
+      gap: 3.5rem;
     }
 
     .nav-links a {
@@ -85,13 +111,29 @@
       text-decoration: none;
       font-weight: 400;
       font-size: 0.9rem;
-      transition: color 0.3s;
+      transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--text-primary);
+      transition: width 0.3s ease;
     }
 
     .nav-links a:hover {
       color: var(--text-primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .mobile-menu-btn {
@@ -101,6 +143,12 @@
       color: var(--text-primary);
       font-size: 1.2rem;
       cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: var(--hover);
     }
 
     /* Hero Section */
@@ -109,121 +157,180 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 4rem 0;
+      padding: 8rem 0 4rem;
+      position: relative;
     }
 
     .hero-content {
-      max-width: 600px;
+      max-width: 650px;
     }
 
     .hero h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 3.5rem;
+      font-size: 4rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       line-height: 1.1;
+      letter-spacing: -0.5px;
     }
 
     .hero p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--text-secondary);
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
       max-width: 500px;
+      font-weight: 400;
     }
 
     .cta-buttons {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .btn {
-      padding: 1rem 2rem;
+      padding: 1.2rem 2.5rem;
       border: 1px solid var(--border);
       background: transparent;
       color: var(--text-primary);
       text-decoration: none;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 0.9rem;
-      transition: all 0.3s;
+      transition: all 0.4s ease;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--hover), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn:hover {
       background: var(--hover);
       border-color: var(--text-primary);
+      transform: translateY(-2px);
     }
 
     /* Section Titles */
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 600;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
       color: var(--text-primary);
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--text-primary);
     }
 
     /* Projects Grid */
     .projects-section {
-      padding: 6rem 0;
+      padding: 8rem 0;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2.5rem;
     }
 
     .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      padding: 2rem;
-      transition: all 0.3s ease;
+      padding: 2.5rem;
+      transition: all 0.4s ease;
       position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--glow), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .project-card:hover::before {
+      left: 100%;
     }
 
     .project-card:hover {
       border-color: var(--text-primary);
+      transform: translateY(-5px);
     }
 
     .project-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .project-icon {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       background: var(--bg-secondary);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-primary);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .project-icon {
+      background: var(--hover);
     }
 
     .project-badge {
       color: var(--text-secondary);
       font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
     }
 
     .project-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       color: var(--text-primary);
+      letter-spacing: -0.3px;
     }
 
     .project-desc {
       color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.7;
     }
 
     .project-link {
@@ -231,81 +338,121 @@
       text-decoration: none;
       font-size: 0.9rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: gap 0.3s;
+      gap: 0.8rem;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .project-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--text-primary);
+      transition: width 0.3s ease;
     }
 
     .project-link:hover {
-      gap: 1rem;
+      gap: 1.2rem;
+    }
+
+    .project-link:hover::after {
+      width: 100%;
     }
 
     /* Footer */
     footer {
       background: var(--bg-secondary);
-      padding: 4rem 0 2rem;
+      padding: 5rem 0 3rem;
       border-top: 1px solid var(--border);
     }
 
     .footer-content {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
+      gap: 4rem;
+      margin-bottom: 4rem;
     }
 
     .footer-col h3 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       color: var(--text-primary);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     .footer-links {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 1rem;
     }
 
     .footer-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.3s;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      padding: 0.3rem 0;
+      position: relative;
+    }
+
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--text-primary);
+      transition: width 0.3s ease;
     }
 
     .footer-links a:hover {
       color: var(--text-primary);
     }
 
+    .footer-links a:hover::after {
+      width: 100%;
+    }
+
     .social-links {
       display: flex;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      gap: 1.2rem;
+      margin-top: 2rem;
     }
 
     .social-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.3s;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
     }
 
     .social-links a:hover {
       color: var(--text-primary);
+      background: var(--hover);
+      transform: translateY(-2px);
     }
 
     .copyright {
       text-align: center;
-      padding-top: 2rem;
+      padding-top: 3rem;
       border-top: 1px solid var(--border);
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
     }
 
     /* Mobile Menu */
@@ -322,7 +469,7 @@
       justify-content: center;
       align-items: center;
       transform: translateX(-100%);
-      transition: transform 0.3s;
+      transition: transform 0.4s ease;
     }
 
     .mobile-menu.active {
@@ -331,45 +478,66 @@
 
     .mobile-menu .close-btn {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
+      top: 2.5rem;
+      right: 2.5rem;
       background: none;
       border: none;
       color: var(--text-primary);
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       cursor: pointer;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu .close-btn:hover {
+      background: var(--hover);
     }
 
     .mobile-nav-links {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 2.5rem;
       text-align: center;
     }
 
     .mobile-nav-links a {
       color: var(--text-primary);
       text-decoration: none;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      transition: color 0.3s;
+      transition: all 0.3s ease;
+      padding: 1rem 2rem;
+      border: 1px solid transparent;
     }
 
     .mobile-nav-links a:hover {
-      color: var(--text-secondary);
+      border-color: var(--border);
+      background: var(--hover);
     }
 
     /* Animation classes */
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s, transform 0.6s;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Scroll progress */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--text-primary);
+      z-index: 101;
+      transition: width 0.1s ease;
     }
 
     /* Responsive Design */
@@ -383,37 +551,40 @@
       }
 
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
       }
 
       .projects-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
       }
 
       .footer-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 3rem;
       }
       
       .cta-buttons {
         flex-direction: column;
+        align-items: flex-start;
       }
       
       .section-title {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
+      }
+
+      .container {
+        padding: 0 1.5rem;
       }
     }
 
-    /* Simple scroll progress */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 1px;
-      background: var(--text-primary);
-      z-index: 101;
-      transition: width 0.1s;
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
@@ -462,7 +633,7 @@
         <h1>Developer &<br>Creative Thinker</h1>
         <p>
           Building digital experiences with focus on simplicity and functionality. 
-          Explore my collection of projects and tools.
+          Explore my collection of projects and tools crafted with attention to detail.
         </p>
         <div class="cta-buttons">
           <a href="#projects" class="btn">View Projects</a>
@@ -489,7 +660,7 @@
           <h3 class="project-title">Sukho History</h3>
           <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
           <a href="https://fwrobby.site/sukho_history/" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -504,7 +675,7 @@
           <h3 class="project-title">Simple Calculator</h3>
           <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
           <a href="https://fwrobby.site/calculator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -519,7 +690,7 @@
           <h3 class="project-title">Coin Flip</h3>
           <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
           <a href="https://fwrobby.site/coin_flip" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -534,7 +705,7 @@
           <h3 class="project-title">Weather App</h3>
           <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
           <a href="https://fwrobby.site/weather_app" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -549,7 +720,7 @@
           <h3 class="project-title">Quiz Time</h3>
           <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
           <a href="https://fwrobby.site/quiz" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -564,7 +735,7 @@
           <h3 class="project-title">Would You Rather</h3>
           <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
           <a href="https://fwrobby.site/would_you_rather" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -579,7 +750,7 @@
           <h3 class="project-title">Text-to-Speech</h3>
           <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
           <a href="https://fwrobby.site/text_to_speech" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -594,7 +765,7 @@
           <h3 class="project-title">Age Calculator</h3>
           <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
           <a href="https://fwrobby.site/age_calculator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -609,7 +780,7 @@
           <h3 class="project-title">Anonymous Chat</h3>
           <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
           <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -624,7 +795,7 @@
           <h3 class="project-title">Password Generator</h3>
           <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
           <a href="https://fwrobby.site/password-generator" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -639,7 +810,7 @@
           <h3 class="project-title">Typing Speed Test</h3>
           <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
           <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -654,7 +825,7 @@
           <h3 class="project-title">Discord Bot</h3>
           <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
           <a href="https://fwrobby.site/discord-bot" class="project-link">
-            View <i class="fas fa-arrow-right"></i>
+            View Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -667,8 +838,8 @@
       <div class="footer-content">
         <div class="footer-col">
           <h3>Robby</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
-            Building simple, functional digital tools and experiences.
+          <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1rem; line-height: 1.7;">
+            Building simple, functional digital tools and experiences with clean design and thoughtful execution.
           </p>
           <div class="social-links">
             <a href="#"><i class="fab fa-github"></i></a>
@@ -679,7 +850,7 @@
         </div>
         
         <div class="footer-col">
-          <h3>Links</h3>
+          <h3>Navigation</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site">Home</a>
             <a href="https://fwrobby.site/about/">About</a>
@@ -700,7 +871,7 @@
       </div>
       
       <div class="copyright">
-        © 2025 Muhammad Asim (Robby)
+        © 2025 Muhammad Asim (Robby) — All rights reserved
       </div>
     </div>
   </footer>
@@ -747,11 +918,19 @@
     
     // Scroll progress
     const scrollProgress = document.querySelector('.scroll-progress');
+    const header = document.querySelector('header');
     
     window.addEventListener('scroll', () => {
       const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrolled = (window.scrollY / windowHeight) * 100;
       scrollProgress.style.width = scrolled + '%';
+      
+      // Header background on scroll
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     });
   </script>
 </body>
