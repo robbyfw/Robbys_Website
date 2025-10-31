@@ -8,6 +8,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
     <link rel="apple-touch-icon" href="https://fwrobby.site/images/Studio-Project.png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -592,13 +594,22 @@
         .social-links a {
             color: #cbd5e1;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 24px;
             transition: var(--transition);
             padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .social-links a:hover {
             color: white;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .copyright {
@@ -1016,10 +1027,10 @@
                     <h3>Robby's Portfolio</h3>
                     <p style="color: #cbd5e1; margin-bottom: 20px;">Creating digital experiences that make a difference.</p>
                     <div class="social-links">
-                        <a href="#">GitHub</a>
-                        <a href="#">Twitter</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">CodePen</a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" title="Gmail"><i class="fas fa-envelope"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
                 
