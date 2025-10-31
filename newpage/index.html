@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robby | Digital Innovation</title>
+  <title>Robby | Creative Developer</title>
 
   <!-- Styles & Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Favicon -->
@@ -19,13 +19,6 @@
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="Robby, web design, creative projects, tools, experiments, coding, programming, portfolio" />
 
-  <!-- ✅ Open Graph -->
-  <meta property="og:title" content="Robby | Digital Innovation" />
-  <meta property="og:description" content="Hey! On this website, you'll find a collection of interesting projects made by Robby. Explore useful tools, fun experiments, and other creative work that highlight his passion for design and coding." />
-  <meta property="og:image" content="https://fwrobby.site/images/Studio-Project.png" />
-  <meta property="og:url" content="https://fwrobby.site" />
-  <meta property="og:type" content="website" />
-
   <style>
     /* General Reset */
     * {
@@ -35,62 +28,25 @@
     }
 
     :root {
-      --neon-blue: #00f3ff;
-      --neon-purple: #b967ff;
-      --neon-pink: #ff2a6d;
-      --dark-bg: #0a0a0f;
-      --darker-bg: #050508;
-      --card-bg: rgba(15, 15, 25, 0.7);
-      --card-border: rgba(0, 243, 255, 0.3);
-      --text-primary: #ffffff;
-      --text-secondary: #a0a0c0;
-      --accent-glow: 0 0 10px rgba(0, 243, 255, 0.7);
+      --primary: #2d3436;
+      --primary-light: #636e72;
+      --accent: #0984e3;
+      --accent-light: #74b9ff;
+      --light: #f8f9fa;
+      --light-gray: #e9ecef;
+      --medium-gray: #adb5bd;
+      --dark-gray: #495057;
+      --white: #ffffff;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     }
 
     body {
-      font-family: 'Rajdhani', sans-serif;
-      color: var(--text-primary);
-      background: var(--dark-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--primary);
+      background: var(--white);
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 60%, rgba(185, 103, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 50% 80%, rgba(255, 42, 109, 0.05) 0%, transparent 20%);
-    }
-
-    /* Cyberpunk Scanline Effect */
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15) 0px,
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      z-index: 100;
-      opacity: 0.3;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--darker-bg);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--neon-blue);
-      border-radius: 4px;
     }
 
     /* Layout */
@@ -106,9 +62,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10, 10, 15, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+      border-bottom: 1px solid var(--light-gray);
     }
 
     .nav-container {
@@ -118,23 +74,15 @@
     }
 
     .logo {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--text-primary);
+      font-weight: 600;
+      color: var(--primary);
       text-decoration: none;
-      position: relative;
     }
 
-    .logo::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--neon-blue);
-      box-shadow: var(--accent-glow);
+    .logo span {
+      color: var(--accent);
     }
 
     .nav-links {
@@ -143,18 +91,15 @@
     }
 
     .nav-links a {
-      color: var(--text-secondary);
+      color: var(--primary-light);
       text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-weight: 500;
+      transition: color 0.3s;
       position: relative;
-      transition: all 0.3s;
     }
 
     .nav-links a:hover {
-      color: var(--neon-blue);
+      color: var(--accent);
     }
 
     .nav-links a::after {
@@ -164,8 +109,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--neon-blue);
-      box-shadow: var(--accent-glow);
+      background: var(--accent);
       transition: width 0.3s;
     }
 
@@ -177,170 +121,131 @@
       display: none;
       background: none;
       border: none;
-      color: var(--neon-blue);
+      color: var(--primary);
       font-size: 1.5rem;
       cursor: pointer;
     }
 
     /* Hero Section */
     .hero {
-      min-height: 90vh;
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding: 4rem 0;
       position: relative;
-      overflow: hidden;
     }
 
     .hero-content {
-      max-width: 800px;
-      position: relative;
-      z-index: 2;
+      max-width: 700px;
     }
 
     .hero-badge {
       display: inline-block;
-      background: rgba(0, 243, 255, 0.1);
-      color: var(--neon-blue);
+      background: rgba(9, 132, 227, 0.1);
+      color: var(--accent);
       padding: 0.5rem 1.2rem;
-      border-radius: 4px;
+      border-radius: 50px;
       font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      border: 1px solid rgba(0, 243, 255, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      box-shadow: var(--accent-glow);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
-      font-weight: 900;
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 1.5rem;
-      line-height: 1.1;
-      text-transform: uppercase;
-    }
-
-    .hero h1 .neon-text {
-      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+      line-height: 1.2;
     }
 
     .hero p {
-      font-size: 1.3rem;
-      color: var(--text-secondary);
+      font-size: 1.2rem;
+      color: var(--primary-light);
       margin-bottom: 2.5rem;
       max-width: 600px;
-      font-weight: 500;
     }
 
     .cta-buttons {
       display: flex;
-      gap: 1.5rem;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
     .btn {
       padding: 0.9rem 2rem;
-      border-radius: 4px;
+      border-radius: 50px;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s;
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-family: 'Rajdhani', sans-serif;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn:hover::before {
-      left: 100%;
     }
 
     .btn-primary {
-      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-      color: var(--dark-bg);
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
+      box-shadow: 0 8px 25px rgba(9, 132, 227, 0.4);
     }
 
     .btn-secondary {
       background: transparent;
-      color: var(--neon-blue);
-      border: 2px solid var(--neon-blue);
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+      color: var(--primary);
+      border: 1px solid var(--light-gray);
     }
 
     .btn-secondary:hover {
-      background: rgba(0, 243, 255, 0.1);
+      background: var(--light-gray);
       transform: translateY(-3px);
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     }
 
     /* Section Titles */
     .section-title {
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 3rem;
+      text-align: center;
       position: relative;
-      display: inline-block;
-      text-transform: uppercase;
     }
 
     .section-title::after {
       content: '';
       position: absolute;
       bottom: -10px;
-      left: 0;
-      width: 100px;
-      height: 4px;
-      background: var(--neon-blue);
-      box-shadow: var(--accent-glow);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
     }
 
     /* Projects Grid */
     .projects-section {
       padding: 6rem 0;
+      background: var(--light);
     }
 
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
+      background: var(--white);
+      border-radius: 12px;
       padding: 2rem;
       transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(10px);
     }
 
     .project-card::before {
@@ -349,20 +254,19 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.3s;
+      height: 4px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
     }
 
     .project-card:hover {
       transform: translateY(-10px);
-      border-color: var(--neon-blue);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 243, 255, 0.3);
+      box-shadow: var(--hover-shadow);
     }
 
     .project-card:hover::before {
-      opacity: 1;
+      transform: scaleX(1);
     }
 
     .project-header {
@@ -373,39 +277,35 @@
     }
 
     .project-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(0, 243, 255, 0.1);
-      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+      background: rgba(9, 132, 227, 0.1);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--neon-blue);
-      font-size: 1.8rem;
-      border: 1px solid rgba(0, 243, 255, 0.3);
+      color: var(--accent);
+      font-size: 1.5rem;
     }
 
     .project-badge {
-      background: var(--neon-pink);
+      background: var(--accent);
       color: white;
       padding: 0.3rem 0.8rem;
-      border-radius: 4px;
+      border-radius: 50px;
       font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+      font-weight: 500;
     }
 
     .project-title {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.4rem;
+      font-weight: 600;
       margin-bottom: 1rem;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Playfair Display', serif;
     }
 
     .project-desc {
-      color: var(--text-secondary);
+      color: var(--primary-light);
       margin-bottom: 1.5rem;
       font-size: 1rem;
     }
@@ -414,25 +314,21 @@
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
-      color: var(--neon-blue);
+      color: var(--accent);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       transition: all 0.3s;
-      text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     .project-link:hover {
       gap: 1rem;
-      text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
     }
 
     /* Footer */
     footer {
-      background: var(--darker-bg);
-      border-top: 1px solid rgba(0, 243, 255, 0.2);
+      background: var(--primary);
+      color: var(--white);
       padding: 4rem 0 2rem;
-      margin-top: 4rem;
     }
 
     .footer-content {
@@ -444,11 +340,10 @@
 
     .footer-col h3 {
       font-size: 1.3rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 1.5rem;
-      color: var(--text-primary);
-      font-family: 'Orbitron', sans-serif;
-      text-transform: uppercase;
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
     }
 
     .footer-links {
@@ -458,13 +353,13 @@
     }
 
     .footer-links a {
-      color: var(--text-secondary);
+      color: var(--medium-gray);
       text-decoration: none;
       transition: color 0.3s;
     }
 
     .footer-links a:hover {
-      color: var(--neon-blue);
+      color: var(--white);
     }
 
     .social-links {
@@ -477,28 +372,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 6px;
-      background: var(--card-bg);
-      color: var(--text-secondary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
       text-decoration: none;
       transition: all 0.3s;
-      border: 1px solid rgba(0, 243, 255, 0.2);
     }
 
     .social-links a:hover {
-      background: var(--neon-blue);
-      color: var(--dark-bg);
+      background: var(--accent);
       transform: translateY(-3px);
-      box-shadow: var(--accent-glow);
     }
 
     .copyright {
       text-align: center;
       padding-top: 2rem;
-      border-top: 1px solid rgba(0, 243, 255, 0.2);
-      color: var(--text-secondary);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--medium-gray);
       font-size: 0.9rem;
     }
 
@@ -509,7 +401,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--darker-bg);
+      background: var(--white);
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -529,7 +421,7 @@
       right: 2rem;
       background: none;
       border: none;
-      color: var(--neon-blue);
+      color: var(--primary);
       font-size: 1.5rem;
       cursor: pointer;
     }
@@ -542,18 +434,15 @@
     }
 
     .mobile-nav-links a {
-      color: var(--text-primary);
+      color: var(--primary);
       text-decoration: none;
       font-size: 1.5rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
       transition: color 0.3s;
-      font-family: 'Orbitron', sans-serif;
     }
 
     .mobile-nav-links a:hover {
-      color: var(--neon-blue);
+      color: var(--accent);
     }
 
     /* Animation classes */
@@ -596,32 +485,6 @@
         align-items: flex-start;
       }
     }
-
-    /* Glitch Effect */
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-      }
-      20% {
-        transform: translate(-2px, 2px);
-      }
-      40% {
-        transform: translate(-2px, -2px);
-      }
-      60% {
-        transform: translate(2px, 2px);
-      }
-      80% {
-        transform: translate(2px, -2px);
-      }
-      100% {
-        transform: translate(0);
-      }
-    }
-
-    .glitch:hover {
-      animation: glitch 0.3s linear;
-    }
   </style>
 </head>
 
@@ -629,15 +492,15 @@
   <!-- Header -->
   <header>
     <div class="container nav-container">
-      <a href="https://fwrobby.site" class="logo glitch">
-        ROBBY<span style="color: var(--neon-blue);">//</span>
+      <a href="https://fwrobby.site" class="logo">
+        Robby<span>.</span>
       </a>
       
       <nav class="nav-links">
-        <a href="https://fwrobby.site">HOME</a>
-        <a href="https://fwrobby.site/about/">ABOUT</a>
-        <a href="https://fwrobby.site/contact/">CONTACT</a>
-        <a href="https://fwrobby.site/donate/">DONATE</a>
+        <a href="https://fwrobby.site">Home</a>
+        <a href="https://fwrobby.site/about/">About</a>
+        <a href="https://fwrobby.site/contact/">Contact</a>
+        <a href="https://fwrobby.site/donate/">Donate</a>
       </nav>
       
       <button class="mobile-menu-btn">
@@ -652,10 +515,10 @@
       <i class="fas fa-times"></i>
     </button>
     <nav class="mobile-nav-links">
-      <a href="https://fwrobby.site">HOME</a>
-      <a href="https://fwrobby.site/about/">ABOUT</a>
-      <a href="https://fwrobby.site/contact/">CONTACT</a>
-      <a href="https://fwrobby.site/donate/">DONATE</a>
+      <a href="https://fwrobby.site">Home</a>
+      <a href="https://fwrobby.site/about/">About</a>
+      <a href="https://fwrobby.site/contact/">Contact</a>
+      <a href="https://fwrobby.site/donate/">Donate</a>
     </nav>
   </div>
 
@@ -664,19 +527,19 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-badge">
-          <i class="fas fa-terminal"></i> DIGITAL INNOVATOR
+          <i class="fas fa-code"></i> Creative Developer
         </div>
-        <h1>PUSHING <span class="neon-text">DIGITAL BOUNDARIES</span></h1>
+        <h1>Crafting Digital Experiences with Purpose</h1>
         <p>
-          Welcome to my cyber domain. I build cutting-edge tools, immersive experiences, 
-          and digital solutions that challenge conventional boundaries.
+          I'm Robby, a passionate developer who builds thoughtful digital solutions. 
+          Explore my collection of projects, tools, and experiments that blend creativity with functionality.
         </p>
         <div class="cta-buttons">
           <a href="#projects" class="btn btn-primary">
-            <i class="fas fa-play"></i> EXPLORE PROJECTS
+            <i class="fas fa-rocket"></i> View Projects
           </a>
           <a href="https://fwrobby.site/about/" class="btn btn-secondary">
-            <i class="fas fa-code"></i> VIEW PROFILE
+            <i class="fas fa-user"></i> About Me
           </a>
         </div>
       </div>
@@ -686,7 +549,7 @@
   <!-- Projects Section -->
   <section class="projects-section" id="projects">
     <div class="container">
-      <h2 class="section-title">DIGITAL CREATIONS</h2>
+      <h2 class="section-title">Featured Projects</h2>
       
       <div class="projects-grid">
         <!-- Project 1 -->
@@ -695,12 +558,12 @@
             <div class="project-icon">
               <i class="fas fa-landmark"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">SUKHO HISTORY</h3>
+          <h3 class="project-title">Sukho History</h3>
           <p class="project-desc">A short site about Sukho — village history, saints, architecture.</p>
           <a href="https://fwrobby.site/sukho_history/" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -710,12 +573,12 @@
             <div class="project-icon">
               <i class="fas fa-calculator"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">CALCULATOR</h3>
+          <h3 class="project-title">Simple Calculator</h3>
           <p class="project-desc">A clean and simple tool — basic math operations, modern style.</p>
           <a href="https://fwrobby.site/calculator" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -725,12 +588,12 @@
             <div class="project-icon">
               <i class="fas fa-coins"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">COIN FLIP</h3>
+          <h3 class="project-title">Coin Flip</h3>
           <p class="project-desc">A fun and interactive tool — toss a coin, heads or tails, realistic spin.</p>
           <a href="https://fwrobby.site/coin_flip" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -740,12 +603,12 @@
             <div class="project-icon">
               <i class="fas fa-cloud-sun"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">WEATHER APP</h3>
+          <h3 class="project-title">Weather App</h3>
           <p class="project-desc">A simple weather tool — check live forecasts, updates, conditions easily.</p>
           <a href="https://fwrobby.site/weather_app" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -755,12 +618,12 @@
             <div class="project-icon">
               <i class="fas fa-question-circle"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">QUIZ TIME</h3>
+          <h3 class="project-title">Quiz Time</h3>
           <p class="project-desc">Test your knowledge with fun quizzes — answer questions, challenge yourself, and learn.</p>
           <a href="https://fwrobby.site/quiz" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -770,12 +633,12 @@
             <div class="project-icon">
               <i class="fas fa-balance-scale"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">WOULD YOU RATHER</h3>
+          <h3 class="project-title">Would You Rather</h3>
           <p class="project-desc">A simple "Would You Rather" game — play fun questions, make choices, and enjoy instantly.</p>
           <a href="https://fwrobby.site/would_you_rather" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -785,12 +648,12 @@
             <div class="project-icon">
               <i class="fas fa-volume-up"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">TEXT-TO-SPEECH</h3>
+          <h3 class="project-title">Text-to-Speech Generator</h3>
           <p class="project-desc">A simple text-to-speech generator lets you convert words into audio instantly.</p>
           <a href="https://fwrobby.site/text_to_speech" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -800,12 +663,12 @@
             <div class="project-icon">
               <i class="fas fa-birthday-cake"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">AGE CALCULATOR</h3>
+          <h3 class="project-title">Age Calculator</h3>
           <p class="project-desc">Quickly calculate your exact age in years, months, and days with ease.</p>
           <a href="https://fwrobby.site/age_calculator" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -815,12 +678,12 @@
             <div class="project-icon">
               <i class="fas fa-comments"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">ANONYMOUS CHAT</h3>
+          <h3 class="project-title">Anonymous Chat</h3>
           <p class="project-desc">Connect and chat freely with people online — without revealing your IP address or personal details.</p>
           <a href="https://fwrobby.site/anonymous-chat" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -830,12 +693,12 @@
             <div class="project-icon">
               <i class="fas fa-key"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">PASSWORD GENERATOR</h3>
+          <h3 class="project-title">Password Generator</h3>
           <p class="project-desc">Generate strong and secure passwords online — without revealing your personal information.</p>
           <a href="https://fwrobby.site/password-generator" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -845,12 +708,12 @@
             <div class="project-icon">
               <i class="fas fa-keyboard"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">TYPING SPEED TEST</h3>
+          <h3 class="project-title">Typing Speed Test</h3>
           <p class="project-desc">Test and improve your typing speed and accuracy online — track your progress over time.</p>
           <a href="https://fwrobby.site/typing_speed_test" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
 
@@ -860,12 +723,12 @@
             <div class="project-icon">
               <i class="fab fa-discord"></i>
             </div>
-            <div class="project-badge">ACTIVE</div>
+            <div class="project-badge">Live</div>
           </div>
-          <h3 class="project-title">DISCORD BOT</h3>
+          <h3 class="project-title">Discord Bot Template</h3>
           <p class="project-desc">Create powerful Discord bot effortlessly using simple template tools, customization.</p>
           <a href="https://fwrobby.site/discord-bot" class="project-link">
-            ACCESS <i class="fas fa-arrow-right"></i>
+            Visit Project <i class="fas fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -877,9 +740,9 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-col">
-          <h3>ROBBY // DIGITAL</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-            Building the future, one line of code at a time. Pushing digital boundaries with innovative solutions.
+          <h3>Robby's Portfolio</h3>
+          <p style="color: var(--medium-gray); margin-bottom: 1.5rem;">
+            Creating thoughtful digital solutions that make a difference.
           </p>
           <div class="social-links">
             <a href="#"><i class="fab fa-github"></i></a>
@@ -890,7 +753,7 @@
         </div>
         
         <div class="footer-col">
-          <h3>NAVIGATION</h3>
+          <h3>Navigation</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site">Home</a>
             <a href="https://fwrobby.site/about/">About Me</a>
@@ -900,7 +763,7 @@
         </div>
         
         <div class="footer-col">
-          <h3>PROJECTS</h3>
+          <h3>Projects</h3>
           <div class="footer-links">
             <a href="https://fwrobby.site/sukho_history/">Sukho History</a>
             <a href="https://fwrobby.site/calculator">Calculator</a>
@@ -911,7 +774,7 @@
       </div>
       
       <div class="copyright">
-        © 2025 MUHAMMAD ASIM (ROBBY) • SYSTEM ONLINE
+        © 2025 Muhammad Asim (Robby) • Crafted with care and precision
       </div>
     </div>
   </footer>
@@ -955,17 +818,6 @@
     // Check on load and scroll
     window.addEventListener('load', fadeInOnScroll);
     window.addEventListener('scroll', fadeInOnScroll);
-    
-    // Add glitch effect randomly to logo
-    const logo = document.querySelector('.logo');
-    setInterval(() => {
-      if (Math.random() > 0.7) {
-        logo.classList.add('glitch');
-        setTimeout(() => {
-          logo.classList.remove('glitch');
-        }, 300);
-      }
-    }, 5000);
   </script>
 </body>
 </html>
