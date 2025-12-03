@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA San Andreas PC Cheats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Glassmorphism Navigation */
+        .top-nav {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: #b0b0d0;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.1), rgba(255, 217, 61, 0.1));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+        
+        .nav-links a:hover::before {
+            transform: translateX(0);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff6b6b, #6b6bff, #ffd93d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0d0;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            min-width: 180px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #6b6bff, #ff6b6b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: rgba(107, 107, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(107, 107, 255, 0.1);
+        }
+        
+        .search-box::placeholder {
+            color: #8888aa;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8888aa;
+            font-size: 1.2rem;
+        }
+        
+        /* Cheat Sections */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        
+        .section-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-header {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #ffffff;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .weapons-icon { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); }
+        .vehicles-icon { background: linear-gradient(135deg, #36d1dc, #5b86e5); }
+        .player-icon { background: linear-gradient(135deg, #ffd93d, #ffb347); }
+        .wanted-icon { background: linear-gradient(135deg, #ff4757, #ff3838); }
+        .effects-icon { background: linear-gradient(135deg, #9d50bb, #6e48aa); }
+        .time-icon { background: linear-gradient(135deg, #00b4db, #0083b0); }
+        .gameplay-icon { background: linear-gradient(135deg, #56ab2f, #a8e063); }
+        .fun-icon { background: linear-gradient(135deg, #ff9a00, #ff5e62); }
+        
+        .arrow {
+            color: #b0b0d0;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .section-card.active .arrow {
+            transform: rotate(180deg);
+            color: #6b6bff;
+        }
+        
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .section-card.active .section-content {
+            padding: 25px;
+            max-height: 2000px;
+        }
+        
+        /* Cheat Items */
+        .cheat-item {
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cheat-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(107, 107, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .cheat-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .cheat-code {
+            font-family: 'Courier New', 'Fira Code', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffd93d;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            position: relative;
+            padding-left: 15px;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        
+        .cheat-code:hover {
+            color: #ff6b6b;
+        }
+        
+        .cheat-code::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #6b6bff;
+        }
+        
+        .cheat-desc {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #b0b0d0;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        
+        .footer-links a:hover::before {
+            transform: translateY(0);
+        }
+        
+        .copyright {
+            color: #8888aa;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); }
+            100% { transform: translateY(-100vh) translateX(100px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .top-nav {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .stat-card {
+                min-width: 140px;
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-card {
+                min-width: 120px;
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="nav-brand">GTA SA PC Cheats</div>
+            <div class="nav-links">
+                <a href="https://fwrobby.site/">Home</a>
+                <a href="https://fwrobby.site/about/">About</a>
+                <a href="https://fwrobby.site/contact/">Contact</a>
+                <a href="https://fwrobby.site/donate/">Donate</a>
+            </div>
+        </div>
+        
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>San Andreas PC Cheats</h1>
+            <p>Complete collection of working cheat codes for GTA San Andreas PC edition. Click to copy, search to find.</p>
+        </div>
+        
+        <!-- Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCheats">0</div>
+                <div class="stat-label">Total Cheats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">PC</div>
+                <div class="stat-label">Platform</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Working</div>
+            </div>
+        </div>
+        
+        <!-- Search -->
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search for cheats...">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        
+        <!-- Cheat Sections Grid -->
+        <div class="sections-grid" id="cheatsContainer">
+            <!-- Weapons Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon weapons-icon">
+                            <i class="fas fa-gun"></i>
+                        </div>
+                        <span>Weapons</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">LXWMGM</div>
+                        <div class="cheat-desc">All Weapons + Full Ammo</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">HESOYAM</div>
+                        <div class="cheat-desc">Health, Armor, +$250,000</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BAGUVIX</div>
+                        <div class="cheat-desc">Infinite Health (Partial)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FULLCLIP</div>
+                        <div class="cheat-desc">Infinite Ammo, No Reload</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">UZUMYMW</div>
+                        <div class="cheat-desc">All Weapons + Unlimited Ammo</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PROFESSIONALSKIT</div>
+                        <div class="cheat-desc">Weapon Set 1 (Basic Weapons)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">NUTTERTOOLS</div>
+                        <div class="cheat-desc">Weapon Set 2 (Advanced Weapons)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">THUGSTOOLS</div>
+                        <div class="cheat-desc">Weapon Set 3 (Premium Weapons)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PROFESSIONALKILLER</div>
+                        <div class="cheat-desc">Hitman Level for All Weapons</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">WANRLTW</div>
+                        <div class="cheat-desc">Infinite Ammo (No Reload)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">STICKLIKEGLUE</div>
+                        <div class="cheat-desc">Perfect Handling for Vehicles</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ITSALLBULL</div>
+                        <div class="cheat-desc">Bullet Proof Vehicles</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SPEEDITUP</div>
+                        <div class="cheat-desc">Better Vehicle Acceleration</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vehicles Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon vehicles-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <span>Vehicles</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">AIWPRTON</div>
+                        <div class="cheat-desc">Spawn Rhino (Tank)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">JUMPJET</div>
+                        <div class="cheat-desc">Spawn Hydra (Jet)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">OHDUDE</div>
+                        <div class="cheat-desc">Spawn Hunter (Helicopter)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">RIPAZHA</div>
+                        <div class="cheat-desc">Flying Cars</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SEAWAYS</div>
+                        <div class="cheat-desc">Cars Drive on Water</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">KGGGDKP</div>
+                        <div class="cheat-desc">Spawn Vortex Hovercraft</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">MONSTERMASH</div>
+                        <div class="cheat-desc">Spawn Monster Truck</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FLYINGFISH</div>
+                        <div class="cheat-desc">Boats Can Fly</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">VROCKPOKEY</div>
+                        <div class="cheat-desc">Spawn Hotring Racer #1</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">WHERESTHEFUNERAL</div>
+                        <div class="cheat-desc">Spawn Romero (Hearse)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CELEBRITYSTATUS</div>
+                        <div class="cheat-desc">Spawn Stretch Limo</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">TRUEGRIME</div>
+                        <div class="cheat-desc">Spawn Trashmaster</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">JCNRUAD</div>
+                        <div class="cheat-desc">Smash n' Boom (Exploding Cars)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">OLDSPEEDDEMON</div>
+                        <div class="cheat-desc">Spawn Bloodring Banger</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Player Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon player-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Player</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">BUFFMEUP</div>
+                        <div class="cheat-desc">Max Muscle</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">KVGYZQK</div>
+                        <div class="cheat-desc">Skinny Body</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BTCDBCB</div>
+                        <div class="cheat-desc">Fat Body</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">HELLOLADIES</div>
+                        <div class="cheat-desc">Max Sex Appeal</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CVWKXAM</div>
+                        <div class="cheat-desc">Infinite Oxygen</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">KANGAROO</div>
+                        <div class="cheat-desc">Mega Jump</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AEDUWNV</div>
+                        <div class="cheat-desc">Never Get Hungry</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">OGXSDAG</div>
+                        <div class="cheat-desc">Max Respect</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">WORSHIPME</div>
+                        <div class="cheat-desc">Max Respect + Never Wanted</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">NATURALTALENT</div>
+                        <div class="cheat-desc">Max Driving Skills</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SPEEDFREAK</div>
+                        <div class="cheat-desc">All Green Driving Skills</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">STATEOFEMERGENCY</div>
+                        <div class="cheat-desc">Riot Mode (Peds Riot)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AUIFRVQS</div>
+                        <div class="cheat-desc">Drunk Mode</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wanted Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon wanted-icon">
+                            <i class="fas fa-police-badge"></i>
+                        </div>
+                        <span>Wanted Level</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">AEZAKMI</div>
+                        <div class="cheat-desc">Never Wanted (Permanent)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ASNAEB</div>
+                        <div class="cheat-desc">Clear Wanted Level</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">TURNUPTHEHEAT</div>
+                        <div class="cheat-desc">Increase Wanted Level</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">TURNDOWNTHEHEAT</div>
+                        <div class="cheat-desc">Decrease Wanted Level</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BRINGITON</div>
+                        <div class="cheat-desc">Six Star Wanted Level</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">WORSHIPME</div>
+                        <div class="cheat-desc">Max Respect + Never Wanted</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">GOODBYECRUELWORLD</div>
+                        <div class="cheat-desc">Suicide (Kill Yourself)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BAGOWPG</div>
+                        <div class="cheat-desc">Have a Bounty on Your Head</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FOOOXFT</div>
+                        <div class="cheat-desc">Everyone is Armed</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SURVIVALSKILLS</div>
+                        <div class="cheat-desc">Pedestrians Have Weapons</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FOXYLITTLETHING</div>
+                        <div class="cheat-desc">Pedestrians Attack You</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vehicle Effects Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon effects-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span>Vehicle Effects</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">CHITTYCHITTYBANGBANG</div>
+                        <div class="cheat-desc">Cars Can Fly</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SPEEDITUP</div>
+                        <div class="cheat-desc">Cars Have Nitrous Oxide</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CJPHONEHOME</div>
+                        <div class="cheat-desc">Super Bunny Hop</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">WHEELSONLYPLEASE</div>
+                        <div class="cheat-desc">Invisible Cars</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ITSALLBULL</div>
+                        <div class="cheat-desc">Bullet Proof Cars</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">STICKLIKEGLUE</div>
+                        <div class="cheat-desc">Perfect Handling</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ZEIIVG</div>
+                        <div class="cheat-desc">All Green Lights</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">YLTEICZ</div>
+                        <div class="cheat-desc">Aggressive Drivers</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">EVERYONEISRICH</div>
+                        <div class="cheat-desc">Traffic is Fast Cars</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ALLDRIVERSGOFAST</div>
+                        <div class="cheat-desc">All Cars Have Nitrous</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">IOJUFZN</div>
+                        <div class="cheat-desc">Aggressive Traffic</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AFSNMSMW</div>
+                        <div class="cheat-desc">Boats Fly</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Time & Weather Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon time-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <span>Time & Weather</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">NIGHTPROWLER</div>
+                        <div class="cheat-desc">Always Midnight</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PLEASANTLYWARM</div>
+                        <div class="cheat-desc">Sunny Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">TOODAMNHOT</div>
+                        <div class="cheat-desc">Very Sunny Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SCOTTISHSUMMER</div>
+                        <div class="cheat-desc">Stormy Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CATSANDDOGS</div>
+                        <div class="cheat-desc">Rainy Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ALNSFMZO</div>
+                        <div class="cheat-desc">Overcast Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CFVFGMJ</div>
+                        <div class="cheat-desc">Sunny Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AUIFRVQS</div>
+                        <div class="cheat-desc">Foggy Weather</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SPEEDITUP</div>
+                        <div class="cheat-desc">Speed Up Game Clock</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">SLOWITDOWN</div>
+                        <div class="cheat-desc">Slow Down Game Clock</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">YSOHNUL</div>
+                        <div class="cheat-desc">Faster Clock</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">TIMEFLIESWHENYOU</div>
+                        <div class="cheat-desc">Faster Gameplay</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gameplay Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon gameplay-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <span>Gameplay</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">SURVIVALSKILLS</div>
+                        <div class="cheat-desc">Pedestrians Have Weapons</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FOXYLITTLETHING</div>
+                        <div class="cheat-desc">Pedestrians Attack You</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CRAZYTOWN</div>
+                        <div class="cheat-desc">Pedestrians Riot</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BGLUAWML</div>
+                        <div class="cheat-desc">Peds Attack Each Other</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">MROEMZH</div>
+                        <div class="cheat-desc">Gang Members Everywhere</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">IOJUFZN</div>
+                        <div class="cheat-desc">Aggressive Traffic</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PRIEBJ</div>
+                        <div class="cheat-desc">Funhouse Theme</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">MUNASEF</div>
+                        <div class="cheat-desc">Adrenaline Mode</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ANOSEONGLASS</div>
+                        <div class="cheat-desc">Adrenaline Mode</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PPGWJHT</div>
+                        <div class="cheat-desc">Faster Gameplay</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">LIYOAAY</div>
+                        <div class="cheat-desc">Slower Gameplay</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ZSOXFSQ</div>
+                        <div class="cheat-desc">Recruit Anyone (9mm)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fun Section -->
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon fun-icon">
+                            <i class="fas fa-party-horn"></i>
+                        </div>
+                        <span>Fun & Misc</span>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="cheat-item">
+                        <div class="cheat-code">ANOSEONGLASS</div>
+                        <div class="cheat-desc">Adrenaline Mode</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">PPGWJHT</div>
+                        <div class="cheat-desc">Faster Gameplay</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">LIYOAAY</div>
+                        <div class="cheat-desc">Slower Gameplay</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AJLOJYQY</div>
+                        <div class="cheat-desc">Peds Attack With Golf Clubs</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BAGOWPG</div>
+                        <div class="cheat-desc">Have a Bounty on Your Head</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">FOOOXFT</div>
+                        <div class="cheat-desc">Everyone is Armed</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">ZSOXFSQ</div>
+                        <div class="cheat-desc">Recruit Anyone (9mm)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">CIKGCGX</div>
+                        <div class="cheat-desc">Countryside Invasion</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">BEKKNQV</div>
+                        <div class="cheat-desc">All Girls Like You</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">IAVENJQ</div>
+                        <div class="cheat-desc">Mega Punch</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">AEDUWNV</div>
+                        <div class="cheat-desc">Never Get Hungry</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cheat-code">OGXSDAG</div>
+                        <div class="cheat-desc">Max Respect</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://fwrobby.site/">Home</a>
+                <a href="https://fwrobby.site/about/">About</a>
+                <a href="https://fwrobby.site/contact/">Contact</a>
+                <a href="https://fwrobby.site/donate/">Donate</a>
+            </div>
+            <div class="copyright">
+                © 2025 GTA San Andreas PC Cheats | Created by Robby
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const left = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const opacity = Math.random() * 0.5 + 0.1;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 10;
+                
+                particle.style.left = `${left}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = opacity;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Count total cheats
+        function countCheats() {
+            const cheatItems = document.querySelectorAll('.cheat-item');
+            const totalCheats = cheatItems.length;
+            document.getElementById('totalCheats').textContent = totalCheats;
+            return totalCheats;
+        }
+        
+        // Set up collapsible sections
+        function setupSections() {
+            document.querySelectorAll('.section-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    section.classList.toggle('active');
+                });
+            });
+            
+            // No sections are active by default - all start closed
+        }
+        
+        // Search functionality
+        function setupSearch() {
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const cheatItems = document.querySelectorAll('.cheat-item');
+                const sections = document.querySelectorAll('.section-card');
+                
+                let visibleCount = 0;
+                
+                // Reset all sections first
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Search through cheat items
+                cheatItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        const section = item.closest('.section-card');
+                        if (section) {
+                            section.style.display = 'block';
+                            section.classList.add('active');
+                        }
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // If search box is empty, show all sections
+                if (!searchTerm) {
+                    sections.forEach(section => {
+                        section.style.display = 'block';
+                        // All sections remain closed by default
+                        section.classList.remove('active');
+                    });
+                    
+                    // Show all cheat items
+                    cheatItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                }
+            });
+        }
+        
+        // Copy cheat code on click
+        function setupCopyToClipboard() {
+            document.querySelectorAll('.cheat-code').forEach(codeElement => {
+                codeElement.addEventListener('click', function() {
+                    const textToCopy = this.textContent;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = '✓ Copied!';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                        }, 1500);
+                    });
+                });
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            countCheats();
+            setupSections();
+            setupSearch();
+            setupCopyToClipboard();
+        });
+    </script>
+</body>
+</html>
