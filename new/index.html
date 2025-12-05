@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QR Code Generator - Robby</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+    }
+
+    /* NAVBAR */
+    header {
+        padding: 20px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    header .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    header .logo span {
+        color: #3b82f6;
+    }
+    nav a {
+        margin-left: 25px;
+        text-decoration: none;
+        color: #9ca3af;
+        font-size: 16px;
+    }
+    nav a:hover {
+        color: white;
+    }
+
+    /* MAIN CONTENT */
+    .container {
+        max-width: 500px;
+        margin: 70px auto;
+        padding: 20px;
+        text-align: center;
+        background: #181818;
+        border-radius: 12px;
+        border: 1px solid #222;
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        margin-top: 10px;
+        font-size: 16px;
+        outline: none;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #3b82f6;
+        border: none;
+        border-radius: 8px;
+        margin-top: 15px;
+        color: white;
+        font-size: 17px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #2563eb;
+    }
+    #qrcode {
+        margin-top: 25px;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        margin-top: 80px;
+        padding: 30px 0;
+        border-top: 1px solid #2d2d2d;
+        color: #9ca3af;
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Robby<span>.</span></div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Theme</a>
+        <a href="#">Donate</a>
+    </nav>
+</header>
+
+<!-- MAIN -->
+<div class="container">
+    <h2>QR Code Generator</h2>
+    <p>Enter text or URL and generate a QR code instantly.</p>
+
+    <input type="text" id="text" placeholder="Enter URL or text..." />
+
+    <button onclick="generateQR()">Generate QR Code</button>
+
+    <div id="qrcode"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 Muhammad Asim (Robby). All rights reserved.
+</footer>
+
+<!-- QR CODE LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+    function generateQR() {
+        let container = document.getElementById("qrcode");
+        container.innerHTML = ""; 
+        let text = document.getElementById("text").value;
+
+        if (text.trim() === "") {
+            alert("Please enter some text first!");
+            return;
+        }
+
+        new QRCode(container, {
+            text: text,
+            width: 200,
+            height: 200,
+            colorDark: "#ffffff",
+            colorLight: "#111111"
+        });
+    }
+</script>
+
+</body>
+</html>
