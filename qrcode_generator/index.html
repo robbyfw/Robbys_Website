@@ -10,212 +10,313 @@
     <link rel="apple-touch-icon" href="https://fwrobby.site/images/Studio-Project.png">
     
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #111;
-            color: #fff;
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
         }
 
-        /* NAVBAR - PC LAYOUT KEPT AS ORIGINAL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
         header {
-            padding: 20px 60px;
+            background: var(--surface);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        header .logo {
-            font-size: 24px;
+        .logo {
+            font-size: 1.5rem;
             font-weight: bold;
-        }
-
-        header .logo span {
-            color: #3b82f6;
-        }
-
-        nav a {
-            margin-left: 25px;
+            color: var(--text);
             text-decoration: none;
-            color: #9ca3af;
-            font-size: 16px;
         }
 
-        nav a:hover {
-            color: white;
+        .logo span {
+            color: var(--primary);
         }
 
-        /* MAIN CONTENT - PC LAYOUT KEPT AS ORIGINAL */
-        .container {
-            max-width: 380px;
-            margin: 70px auto;
-            padding: 20px;
+        .logo:hover {
+            opacity: 0.9;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--text);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
             text-align: center;
-            background: #181818;
-            border-radius: 12px;
-            border: 1px solid #222;
         }
 
-        input {
-            width: 90%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
+        .card-subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* FORM ELEMENTS */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
             outline: none;
-            background: #222;
-            color: white;
-            margin-top: 10px;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        button {
-            width: 90%;
-            padding: 10px;
-            background: #3b82f6;
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
             border: none;
-            border-radius: 8px;
-            margin-top: 15px;
-            color: white;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
         }
 
-        button:hover {
-            background: #2563eb;
+        .btn:hover {
+            background: var(--primary-dark);
         }
 
-        #qrcode {
-            margin-top: 25px;
+        .btn:active {
+            transform: scale(0.98);
         }
 
-        /* FOOTER - PC LAYOUT KEPT AS ORIGINAL */
+        /* QR CODE DISPLAY */
+        .qrcode-container {
+            margin-top: 2rem;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* FOOTER */
         footer {
-            text-align: center;
-            margin-top: 80px;
-            padding: 30px 0;
-            color: #9ca3af;
-            font-size: 14px;
+            background: var(--surface);
+            padding: 2rem;
+            border-top: 1px solid var(--border);
         }
 
-        /* SEPARATOR LINE - DOESN'T JOIN BOUNDARIES */
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
         .separator {
             height: 1px;
-            background: #2d2d2d;
-            width: 80%;
-            margin: 0 auto 30px auto;
-            max-width: 600px;
+            background: var(--border);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 1.5rem auto;
         }
 
-        /* MOBILE FIXES ONLY */
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* MOBILE RESPONSIVENESS */
         @media (max-width: 768px) {
-            /* Fix navigation links stacking */
             header {
-                padding: 20px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-between;
+                padding: 1rem;
             }
-            
-            nav {
-                width: 100%;
-                order: 3;
-                margin-top: 15px;
-                display: flex;
-                justify-content: space-between;
-            }
-            
-            nav a {
-                margin-left: 0;
-                font-size: 14px;
-                padding: 5px;
-                flex: 1;
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
                 text-align: center;
             }
-            
-            /* Fix container touching edges */
-            .container {
-                width: calc(100% - 40px);
-                margin: 40px auto;
-                padding: 25px 20px;
+
+            nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
-            
-            input, button {
-                width: 95%;
+
+            main {
+                padding: 1rem;
             }
-            
-            /* Fix footer line */
-            .separator {
-                width: calc(100% - 40px);
+
+            .card {
+                padding: 1.5rem;
+                max-width: 100%;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .card-subtitle {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.25rem 0.5rem;
             }
         }
 
         @media (max-width: 480px) {
-            header {
-                padding: 15px;
-            }
-            
             nav {
-                flex-wrap: wrap;
-                gap: 10px;
-                justify-content: center;
+                gap: 0.75rem;
             }
-            
-            nav a {
-                flex: none;
-                min-width: 80px;
-                font-size: 13px;
-                padding: 8px 5px;
+
+            .card {
+                padding: 1.25rem;
             }
-            
-            .container {
-                width: calc(100% - 30px);
-                margin: 30px auto;
-                padding: 20px 15px;
+
+            .form-input, .btn {
+                padding: 0.875rem;
             }
-            
-            .separator {
-                width: calc(100% - 30px);
-            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.3s ease-out;
         }
     </style>
 </head>
 <body>
     <!-- HEADER -->
     <header>
-        <div class="logo">Robby<span>.</span></div>
-        <nav>
-            <a href="https://fwrobby.site">Home</a>
-            <a href="https://fwrobby.site/about">About</a>
-            <a href="https://fwrobby.site/contact">Contact</a>
-            <a href="https://fwrobby.site/donate">Donate</a>
-        </nav>
+        <div class="header-content">
+            <a href="https://fwrobby.site" class="logo">Robby<span>.</span></a>
+            <nav>
+                <a href="https://fwrobby.site" class="nav-link">Home</a>
+                <a href="https://fwrobby.site/about" class="nav-link">About</a>
+                <a href="https://fwrobby.site/contact" class="nav-link">Contact</a>
+                <a href="https://fwrobby.site/donate" class="nav-link">Donate</a>
+            </nav>
+        </div>
     </header>
 
-    <!-- MAIN -->
-    <div class="container">
-        <h2>QR Code Generator</h2>
-        <p>Enter text or URL and generate a QR code instantly.</p>
-        <input type="text" id="text" placeholder="Enter URL or text..." />
-        <button onclick="generateQR()">Generate QR Code</button>
-        <div id="qrcode"></div>
-    </div>
+    <!-- MAIN CONTENT -->
+    <main>
+        <div class="card">
+            <h1 class="card-title">QR Code Generator</h1>
+            <p class="card-subtitle">Enter text or URL and generate a QR code instantly</p>
+            
+            <div class="input-group">
+                <input type="text" id="text" class="form-input" placeholder="Enter URL or text..." />
+            </div>
+            
+            <button class="btn" onclick="generateQR()">Generate QR Code</button>
+            
+            <div class="qrcode-container" id="qrcode"></div>
+        </div>
+    </main>
 
     <!-- FOOTER -->
     <footer>
-        <div class="separator"></div>
-        © 2025 QR Code Generator | Created by Robby
+        <div class="footer-content">
+            <div class="separator"></div>
+            <p class="copyright">© 2025 QR Code Generator | Created by Robby</p>
+        </div>
     </footer>
 
-    <!-- FIXED QR CODE LIBRARY -->
+    <!-- QR CODE LIBRARY -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
         function generateQR() {
             let container = document.getElementById("qrcode");
             container.innerHTML = "";
-            let text = document.getElementById("text").value;
+            let text = document.getElementById("text").value.trim();
             
-            if (text.trim() === "") {
-                alert("Please enter some text first!");
+            if (!text) {
+                alert("Please enter some text or URL first!");
                 return;
             }
             
@@ -223,11 +324,18 @@
                 text,
                 {
                     width: 200,
-                    margin: 2,
-                    color: { dark: "#fff", light: "#111" }
+                    margin: 1,
+                    color: {
+                        dark: "#f8fafc", // Light color for dark theme
+                        light: "#1e293b"  // Dark background
+                    }
                 },
                 function (err, canvas) {
-                    if (err) console.error(err);
+                    if (err) {
+                        console.error(err);
+                        alert("Error generating QR code. Please try again.");
+                        return;
+                    }
                     container.appendChild(canvas);
                 }
             );
