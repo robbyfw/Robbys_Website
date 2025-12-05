@@ -1,76 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
     <loc>https://fwrobby.site/</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/about/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/contact/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/donate/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/sukho_history/</loc>
+    <lastmod>2024-12-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fwrobby.site/sukho_history/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
     <loc>https://fwrobby.site/calculator/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/coin_flip/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/weather_app/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/quiz/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/would_you_rather/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://fwrobby.site/text_to_speech/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://fwrobby.site/age_calculator/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/anonymous-chat/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/password-generator/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/typing_speed_test/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/discord-bot/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/gta_sa-cheats/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://fwrobby.site/qrcode_generator/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
