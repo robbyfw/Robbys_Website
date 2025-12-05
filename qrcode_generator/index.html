@@ -15,22 +15,27 @@
             font-family: Arial, sans-serif;
             background: #111;
             color: #fff;
-        }
-
-        /* NAVBAR */
-        header {
-            padding: 20px;
+            padding: 0 10px; /* Add padding to prevent touching edges */
+            min-height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
         }
 
-        @media (max-width: 768px) {
+        /* NAVBAR - FIXED FOR MOBILE */
+        header {
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column; /* Stack logo and nav on mobile */
+            align-items: center;
+            gap: 20px; /* Space between logo and nav */
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
             header {
-                padding: 15px;
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 20px 40px;
             }
         }
 
@@ -44,43 +49,53 @@
             color: #3b82f6;
         }
 
+        /* NAVIGATION - FIXED HORIZONTAL LAYOUT */
         nav {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-wrap: nowrap; /* Prevent wrapping on mobile */
+            gap: 15px;
+            overflow-x: auto; /* Allow horizontal scrolling if needed */
+            padding: 10px 0;
+            justify-content: center;
+            width: 100%;
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             nav {
-                justify-content: center;
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            nav {
-                gap: 10px;
+                gap: 25px;
+                overflow-x: visible;
+                justify-content: flex-end;
+                width: auto;
             }
         }
 
         nav a {
             text-decoration: none;
             color: #9ca3af;
-            font-size: 16px;
-            padding: 5px 0;
+            font-size: 15px;
+            padding: 8px 12px;
             white-space: nowrap;
+            flex-shrink: 0; /* Prevent shrinking on mobile */
+        }
+
+        @media (min-width: 768px) {
+            nav a {
+                font-size: 16px;
+                padding: 5px 0;
+                margin-left: 25px;
+            }
         }
 
         nav a:hover {
             color: white;
         }
 
-        /* MAIN CONTENT */
+        /* MAIN CONTENT - FIXED BOUNDARIES */
         .container {
             max-width: 380px;
-            width: 90%;
-            margin: 70px auto;
-            padding: 25px 20px;
+            width: calc(100% - 40px); /* Prevent touching edges */
+            margin: 30px auto 70px; /* Adjusted margins */
+            padding: 30px 25px;
             text-align: center;
             background: #181818;
             border-radius: 12px;
@@ -90,34 +105,39 @@
 
         @media (max-width: 480px) {
             .container {
-                margin: 40px auto;
-                padding: 20px 15px;
-                width: 92%;
+                width: calc(100% - 30px); /* Slightly narrower on mobile */
+                padding: 25px 20px;
+                margin: 20px auto 60px;
             }
         }
 
         input {
-            width: 90%;
-            max-width: 340px;
-            padding: 12px;
+            width: 100%;
+            padding: 14px;
             border-radius: 8px;
             border: none;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
             background: #222;
             color: white;
-            margin-top: 10px;
+            margin-top: 15px;
             box-sizing: border-box;
         }
 
+        @media (max-width: 480px) {
+            input {
+                padding: 12px;
+                font-size: 15px;
+            }
+        }
+
         button {
-            width: 90%;
-            max-width: 340px;
-            padding: 12px;
+            width: 100%;
+            padding: 14px;
             background: #3b82f6;
             border: none;
             border-radius: 8px;
-            margin-top: 15px;
+            margin-top: 20px;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -129,35 +149,40 @@
         }
 
         #qrcode {
-            margin-top: 25px;
+            margin-top: 30px;
             display: flex;
             justify-content: center;
         }
 
-        /* FOOTER */
+        /* FOOTER - FIXED SEPARATION */
         footer {
             text-align: center;
-            margin-top: 80px;
+            margin-top: auto; /* Push to bottom */
             padding: 30px 20px;
-            border-top: 1px solid #2d2d2d;
             color: #9ca3af;
             font-size: 14px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .footer-line {
+        /* SEPARATOR LINE - DOESN'T JOIN BOUNDARIES */
+        .separator {
             height: 1px;
             background: #2d2d2d;
-            width: 100%;
-            margin-bottom: 30px;
+            width: calc(100% - 40px); /* Doesn't touch edges */
+            margin: 0 auto 30px auto;
+            max-width: 600px;
         }
 
         @media (max-width: 768px) {
-            footer {
-                margin-top: 60px;
-                padding: 20px 15px;
+            .separator {
+                width: calc(100% - 30px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .separator {
+                width: calc(100% - 20px);
             }
         }
     </style>
@@ -185,7 +210,7 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-line"></div>
+        <div class="separator"></div>
         © 2025 QR Code Generator | Created by Robby
     </footer>
 
