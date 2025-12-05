@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -15,92 +16,150 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* Mobile First Design */
-        .chat-container {
-            max-width: 100%;
-            background: white;
-            border-radius: 20px;
+            background: #0a0a0a;
+            color: #fff;
+            height: 100vh;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 40px);
         }
 
-        /* Header - Mobile Optimized */
+        /* Chat Container */
+        .chat-app {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #121212;
+        }
+
+        /* Header */
         .header {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .header-top {
+            background: #1a1a1a;
+            padding: 15px 20px;
+            border-bottom: 1px solid #2a2a2a;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo {
-            font-size: 1.2rem;
-            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .logo i {
-            color: #7289da;
+            color: #5865f2;
         }
 
-        .admin-btn {
-            background: #f39c12;
-            color: #2c3e50;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
+        .stats {
             display: flex;
+            gap: 20px;
             align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
-
-        .header-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: #bdc3c7;
         }
 
         .stat {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            font-size: 14px;
+            color: #b0b0b0;
         }
 
         .online-dot {
             width: 8px;
             height: 8px;
-            background: #2ecc71;
+            background: #43b581;
             border-radius: 50%;
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .admin-btn {
+            background: #faa61a;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
         }
 
-        /* Main Chat Area */
+        .admin-btn:hover {
+            background: #e69500;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar (Online Users) */
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            border-right: 1px solid #2a2a2a;
+            padding: 20px;
+            overflow-y: auto;
+            display: none; /* Hidden on mobile by default */
+        }
+
+        @media (min-width: 768px) {
+            .sidebar {
+                display: block;
+            }
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            color: #b0b0b0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .user-item:hover {
+            background: #2a2a2a;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5865f2, #eb459e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        /* Chat Area */
         .chat-area {
             flex: 1;
             display: flex;
@@ -108,26 +167,19 @@
             overflow: hidden;
         }
 
-        /* Messages Container */
+        /* Messages */
         .messages {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
-            background: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            padding: 20px;
+            background: #0a0a0a;
         }
 
-        /* Message Styles */
         .message {
-            background: white;
-            padding: 10px 15px;
-            border-radius: 15px;
-            max-width: 85%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
             animation: fadeIn 0.3s ease;
-            position: relative;
         }
 
         @keyframes fadeIn {
@@ -135,66 +187,56 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .message.you {
-            align-self: flex-end;
-            background: #7289da;
-            color: white;
-            border-bottom-right-radius: 5px;
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5865f2, #eb459e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
         }
 
-        .message.other {
-            align-self: flex-start;
-            border-bottom-left-radius: 5px;
-        }
-
-        .message.deleted {
-            opacity: 0.6;
-            background: #ecf0f1;
-        }
-
-        .message.deleted .message-text {
-            text-decoration: line-through;
-            color: #7f8c8d;
+        .message-content {
+            flex: 1;
+            min-width: 0;
         }
 
         .message-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
             margin-bottom: 5px;
-            font-size: 0.85rem;
         }
 
-        .username {
-            font-weight: bold;
+        .message-username {
+            font-weight: 600;
+            font-size: 16px;
         }
 
-        .username.you {
-            color: white;
+        .message-you {
+            color: #5865f2;
         }
 
-        .timestamp {
-            color: #95a5a6;
-            font-size: 0.75rem;
-        }
-
-        .message.you .timestamp {
-            color: rgba(255,255,255,0.8);
+        .message-time {
+            color: #b0b0b0;
+            font-size: 12px;
         }
 
         .message-text {
+            color: #fff;
+            line-height: 1.5;
             word-break: break-word;
-            line-height: 1.4;
         }
 
         .message-actions {
-            position: absolute;
-            top: 5px;
-            right: 5px;
             display: flex;
-            gap: 5px;
+            gap: 10px;
+            margin-top: 8px;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.2s;
         }
 
         .message:hover .message-actions {
@@ -202,31 +244,41 @@
         }
 
         .action-btn {
-            background: rgba(0,0,0,0.1);
+            background: #2a2a2a;
             border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+            color: #b0b0b0;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #7f8c8d;
-            font-size: 0.8rem;
+            gap: 5px;
+            transition: all 0.2s;
         }
 
-        .message.you .action-btn {
-            background: rgba(255,255,255,0.2);
+        .action-btn:hover {
+            background: #3a3a3a;
+            color: #fff;
+        }
+
+        .action-btn.delete:hover {
+            background: #ed4245;
             color: white;
         }
 
-        /* Input Area - Mobile Optimized */
+        .action-btn.report:hover {
+            background: #faa61a;
+            color: black;
+        }
+
+        /* Input Area */
         .input-area {
-            padding: 15px;
-            background: white;
-            border-top: 1px solid #eee;
+            padding: 20px;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             align-items: flex-end;
         }
 
@@ -237,135 +289,175 @@
         }
 
         #messageInput {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
+            background: #2a2a2a;
+            border: 2px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 15px;
             resize: none;
             min-height: 50px;
-            max-height: 120px;
-            font-family: inherit;
+            max-height: 150px;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
         #messageInput:focus {
-            border-color: #7289da;
+            border-color: #5865f2;
+        }
+
+        #messageInput::placeholder {
+            color: #777;
+        }
+
+        .input-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #777;
         }
 
         .char-count {
-            text-align: right;
-            font-size: 0.8rem;
-            color: #95a5a6;
-            margin-top: 5px;
+            font-family: monospace;
         }
 
         .send-btn {
-            background: #7289da;
+            background: #5865f2;
             color: white;
             border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            background: #4752c4;
+            transform: translateY(-1px);
+        }
+
+        /* User Info Bar */
+        .user-info {
+            padding: 15px 20px;
+            background: #1a1a1a;
+            border-top: 1px solid #2a2a2a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .user-id-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-id-btn {
+            background: #2a2a2a;
+            color: #b0b0b0;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .copy-id-btn:hover {
+            background: #3a3a3a;
+            color: #fff;
+        }
+
+        /* Emoji Button */
+        .emoji-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #5865f2;
+            color: white;
             width: 50px;
             height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
-        .send-btn:hover {
-            background: #5b6eae;
-            transform: scale(1.05);
-        }
-
-        /* User Info Bar */
-        .user-info {
-            padding: 10px 15px;
-            background: #ecf0f1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            border-top: 1px solid #ddd;
-        }
-
-        .user-id {
-            font-family: monospace;
-            color: #2c3e50;
-            font-weight: 500;
-        }
-
-        .small-btn {
-            background: #95a5a6;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.8rem;
+        @media (min-width: 768px) {
+            .emoji-btn {
+                bottom: 30px;
+                right: 30px;
+            }
         }
 
         /* Emoji Picker */
         .emoji-picker {
             position: fixed;
-            bottom: 80px;
+            bottom: 160px;
             right: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: #2a2a2a;
+            border-radius: 12px;
             padding: 15px;
             display: none;
             grid-template-columns: repeat(6, 1fr);
             gap: 10px;
-            z-index: 1000;
-            max-width: 90%;
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            border: 1px solid #3a3a3a;
         }
 
         .emoji-picker.active {
             display: grid;
         }
 
+        @media (min-width: 768px) {
+            .emoji-picker {
+                bottom: 90px;
+                right: 30px;
+            }
+        }
+
         .emoji {
-            font-size: 1.5rem;
+            font-size: 24px;
             cursor: pointer;
             text-align: center;
             padding: 5px;
-            border-radius: 5px;
+            border-radius: 6px;
+            transition: background 0.2s;
         }
 
         .emoji:hover {
-            background: #f5f5f5;
-        }
-
-        .emoji-btn {
-            position: absolute;
-            bottom: 90px;
-            right: 20px;
-            background: #2ecc71;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
+            background: #3a3a3a;
         }
 
         /* Admin Panel */
         .admin-panel {
             position: fixed;
             top: 0;
-            right: -100%;
-            width: 100%;
+            right: -400px;
+            width: 350px;
             height: 100%;
-            background: white;
-            z-index: 2000;
+            background: #1a1a1a;
+            border-left: 1px solid #2a2a2a;
+            z-index: 1000;
             transition: right 0.3s ease;
             overflow-y: auto;
         }
@@ -375,12 +467,16 @@
         }
 
         .admin-header {
-            background: #2c3e50;
-            color: white;
             padding: 20px;
+            background: #2a2a2a;
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .admin-header h2 {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
+            font-size: 18px;
         }
 
         .admin-content {
@@ -392,75 +488,117 @@
         }
 
         .admin-section h3 {
-            color: #2c3e50;
+            color: #fff;
             margin-bottom: 15px;
+            font-size: 16px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #7289da;
+            border-bottom: 2px solid #5865f2;
         }
 
-        .admin-controls {
+        .admin-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #5865f2;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .admin-actions {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .control-btn {
+        .admin-action-btn {
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            color: #fff;
             padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            font-weight: 500;
         }
 
-        .control-btn.delete {
-            background: #e74c3c;
+        .admin-action-btn:hover {
+            background: #3a3a3a;
+            transform: translateX(5px);
+        }
+
+        .admin-action-btn.delete {
+            border-color: #ed4245;
+            color: #ed4245;
+        }
+
+        .admin-action-btn.delete:hover {
+            background: #ed4245;
             color: white;
         }
 
-        .control-btn.warning {
-            background: #f39c12;
-            color: white;
+        .admin-action-btn.warning {
+            border-color: #faa61a;
+            color: #faa61a;
         }
 
-        .control-btn.info {
-            background: #3498db;
-            color: white;
+        .admin-action-btn.warning:hover {
+            background: #faa61a;
+            color: black;
         }
 
         /* Login Modal */
-        .modal {
-            display: none;
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 3000;
+            background: rgba(0,0,0,0.8);
+            display: none;
             justify-content: center;
             align-items: center;
+            z-index: 2000;
         }
 
-        .modal.active {
+        .modal-overlay.active {
             display: flex;
         }
 
-        .modal-content {
-            background: white;
+        .modal {
+            background: #1a1a1a;
+            border-radius: 12px;
             padding: 30px;
-            border-radius: 15px;
             width: 90%;
             max-width: 400px;
+            border: 1px solid #2a2a2a;
         }
 
         .modal h2 {
-            color: #2c3e50;
             margin-bottom: 20px;
             text-align: center;
+            color: #fff;
         }
 
         .form-group {
@@ -470,141 +608,174 @@
         .form-group input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            background: #2a2a2a;
+            border: 2px solid #3a3a3a;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #5865f2;
         }
 
         .modal-actions {
             display: flex;
             gap: 10px;
+            margin-top: 30px;
         }
 
-        .modal-actions button {
+        .modal-btn {
             flex: 1;
             padding: 12px;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .btn-primary {
-            background: #7289da;
+        .modal-btn.primary {
+            background: #5865f2;
             color: white;
         }
 
-        .btn-secondary {
-            background: #95a5a6;
+        .modal-btn.primary:hover {
+            background: #4752c4;
+        }
+
+        .modal-btn.secondary {
+            background: #2a2a2a;
+            color: #b0b0b0;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #3a3a3a;
             color: white;
         }
 
-        /* Mobile Responsive Improvements */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .chat-container {
-                height: calc(100vh - 20px);
-                border-radius: 15px;
-            }
-            
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #43b581;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.error {
+            background: #ed4245;
+        }
+
+        .notification.warning {
+            background: #faa61a;
+            color: black;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 767px) {
             .header {
-                padding: 12px;
+                padding: 12px 15px;
             }
             
-            .logo {
-                font-size: 1rem;
+            .stats {
+                gap: 10px;
+            }
+            
+            .stat span {
+                display: none;
+            }
+            
+            .admin-btn span {
+                display: none;
             }
             
             .admin-btn {
-                padding: 6px 12px;
-                font-size: 0.8rem;
+                padding: 8px;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
             }
             
             .messages {
-                padding: 10px;
+                padding: 15px;
             }
             
             .message {
-                max-width: 90%;
-                padding: 8px 12px;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .message-avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
             }
             
             .input-area {
-                padding: 12px;
+                padding: 15px;
             }
             
-            #messageInput {
-                padding: 10px 12px;
-                font-size: 15px;
-            }
-            
-            .emoji-picker {
-                bottom: 70px;
-                right: 10px;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 8px;
-                padding: 10px;
-            }
-            
-            .emoji-btn {
-                bottom: 75px;
-                right: 15px;
-                width: 35px;
-                height: 35px;
+            .user-info {
+                padding: 12px 15px;
+                font-size: 13px;
             }
             
             .admin-panel {
                 width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-stats {
-                flex-direction: column;
-                gap: 5px;
-                align-items: flex-start;
+                right: -100%;
             }
             
             .emoji-picker {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+                padding: 12px;
             }
             
-            .admin-content {
-                padding: 15px;
-            }
-            
-            .control-btn {
-                padding: 10px;
-                font-size: 0.9rem;
+            .emoji {
+                font-size: 20px;
             }
         }
 
-        /* Scrollbar Styling */
-        .messages::-webkit-scrollbar {
-            width: 6px;
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .messages::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
         }
 
-        .messages::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 3px;
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 4px;
         }
 
-        .messages::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
         }
     </style>
 </head>
 <body>
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
     <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
             <h2><i class="fas fa-shield-alt"></i> Admin Login</h2>
             <div class="form-group">
                 <input type="text" id="adminUsername" placeholder="Username" autocomplete="off">
@@ -613,8 +784,53 @@
                 <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
             </div>
             <div class="modal-actions">
-                <button class="btn-secondary" id="cancelLogin">Cancel</button>
-                <button class="btn-primary" id="loginBtn">Login</button>
+                <button class="modal-btn secondary" id="cancelLogin">Cancel</button>
+                <button class="modal-btn primary" id="loginBtn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2><i class="fas fa-crown"></i> Admin Panel</h2>
+        </div>
+        <div class="admin-content">
+            <div class="admin-stats" id="adminStats">
+                <!-- Stats will be loaded here -->
+            </div>
+            
+            <div class="admin-section">
+                <h3>Message Controls</h3>
+                <div class="admin-actions">
+                    <button class="admin-action-btn" id="refreshBtn">
+                        <i class="fas fa-sync"></i> Refresh Messages
+                    </button>
+                    <button class="admin-action-btn delete" id="clearAllBtn">
+                        <i class="fas fa-trash"></i> Clear All Messages
+                    </button>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>User Management</h3>
+                <div class="admin-actions">
+                    <button class="admin-action-btn warning" id="warnUserBtn">
+                        <i class="fas fa-exclamation-triangle"></i> Warn User
+                    </button>
+                    <button class="admin-action-btn delete" id="banUserBtn">
+                        <i class="fas fa-ban"></i> Ban User
+                    </button>
+                </div>
+            </div>
+            
+            <div class="admin-section">
+                <h3>Account</h3>
+                <div class="admin-actions">
+                    <button class="admin-action-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout Admin
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -627,115 +843,80 @@
         <i class="far fa-smile"></i>
     </button>
 
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-header">
-            <h2><i class="fas fa-crown"></i> Admin Panel</h2>
-            <button id="closeAdminPanel">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="admin-content">
-            <div class="admin-section">
-                <h3>Message Controls</h3>
-                <div class="admin-controls">
-                    <button class="control-btn delete" id="clearAllBtn">
-                        <i class="fas fa-trash"></i> Clear All Messages
-                    </button>
-                    <button class="control-btn warning" id="refreshBtn">
-                        <i class="fas fa-sync"></i> Refresh Messages
-                    </button>
-                </div>
-            </div>
-            
-            <div class="admin-section">
-                <h3>Statistics</h3>
-                <div id="adminStats">
-                    <!-- Stats will be loaded here -->
-                </div>
-            </div>
-            
-            <div class="admin-section">
-                <h3>User Management</h3>
-                <div class="admin-controls">
-                    <button class="control-btn warning" id="warnUserBtn">
-                        <i class="fas fa-exclamation-triangle"></i> Warn User
-                    </button>
-                    <button class="control-btn delete" id="banUserBtn">
-                        <i class="fas fa-ban"></i> Ban User
-                    </button>
-                </div>
-            </div>
-            
-            <div class="admin-section">
-                <h3>Account</h3>
-                <div class="admin-controls">
-                    <button class="control-btn info" id="logoutBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout Admin
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Chat Container -->
-    <div class="chat-container">
+    <!-- Main Chat App -->
+    <div class="chat-app">
         <!-- Header -->
-        <div class="header">
-            <div class="header-top">
-                <div class="logo">
-                    <i class="fas fa-user-secret"></i>
-                    <span>Anonymous Chat</span>
-                </div>
-                <button class="admin-btn" id="adminAccessBtn">
-                    <i class="fas fa-shield-alt"></i> Admin
-                </button>
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-user-secret"></i>
+                <span>Anonymous Chat</span>
             </div>
-            <div class="header-stats">
+            
+            <div class="stats">
                 <div class="stat">
                     <span class="online-dot"></span>
-                    <span>Online: <span id="onlineCount">1</span></span>
+                    <span id="onlineCount">1</span> online
                 </div>
                 <div class="stat">
                     <i class="fas fa-comment"></i>
-                    <span>Messages: <span id="totalMessages">0</span></span>
+                    <span id="totalMessages">0</span> messages
                 </div>
+                <button class="admin-btn" id="adminAccessBtn">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Admin</span>
+                </button>
             </div>
-        </div>
+        </header>
 
-        <!-- Messages Area -->
-        <div class="chat-area">
-            <div class="messages" id="messagesContainer">
-                <!-- Messages will appear here -->
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="input-area">
-            <div class="input-wrapper">
-                <textarea 
-                    id="messageInput" 
-                    placeholder="Type your message..."
-                    maxlength="500"
-                    rows="1"
-                ></textarea>
-                <div class="char-count">
-                    <span id="charCount">0</span>/500
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar (Online Users) - Hidden on mobile -->
+            <aside class="sidebar">
+                <h3 class="sidebar-title">Online Users</h3>
+                <div id="onlineUsersList">
+                    <!-- Online users will appear here -->
                 </div>
-            </div>
-            <button class="send-btn" id="sendBtn">
-                <i class="fas fa-paper-plane"></i>
-            </button>
+            </aside>
+
+            <!-- Chat Area -->
+            <main class="chat-area">
+                <!-- Messages -->
+                <div class="messages" id="messagesContainer">
+                    <!-- Messages will appear here -->
+                </div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="messageInput" 
+                            placeholder="Type your message..."
+                            maxlength="500"
+                            rows="2"
+                        ></textarea>
+                        <div class="input-info">
+                            <span>Press Enter to send</span>
+                            <span class="char-count">
+                                <span id="charCount">0</span>/500
+                            </span>
+                        </div>
+                    </div>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </main>
         </div>
 
         <!-- User Info -->
         <div class="user-info">
-            <div>
+            <div class="user-id-display">
                 <i class="fas fa-user-ninja"></i>
-                <span class="user-id" id="userId">Anonymous#0000</span>
+                <span id="userId">Anonymous#0000</span>
             </div>
-            <button class="small-btn" id="copyIdBtn">
-                <i class="far fa-copy"></i> Copy
+            <button class="copy-id-btn" id="copyIdBtn">
+                <i class="far fa-copy"></i>
+                <span>Copy ID</span>
             </button>
         </div>
     </div>
@@ -751,7 +932,7 @@
         let isAdmin = localStorage.getItem('is_admin') === 'true';
         let onlineUsers = new Set();
         let lastMessageTime = 0;
-        const MESSAGE_COOLDOWN = 3000; // 3 seconds
+        const MESSAGE_COOLDOWN = 3000;
 
         // DOM Elements
         const messagesContainer = document.getElementById('messagesContainer');
@@ -767,15 +948,16 @@
         const emojiPicker = document.getElementById('emojiPicker');
         const emojiBtn = document.getElementById('emojiBtn');
         const copyIdBtn = document.getElementById('copyIdBtn');
+        const onlineUsersList = document.getElementById('onlineUsersList');
+        const adminStats = document.getElementById('adminStats');
+        const notification = document.getElementById('notification');
 
         // Admin elements
-        const closeAdminPanel = document.getElementById('closeAdminPanel');
-        const clearAllBtn = document.getElementById('clearAllBtn');
         const refreshBtn = document.getElementById('refreshBtn');
+        const clearAllBtn = document.getElementById('clearAllBtn');
         const warnUserBtn = document.getElementById('warnUserBtn');
         const banUserBtn = document.getElementById('banUserBtn');
         const logoutBtn = document.getElementById('logoutBtn');
-        const adminStats = document.getElementById('adminStats');
         const adminUsername = document.getElementById('adminUsername');
         const adminPassword = document.getElementById('adminPassword');
         const loginBtn = document.getElementById('loginBtn');
@@ -787,9 +969,9 @@
             password: 'm.asim12'
         };
 
-        // Generate user ID if not exists
+        // Generate user ID
         if (!userId) {
-            const randomId = Math.floor(10000 + Math.random() * 90000);
+            const randomId = Math.floor(1000 + Math.random() * 9000);
             userId = `Anonymous#${randomId}`;
             localStorage.setItem('anon_id', userId);
         }
@@ -802,24 +984,22 @@
         // Initialize app
         async function init() {
             await loadMessages();
+            loadEmojis();
             updateAdminUI();
             setupEventListeners();
             setupRealtimeSubscriptions();
-            loadEmojis();
+            updateOnlineUsersList();
         }
 
         // Load messages
         async function loadMessages() {
             try {
-                // Use active_messages view if exists, otherwise use messages table
-                let query = supabase
+                const { data, error } = await supabase
                     .from('messages')
                     .select('*')
                     .eq('deleted', false)
                     .order('created_at', { ascending: true })
                     .limit(100);
-
-                const { data, error } = await query;
 
                 if (error) throw error;
 
@@ -838,36 +1018,31 @@
             messageDiv.className = 'message';
             messageDiv.dataset.id = message.id;
             
-            if (message.deleted) {
-                messageDiv.classList.add('deleted');
-            }
-
             const isOwnMessage = message.user_id === userId;
-            if (isOwnMessage) {
-                messageDiv.classList.add('you');
-            } else {
-                messageDiv.classList.add('other');
-            }
+            const avatarLetter = message.user_id.charAt(0).toUpperCase();
 
             messageDiv.innerHTML = `
-                <div class="message-header">
-                    <span class="username ${isOwnMessage ? 'you' : ''}">
-                        ${isOwnMessage ? 'You' : message.user_id}
-                    </span>
-                    <span class="timestamp">${formatTime(message.created_at)}</span>
-                </div>
-                <div class="message-text">${message.content}</div>
-                <div class="message-actions">
-                    ${isOwnMessage || isAdmin ? `
-                        <button class="action-btn delete" onclick="deleteMessage(${message.id})" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    ` : ''}
-                    ${!isOwnMessage ? `
-                        <button class="action-btn report" onclick="reportMessage(${message.id})" title="Report">
-                            <i class="fas fa-flag"></i>
-                        </button>
-                    ` : ''}
+                <div class="message-avatar">${avatarLetter}</div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-username ${isOwnMessage ? 'message-you' : ''}">
+                            ${isOwnMessage ? 'You' : message.user_id}
+                        </span>
+                        <span class="message-time">${formatTime(message.created_at)}</span>
+                    </div>
+                    <div class="message-text">${message.content}</div>
+                    <div class="message-actions">
+                        ${!isOwnMessage && !isAdmin ? `
+                            <button class="action-btn report" onclick="reportMessage(${message.id})">
+                                <i class="fas fa-flag"></i> Report
+                            </button>
+                        ` : ''}
+                        ${isOwnMessage || isAdmin ? `
+                            <button class="action-btn delete" onclick="deleteMessage(${message.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        ` : ''}
+                    </div>
                 </div>
             `;
             
@@ -886,12 +1061,7 @@
 
             const now = Date.now();
             if (now - lastMessageTime < MESSAGE_COOLDOWN) {
-                showNotification(`Please wait ${MESSAGE_COOLDOWN/1000} seconds between messages`, 'warning');
-                return;
-            }
-
-            if (content.length > 500) {
-                showNotification('Message too long (max 500 characters)', 'warning');
+                showNotification('Please wait 3 seconds between messages', 'warning');
                 return;
             }
 
@@ -951,32 +1121,25 @@
 
         // Report message
         async function reportMessage(messageId) {
-            const reason = prompt('Please enter reason for reporting this message:');
+            const reason = prompt('Why are you reporting this message?');
             if (!reason) return;
 
             try {
-                // First check if message_reports table exists
                 const { error } = await supabase
                     .from('message_reports')
                     .insert([{
                         message_id: messageId,
                         reporter_id: userId,
                         reason: reason,
-                        status: 'pending',
                         created_at: new Date().toISOString()
                     }]);
 
-                if (error) {
-                    // If table doesn't exist, just show notification
-                    console.log('Reporting system not available');
-                    showNotification('Message reported to system');
-                    return;
-                }
+                if (error) throw error;
 
-                showNotification('Message reported successfully');
+                showNotification('Message reported');
             } catch (error) {
                 console.error('Error reporting message:', error);
-                showNotification('Message reported to system');
+                showNotification('Reported to system');
             }
         }
 
@@ -987,7 +1150,7 @@
                 return;
             }
 
-            if (!confirm('⚠️ DANGER: This will delete ALL messages! Continue?')) return;
+            if (!confirm('⚠️ This will delete ALL messages! Are you sure?')) return;
 
             try {
                 const { error } = await supabase
@@ -1009,89 +1172,91 @@
         async function warnUser() {
             if (!isAdmin) return;
             
-            const userId = prompt('Enter user ID to warn:');
-            if (!userId) return;
+            const userToWarn = prompt('Enter user ID to warn:');
+            if (!userToWarn) return;
 
-            showNotification(`User ${userId} has been warned`, 'info');
+            // Send warning as a system message
+            try {
+                await supabase
+                    .from('messages')
+                    .insert([{
+                        user_id: 'System',
+                        content: `⚠️ Warning: ${userToWarn} has been warned by admin.`,
+                        created_at: new Date().toISOString(),
+                        is_admin_message: true
+                    }]);
+
+                showNotification(`User ${userToWarn} has been warned`);
+            } catch (error) {
+                console.error('Error warning user:', error);
+                showNotification('Warning sent');
+            }
         }
 
         // Ban user (admin only)
         async function banUser() {
             if (!isAdmin) return;
             
-            const userId = prompt('Enter user ID to ban:');
-            if (!userId) return;
+            const userToBan = prompt('Enter user ID to ban:');
+            if (!userToBan) return;
+
+            const reason = prompt('Enter reason for ban:');
+            if (!reason) return;
 
             try {
-                // Check if banned_entities table exists
-                const { error } = await supabase
+                await supabase
                     .from('banned_entities')
                     .insert([{
-                        user_id: userId,
-                        reason: 'Manual ban by admin',
+                        user_id: userToBan,
+                        reason: reason,
                         banned_by: ADMIN_CREDENTIALS.username,
                         banned_at: new Date().toISOString()
                     }]);
 
-                if (error) {
-                    console.log('Ban system not available');
-                    showNotification(`User ${userId} banned from chat`);
-                    return;
-                }
-
-                showNotification(`User ${userId} has been banned`);
+                showNotification(`User ${userToBan} has been banned`);
             } catch (error) {
                 console.error('Error banning user:', error);
-                showNotification(`User ${userId} banned from chat`);
+                showNotification(`User ${userToBan} banned`);
             }
         }
 
-        // Load admin statistics
+        // Load admin stats
         async function loadAdminStats() {
             try {
-                let statsHTML = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">';
-                
-                // Get total messages
                 const { count: total } = await supabase
                     .from('messages')
                     .select('*', { count: 'exact', head: true });
 
-                // Get active messages
                 const { count: active } = await supabase
                     .from('messages')
                     .select('*', { count: 'exact', head: true })
                     .eq('deleted', false);
 
-                // Get admin messages
-                const { count: admin } = await supabase
+                const { count: adminMsgs } = await supabase
                     .from('messages')
                     .select('*', { count: 'exact', head: true })
                     .eq('is_admin_message', true);
 
-                statsHTML += `
-                    <div style="background: #ecf0f1; padding: 10px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 1.5rem; font-weight: bold; color: #2c3e50;">${total || 0}</div>
-                        <div style="font-size: 0.8rem; color: #7f8c8d;">Total Messages</div>
+                adminStats.innerHTML = `
+                    <div class="stat-box">
+                        <div class="stat-number">${total || 0}</div>
+                        <div class="stat-label">Total</div>
                     </div>
-                    <div style="background: #ecf0f1; padding: 10px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 1.5rem; font-weight: bold; color: #2c3e50;">${active || 0}</div>
-                        <div style="font-size: 0.8rem; color: #7f8c8d;">Active Messages</div>
+                    <div class="stat-box">
+                        <div class="stat-number">${active || 0}</div>
+                        <div class="stat-label">Active</div>
                     </div>
-                    <div style="background: #ecf0f1; padding: 10px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 1.5rem; font-weight: bold; color: #2c3e50;">${admin || 0}</div>
-                        <div style="font-size: 0.8rem; color: #7f8c8d;">Admin Messages</div>
+                    <div class="stat-box">
+                        <div class="stat-number">${adminMsgs || 0}</div>
+                        <div class="stat-label">Admin</div>
                     </div>
-                    <div style="background: #ecf0f1; padding: 10px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 1.5rem; font-weight: bold; color: #2c3e50;">${onlineUsers.size}</div>
-                        <div style="font-size: 0.8rem; color: #7f8c8d;">Online Users</div>
+                    <div class="stat-box">
+                        <div class="stat-number">${onlineUsers.size}</div>
+                        <div class="stat-label">Online</div>
                     </div>
                 `;
-
-                statsHTML += '</div>';
-                adminStats.innerHTML = statsHTML;
             } catch (error) {
                 console.error('Error loading stats:', error);
-                adminStats.innerHTML = '<p style="color: #7f8c8d; text-align: center;">Unable to load statistics</p>';
             }
         }
 
@@ -1100,14 +1265,25 @@
             onlineCount.textContent = onlineUsers.size;
         }
 
+        // Update online users list
+        function updateOnlineUsersList() {
+            onlineUsersList.innerHTML = '';
+            onlineUsers.forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                userDiv.innerHTML = `
+                    <div class="user-avatar">${user.charAt(0).toUpperCase()}</div>
+                    <div class="user-name">${user}</div>
+                `;
+                onlineUsersList.appendChild(userDiv);
+            });
+        }
+
         // Update admin UI
         function updateAdminUI() {
             if (isAdmin) {
-                adminAccessBtn.innerHTML = '<i class="fas fa-crown"></i> Admin';
-                adminAccessBtn.style.background = '#27ae60';
-            } else {
-                adminAccessBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Admin';
-                adminAccessBtn.style.background = '#f39c12';
+                adminAccessBtn.innerHTML = '<i class="fas fa-crown"></i><span>Admin</span>';
+                adminAccessBtn.style.background = '#43b581';
             }
         }
 
@@ -1119,6 +1295,8 @@
                 loginModal.classList.remove('active');
                 updateAdminUI();
                 showNotification('Admin login successful!');
+                adminUsername.value = '';
+                adminPassword.value = '';
             } else {
                 showNotification('Invalid credentials', 'error');
             }
@@ -1135,26 +1313,37 @@
 
         // Load emojis
         function loadEmojis() {
-            const emojis = ['😀', '😂', '🥰', '😎', '🤔', '😴', '🤯', '🥳', '😢', '😡', '🤢', '👻', '💀', '🤖', '👋', '👍', '👏', '🙏', '💯', '🔥', '✨', '💩', '❤️', '💔', '👀', '🎉', '📚', '💻', '🎮', '🎵'];
+            const emojis = ['😀', '😂', '🥰', '😎', '🤔', '😴', '🤯', '🥳', '😢', '😡', '❤️', '💔', '🔥', '✨', '👍', '👏', '🙏', '🎉', '💻', '🎮', '📚', '💯', '👀', '🤝', '🚀', '🎯', '💪', '🧠', '🌟', '⚡'];
             
             emojiPicker.innerHTML = emojis.map(emoji => `
-                <span class="emoji" onclick="insertEmoji('${emoji}')">${emoji}</span>
+                <div class="emoji" onclick="insertEmoji('${emoji}')">${emoji}</div>
             `).join('');
         }
 
         // Insert emoji
         function insertEmoji(emoji) {
             const input = messageInput;
-            const cursorPos = input.selectionStart;
-            const textBefore = input.value.substring(0, cursorPos);
-            const textAfter = input.value.substring(cursorPos);
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const text = input.value;
             
-            input.value = textBefore + emoji + textAfter;
+            input.value = text.substring(0, start) + emoji + text.substring(end);
             input.focus();
-            input.selectionStart = input.selectionEnd = cursorPos + emoji.length;
+            input.selectionStart = input.selectionEnd = start + emoji.length;
             
             emojiPicker.classList.remove('active');
             charCount.textContent = input.value.length;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
 
         // Setup event listeners
@@ -1177,7 +1366,7 @@
             // Auto-resize textarea
             messageInput.addEventListener('input', function() {
                 this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
+                this.style.height = Math.min(this.scrollHeight, 150) + 'px';
             });
 
             // Admin access
@@ -1191,14 +1380,18 @@
                 }
             });
 
-            // Close admin panel
-            closeAdminPanel.addEventListener('click', () => {
-                adminPanel.classList.remove('active');
+            // Close admin panel on outside click
+            document.addEventListener('click', (e) => {
+                if (adminPanel.classList.contains('active') && 
+                    !adminPanel.contains(e.target) && 
+                    !adminAccessBtn.contains(e.target)) {
+                    adminPanel.classList.remove('active');
+                }
             });
 
             // Admin controls
-            clearAllBtn.addEventListener('click', clearAllMessages);
             refreshBtn.addEventListener('click', loadMessages);
+            clearAllBtn.addEventListener('click', clearAllMessages);
             warnUserBtn.addEventListener('click', warnUser);
             banUserBtn.addEventListener('click', banUser);
             logoutBtn.addEventListener('click', adminLogout);
@@ -1217,7 +1410,7 @@
             // Copy user ID
             copyIdBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(userId);
-                showNotification('User ID copied to clipboard!');
+                showNotification('User ID copied!');
             });
 
             // Emoji picker
@@ -1232,7 +1425,7 @@
                 }
             });
 
-            // Close modals on escape
+            // Close on escape
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     loginModal.classList.remove('active');
@@ -1244,7 +1437,7 @@
 
         // Setup realtime subscriptions
         function setupRealtimeSubscriptions() {
-            // Messages subscription
+            // Messages
             supabase
                 .channel('messages')
                 .on('postgres_changes', 
@@ -1262,8 +1455,8 @@
                         if (payload.new.deleted) {
                             const messageDiv = document.querySelector(`[data-id="${payload.new.id}"]`);
                             if (messageDiv) {
-                                messageDiv.classList.add('deleted');
-                                messageDiv.querySelector('.message-text').textContent = '[Message deleted]';
+                                messageDiv.style.opacity = '0.5';
+                                messageDiv.querySelector('.message-text').textContent = '[Deleted]';
                             }
                         }
                     }
@@ -1277,51 +1470,12 @@
             return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
-        function showNotification(message, type = 'success') {
-            // Create notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'error' ? '#e74c3c' : type === 'warning' ? '#f39c12' : '#2ecc71'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 25px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 1000;
-                animation: slideUp 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideDown 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Add CSS animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideUp {
-                from { transform: translateX(-50%) translateY(100%); opacity: 0; }
-                to { transform: translateX(-50%) translateY(0); opacity: 1; }
-            }
-            @keyframes slideDown {
-                from { transform: translateX(-50%) translateY(0); opacity: 1; }
-                to { transform: translateX(-50%) translateY(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Make functions global for onclick handlers
+        // Make functions global
         window.deleteMessage = deleteMessage;
         window.reportMessage = reportMessage;
         window.insertEmoji = insertEmoji;
 
-        // Initialize app
+        // Initialize
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
