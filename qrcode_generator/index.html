@@ -15,133 +15,69 @@
             font-family: Arial, sans-serif;
             background: #111;
             color: #fff;
-            padding: 0 10px; /* Add padding to prevent touching edges */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* NAVBAR - FIXED FOR MOBILE */
+        /* NAVBAR - PC LAYOUT KEPT AS ORIGINAL */
         header {
-            padding: 20px 0;
+            padding: 20px 60px;
             display: flex;
-            flex-direction: column; /* Stack logo and nav on mobile */
+            justify-content: space-between;
             align-items: center;
-            gap: 20px; /* Space between logo and nav */
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            header {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 20px 40px;
-            }
         }
 
         header .logo {
             font-size: 24px;
             font-weight: bold;
-            white-space: nowrap;
         }
 
         header .logo span {
             color: #3b82f6;
         }
 
-        /* NAVIGATION - FIXED HORIZONTAL LAYOUT */
-        nav {
-            display: flex;
-            flex-wrap: nowrap; /* Prevent wrapping on mobile */
-            gap: 15px;
-            overflow-x: auto; /* Allow horizontal scrolling if needed */
-            padding: 10px 0;
-            justify-content: center;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            nav {
-                gap: 25px;
-                overflow-x: visible;
-                justify-content: flex-end;
-                width: auto;
-            }
-        }
-
         nav a {
+            margin-left: 25px;
             text-decoration: none;
             color: #9ca3af;
-            font-size: 15px;
-            padding: 8px 12px;
-            white-space: nowrap;
-            flex-shrink: 0; /* Prevent shrinking on mobile */
-        }
-
-        @media (min-width: 768px) {
-            nav a {
-                font-size: 16px;
-                padding: 5px 0;
-                margin-left: 25px;
-            }
+            font-size: 16px;
         }
 
         nav a:hover {
             color: white;
         }
 
-        /* MAIN CONTENT - FIXED BOUNDARIES */
+        /* MAIN CONTENT - PC LAYOUT KEPT AS ORIGINAL */
         .container {
             max-width: 380px;
-            width: calc(100% - 40px); /* Prevent touching edges */
-            margin: 30px auto 70px; /* Adjusted margins */
-            padding: 30px 25px;
+            margin: 70px auto;
+            padding: 20px;
             text-align: center;
             background: #181818;
             border-radius: 12px;
             border: 1px solid #222;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: calc(100% - 30px); /* Slightly narrower on mobile */
-                padding: 25px 20px;
-                margin: 20px auto 60px;
-            }
         }
 
         input {
-            width: 100%;
-            padding: 14px;
+            width: 90%;
+            padding: 10px;
             border-radius: 8px;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
             background: #222;
             color: white;
-            margin-top: 15px;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 480px) {
-            input {
-                padding: 12px;
-                font-size: 15px;
-            }
+            margin-top: 10px;
         }
 
         button {
-            width: 100%;
-            padding: 14px;
+            width: 90%;
+            padding: 10px;
             background: #3b82f6;
             border: none;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 15px;
             color: white;
             font-size: 16px;
             cursor: pointer;
-            box-sizing: border-box;
         }
 
         button:hover {
@@ -149,40 +85,96 @@
         }
 
         #qrcode {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
+            margin-top: 25px;
         }
 
-        /* FOOTER - FIXED SEPARATION */
+        /* FOOTER - PC LAYOUT KEPT AS ORIGINAL */
         footer {
             text-align: center;
-            margin-top: auto; /* Push to bottom */
-            padding: 30px 20px;
+            margin-top: 80px;
+            padding: 30px 0;
             color: #9ca3af;
             font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
         }
 
         /* SEPARATOR LINE - DOESN'T JOIN BOUNDARIES */
         .separator {
             height: 1px;
             background: #2d2d2d;
-            width: calc(100% - 40px); /* Doesn't touch edges */
+            width: 80%;
             margin: 0 auto 30px auto;
             max-width: 600px;
         }
 
+        /* MOBILE FIXES ONLY */
         @media (max-width: 768px) {
+            /* Fix navigation links stacking */
+            header {
+                padding: 20px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            nav {
+                width: 100%;
+                order: 3;
+                margin-top: 15px;
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            nav a {
+                margin-left: 0;
+                font-size: 14px;
+                padding: 5px;
+                flex: 1;
+                text-align: center;
+            }
+            
+            /* Fix container touching edges */
+            .container {
+                width: calc(100% - 40px);
+                margin: 40px auto;
+                padding: 25px 20px;
+            }
+            
+            input, button {
+                width: 95%;
+            }
+            
+            /* Fix footer line */
             .separator {
-                width: calc(100% - 30px);
+                width: calc(100% - 40px);
             }
         }
 
         @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            nav a {
+                flex: none;
+                min-width: 80px;
+                font-size: 13px;
+                padding: 8px 5px;
+            }
+            
+            .container {
+                width: calc(100% - 30px);
+                margin: 30px auto;
+                padding: 20px 15px;
+            }
+            
             .separator {
-                width: calc(100% - 20px);
+                width: calc(100% - 30px);
             }
         }
     </style>
