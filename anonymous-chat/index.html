@@ -15,20 +15,20 @@
             <span class="logo">Robby.</span>
         </div>
         <div class="nav-links">
-            <a href="#home" class="nav-link">Home</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="https://fwrobby.site" class="nav-link">Home</a>
+            <a href="https://fwrobby.site/about" class="nav-link">About</a>
+            <a href="https://fwrobby.site/contact" class="nav-link">Contact</a>
             <span class="theme-toggle" onclick="toggleTheme()">
                 <i class="fas fa-moon"></i> Theme
             </span>
-            <a href="#donate" class="nav-link donate">Donate</a>
+            <a href="https://fwrobby.site/donate" class="nav-link donate">Donate</a>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="container">
         <!-- Hero Section -->
-        <section class="hero" id="home">
+        <section class="hero">
             <h1>Robby's Portfolio</h1>
             <p class="subtitle">Creating digital experiences that make a difference.</p>
         </section>
@@ -36,64 +36,111 @@
         <!-- Chat System -->
         <section class="chat-section">
             <div class="chat-container">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <div class="user-info">
-                        <span class="user-name" id="userDisplayName">Guest</span>
-                        <span class="badge" id="userRoleBadge" style="display: none;">User</span>
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <i class="fas fa-comments"></i>
+                        <h3>Live Chat</h3>
                     </div>
-                    
-                    <div class="chat-controls">
-                        <button onclick="toggleAuthModal()" class="btn btn-primary" id="authBtn">Login</button>
-                        <button onclick="showAdminPanel()" class="btn btn-warning" id="adminBtn" style="display: none;">Admin Panel</button>
-                        <button onclick="clearChat()" class="btn btn-secondary" id="clearBtn" style="display: none;">Clear My Messages</button>
-                    </div>
-                    
-                    <div class="online-users">
-                        <h4>Online Users</h4>
-                        <div id="onlineUsersList"></div>
+                    <div class="chat-stats">
+                        <span id="onlineCount">0 online</span>
+                        <span id="messageCount">0 messages</span>
                     </div>
                 </div>
 
-                <!-- Chat Messages -->
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message-loading">
-                        <div class="spinner"></div>
-                        Loading messages...
-                    </div>
-                </div>
+                <!-- Chat Main Area -->
+                <div class="chat-main">
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <div class="user-card">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-details">
+                                <span class="user-name" id="userDisplayName">Guest</span>
+                                <span class="user-status" id="userStatus">Offline</span>
+                            </div>
+                        </div>
 
-                <!-- Message Input -->
-                <div class="message-input">
-                    <div class="input-group">
-                        <input type="text" id="messageInput" placeholder="Type your message..." disabled>
-                        <div class="input-group-append">
-                            <button id="sendBtn" class="btn btn-send" disabled>
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
+                        <div class="sidebar-section">
+                            <h4><i class="fas fa-users"></i> Online Users</h4>
+                            <div class="online-list" id="onlineUsersList">
+                                <!-- Online users will appear here -->
+                            </div>
+                        </div>
+
+                        <div class="sidebar-section">
+                            <h4><i class="fas fa-cog"></i> Controls</h4>
+                            <div class="controls-grid">
+                                <button onclick="toggleAuthModal()" class="btn btn-primary" id="authBtn">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </button>
+                                <button onclick="showAdminPanel()" class="btn btn-warning" id="adminBtn" style="display: none;">
+                                    <i class="fas fa-shield-alt"></i> Admin
+                                </button>
+                                <button onclick="clearChat()" class="btn btn-secondary" id="clearBtn" style="display: none;">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-section">
+                            <h4><i class="fas fa-bolt"></i> Quick Actions</h4>
+                            <div class="quick-actions">
+                                <button class="quick-btn" onclick="addEmoji('😊')">😊</button>
+                                <button class="quick-btn" onclick="addEmoji('👍')">👍</button>
+                                <button class="quick-btn" onclick="addEmoji('❤️')">❤️</button>
+                                <button class="quick-btn" onclick="mentionAdmin()" id="mentionBtn" disabled>
+                                    <i class="fas fa-at"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-actions">
-                        <button class="icon-btn" onclick="addEmoji('😊')">😊</button>
-                        <button class="icon-btn" onclick="addEmoji('👍')">👍</button>
-                        <button class="icon-btn" onclick="addEmoji('❤️')">❤️</button>
-                        <button class="icon-btn" onclick="triggerImageUpload()">
-                            <i class="fas fa-image"></i>
-                        </button>
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                        <button class="icon-btn" onclick="mentionAdmin()" id="mentionBtn" disabled>
-                            <i class="fas fa-at"></i> Admin
-                        </button>
-                        <button class="icon-btn" onclick="loadHistory()" id="historyBtn" disabled>
-                            <i class="fas fa-history"></i>
-                        </button>
+
+                    <!-- Chat Messages Area -->
+                    <div class="chat-area">
+                        <!-- Messages Container -->
+                        <div class="messages-container" id="chatMessages">
+                            <div class="welcome-message">
+                                <i class="fas fa-comments"></i>
+                                <h4>Welcome to the Chat!</h4>
+                                <p>Login to start chatting with others</p>
+                            </div>
+                        </div>
+
+                        <!-- Message Input -->
+                        <div class="message-input-container">
+                            <div class="input-wrapper">
+                                <input 
+                                    type="text" 
+                                    id="messageInput" 
+                                    placeholder="Type your message here..." 
+                                    disabled
+                                >
+                                <div class="input-tools">
+                                    <button class="tool-btn" onclick="triggerImageUpload()" title="Upload Image">
+                                        <i class="fas fa-image"></i>
+                                    </button>
+                                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                                    <button class="tool-btn" onclick="toggleEmojiPicker()" title="Emoji">
+                                        <i class="fas fa-smile"></i>
+                                    </button>
+                                    <button class="tool-btn" onclick="loadHistory()" id="historyBtn" disabled title="History">
+                                        <i class="fas fa-history"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button id="sendBtn" class="btn btn-send" disabled>
+                                <i class="fas fa-paper-plane"></i> Send
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section class="projects-section" id="projects">
+        <section class="projects-section">
             <h2>Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
@@ -114,19 +161,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- About & Contact -->
-        <section class="info-sections">
-            <div class="info-card" id="about">
-                <h3>About</h3>
-                <p>Full-stack developer creating impactful digital solutions with modern technologies.</p>
-            </div>
-            <div class="info-card" id="contact">
-                <h3>Contact</h3>
-                <p>Email: contact@robby.com</p>
-                <p>GitHub: @fwrobby</p>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -136,69 +170,128 @@
 
     <!-- Auth Modal -->
     <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="toggleAuthModal()">&times;</span>
-            <div class="auth-tabs">
-                <button class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
-                <button class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h3>Account</h3>
+                <span class="close-btn" onclick="toggleAuthModal()">&times;</span>
             </div>
-            
-            <form id="loginForm" class="auth-form">
-                <h3>Login</h3>
-                <input type="email" id="loginEmail" placeholder="Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit" class="btn btn-primary">Login</button>
-                <div class="auth-note">
-                    <p>DELETED</p>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
+                    <button class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
                 </div>
-            </form>
-            
-            <form id="signupForm" class="auth-form" style="display: none;">
-                <h3>Sign Up</h3>
-                <input type="text" id="signupUsername" placeholder="Username" required>
-                <input type="email" id="signupEmail" placeholder="Email" required>
-                <input type="password" id="signupPassword" placeholder="Password" required>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
-            </form>
+                
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="admin@robby.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <div class="auth-note">
+                        <p><strong>Admin:</strong> fwrobby / m.asim12</p>
+                    </div>
+                </form>
+                
+                <form id="signupForm" class="auth-form" style="display: none;">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="signupUsername" placeholder="Choose username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signupPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Admin Modal -->
     <div id="adminModal" class="modal">
         <div class="modal-content admin-modal">
-            <span class="close-btn" onclick="closeAdminModal()">&times;</span>
-            <h3>Admin Panel</h3>
-            
-            <div class="admin-tabs">
-                <button class="tab-btn active" onclick="showAdminTab('reported')">Reported Messages</button>
-                <button class="tab-btn" onclick="showAdminTab('users')">User Management</button>
-                <button class="tab-btn" onclick="showAdminTab('analytics')">Analytics</button>
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Admin Panel</h3>
+                <span class="close-btn" onclick="closeAdminModal()">&times;</span>
             </div>
-            
-            <div id="reportedTab" class="admin-tab">
-                <h4>Reported Messages</h4>
-                <div id="reportedMessages"></div>
-            </div>
-            
-            <div id="usersTab" class="admin-tab" style="display: none;">
-                <h4>User Management</h4>
-                <div id="userList"></div>
-            </div>
-            
-            <div id="analyticsTab" class="admin-tab" style="display: none;">
-                <h4>Analytics</h4>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <h5>Total Messages</h5>
-                        <p id="totalMessages">0</p>
+            <div class="modal-body">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="showAdminTab('reported')">
+                        <i class="fas fa-flag"></i> Reported
+                    </button>
+                    <button class="tab-btn" onclick="showAdminTab('users')">
+                        <i class="fas fa-users"></i> Users
+                    </button>
+                    <button class="tab-btn" onclick="showAdminTab('analytics')">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </button>
+                </div>
+                
+                <div id="reportedTab" class="admin-tab">
+                    <div class="tab-header">
+                        <h4>Reported Messages</h4>
+                        <button onclick="loadReportedMessages()" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
                     </div>
-                    <div class="stat-card">
-                        <h5>Total Users</h5>
-                        <p id="totalUsers">0</p>
+                    <div id="reportedMessages" class="reported-list">
+                        <!-- Reported messages will appear here -->
                     </div>
-                    <div class="stat-card">
-                        <h5>Reported Today</h5>
-                        <p id="reportedToday">0</p>
+                </div>
+                
+                <div id="usersTab" class="admin-tab" style="display: none;">
+                    <div class="tab-header">
+                        <h4>User Management</h4>
+                        <button onclick="loadUsers()" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                    <div id="userList" class="user-list">
+                        <!-- Users will appear here -->
+                    </div>
+                </div>
+                
+                <div id="analyticsTab" class="admin-tab" style="display: none;">
+                    <div class="analytics-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h5>Total Messages</h5>
+                                <p id="totalMessages">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h5>Total Users</h5>
+                                <p id="totalUsers">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h5>Reports Today</h5>
+                                <p id="reportedToday">0</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,12 +300,38 @@
 
     <!-- Report Modal -->
     <div id="reportModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeReportModal()">&times;</span>
-            <h3>Report Message</h3>
-            <p id="reportMessageText"></p>
-            <textarea id="reportReason" placeholder="Reason for reporting..." rows="3"></textarea>
-            <button onclick="submitReport()" class="btn btn-danger">Submit Report</button>
+        <div class="modal-content report-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-flag"></i> Report Message</h3>
+                <span class="close-btn" onclick="closeReportModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="report-preview" id="reportMessageText"></p>
+                <div class="form-group">
+                    <label>Reason for reporting</label>
+                    <textarea id="reportReason" placeholder="Please explain why you're reporting this message..." rows="4"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeReportModal()" class="btn btn-secondary">Cancel</button>
+                    <button onclick="submitReport()" class="btn btn-danger">
+                        <i class="fas fa-flag"></i> Submit Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emoji Picker -->
+    <div id="emojiPicker" class="emoji-picker">
+        <div class="emoji-grid">
+            <button class="emoji-btn" onclick="addEmoji('😊')">😊</button>
+            <button class="emoji-btn" onclick="addEmoji('😂')">😂</button>
+            <button class="emoji-btn" onclick="addEmoji('😍')">😍</button>
+            <button class="emoji-btn" onclick="addEmoji('👍')">👍</button>
+            <button class="emoji-btn" onclick="addEmoji('❤️')">❤️</button>
+            <button class="emoji-btn" onclick="addEmoji('🔥')">🔥</button>
+            <button class="emoji-btn" onclick="addEmoji('🎉')">🎉</button>
+            <button class="emoji-btn" onclick="addEmoji('🙏')">🙏</button>
         </div>
     </div>
 
