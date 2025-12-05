@@ -13,12 +13,12 @@
         :root {
             --primary: #3b82f6;
             --primary-dark: #2563eb;
-            --background: #f5f5f5;
-            --surface: #ffffff;
-            --surface-light: #f8f9fa;
-            --text: #1a1a1a;
-            --text-secondary: #666666;
-            --border: #e0e0e0;
+            --background: #1a1a1a;
+            --surface: #2a2a2a;
+            --surface-light: #333333;
+            --text: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --border: #404040;
         }
 
         * {
@@ -101,7 +101,7 @@
             padding: 2.5rem;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
         }
 
         .card-title {
@@ -326,8 +326,8 @@
                     width: 200,
                     margin: 1,
                     color: {
-                        dark: "#1a1a1a",  // Changed to dark for light theme
-                        light: "#ffffff"   // Changed to white for light theme
+                        dark: "#f5f5f5",
+                        light: "#2a2a2a"
                     }
                 },
                 function (err, canvas) {
