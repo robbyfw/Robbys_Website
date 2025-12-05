@@ -3,25 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Robby's Website - Connect, Chat, Explore</title>
+  <title>Secure Anonymous Chat | Robby's Website</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <!-- Admin Login Modal -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Admin Login</h2>
+      <div class="form-group">
+        <input type="text" id="adminUsername" placeholder="Username" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
+      </div>
+      <button id="loginBtn">Login</button>
+      <p id="loginError" class="error-message"></p>
+    </div>
+  </div>
+
+  <!-- Main Chat App -->
   <div class="chat-app">
-    <!-- Header -->
+    <!-- Header with Admin Button -->
     <div class="chat-header">
-      <h2>Anonymous Chat - Talk with other people online without revealing your IP or personal information</h2>
+      <div class="header-left">
+        <h2><i class="fas fa-user-secret"></i> Secure Anonymous Chat</h2>
+        <p class="online-count">Online: <span id="onlineCount">0</span></p>
+      </div>
+      <div class="header-right">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button id="adminBtn" class="icon-btn admin-btn" title="Admin Panel">
+          <i class="fas fa-shield-alt"></i>
+        </button>
+        <button id="settingsBtn" class="icon-btn" title="Settings">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="adminPanel" class="admin-panel hidden">
+      <h3><i class="fas fa-crown"></i> Admin Panel</h3>
+      <div class="admin-controls">
+        <button id="refreshBtn" class="admin-control-btn">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        <button id="clearAllBtn" class="admin-control-btn danger">
+          <i class="fas fa-trash"></i> Clear All Messages
+        </button>
+        <button id="exportBtn" class="admin-control-btn">
+          <i class="fas fa-download"></i> Export Chat
+        </button>
+        <button id="logoutBtn" class="admin-control-btn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+      <div class="message-list">
+        <h4>Recent Messages <span id="messageCount">0</span></h4>
+        <div id="adminMessages"></div>
+      </div>
     </div>
 
     <!-- Messages area -->
-    <div class="chat-messages" id="messages"></div>
+    <div class="chat-messages" id="messages">
+      <div class="welcome-message">
+        <i class="fas fa-user-secret"></i>
+        <h3>Welcome to Secure Anonymous Chat</h3>
+        <p>Your identity is protected. Chat freely without revealing personal information.</p>
+        <p class="guidelines">
+          <i class="fas fa-info-circle"></i> Guidelines: Be respectful, no spam, no personal info
+        </p>
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div id="typingIndicator" class="typing-indicator hidden">
+      <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span id="typingUsers"></span>
+    </div>
 
     <!-- Input area -->
-    <div class="chat-input">
-      <input type="text" id="messageInput" placeholder="Message #anonymous" maxlength="200">
-      <button id="sendBtn">Send</button>
+    <div class="chat-input-container">
+      <div class="input-tools">
+        <button id="emojiBtn" class="tool-btn" title="Emoji">
+          <i class="far fa-smile"></i>
+        </button>
+        <button id="formatBtn" class="tool-btn" title="Format">
+          <i class="fas fa-bold"></i>
+        </button>
+        <button id="attachmentBtn" class="tool-btn" title="Attachment">
+          <i class="fas fa-paperclip"></i>
+        </button>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your anonymous message..." maxlength="500">
+        <div class="char-count">
+          <span id="charCount">0</span>/500
+        </div>
+        <button id="sendBtn" class="send-btn">
+          <i class="fas fa-paper-plane"></i> Send
+        </button>
+      </div>
+    </div>
+
+    <!-- User Info -->
+    <div class="user-info">
+      <span><i class="fas fa-user-ninja"></i> Your ID: <span id="userDisplay">Anonymous#0000</span></span>
+      <button id="copyIdBtn" class="small-btn">
+        <i class="far fa-copy"></i> Copy
+      </button>
+      <button id="newIdBtn" class="small-btn">
+        <i class="fas fa-redo"></i> New ID
+      </button>
+    </div>
+  </div>
+
+  <!-- Emoji Picker Modal -->
+  <div id="emojiModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>Select Emoji</h3>
+      <div class="emoji-grid" id="emojiGrid">
+        <!-- Emojis will be loaded here -->
+      </div>
     </div>
   </div>
 
