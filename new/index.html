@@ -39,7 +39,7 @@
 
     /* MAIN CONTENT */
     .container {
-        max-width: 500px;
+        max-width: 380px;
         margin: 70px auto;
         padding: 20px;
         text-align: center;
@@ -48,23 +48,25 @@
         border: 1px solid #222;
     }
     input {
-        width: 100%;
-        padding: 12px;
+        width: 90%;
+        padding: 10px;
         border-radius: 8px;
         border: none;
-        margin-top: 10px;
-        font-size: 16px;
+        font-size: 15px;
         outline: none;
+        background: #222;
+        color: white;
+        margin-top: 10px;
     }
     button {
-        width: 100%;
-        padding: 12px;
+        width: 90%;
+        padding: 10px;
         background: #3b82f6;
         border: none;
         border-radius: 8px;
         margin-top: 15px;
         color: white;
-        font-size: 17px;
+        font-size: 16px;
         cursor: pointer;
     }
     button:hover {
@@ -92,11 +94,11 @@
 <header>
     <div class="logo">Robby<span>.</span></div>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Theme</a>
-        <a href="#">Donate</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="theme.html">Theme</a>
+        <a href="donate.html">Donate</a>
     </nav>
 </header>
 
@@ -117,13 +119,13 @@
     © 2025 Muhammad Asim (Robby). All rights reserved.
 </footer>
 
-<!-- QR CODE LIBRARY -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- FIXED QR CODE LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <script>
     function generateQR() {
         let container = document.getElementById("qrcode");
-        container.innerHTML = ""; 
+        container.innerHTML = "";
         let text = document.getElementById("text").value;
 
         if (text.trim() === "") {
@@ -131,12 +133,9 @@
             return;
         }
 
-        new QRCode(container, {
-            text: text,
-            width: 200,
-            height: 200,
-            colorDark: "#ffffff",
-            colorLight: "#111111"
+        QRCode.toCanvas(text, { width: 200, margin: 2, color: { dark: "#fff", light: "#111" } }, function (err, canvas) {
+            if (err) console.error(err);
+            container.appendChild(canvas);
         });
     }
 </script>
