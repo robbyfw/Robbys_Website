@@ -396,13 +396,14 @@
             list-style: none;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease;
-            margin-top: 0;
+            transition: max-height 0.5s ease, margin-top 0.3s ease;
+            opacity: 0;
         }
 
         .command-category.active .command-list {
             max-height: 500px;
             margin-top: 25px;
+            opacity: 1;
         }
 
         .command-item {
@@ -691,7 +692,6 @@
                         <li><a href="#features">Features</a></li>
                         <li><a href="#commands">Commands</a></li>
                         <li><a href="#stats">Stats</a></li>
-                        <li><a href="#invite">Invite</a></li>
                     </ul>
                 </nav>
             </div>
@@ -807,7 +807,7 @@
             </div>
             
             <div class="commands-container">
-                <div class="command-category">
+                <div class="command-category" id="category-bot-config">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-cogs"></i>
@@ -837,7 +837,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category">
+                <div class="command-category" id="category-ai-features">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-robot"></i>
@@ -867,7 +867,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category">
+                <div class="command-category" id="category-server-management">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-wrench"></i>
@@ -897,7 +897,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category">
+                <div class="command-category" id="category-fun-entertainment">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-gamepad"></i>
@@ -927,7 +927,7 @@
                     </ul>
                 </div>
 
-                <div class="command-category">
+                <div class="command-category" id="category-utility">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-tools"></i>
@@ -957,7 +957,7 @@
                     </ul>
                 </div>
 
-                <div class="command-category">
+                <div class="command-category" id="category-moderation">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-shield-alt"></i>
@@ -1034,21 +1034,6 @@
         </div>
     </section>
 
-    <!-- Invite Section - FIXED: Removed the extra content -->
-    <section id="invite">
-        <div class="container">
-            <div class="section-title">
-                <h2>Invite HumanGPT</h2>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
-                    <i class="fab fa-discord"></i> Add HumanGPT to Your Server
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1073,7 +1058,7 @@
                         <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
                         <li><a href="#commands"><i class="fas fa-chevron-right"></i> Commands</a></li>
-                        <li><a href="#invite"><i class="fas fa-chevron-right"></i> Invite Bot</a></li>
+                        <li><a href="#stats"><i class="fas fa-chevron-right"></i> Statistics</a></li>
                     </ul>
                 </div>
             </div>
@@ -1082,7 +1067,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // FIXED: Command categories now work independently
+            // FIXED: Command categories now work completely independently
             const categoryHeaders = document.querySelectorAll('.category-header');
             
             categoryHeaders.forEach(header => {
@@ -1090,50 +1075,57 @@
                     // Toggle only the clicked category
                     const category = this.closest('.command-category');
                     
-                    // Check if it's already active
-                    const isActive = category.classList.contains('active');
+                    // Just toggle this specific category - NO other categories are affected
+                    category.classList.toggle('active');
                     
-                    // Just toggle this specific category - no other categories are affected
-                    if (isActive) {
-                        category.classList.remove('active');
-                    } else {
-                        category.classList.add('active');
-                    }
+                    // Stop event from bubbling up (this prevents affecting other categories)
+                    e.stopPropagation();
                 });
             });
             
-            // Command search functionality
+            // FIXED: Command search functionality - working properly
             const commandSearch = document.getElementById('commandSearch');
             if (commandSearch) {
                 commandSearch.addEventListener('input', function() {
                     const searchTerm = this.value.toLowerCase();
                     const commandItems = document.querySelectorAll('.command-item');
                     
-                    // If search is empty, hide all items and close all categories
-                    if (searchTerm === '') {
-                        commandItems.forEach(item => {
-                            item.style.display = 'none';
-                        });
-                        document.querySelectorAll('.command-category').forEach(category => {
-                            category.classList.remove('active');
-                        });
-                        return;
-                    }
+                    // Track which categories have visible items
+                    const categoriesWithResults = new Set();
                     
-                    // Show matching items and open their categories
+                    // First, hide all command items
                     commandItems.forEach(item => {
                         const commandName = item.querySelector('.command-name').textContent.toLowerCase();
                         const commandDesc = item.querySelector('.command-desc').textContent.toLowerCase();
                         
-                        if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
+                        if (searchTerm === '' || commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
                             item.style.display = 'flex';
-                            // Open the parent category of matching items
-                            const category = item.closest('.command-category');
-                            category.classList.add('active');
+                            if (searchTerm !== '') {
+                                // Get parent category and mark it as having results
+                                const category = item.closest('.command-category');
+                                categoriesWithResults.add(category);
+                            }
                         } else {
                             item.style.display = 'none';
                         }
                     });
+                    
+                    // Handle category visibility based on search
+                    if (searchTerm === '') {
+                        // If search is empty, close all categories
+                        document.querySelectorAll('.command-category').forEach(category => {
+                            category.classList.remove('active');
+                        });
+                    } else {
+                        // Open categories with matching results, close others
+                        document.querySelectorAll('.command-category').forEach(category => {
+                            if (categoriesWithResults.has(category)) {
+                                category.classList.add('active');
+                            } else {
+                                category.classList.remove('active');
+                            }
+                        });
+                    }
                 });
             }
             
