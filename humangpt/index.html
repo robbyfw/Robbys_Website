@@ -260,17 +260,6 @@
             box-shadow: 0 8px 15px rgba(88, 101, 242, 0.2);
         }
 
-        .btn-accent {
-            background: linear-gradient(135deg, var(--discord-green), #43B581);
-            color: white;
-            box-shadow: 0 5px 20px rgba(87, 242, 135, 0.3);
-        }
-
-        .btn-accent:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(87, 242, 135, 0.5);
-        }
-
         /* Sections */
         section {
             padding: 100px 0;
@@ -368,6 +357,7 @@
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             transition: var(--transition);
+            position: relative;
         }
 
         .command-category:hover {
@@ -666,19 +656,6 @@
                 width: 100%;
                 max-width: 300px;
             }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--discord-light);
-                font-size: 1.5rem;
-                cursor: pointer;
-            }
         }
 
         /* Custom Scrollbar */
@@ -697,18 +674,6 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #9C84EF, var(--discord-blurple));
-        }
-
-        /* Discord-like elements */
-        .discord-tag {
-            display: inline-block;
-            background: var(--discord-dark);
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: var(--discord-green);
-            border: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -845,7 +810,7 @@
             
             <div class="commands-container">
                 <div class="command-category" id="category-bot-config">
-                    <div class="category-header" data-category="bot-config">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-cogs"></i>
                             <h3>Bot Configuration</h3>
@@ -875,7 +840,7 @@
                 </div>
                 
                 <div class="command-category" id="category-ai-features">
-                    <div class="category-header" data-category="ai-features">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-robot"></i>
                             <h3>AI Features</h3>
@@ -905,7 +870,7 @@
                 </div>
                 
                 <div class="command-category" id="category-server-management">
-                    <div class="category-header" data-category="server-management">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-wrench"></i>
                             <h3>Server Management</h3>
@@ -935,7 +900,7 @@
                 </div>
                 
                 <div class="command-category" id="category-fun-entertainment">
-                    <div class="category-header" data-category="fun-entertainment">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-gamepad"></i>
                             <h3>Fun & Entertainment</h3>
@@ -965,7 +930,7 @@
                 </div>
 
                 <div class="command-category" id="category-utility">
-                    <div class="category-header" data-category="utility">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-tools"></i>
                             <h3>Utility</h3>
@@ -995,7 +960,7 @@
                 </div>
 
                 <div class="command-category" id="category-moderation">
-                    <div class="category-header" data-category="moderation">
+                    <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-shield-alt"></i>
                             <h3>Moderation</h3>
@@ -1075,20 +1040,16 @@
     <section id="invite">
         <div class="container">
             <div class="section-title">
-                <h2>Add HumanGPT</h2>
-                <p>Join thousands of Discord servers using HumanGPT</p>
+                <h2>Invite HumanGPT</h2>
+                <p>Add HumanGPT to your Discord server today</p>
             </div>
             
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
                 <div class="btn-group" style="justify-content: center;">
-                    <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-accent" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
                         <i class="fab fa-discord"></i> Add HumanGPT to Your Server
                     </a>
                 </div>
-                
-                <p style="margin-top: 40px; color: var(--discord-gray);">
-                    Need help? Join our <a href="https://discord.gg/eaXSK34vDt" style="color: var(--discord-green); text-decoration: none;" target="_blank">support server</a> for assistance.
-                </p>
             </div>
         </div>
     </section>
@@ -1126,51 +1087,75 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fix for individual category toggles - each category works independently
+            // Fixed: Individual category toggles - each category works independently
             const categoryHeaders = document.querySelectorAll('.category-header');
             
             categoryHeaders.forEach(header => {
                 header.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Prevent event bubbling
-                    
+                    // Get the specific category that was clicked
                     const category = this.closest('.command-category');
                     
                     // Toggle only the clicked category
-                    category.classList.toggle('active');
+                    const isActive = category.classList.contains('active');
                     
-                    // Update the arrow for this category only
-                    const arrow = this.querySelector('.toggle-arrow');
-                    if (category.classList.contains('active')) {
-                        arrow.style.transform = 'rotate(180deg)';
-                        arrow.style.color = 'var(--discord-green)';
-                    } else {
+                    // First close all categories
+                    document.querySelectorAll('.command-category').forEach(cat => {
+                        cat.classList.remove('active');
+                    });
+                    
+                    // Then open the clicked one if it wasn't already active
+                    if (!isActive) {
+                        category.classList.add('active');
+                    }
+                    
+                    // Update all arrows
+                    document.querySelectorAll('.toggle-arrow').forEach(arrow => {
                         arrow.style.transform = 'rotate(0deg)';
                         arrow.style.color = 'var(--discord-gray)';
+                    });
+                    
+                    // Update arrow for active category
+                    if (!isActive) {
+                        const activeArrow = category.querySelector('.toggle-arrow');
+                        if (activeArrow) {
+                            activeArrow.style.transform = 'rotate(180deg)';
+                            activeArrow.style.color = 'var(--discord-green)';
+                        }
                     }
                 });
             });
             
-            // Command search functionality - fixed to work with individual categories
+            // Command search functionality
             const commandSearch = document.getElementById('commandSearch');
             if (commandSearch) {
                 commandSearch.addEventListener('input', function() {
                     const searchTerm = this.value.toLowerCase();
                     const commandItems = document.querySelectorAll('.command-item');
-                    let hasResults = false;
                     
-                    // First, hide all command items
+                    // First hide all command items and close all categories
                     commandItems.forEach(item => {
                         item.style.display = 'none';
                     });
                     
-                    // Then show matching items and open their categories
+                    document.querySelectorAll('.command-category').forEach(category => {
+                        category.classList.remove('active');
+                        const arrow = category.querySelector('.toggle-arrow');
+                        arrow.style.transform = 'rotate(0deg)';
+                        arrow.style.color = 'var(--discord-gray)';
+                    });
+                    
+                    // If search is empty, keep all categories closed
+                    if (searchTerm === '') {
+                        return;
+                    }
+                    
+                    // Show matching items and open their categories
                     commandItems.forEach(item => {
                         const commandName = item.querySelector('.command-name').textContent.toLowerCase();
                         const commandDesc = item.querySelector('.command-desc').textContent.toLowerCase();
                         
                         if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
                             item.style.display = 'flex';
-                            hasResults = true;
                             
                             // Open the parent category of matching items
                             const category = item.closest('.command-category');
@@ -1182,16 +1167,6 @@
                             arrow.style.color = 'var(--discord-green)';
                         }
                     });
-                    
-                    // If search is empty, close all categories
-                    if (searchTerm === '') {
-                        document.querySelectorAll('.command-category').forEach(category => {
-                            category.classList.remove('active');
-                            const arrow = category.querySelector('.toggle-arrow');
-                            arrow.style.transform = 'rotate(0deg)';
-                            arrow.style.color = 'var(--discord-gray)';
-                        });
-                    }
                 });
             }
             
@@ -1231,14 +1206,6 @@
                     }, 10);
                 }, 6000);
             }
-            
-            // Close all command categories by default on page load
-            document.querySelectorAll('.command-category').forEach(category => {
-                category.classList.remove('active');
-                const arrow = category.querySelector('.toggle-arrow');
-                arrow.style.transform = 'rotate(0deg)';
-                arrow.style.color = 'var(--discord-gray)';
-            });
         });
     </script>
 </body>
