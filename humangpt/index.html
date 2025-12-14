@@ -343,7 +343,7 @@
             color: var(--discord-gray);
         }
 
-        /* Commands Section - Fixed for individual toggles */
+        /* Commands Section - FIXED */
         .commands-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
@@ -357,7 +357,6 @@
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             transition: var(--transition);
-            position: relative;
         }
 
         .command-category:hover {
@@ -397,14 +396,13 @@
             list-style: none;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, margin-top 0.3s ease;
-            opacity: 0;
+            transition: max-height 0.5s ease;
+            margin-top: 0;
         }
 
         .command-category.active .command-list {
             max-height: 500px;
             margin-top: 25px;
-            opacity: 1;
         }
 
         .command-item {
@@ -558,7 +556,7 @@
             margin-bottom: 25px;
         }
 
-        .footer-links h4, .footer-contact h4 {
+        .footer-links h4 {
             font-size: 1.3rem;
             margin-bottom: 25px;
             color: var(--discord-light);
@@ -809,7 +807,7 @@
             </div>
             
             <div class="commands-container">
-                <div class="command-category" id="category-bot-config">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-cogs"></i>
@@ -839,7 +837,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category" id="category-ai-features">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-robot"></i>
@@ -869,7 +867,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category" id="category-server-management">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-wrench"></i>
@@ -899,7 +897,7 @@
                     </ul>
                 </div>
                 
-                <div class="command-category" id="category-fun-entertainment">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-gamepad"></i>
@@ -929,7 +927,7 @@
                     </ul>
                 </div>
 
-                <div class="command-category" id="category-utility">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-tools"></i>
@@ -959,7 +957,7 @@
                     </ul>
                 </div>
 
-                <div class="command-category" id="category-moderation">
+                <div class="command-category">
                     <div class="category-header">
                         <div class="category-title">
                             <i class="fas fa-shield-alt"></i>
@@ -1036,20 +1034,17 @@
         </div>
     </section>
 
-    <!-- Invite Section -->
+    <!-- Invite Section - FIXED: Removed the extra content -->
     <section id="invite">
         <div class="container">
             <div class="section-title">
                 <h2>Invite HumanGPT</h2>
-                <p>Add HumanGPT to your Discord server today</p>
             </div>
             
-            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <div class="btn-group" style="justify-content: center;">
-                    <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
-                        <i class="fab fa-discord"></i> Add HumanGPT to Your Server
-                    </a>
-                </div>
+            <div style="text-align: center;">
+                <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
+                    <i class="fab fa-discord"></i> Add HumanGPT to Your Server
+                </a>
             </div>
         </div>
     </section>
@@ -1087,40 +1082,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fixed: Individual category toggles - each category works independently
+            // FIXED: Command categories now work independently
             const categoryHeaders = document.querySelectorAll('.category-header');
             
             categoryHeaders.forEach(header => {
                 header.addEventListener('click', function(e) {
-                    // Get the specific category that was clicked
+                    // Toggle only the clicked category
                     const category = this.closest('.command-category');
                     
-                    // Toggle only the clicked category
+                    // Check if it's already active
                     const isActive = category.classList.contains('active');
                     
-                    // First close all categories
-                    document.querySelectorAll('.command-category').forEach(cat => {
-                        cat.classList.remove('active');
-                    });
-                    
-                    // Then open the clicked one if it wasn't already active
-                    if (!isActive) {
+                    // Just toggle this specific category - no other categories are affected
+                    if (isActive) {
+                        category.classList.remove('active');
+                    } else {
                         category.classList.add('active');
-                    }
-                    
-                    // Update all arrows
-                    document.querySelectorAll('.toggle-arrow').forEach(arrow => {
-                        arrow.style.transform = 'rotate(0deg)';
-                        arrow.style.color = 'var(--discord-gray)';
-                    });
-                    
-                    // Update arrow for active category
-                    if (!isActive) {
-                        const activeArrow = category.querySelector('.toggle-arrow');
-                        if (activeArrow) {
-                            activeArrow.style.transform = 'rotate(180deg)';
-                            activeArrow.style.color = 'var(--discord-green)';
-                        }
                     }
                 });
             });
@@ -1132,20 +1109,14 @@
                     const searchTerm = this.value.toLowerCase();
                     const commandItems = document.querySelectorAll('.command-item');
                     
-                    // First hide all command items and close all categories
-                    commandItems.forEach(item => {
-                        item.style.display = 'none';
-                    });
-                    
-                    document.querySelectorAll('.command-category').forEach(category => {
-                        category.classList.remove('active');
-                        const arrow = category.querySelector('.toggle-arrow');
-                        arrow.style.transform = 'rotate(0deg)';
-                        arrow.style.color = 'var(--discord-gray)';
-                    });
-                    
-                    // If search is empty, keep all categories closed
+                    // If search is empty, hide all items and close all categories
                     if (searchTerm === '') {
+                        commandItems.forEach(item => {
+                            item.style.display = 'none';
+                        });
+                        document.querySelectorAll('.command-category').forEach(category => {
+                            category.classList.remove('active');
+                        });
                         return;
                     }
                     
@@ -1156,15 +1127,11 @@
                         
                         if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
                             item.style.display = 'flex';
-                            
                             // Open the parent category of matching items
                             const category = item.closest('.command-category');
                             category.classList.add('active');
-                            
-                            // Update arrow for this category
-                            const arrow = category.querySelector('.toggle-arrow');
-                            arrow.style.transform = 'rotate(180deg)';
-                            arrow.style.color = 'var(--discord-green)';
+                        } else {
+                            item.style.display = 'none';
                         }
                     });
                 });
@@ -1173,7 +1140,6 @@
             // Smooth scrolling for navigation
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    // Don't prevent default for external links
                     if (this.getAttribute('href').startsWith('http')) return;
                     
                     e.preventDefault();
@@ -1187,7 +1153,6 @@
                             behavior: 'smooth'
                         });
                         
-                        // Update active nav link
                         document.querySelectorAll('nav a').forEach(link => {
                             link.classList.remove('active');
                         });
@@ -1196,7 +1161,7 @@
                 });
             });
             
-            // Add floating animation to hero avatar
+            // Floating animation for bot avatar
             const avatar = document.querySelector('.bot-avatar');
             if (avatar) {
                 setInterval(() => {
