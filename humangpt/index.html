@@ -527,16 +527,6 @@
             overflow: hidden;
         }
 
-        footer:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
-        }
-
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -609,6 +599,20 @@
             background: var(--discord-blurple);
             color: white;
             transform: translateY(-5px);
+        }
+
+        /* Credits Section */
+        .credits {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--discord-gray);
+            font-size: 0.9rem;
+        }
+
+        .credits a {
+            color: var(--discord-green);
+            text-decoration: none;
         }
 
         /* Animations */
@@ -1061,6 +1065,13 @@
                         <li><a href="#stats"><i class="fas fa-chevron-right"></i> Statistics</a></li>
                     </ul>
                 </div>
+            </div>
+            
+            <div class="credits">
+                <p>HumanGPT is made by <strong style="color: var(--discord-yellow);">fwrobby</strong>.</p>
+                <p style="margin-top: 10px; color: rgba(255, 255, 255, 0.8);">
+                    For inquiries, feedback, or collaboration, please join our support server.
+                </p>
             </div>
         </div>
     </footer>
