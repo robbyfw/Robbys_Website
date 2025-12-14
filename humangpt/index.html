@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HumanGPT - Your Smart, Human-like AI Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #7289da;
+            --secondary: #5865f2;
+            --dark: #2c2f33;
+            --darker: #23272a;
+            --light: #ffffff;
+            --gray: #99aab5;
+            --accent: #43b581;
+            --accent-light: #3ca374;
+            --shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(rgba(35, 39, 42, 0.9), rgba(35, 39, 42, 0.95)), url('https://fwrobby.site/images/humangpt_banner.png');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 0 80px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .bot-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--primary);
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .bot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #7289da, #43b581);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(114, 137, 218, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .description {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .description p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        .command-list {
+            list-style-type: none;
+        }
+
+        .command-list li {
+            background-color: rgba(255, 255, 255, 0.05);
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .command-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        /* Quick Info */
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 40px 0;
+            text-align: center;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .made-by {
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .made-by a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .made-by a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="bot-avatar floating">
+                    <img src="https://fwrobby.site/images/humangpt_pfp.png" alt="HumanGPT Profile Picture">
+                </div>
+                <h1>HumanGPT</h1>
+                <p class="tagline">Your smart, human-like AI companion</p>
+                <p>An AI bot that talks like a human with free will. Can generate images for free, moderate servers, and is always active!</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-discord"></i> Invite to Discord
+                    </a>
+                    <a href="https://discord.gg/eaXSK34vDt" class="btn btn-secondary" target="_blank">
+                        <i class="fas fa-headset"></i> Support Server
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="description">
+            <h2>About HumanGPT</h2>
+            <p>HumanGPT is an advanced AI Discord bot designed to interact naturally like a human. Unlike other bots, HumanGPT has free will - it can randomly join conversations, making interactions feel more organic and engaging.</p>
+            <p>It offers a wide range of features including image generation (completely free!), comprehensive moderation tools, and server management capabilities. While it excels at moderation, HumanGPT is primarily used as a versatile AI companion that brings your server to life.</p>
+            <p>Always active and ready to assist, HumanGPT ensures your server is both well-managed and entertaining.</p>
+        </section>
+
+        <section class="features">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Human-like Conversations</h3>
+                    <p>Engages in natural, flowing conversations just like a real person. No robotic responses!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h3>Free Will Mode</h3>
+                    <p>Can randomly join conversations, making interactions feel organic and spontaneous.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3>Free Image Generation</h3>
+                    <p>Create stunning images from text descriptions - completely free of charge!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Moderation Tools</h3>
+                    <p>Comprehensive moderation commands to keep your server safe and organized.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Server Management</h3>
+                    <p>Helps manage your server efficiently with automated tools and utilities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Always Active</h3>
+                    <p>24/7 uptime ensures HumanGPT is always there when you need it.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="commands">
+            <h2>Commands & Controls</h2>
+            
+            <div class="feature-card" style="margin-bottom: 30px;">
+                <h3><i class="fas fa-bolt command-icon"></i> Instant Commands</h3>
+                <p>All commands appear instantly as guild commands - no waiting for global registration!</p>
+            </div>
+            
+            <div class="command-section">
+                <h3>🔧 Channel Commands</h3>
+                <ul class="command-list">
+                    <li>
+                        <span class="command-icon">/</span>
+                        <div>
+                            <strong>/enable_bot</strong> - Activate HumanGPT in a specific channel
+                        </div>
+                    </li>
+                    <li>
+                        <span class="command-icon">/</span>
+                        <div>
+                            <strong>/disable_bot</strong> - Deactivate HumanGPT in a channel
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="command-section" style="margin-top: 30px;">
+                <h3>🎭 Feature Controls</h3>
+                <ul class="command-list">
+                    <li>
+                        <span class="command-icon">/</span>
+                        <div>
+                            <strong>/welcome_message</strong> - Set custom AI welcome messages for new members
+                        </div>
+                    </li>
+                    <li>
+                        <span class="command-icon">/</span>
+                        <div>
+                            <strong>/free_will</strong> - Control HumanGPT's random chatting behavior
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="quick-info-section">
+            <h2>Get Started</h2>
+            <div class="quick-info">
+                <div class="info-card">
+                    <i class="fab fa-discord"></i>
+                    <h3>Invite HumanGPT</h3>
+                    <p>Add HumanGPT to your Discord server with one click</p>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-accent" style="margin-top: 15px;" target="_blank">Invite Now</a>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Need Help?</h3>
+                    <p>Join our support server for assistance and updates</p>
+                    <a href="https://discord.gg/eaXSK34vDt" class="btn btn-secondary" style="margin-top: 15px;" target="_blank">Join Server</a>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Always Active</h3>
+                    <p>HumanGPT runs 24/7, always ready to chat and assist</p>
+                </div>
+                
+                <div class="info-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Easy Setup</h3>
+                    <p>Get started quickly with intuitive commands and controls</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="cta-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-discord"></i> Add HumanGPT to Your Server
+                </a>
+            </div>
+            
+            <div class="made-by">
+                <p>Made with ❤️ by <a href="#" target="_blank">fwrobby</a></p>
+                <p>HumanGPT - Your smart, human-like AI companion for Discord</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add subtle interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.borderTopColor = '#43b581';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.borderTopColor = '#7289da';
+                });
+            });
+            
+            // Add animation to buttons when clicked
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+            
+            // Make the bot avatar "float" continuously
+            const avatar = document.querySelector('.bot-avatar');
+            setInterval(() => {
+                avatar.classList.toggle('floating');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
