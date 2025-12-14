@@ -529,7 +529,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 50px;
             margin-bottom: 60px;
         }
@@ -575,6 +575,12 @@
             transform: translateX(5px);
         }
 
+        .footer-credits h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--discord-light);
+        }
+
         .social-links {
             display: flex;
             gap: 20px;
@@ -601,9 +607,8 @@
             transform: translateY(-5px);
         }
 
-        /* Credits Section - Moved to be part of footer content */
+        /* Credits Section - Now as a separate column */
         .credits {
-            padding: 20px 0;
             color: var(--discord-gray);
             font-size: 0.9rem;
             line-height: 1.5;
@@ -1070,11 +1075,14 @@
                         <li><a href="#commands"><i class="fas fa-chevron-right"></i> Commands</a></li>
                         <li><a href="#stats"><i class="fas fa-chevron-right"></i> Statistics</a></li>
                     </ul>
-                    
-                    <!-- Credits moved here - next to Quick Links -->
-                    <div class="credits" style="margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px;">
+                </div>
+                
+                <!-- Credits as a separate column next to Quick Links -->
+                <div class="footer-credits">
+                    <h4>Credits</h4>
+                    <div class="credits">
                         <p>HumanGPT is made by <strong style="color: var(--discord-yellow);">fwrobby</strong>.</p>
-                        <p style="margin-top: 5px; color: rgba(255, 255, 255, 0.8); font-size: 0.85rem;">
+                        <p style="margin-top: 10px; color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; line-height: 1.4;">
                             For inquiries, feedback, or collaboration, please join our support server.
                         </p>
                     </div>
