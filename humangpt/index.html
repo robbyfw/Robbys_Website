@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HumanGPT | Organic AI Companion</title>
+    <title>HumanGPT | Advanced Discord AI Bot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --organic-green: #2a9d8f;
-            --warm-yellow: #e9c46a;
-            --earthy-brown: #8b4513;
-            --soft-cream: #fefae0;
-            --deep-forest: #264653;
-            --leaf-green: #4a7c59;
-            --clay-orange: #e76f51;
-            --text-dark: #333333;
-            --text-light: #5a5a5a;
-            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition-smooth: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --discord-blurple: #5865F2;
+            --discord-green: #57F287;
+            --discord-yellow: #FEE75C;
+            --discord-red: #ED4245;
+            --discord-dark: #2C2F33;
+            --discord-darker: #23272A;
+            --discord-gray: #99AAB5;
+            --discord-light: #FFFFFF;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            --transition: 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--discord-blurple), #9C84EF);
         }
 
         * {
@@ -32,19 +33,15 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            color: var(--text-dark);
-            background-color: var(--soft-cream);
-            line-height: 1.7;
+            color: var(--discord-light);
+            background-color: var(--discord-darker);
+            line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 5% 15%, rgba(42, 157, 143, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 95% 85%, rgba(233, 196, 106, 0.05) 0%, transparent 25%);
         }
 
         h1, h2, h3, .logo {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            line-height: 1.2;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
         }
 
         .container {
@@ -55,14 +52,14 @@
 
         /* Header & Navigation */
         header {
-            background-color: rgba(254, 250, 224, 0.95);
+            background-color: rgba(35, 39, 42, 0.95);
             backdrop-filter: blur(10px);
             padding: 25px 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(42, 157, 143, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -74,7 +71,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--deep-forest);
+            color: var(--discord-light);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -82,9 +79,8 @@
         }
 
         .logo-icon {
-            color: var(--organic-green);
+            color: var(--discord-blurple);
             font-size: 1.5rem;
-            animation: leaf-sway 3s ease-in-out infinite;
         }
 
         nav ul {
@@ -94,16 +90,16 @@
         }
 
         nav a {
-            color: var(--text-light);
+            color: var(--discord-gray);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             position: relative;
             padding: 5px 0;
         }
 
         nav a:hover, nav a.active {
-            color: var(--organic-green);
+            color: var(--discord-light);
         }
 
         nav a:after {
@@ -113,13 +109,58 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--organic-green);
-            transition: var(--transition-smooth);
-            border-radius: 1px;
+            background: var(--gradient);
+            transition: var(--transition);
         }
 
         nav a:hover:after, nav a.active:after {
             width: 100%;
+        }
+
+        /* Section Navigation */
+        .section-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--discord-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .nav-dot:hover, .nav-dot.active {
+            background-color: var(--discord-blurple);
+            transform: scale(1.3);
+        }
+
+        .nav-dot.active {
+            box-shadow: 0 0 10px var(--discord-blurple);
+        }
+
+        .section-indicator {
+            background-color: var(--discord-dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--discord-light);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            min-width: 120px;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         /* Hero Section */
@@ -127,6 +168,7 @@
             padding: 180px 0 100px;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--discord-darker) 0%, #1a1d21 100%);
         }
 
         .hero-bg {
@@ -161,128 +203,47 @@
         .bot-avatar {
             width: 280px;
             height: 280px;
-            border-radius: 50%;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
             box-shadow: 
-                var(--shadow-soft),
-                0 0 0 10px rgba(233, 196, 106, 0.2),
-                0 0 0 20px rgba(42, 157, 143, 0.1);
-            border: 5px solid var(--soft-cream);
-            animation: gentle-float 8s ease-in-out infinite;
+                var(--shadow),
+                0 0 0 5px rgba(88, 101, 242, 0.2),
+                0 0 30px rgba(88, 101, 242, 0.3);
+            border: 3px solid transparent;
+            background: linear-gradient(var(--discord-darker), var(--discord-darker)) padding-box,
+                        var(--gradient) border-box;
+            animation: float 6s ease-in-out infinite;
         }
 
         .bot-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: sepia(0.1) brightness(1.05);
-        }
-
-        .bot-avatar:before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, var(--organic-green), var(--warm-yellow), var(--clay-orange));
-            z-index: -1;
-            border-radius: 50%;
-            opacity: 0.3;
-            filter: blur(15px);
         }
 
         h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
-            color: var(--deep-forest);
-            position: relative;
-            display: inline-block;
-        }
-
-        h1:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow));
-            border-radius: 2px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
         }
 
         .tagline {
             font-size: 1.4rem;
-            color: var(--leaf-green);
+            color: var(--discord-gray);
             margin-bottom: 25px;
             font-weight: 500;
-            font-style: italic;
         }
 
         .description {
             font-size: 1.15rem;
-            color: var(--text-light);
+            color: var(--discord-gray);
             margin-bottom: 40px;
             max-width: 600px;
-        }
-
-        /* Section Navigation Arrow */
-        .section-nav {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .nav-arrow {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--organic-green);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            box-shadow: var(--shadow-soft);
-            border: 2px solid white;
-        }
-
-        .nav-arrow:hover {
-            background-color: var(--leaf-green);
-            transform: scale(1.1) translateY(-5px);
-        }
-
-        .nav-arrow.disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            background-color: var(--text-light);
-        }
-
-        .nav-arrow.disabled:hover {
-            transform: none;
-            background-color: var(--text-light);
-        }
-
-        .section-indicator {
-            background-color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--organic-green);
-            box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(42, 157, 143, 0.2);
-            min-width: 120px;
-            text-align: center;
         }
 
         /* Buttons */
@@ -294,69 +255,52 @@
 
         .btn {
             padding: 16px 32px;
-            border-radius: 50px;
+            border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
-            transition: var(--transition-bounce);
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             font-size: 1.1rem;
-            position: relative;
-            overflow: hidden;
             border: none;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
         }
 
-        .btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: var(--transition-smooth);
-        }
-
-        .btn:hover:before {
-            left: 100%;
-        }
-
         .btn-primary {
-            background: linear-gradient(45deg, var(--organic-green), var(--leaf-green));
+            background: var(--gradient);
             color: white;
-            box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(42, 157, 143, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.5);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--organic-green);
-            border: 2px solid var(--organic-green);
+            color: var(--discord-light);
+            border: 2px solid var(--discord-blurple);
         }
 
         .btn-secondary:hover {
-            background: rgba(42, 157, 143, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(42, 157, 143, 0.2);
+            background: rgba(88, 101, 242, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(88, 101, 242, 0.2);
         }
 
         .btn-accent {
-            background: linear-gradient(45deg, var(--clay-orange), var(--warm-yellow));
+            background: linear-gradient(135deg, var(--discord-green), #43B581);
             color: white;
-            box-shadow: 0 8px 20px rgba(231, 111, 81, 0.3);
+            box-shadow: 0 5px 20px rgba(87, 242, 135, 0.3);
         }
 
         .btn-accent:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(231, 111, 81, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(87, 242, 135, 0.5);
         }
 
         /* Sections */
@@ -376,7 +320,7 @@
             display: inline-block;
             position: relative;
             margin-bottom: 20px;
-            color: var(--deep-forest);
+            color: var(--discord-light);
         }
 
         .section-title h2:before {
@@ -384,7 +328,7 @@
             position: absolute;
             width: 60px;
             height: 4px;
-            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow));
+            background: var(--gradient);
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
@@ -392,7 +336,7 @@
         }
 
         .section-title p {
-            color: var(--text-light);
+            color: var(--discord-gray);
             max-width: 700px;
             margin: 30px auto 0;
             font-size: 1.2rem;
@@ -407,43 +351,39 @@
         }
 
         .feature-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 35px 30px;
-            transition: var(--transition-bounce);
-            border: 1px solid rgba(42, 157, 143, 0.1);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
         }
 
         .feature-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--organic-green);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            border-color: var(--discord-blurple);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
             font-size: 2.8rem;
             margin-bottom: 25px;
-            color: var(--organic-green);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(42, 157, 143, 0.1);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .feature-card h3 {
             font-size: 1.6rem;
             margin-bottom: 15px;
-            color: var(--deep-forest);
+            color: var(--discord-light);
         }
 
         .feature-card p {
-            color: var(--text-light);
+            color: var(--discord-gray);
         }
 
         /* Commands Section */
@@ -454,17 +394,17 @@
         }
 
         .command-category {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 35px 30px;
-            border: 1px solid rgba(233, 196, 106, 0.2);
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .command-category:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
         }
 
         .category-title {
@@ -473,9 +413,9 @@
             gap: 15px;
             margin-bottom: 25px;
             font-size: 1.5rem;
-            color: var(--leaf-green);
+            color: var(--discord-green);
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(42, 157, 143, 0.1);
+            border-bottom: 2px solid var(--border-color);
         }
 
         .command-list {
@@ -485,76 +425,38 @@
         .command-item {
             padding: 18px 20px;
             margin-bottom: 15px;
-            background: rgba(233, 196, 106, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 12px;
-            border-left: 4px solid var(--organic-green);
-            transition: var(--transition-smooth);
+            border-left: 4px solid var(--discord-blurple);
+            transition: var(--transition);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .command-item:hover {
-            background: rgba(42, 157, 143, 0.08);
+            background: rgba(88, 101, 242, 0.1);
             transform: translateX(5px);
         }
 
         .command-name {
             font-weight: 600;
             font-family: 'Courier New', monospace;
-            color: var(--deep-forest);
+            color: var(--discord-light);
             font-size: 1.05rem;
         }
 
         .command-desc {
-            color: var(--text-light);
+            color: var(--discord-gray);
             text-align: right;
             max-width: 250px;
         }
 
         /* Alternate Section Background */
         .section-alt {
-            background-color: rgba(254, 250, 224, 0.5);
-            border-radius: 40px;
-            margin: 40px 0;
-            border: 1px solid rgba(233, 196, 106, 0.2);
-        }
-
-        /* Stats Section */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            border: 1px solid rgba(42, 157, 143, 0.1);
-            transition: var(--transition-bounce);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--organic-green);
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--organic-green);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--leaf-green);
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         /* Command Search & Filter */
@@ -567,19 +469,20 @@
         .search-box {
             width: 100%;
             padding: 18px 25px;
-            border-radius: 50px;
-            border: 2px solid rgba(42, 157, 143, 0.2);
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
             font-size: 1.1rem;
             font-family: 'Inter', sans-serif;
-            background: white;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition-smooth);
+            background: var(--card-bg);
+            color: var(--discord-light);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .search-box:focus {
             outline: none;
-            border-color: var(--organic-green);
-            box-shadow: 0 15px 25px rgba(42, 157, 143, 0.15);
+            border-color: var(--discord-blurple);
+            box-shadow: 0 15px 25px rgba(88, 101, 242, 0.15);
         }
 
         .search-icon {
@@ -587,17 +490,55 @@
             right: 25px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--organic-green);
+            color: var(--discord-gray);
             font-size: 1.2rem;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--discord-blurple);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--discord-green);
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
         }
 
         /* Footer */
         footer {
-            background-color: var(--deep-forest);
+            background-color: var(--discord-dark);
             color: white;
             padding: 80px 0 40px;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
             position: relative;
             overflow: hidden;
         }
@@ -609,7 +550,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow), var(--clay-orange));
+            background: var(--gradient);
         }
 
         .footer-content {
@@ -628,14 +569,14 @@
         }
 
         .footer-about p {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--discord-gray);
             margin-bottom: 25px;
         }
 
         .footer-links h4, .footer-contact h4 {
             font-size: 1.3rem;
             margin-bottom: 25px;
-            color: var(--warm-yellow);
+            color: var(--discord-light);
         }
 
         .footer-links ul {
@@ -647,16 +588,16 @@
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--discord-gray);
             text-decoration: none;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .footer-links a:hover {
-            color: var(--organic-green);
+            color: var(--discord-blurple);
             transform: translateX(5px);
         }
 
@@ -669,46 +610,45 @@
         .social-icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--discord-light);
             font-size: 1.3rem;
-            transition: var(--transition-bounce);
+            transition: var(--transition);
             text-decoration: none;
         }
 
         .social-icon:hover {
-            background: var(--organic-green);
-            color: var(--deep-forest);
+            background: var(--discord-blurple);
+            color: white;
             transform: translateY(-5px);
         }
 
         .copyright {
             text-align: center;
             padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--border-color);
+            color: var(--discord-gray);
             font-size: 0.9rem;
         }
 
         .copyright a {
-            color: var(--warm-yellow);
+            color: var(--discord-green);
             text-decoration: none;
         }
 
         /* Animations */
-        @keyframes gentle-float {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
-        @keyframes leaf-sway {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Responsive */
@@ -762,7 +702,7 @@
                 display: block;
                 background: none;
                 border: none;
-                color: var(--organic-green);
+                color: var(--discord-light);
                 font-size: 1.5rem;
                 cursor: pointer;
             }
@@ -774,78 +714,84 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(233, 196, 106, 0.1);
-            border-radius: 6px;
+            background: var(--discord-darker);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--organic-green), var(--leaf-green));
+            background: var(--gradient);
             border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, var(--leaf-green), var(--deep-forest));
+            background: linear-gradient(135deg, #9C84EF, var(--discord-blurple));
         }
 
-        /* Natural Elements */
-        .leaf-decoration {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            opacity: 0.1;
-            z-index: -1;
-            pointer-events: none;
+        /* Discord-like elements */
+        .discord-tag {
+            display: inline-block;
+            background: var(--discord-dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--discord-green);
+            border: 1px solid var(--border-color);
         }
 
-        .leaf-1 {
-            top: 10%;
-            left: 5%;
-            transform: rotate(45deg);
+        .command-count {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 10px;
         }
 
-        .leaf-2 {
-            top: 20%;
-            right: 10%;
-            transform: rotate(-20deg);
+        .online-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(87, 242, 135, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: var(--discord-green);
+            font-weight: 600;
+            margin-left: 20px;
         }
 
-        .leaf-3 {
-            bottom: 20%;
-            left: 8%;
-            transform: rotate(120deg);
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--discord-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
-    <!-- Natural Decorations -->
-    <div class="leaf-decoration leaf-1">
-        <i class="fas fa-leaf" style="font-size: 100px; color: var(--organic-green);"></i>
-    </div>
-    <div class="leaf-decoration leaf-2">
-        <i class="fas fa-seedling" style="font-size: 80px; color: var(--leaf-green);"></i>
-    </div>
-    <div class="leaf-decoration leaf-3">
-        <i class="fas fa-leaf" style="font-size: 120px; color: var(--organic-green);"></i>
-    </div>
-
-    <!-- Section Navigation Arrow -->
+    <!-- Section Navigation -->
     <div class="section-nav">
-        <div class="section-indicator" id="sectionIndicator">Features</div>
-        <div class="nav-arrow" id="navArrowUp">
-            <i class="fas fa-chevron-up"></i>
-        </div>
-        <div class="nav-arrow" id="navArrowDown">
-            <i class="fas fa-chevron-down"></i>
-        </div>
+        <div class="section-indicator" id="sectionIndicator">Home</div>
+        <div class="nav-dot" data-section="home"></div>
+        <div class="nav-dot" data-section="features"></div>
+        <div class="nav-dot" data-section="commands"></div>
+        <div class="nav-dot" data-section="stats"></div>
+        <div class="nav-dot" data-section="invite"></div>
     </div>
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">
-                    <i class="fas fa-brain logo-icon"></i>
+                <a href="#home" class="logo">
+                    <i class="fas fa-robot logo-icon"></i>
                     <span>HumanGPT</span>
+                    <span class="online-status">
+                        <span class="online-dot"></span>
+                        Online 24/7
+                    </span>
                 </a>
                 
                 <nav>
@@ -872,11 +818,10 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>HumanGPT</h1>
-                    <p class="tagline">Your organic, human-like AI companion</p>
+                    <p class="tagline">Your intelligent Discord AI companion with free will</p>
                     <p class="description">
-                        Experience AI that feels genuinely human. HumanGPT engages in natural conversation, 
-                        exercises free will to join discussions spontaneously, creates beautiful artwork from 
-                        your imagination, and keeps your server thriving—all with the warmth of human interaction.
+                        HumanGPT is an advanced Discord bot that combines powerful AI capabilities with human-like interaction. 
+                        It can spontaneously join conversations, generate images for free, moderate servers, and manage communities—all while maintaining 24/7 availability.
                     </p>
                     
                     <div class="btn-group">
@@ -884,7 +829,7 @@
                             <i class="fab fa-discord"></i> Add to Discord
                         </a>
                         <a href="https://discord.gg/eaXSK34vDt" class="btn btn-secondary" target="_blank">
-                            <i class="fas fa-comments"></i> Join Community
+                            <i class="fas fa-headset"></i> Support Server
                         </a>
                     </div>
                 </div>
@@ -902,17 +847,17 @@
     <section id="features" class="section-alt">
         <div class="container">
             <div class="section-title">
-                <h2>Natural AI Capabilities</h2>
-                <p>HumanGPT combines advanced technology with organic interaction patterns</p>
+                <h2>Advanced AI Features</h2>
+                <p>HumanGPT combines cutting-edge technology with practical Discord functionality</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-seedling"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <h3>Organic Free Will</h3>
-                    <p>Unlike scripted bots, HumanGPT grows into conversations naturally, deciding when to participate based on context and flow, just like a human would.</p>
+                    <h3>True Free Will</h3>
+                    <p>HumanGPT can randomly join conversations based on context, making interactions feel organic and spontaneous, unlike traditional scripted bots.</p>
                 </div>
                 
                 <div class="feature-card">
@@ -920,39 +865,39 @@
                         <i class="fas fa-comments"></i>
                     </div>
                     <h3>Natural Conversation</h3>
-                    <p>Engages in fluid, contextual dialogue that adapts to your community's personality. No robotic patterns—just genuine, flowing conversation.</p>
+                    <p>Engages in human-like dialogue with contextual understanding and natural response patterns. No robotic or repetitive conversations.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-paint-brush"></i>
+                        <i class="fas fa-image"></i>
                     </div>
-                    <h3>Creative Expression</h3>
-                    <p>Transform thoughts into visual art with our free image generation. Watch your ideas bloom into beautiful, unique creations.</p>
+                    <h3>Free Image Generation</h3>
+                    <p>Generate stunning AI artwork from text descriptions completely free. No usage limits, credits, or hidden costs.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-hands-helping"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Community Gardening</h3>
-                    <p>Tend to your server with smart moderation tools that learn and adapt. Keep your community healthy, safe, and thriving.</p>
+                    <h3>Advanced Moderation</h3>
+                    <p>Comprehensive moderation tools including auto-moderation, warning systems, logging, and customizable filters to keep your server safe.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Instant Growth</h3>
-                    <p>Commands register instantly—no waiting period. See your bot capabilities expand immediately upon adding to your server.</p>
+                    <h3>Instant Commands</h3>
+                    <p>Commands register instantly as guild commands—no waiting for global registration. Fast, responsive, and always ready.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-server"></i>
                     </div>
-                    <h3>Always Blooming</h3>
-                    <p>Never dormant, always growing. HumanGPT is available 24/7 to nurture conversations and support your community.</p>
+                    <h3>Server Management</h3>
+                    <p>Powerful tools for managing your Discord community including welcome messages, role management, analytics, and automation.</p>
                 </div>
             </div>
         </div>
@@ -962,8 +907,8 @@
     <section id="commands">
         <div class="container">
             <div class="section-title">
-                <h2>Command Garden</h2>
-                <p>Explore HumanGPT's extensive command ecosystem</p>
+                <h2>Command Library <span class="command-count">60+ Commands</span></h2>
+                <p>Explore HumanGPT's extensive command system</p>
             </div>
 
             <!-- Command Search -->
@@ -978,7 +923,7 @@
                 <div class="command-category">
                     <div class="category-title">
                         <i class="fas fa-cogs"></i>
-                        <h3>Channel Management</h3>
+                        <h3>Bot Configuration</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -990,37 +935,37 @@
                             <span class="command-desc">Deactivate in a channel</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/channel_settings</span>
-                            <span class="command-desc">Configure channel preferences</span>
+                            <span class="command-name">/settings</span>
+                            <span class="command-desc">Configure bot settings</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/auto_join_setup</span>
-                            <span class="command-desc">Set up automatic joining</span>
+                            <span class="command-name">/prefix</span>
+                            <span class="command-desc">Set custom command prefix</span>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="command-category">
                     <div class="category-title">
-                        <i class="fas fa-magic"></i>
-                        <h3>AI & Conversation</h3>
+                        <i class="fas fa-robot"></i>
+                        <h3>AI Features</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
                             <span class="command-name">/free_will</span>
-                            <span class="command-desc">Control random chatting</span>
+                            <span class="command-desc">Toggle random conversation joining</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/generate_image</span>
                             <span class="command-desc">Create AI artwork from text</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/conversation_style</span>
-                            <span class="command-desc">Set chat behavior style</span>
+                            <span class="command-name">/ask</span>
+                            <span class="command-desc">Ask HumanGPT any question</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/ai_personality</span>
-                            <span class="command-desc">Adjust AI personality traits</span>
+                            <span class="command-name">/chat_mode</span>
+                            <span class="command-desc">Set conversation style</span>
                         </li>
                     </ul>
                 </div>
@@ -1028,7 +973,7 @@
                 <div class="command-category">
                     <div class="category-title">
                         <i class="fas fa-wrench"></i>
-                        <h3>Server Configuration</h3>
+                        <h3>Server Management</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -1036,16 +981,16 @@
                             <span class="command-desc">Set AI welcome messages</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/moderation_settings</span>
-                            <span class="command-desc">Configure auto-moderation</span>
+                            <span class="command-name">/auto_role</span>
+                            <span class="command-desc">Configure automatic roles</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/server_stats</span>
                             <span class="command-desc">View server analytics</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/role_management</span>
-                            <span class="command-desc">Manage user roles</span>
+                            <span class="command-name">/backup</span>
+                            <span class="command-desc">Create server backup</span>
                         </li>
                     </ul>
                 </div>
@@ -1057,12 +1002,12 @@
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
-                            <span class="command-name">/trivia</span>
-                            <span class="command-desc">Start a trivia game</span>
+                            <span class="command-name">/meme</span>
+                            <span class="command-desc">Generate random memes</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/story_time</span>
-                            <span class="command-desc">Generate collaborative stories</span>
+                            <span class="command-name">/trivia</span>
+                            <span class="command-desc">Start a trivia game</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/joke</span>
@@ -1078,7 +1023,7 @@
                 <div class="command-category">
                     <div class="category-title">
                         <i class="fas fa-tools"></i>
-                        <h3>Utility Commands</h3>
+                        <h3>Utility</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -1103,24 +1048,24 @@
                 <div class="command-category">
                     <div class="category-title">
                         <i class="fas fa-shield-alt"></i>
-                        <h3>Moderation Tools</h3>
+                        <h3>Moderation</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
                             <span class="command-name">/warn</span>
-                            <span class="command-desc">Issue a warning to user</span>
+                            <span class="command-desc">Issue warning to user</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/mute</span>
-                            <span class="command-desc">Temporarily mute a user</span>
+                            <span class="command-desc">Temporarily mute user</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/kick</span>
-                            <span class="command-desc">Remove a user from server</span>
+                            <span class="command-desc">Remove user from server</span>
                         </li>
                         <li class="command-item">
                             <span class="command-name">/ban</span>
-                            <span class="command-desc">Permanently ban a user</span>
+                            <span class="command-desc">Permanently ban user</span>
                         </li>
                     </ul>
                 </div>
@@ -1132,8 +1077,8 @@
     <section id="stats" class="section-alt">
         <div class="container">
             <div class="section-title">
-                <h2>Growing Strong</h2>
-                <p>HumanGPT's impact across Discord communities</p>
+                <h2>Bot Statistics</h2>
+                <p>HumanGPT's performance and reach across Discord</p>
             </div>
             
             <div class="stats-container">
@@ -1141,32 +1086,32 @@
                     <div class="stat-icon">
                         <i class="fas fa-server"></i>
                     </div>
-                    <div class="stat-number">5000+</div>
+                    <div class="stat-number">5,000+</div>
                     <p>Active Servers</p>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-image"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="stat-number">Unlimited</div>
-                    <p>Free Image Generation</p>
+                    <div class="stat-number">250,000+</div>
+                    <p>Total Users</p>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i class="fas fa-comment-dots"></i>
+                        <i class="fas fa-comment"></i>
                     </div>
                     <div class="stat-number">1M+</div>
-                    <p>Daily Conversations</p>
+                    <p>Daily Messages</p>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div class="stat-number">24/7</div>
-                    <p>Uptime & Availability</p>
+                    <div class="stat-number">99.9%</div>
+                    <p>Uptime</p>
                 </div>
             </div>
         </div>
@@ -1176,18 +1121,18 @@
     <section id="invite">
         <div class="container">
             <div class="section-title">
-                <h2>Join Our Garden</h2>
-                <p>Add HumanGPT to your Discord community today</p>
+                <h2>Add HumanGPT</h2>
+                <p>Join thousands of Discord servers using HumanGPT</p>
             </div>
             
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
                 <div class="feature-card" style="margin-bottom: 40px;">
-                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--leaf-green);">Why HumanGPT Stands Out</h3>
+                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--discord-green);">Why Choose HumanGPT?</h3>
                     <p style="text-align: center; font-size: 1.1rem;">
-                        In a world of mechanical bots, HumanGPT brings organic interaction to Discord. 
-                        With genuine free will, natural conversation flow, and creative capabilities, 
-                        it nurtures communities rather than just managing them. Experience AI that feels 
-                        less like a tool and more like a valued community member.
+                        HumanGPT stands out with its unique combination of human-like AI interaction, powerful moderation tools, 
+                        and 24/7 availability. Unlike other bots, it brings genuine personality to your server while handling 
+                        all the technical aspects of community management. The free image generation alone makes it an 
+                        invaluable addition to any Discord community.
                     </p>
                 </div>
                 
@@ -1197,8 +1142,23 @@
                     </a>
                 </div>
                 
-                <p style="margin-top: 30px; color: var(--text-light);">
-                    Have questions? Visit our <a href="https://discord.gg/eaXSK34vDt" style="color: var(--organic-green); text-decoration: none;" target="_blank">community garden</a> for support and discussions.
+                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div class="discord-tag">No Payment Required</div>
+                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">100% Free Forever</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="discord-tag">24/7 Availability</div>
+                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">Always Online</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="discord-tag">Instant Setup</div>
+                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">Ready in Seconds</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 40px; color: var(--discord-gray);">
+                    Need help? Join our <a href="https://discord.gg/eaXSK34vDt" style="color: var(--discord-green); text-decoration: none;" target="_blank">support server</a> for assistance.
                 </p>
             </div>
         </div>
@@ -1210,44 +1170,44 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">HumanGPT</div>
-                    <p>An organic AI companion that brings human-like interaction to Discord communities. Always growing, always learning.</p>
+                    <p>An advanced AI Discord bot with human-like conversation, free will, and powerful moderation capabilities. Always active, always free.</p>
                     
                     <div class="social-links">
                         <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="social-icon" target="_blank">
                             <i class="fab fa-discord"></i>
                         </a>
                         <a href="https://discord.gg/eaXSK34vDt" class="social-icon" target="_blank">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-headset"></i>
                         </a>
                         <a href="#" class="social-icon">
-                            <i class="fas fa-leaf"></i>
+                            <i class="fas fa-globe"></i>
                         </a>
                     </div>
                 </div>
                 
                 <div class="footer-links">
-                    <h4>Explore</h4>
+                    <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
                         <li><a href="#commands"><i class="fas fa-chevron-right"></i> Commands</a></li>
-                        <li><a href="#invite"><i class="fas fa-chevron-right"></i> Add Bot</a></li>
+                        <li><a href="#invite"><i class="fas fa-chevron-right"></i> Invite Bot</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-contact">
-                    <h4>Cultivated By</h4>
-                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">
-                        HumanGPT was carefully cultivated by <strong style="color: var(--warm-yellow);">fwrobby</strong>.
+                    <h4>Creator</h4>
+                    <p style="color: var(--discord-gray); margin-bottom: 20px;">
+                        HumanGPT was created and is maintained by <strong style="color: var(--discord-green);">fwrobby</strong>.
                     </p>
-                    <p style="color: rgba(255, 255, 255, 0.8);">
-                        For inquiries, feedback, or collaboration, please join our support server.
+                    <p style="color: var(--discord-gray);">
+                        For inquiries, bug reports, or feature suggestions, please join our support server.
                     </p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 HumanGPT Organic AI. All rights reserved. | Cultivated by <a href="#" target="_blank">fwrobby</a></p>
+                <p>&copy; 2023 HumanGPT Discord Bot. All rights reserved. | Created by <a href="#" target="_blank">fwrobby</a></p>
                 <p style="margin-top: 10px;">This bot is not affiliated with Discord Inc.</p>
             </div>
         </div>
@@ -1258,8 +1218,7 @@
         const sections = ['home', 'features', 'commands', 'stats', 'invite'];
         let currentSectionIndex = 0;
         const sectionIndicator = document.getElementById('sectionIndicator');
-        const navArrowUp = document.getElementById('navArrowUp');
-        const navArrowDown = document.getElementById('navArrowDown');
+        const navDots = document.querySelectorAll('.nav-dot');
         
         function updateNavigation() {
             // Update indicator text
@@ -1273,9 +1232,14 @@
             
             sectionIndicator.textContent = sectionNames[sections[currentSectionIndex]];
             
-            // Enable/disable arrows
-            navArrowUp.classList.toggle('disabled', currentSectionIndex === 0);
-            navArrowDown.classList.toggle('disabled', currentSectionIndex === sections.length - 1);
+            // Update active nav dot
+            navDots.forEach((dot, index) => {
+                if (index === currentSectionIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
             
             // Update active nav link
             document.querySelectorAll('nav a').forEach(link => {
@@ -1300,32 +1264,11 @@
             }
         }
         
-        // Arrow click events
-        navArrowUp.addEventListener('click', () => {
-            if (currentSectionIndex > 0) {
-                navigateToSection(currentSectionIndex - 1);
-            }
-        });
-        
-        navArrowDown.addEventListener('click', () => {
-            if (currentSectionIndex < sections.length - 1) {
-                navigateToSection(currentSectionIndex + 1);
-            }
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                if (currentSectionIndex > 0) {
-                    navigateToSection(currentSectionIndex - 1);
-                    e.preventDefault();
-                }
-            } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                if (currentSectionIndex < sections.length - 1) {
-                    navigateToSection(currentSectionIndex + 1);
-                    e.preventDefault();
-                }
-            }
+        // Nav dot click events
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                navigateToSection(index);
+            });
         });
         
         // Scroll detection for auto-updating section
@@ -1365,7 +1308,6 @@
                 // Show/hide categories based on visible items
                 document.querySelectorAll('.command-category').forEach(category => {
                     const visibleItems = category.querySelectorAll('.command-item[style="display: flex"]').length;
-                    const totalItems = category.querySelectorAll('.command-item').length;
                     
                     if (visibleItems === 0 && searchTerm !== '') {
                         category.style.display = 'none';
@@ -1393,19 +1335,6 @@
             });
         });
         
-        // Button hover effects
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-            });
-            
-            btn.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('disabled')) {
-                    this.style.transform = 'translateY(0)';
-                }
-            });
-        });
-        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateNavigation();
@@ -1416,9 +1345,9 @@
                 setInterval(() => {
                     avatar.style.animation = 'none';
                     setTimeout(() => {
-                        avatar.style.animation = 'gentle-float 8s ease-in-out infinite';
+                        avatar.style.animation = 'float 6s ease-in-out infinite';
                     }, 10);
-                }, 8000);
+                }, 6000);
             }
             
             // Mobile menu toggle
@@ -1446,37 +1375,7 @@
                 const currentYear = new Date().getFullYear();
                 yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
             }
-            
-            // Parallax effect for hero background
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const heroBg = document.querySelector('.hero-bg');
-                if (heroBg) {
-                    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-                }
-            });
         });
-        
-        // Add some random leaf decorations
-        function addLeafDecorations() {
-            const leavesContainer = document.querySelector('.leaf-decoration.leaf-2');
-            if (leavesContainer) {
-                for (let i = 0; i < 3; i++) {
-                    const leaf = document.createElement('div');
-                    leaf.className = 'leaf-decoration';
-                    leaf.style.position = 'absolute';
-                    leaf.style.top = `${Math.random() * 100}%`;
-                    leaf.style.left = `${Math.random() * 100}%`;
-                    leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    leaf.style.opacity = `${Math.random() * 0.1 + 0.05}`;
-                    leaf.innerHTML = `<i class="fas fa-leaf" style="font-size: ${Math.random() * 40 + 30}px; color: var(--leaf-green);"></i>`;
-                    document.body.appendChild(leaf);
-                }
-            }
-        }
-        
-        // Add leaf decorations after page loads
-        setTimeout(addLeafDecorations, 500);
     </script>
 </body>
 </html>
