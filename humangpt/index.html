@@ -117,52 +117,6 @@
             width: 100%;
         }
 
-        /* Section Navigation */
-        .section-nav {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--discord-gray);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .nav-dot:hover, .nav-dot.active {
-            background-color: var(--discord-blurple);
-            transform: scale(1.3);
-        }
-
-        .nav-dot.active {
-            box-shadow: 0 0 10px var(--discord-blurple);
-        }
-
-        .section-indicator {
-            background-color: var(--discord-dark);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--discord-light);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            min-width: 120px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         /* Hero Section */
         .hero {
             padding: 180px 0 100px;
@@ -386,7 +340,7 @@
             color: var(--discord-gray);
         }
 
-        /* Commands Section */
+        /* Commands Section - Updated for collapsible */
         .commands-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
@@ -396,7 +350,7 @@
         .command-category {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 35px 30px;
+            padding: 25px 30px;
             border: 1px solid var(--border-color);
             backdrop-filter: blur(10px);
             transition: var(--transition);
@@ -407,19 +361,43 @@
             box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
         }
 
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
         .category-title {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 25px;
             font-size: 1.5rem;
             color: var(--discord-green);
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
+        }
+
+        .toggle-arrow {
+            font-size: 1.2rem;
+            color: var(--discord-gray);
+            transition: var(--transition);
+        }
+
+        .command-category.active .toggle-arrow {
+            transform: rotate(180deg);
+            color: var(--discord-green);
         }
 
         .command-list {
             list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin-top 0.3s ease;
+        }
+
+        .command-category.active .command-list {
+            max-height: 500px;
+            margin-top: 25px;
         }
 
         .command-item {
@@ -627,28 +605,10 @@
             transform: translateY(-5px);
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid var(--border-color);
-            color: var(--discord-gray);
-            font-size: 0.9rem;
-        }
-
-        .copyright a {
-            color: var(--discord-green);
-            text-decoration: none;
-        }
-
         /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
         }
 
         /* Responsive */
@@ -664,10 +624,6 @@
             
             .commands-container {
                 grid-template-columns: 1fr;
-            }
-            
-            .section-nav {
-                display: none;
             }
         }
 
@@ -692,19 +648,6 @@
             .btn {
                 width: 100%;
                 max-width: 300px;
-            }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--discord-light);
-                font-size: 1.5rem;
-                cursor: pointer;
             }
         }
 
@@ -737,50 +680,9 @@
             color: var(--discord-green);
             border: 1px solid var(--border-color);
         }
-
-        .command-count {
-            display: inline-block;
-            background: var(--gradient);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-
-        .online-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(87, 242, 135, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: var(--discord-green);
-            font-weight: 600;
-            margin-left: 20px;
-        }
-
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--discord-green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
     </style>
 </head>
 <body>
-    <!-- Section Navigation -->
-    <div class="section-nav">
-        <div class="section-indicator" id="sectionIndicator">Home</div>
-        <div class="nav-dot" data-section="home"></div>
-        <div class="nav-dot" data-section="features"></div>
-        <div class="nav-dot" data-section="commands"></div>
-        <div class="nav-dot" data-section="stats"></div>
-        <div class="nav-dot" data-section="invite"></div>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container">
@@ -788,10 +690,6 @@
                 <a href="#home" class="logo">
                     <i class="fas fa-robot logo-icon"></i>
                     <span>HumanGPT</span>
-                    <span class="online-status">
-                        <span class="online-dot"></span>
-                        Online 24/7
-                    </span>
                 </a>
                 
                 <nav>
@@ -803,10 +701,6 @@
                         <li><a href="#invite">Invite</a></li>
                     </ul>
                 </nav>
-                
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
             </div>
         </div>
     </header>
@@ -907,7 +801,7 @@
     <section id="commands">
         <div class="container">
             <div class="section-title">
-                <h2>Command Library <span class="command-count">60+ Commands</span></h2>
+                <h2>Command Library</h2>
                 <p>Explore HumanGPT's extensive command system</p>
             </div>
 
@@ -921,9 +815,14 @@
             
             <div class="commands-container">
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-cogs"></i>
-                        <h3>Bot Configuration</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Bot Configuration</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -946,9 +845,14 @@
                 </div>
                 
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-robot"></i>
-                        <h3>AI Features</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-robot"></i>
+                            <h3>AI Features</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -971,9 +875,14 @@
                 </div>
                 
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-wrench"></i>
-                        <h3>Server Management</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-wrench"></i>
+                            <h3>Server Management</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -996,9 +905,14 @@
                 </div>
                 
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Fun & Entertainment</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Fun & Entertainment</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -1021,9 +935,14 @@
                 </div>
 
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-tools"></i>
-                        <h3>Utility</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-tools"></i>
+                            <h3>Utility</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -1046,9 +965,14 @@
                 </div>
 
                 <div class="command-category">
-                    <div class="category-title">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Moderation</h3>
+                    <div class="category-header">
+                        <div class="category-title">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Moderation</h3>
+                        </div>
+                        <div class="toggle-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -1126,35 +1050,10 @@
             </div>
             
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <div class="feature-card" style="margin-bottom: 40px;">
-                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--discord-green);">Why Choose HumanGPT?</h3>
-                    <p style="text-align: center; font-size: 1.1rem;">
-                        HumanGPT stands out with its unique combination of human-like AI interaction, powerful moderation tools, 
-                        and 24/7 availability. Unlike other bots, it brings genuine personality to your server while handling 
-                        all the technical aspects of community management. The free image generation alone makes it an 
-                        invaluable addition to any Discord community.
-                    </p>
-                </div>
-                
                 <div class="btn-group" style="justify-content: center;">
                     <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-accent" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
                         <i class="fab fa-discord"></i> Add HumanGPT to Your Server
                     </a>
-                </div>
-                
-                <div style="margin-top: 40px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                    <div style="text-align: center;">
-                        <div class="discord-tag">No Payment Required</div>
-                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">100% Free Forever</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div class="discord-tag">24/7 Availability</div>
-                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">Always Online</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div class="discord-tag">Instant Setup</div>
-                        <p style="color: var(--discord-gray); margin-top: 10px; font-size: 0.9rem;">Ready in Seconds</p>
-                    </div>
                 </div>
                 
                 <p style="margin-top: 40px; color: var(--discord-gray);">
@@ -1179,9 +1078,6 @@
                         <a href="https://discord.gg/eaXSK34vDt" class="social-icon" target="_blank">
                             <i class="fas fa-headset"></i>
                         </a>
-                        <a href="#" class="social-icon">
-                            <i class="fas fa-globe"></i>
-                        </a>
                     </div>
                 </div>
                 
@@ -1194,150 +1090,61 @@
                         <li><a href="#invite"><i class="fas fa-chevron-right"></i> Invite Bot</a></li>
                     </ul>
                 </div>
-                
-                <div class="footer-contact">
-                    <h4>Creator</h4>
-                    <p style="color: var(--discord-gray); margin-bottom: 20px;">
-                        HumanGPT was created and is maintained by <strong style="color: var(--discord-green);">fwrobby</strong>.
-                    </p>
-                    <p style="color: var(--discord-gray);">
-                        For inquiries, bug reports, or feature suggestions, please join our support server.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 HumanGPT Discord Bot. All rights reserved. | Created by <a href="#" target="_blank">fwrobby</a></p>
-                <p style="margin-top: 10px;">This bot is not affiliated with Discord Inc.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Section Navigation System
-        const sections = ['home', 'features', 'commands', 'stats', 'invite'];
-        let currentSectionIndex = 0;
-        const sectionIndicator = document.getElementById('sectionIndicator');
-        const navDots = document.querySelectorAll('.nav-dot');
-        
-        function updateNavigation() {
-            // Update indicator text
-            const sectionNames = {
-                'home': 'Home',
-                'features': 'Features', 
-                'commands': 'Commands',
-                'stats': 'Stats',
-                'invite': 'Invite'
-            };
-            
-            sectionIndicator.textContent = sectionNames[sections[currentSectionIndex]];
-            
-            // Update active nav dot
-            navDots.forEach((dot, index) => {
-                if (index === currentSectionIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            // Update active nav link
-            document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sections[currentSectionIndex]}`) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        
-        function navigateToSection(index) {
-            if (index >= 0 && index < sections.length) {
-                currentSectionIndex = index;
-                const targetElement = document.getElementById(sections[index]);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                updateNavigation();
-            }
-        }
-        
-        // Nav dot click events
-        navDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                navigateToSection(index);
-            });
-        });
-        
-        // Scroll detection for auto-updating section
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY + 100;
-            
-            for (let i = sections.length - 1; i >= 0; i--) {
-                const section = document.getElementById(sections[i]);
-                if (section && scrollPosition >= section.offsetTop) {
-                    if (currentSectionIndex !== i) {
-                        currentSectionIndex = i;
-                        updateNavigation();
-                    }
-                    break;
-                }
-            }
-        });
-        
-        // Command search functionality
-        const commandSearch = document.getElementById('commandSearch');
-        if (commandSearch) {
-            commandSearch.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                const commandItems = document.querySelectorAll('.command-item');
-                
-                commandItems.forEach(item => {
-                    const commandName = item.querySelector('.command-name').textContent.toLowerCase();
-                    const commandDesc = item.querySelector('.command-desc').textContent.toLowerCase();
-                    
-                    if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                // Show/hide categories based on visible items
-                document.querySelectorAll('.command-category').forEach(category => {
-                    const visibleItems = category.querySelectorAll('.command-item[style="display: flex"]').length;
-                    
-                    if (visibleItems === 0 && searchTerm !== '') {
-                        category.style.display = 'none';
-                    } else {
-                        category.style.display = 'block';
-                    }
-                });
-            });
-        }
-        
-        // Smooth scrolling for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.getElementById(targetId.substring(1));
-                if (targetElement) {
-                    const targetIndex = sections.indexOf(targetId.substring(1));
-                    if (targetIndex !== -1) {
-                        navigateToSection(targetIndex);
-                    }
-                }
-            });
-        });
-        
-        // Initialize
+        // Collapsible command categories
         document.addEventListener('DOMContentLoaded', function() {
-            updateNavigation();
+            const categoryHeaders = document.querySelectorAll('.category-header');
+            
+            categoryHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const category = this.parentElement;
+                    category.classList.toggle('active');
+                });
+            });
+            
+            // Command search functionality
+            const commandSearch = document.getElementById('commandSearch');
+            if (commandSearch) {
+                commandSearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const commandItems = document.querySelectorAll('.command-item');
+                    
+                    commandItems.forEach(item => {
+                        const commandName = item.querySelector('.command-name').textContent.toLowerCase();
+                        const commandDesc = item.querySelector('.command-desc').textContent.toLowerCase();
+                        
+                        if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
+                            item.style.display = 'flex';
+                            // Open parent category if it contains matching items
+                            const category = item.closest('.command-category');
+                            category.classList.add('active');
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.getElementById(targetId.substring(1));
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
             
             // Add floating animation to hero avatar
             const avatar = document.querySelector('.bot-avatar');
@@ -1348,32 +1155,6 @@
                         avatar.style.animation = 'float 6s ease-in-out infinite';
                     }, 10);
                 }, 6000);
-            }
-            
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const nav = document.querySelector('nav ul');
-            
-            if (mobileMenuBtn && nav) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-                });
-                
-                // Close menu when clicking a link
-                document.querySelectorAll('nav a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (window.innerWidth <= 768) {
-                            nav.style.display = 'none';
-                        }
-                    });
-                });
-            }
-            
-            // Set current year in footer
-            const yearElement = document.querySelector('.copyright p');
-            if (yearElement) {
-                const currentYear = new Date().getFullYear();
-                yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
             }
         });
     </script>
