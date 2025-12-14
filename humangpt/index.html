@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HumanGPT | AI Companion with Free Will</title>
+    <title>HumanGPT | Organic AI Companion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #b967ff;
-            --neon-green: #00ff9d;
-            --neon-pink: #ff2a6d;
-            --dark-bg: #0a0a14;
-            --darker-bg: #050510;
-            --card-bg: rgba(20, 20, 40, 0.7);
-            --text-light: #f0f8ff;
-            --text-dim: #a0a8c0;
-            --accent-glow: 0 0 20px;
-            --transition-fast: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --transition-slow: 0.5s ease;
+            --organic-green: #2a9d8f;
+            --warm-yellow: #e9c46a;
+            --earthy-brown: #8b4513;
+            --soft-cream: #fefae0;
+            --deep-forest: #264653;
+            --leaf-green: #4a7c59;
+            --clay-orange: #e76f51;
+            --text-dark: #333333;
+            --text-light: #5a5a5a;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition-smooth: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
         * {
@@ -31,21 +31,20 @@
         }
 
         body {
-            font-family: 'Exo 2', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--soft-cream);
             line-height: 1.7;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(185, 103, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.03) 0%, transparent 30%);
+                radial-gradient(circle at 5% 15%, rgba(42, 157, 143, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 95% 85%, rgba(233, 196, 106, 0.05) 0%, transparent 25%);
         }
 
         h1, h2, h3, .logo {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Playfair Display', serif;
             font-weight: 700;
-            letter-spacing: 1px;
+            line-height: 1.2;
         }
 
         .container {
@@ -56,13 +55,14 @@
 
         /* Header & Navigation */
         header {
-            background: linear-gradient(to bottom, rgba(10, 10, 20, 0.95), rgba(5, 5, 16, 0.8));
+            background-color: rgba(254, 250, 224, 0.95);
             backdrop-filter: blur(10px);
             padding: 25px 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            border-bottom: 1px solid rgba(42, 157, 143, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .header-content {
@@ -73,19 +73,18 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-weight: 700;
+            color: var(--deep-forest);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo-icon {
-            animation: pulse 2s infinite;
+            color: var(--organic-green);
+            font-size: 1.5rem;
+            animation: leaf-sway 3s ease-in-out infinite;
         }
 
         nav ul {
@@ -95,16 +94,16 @@
         }
 
         nav a {
-            color: var(--text-dim);
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition-fast);
+            transition: var(--transition-smooth);
             position: relative;
             padding: 5px 0;
         }
 
         nav a:hover, nav a.active {
-            color: var(--neon-blue);
+            color: var(--organic-green);
         }
 
         nav a:after {
@@ -114,8 +113,9 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--neon-blue);
-            transition: var(--transition-fast);
+            background: var(--organic-green);
+            transition: var(--transition-smooth);
+            border-radius: 1px;
         }
 
         nav a:hover:after, nav a.active:after {
@@ -124,7 +124,7 @@
 
         /* Hero Section */
         .hero {
-            padding: 180px 0 120px;
+            padding: 180px 0 100px;
             position: relative;
             overflow: hidden;
         }
@@ -136,7 +136,7 @@
             width: 100%;
             height: 100%;
             background: url('https://fwrobby.site/images/humangpt_banner.png') center/cover no-repeat;
-            opacity: 0.2;
+            opacity: 0.15;
             z-index: -2;
         }
 
@@ -155,52 +155,134 @@
             flex: 1;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .bot-avatar {
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
-            border: 3px solid transparent;
-            background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
-                        linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink)) border-box;
             overflow: hidden;
             position: relative;
             box-shadow: 
-                0 0 30px var(--neon-blue),
-                inset 0 0 30px rgba(0, 243, 255, 0.2);
-            animation: float 6s ease-in-out infinite;
+                var(--shadow-soft),
+                0 0 0 10px rgba(233, 196, 106, 0.2),
+                0 0 0 20px rgba(42, 157, 143, 0.1);
+            border: 5px solid var(--soft-cream);
+            animation: gentle-float 8s ease-in-out infinite;
         }
 
         .bot-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(1.1) contrast(1.1);
+            filter: sepia(0.1) brightness(1.05);
+        }
+
+        .bot-avatar:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--organic-green), var(--warm-yellow), var(--clay-orange));
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(15px);
         }
 
         h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
+            color: var(--deep-forest);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow));
+            border-radius: 2px;
         }
 
         .tagline {
-            font-size: 1.3rem;
-            color: var(--neon-green);
-            margin-bottom: 30px;
+            font-size: 1.4rem;
+            color: var(--leaf-green);
+            margin-bottom: 25px;
             font-weight: 500;
+            font-style: italic;
         }
 
         .description {
-            font-size: 1.1rem;
-            color: var(--text-dim);
+            font-size: 1.15rem;
+            color: var(--text-light);
             margin-bottom: 40px;
             max-width: 600px;
+        }
+
+        /* Section Navigation Arrow */
+        .section-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--organic-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            box-shadow: var(--shadow-soft);
+            border: 2px solid white;
+        }
+
+        .nav-arrow:hover {
+            background-color: var(--leaf-green);
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background-color: var(--text-light);
+        }
+
+        .nav-arrow.disabled:hover {
+            transform: none;
+            background-color: var(--text-light);
+        }
+
+        .section-indicator {
+            background-color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--organic-green);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            min-width: 120px;
+            text-align: center;
         }
 
         /* Buttons */
@@ -215,7 +297,7 @@
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
-            transition: var(--transition-fast);
+            transition: var(--transition-bounce);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -225,46 +307,62 @@
             overflow: hidden;
             border: none;
             cursor: pointer;
-            font-family: 'Exo 2', sans-serif;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-smooth);
+        }
+
+        .btn:hover:before {
+            left: 100%;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            background: linear-gradient(45deg, var(--organic-green), var(--leaf-green));
             color: white;
-            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(42, 157, 143, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.5);
+            box-shadow: 0 15px 25px rgba(42, 157, 143, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--neon-blue);
-            border: 2px solid var(--neon-blue);
+            color: var(--organic-green);
+            border: 2px solid var(--organic-green);
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(42, 157, 143, 0.1);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 8px 15px rgba(42, 157, 143, 0.2);
         }
 
         .btn-accent {
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            background: linear-gradient(45deg, var(--clay-orange), var(--warm-yellow));
             color: white;
-            box-shadow: 0 5px 20px rgba(255, 42, 109, 0.3);
+            box-shadow: 0 8px 20px rgba(231, 111, 81, 0.3);
         }
 
         .btn-accent:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 42, 109, 0.5);
+            box-shadow: 0 15px 25px rgba(231, 111, 81, 0.4);
         }
 
         /* Sections */
         section {
             padding: 100px 0;
+            position: relative;
         }
 
         .section-title {
@@ -278,6 +376,7 @@
             display: inline-block;
             position: relative;
             margin-bottom: 20px;
+            color: var(--deep-forest);
         }
 
         .section-title h2:before {
@@ -285,7 +384,7 @@
             position: absolute;
             width: 60px;
             height: 4px;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow));
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
@@ -293,9 +392,9 @@
         }
 
         .section-title p {
-            color: var(--text-dim);
+            color: var(--text-light);
             max-width: 700px;
-            margin: 0 auto;
+            margin: 30px auto 0;
             font-size: 1.2rem;
         }
 
@@ -308,54 +407,43 @@
         }
 
         .feature-card {
-            background: var(--card-bg);
+            background: white;
             border-radius: 20px;
             padding: 35px 30px;
-            transition: var(--transition-fast);
-            border: 1px solid rgba(0, 243, 255, 0.1);
+            transition: var(--transition-bounce);
+            border: 1px solid rgba(42, 157, 143, 0.1);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .feature-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
-            transition: var(--transition-slow);
-        }
-
-        .feature-card:hover:before {
-            left: 100%;
+            box-shadow: var(--shadow-soft);
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-blue);
-            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.15);
+            transform: translateY(-15px);
+            border-color: var(--organic-green);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .feature-icon {
             font-size: 2.8rem;
             margin-bottom: 25px;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--organic-green);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(42, 157, 143, 0.1);
         }
 
         .feature-card h3 {
             font-size: 1.6rem;
             margin-bottom: 15px;
-            color: var(--text-light);
+            color: var(--deep-forest);
         }
 
         .feature-card p {
-            color: var(--text-dim);
+            color: var(--text-light);
         }
 
         /* Commands Section */
@@ -366,11 +454,17 @@
         }
 
         .command-category {
-            background: var(--card-bg);
+            background: white;
             border-radius: 20px;
             padding: 35px 30px;
-            border: 1px solid rgba(185, 103, 255, 0.1);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(233, 196, 106, 0.2);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .command-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
         }
 
         .category-title {
@@ -379,7 +473,9 @@
             gap: 15px;
             margin-bottom: 25px;
             font-size: 1.5rem;
-            color: var(--neon-green);
+            color: var(--leaf-green);
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(42, 157, 143, 0.1);
         }
 
         .command-list {
@@ -389,33 +485,42 @@
         .command-item {
             padding: 18px 20px;
             margin-bottom: 15px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(233, 196, 106, 0.05);
             border-radius: 12px;
-            border-left: 4px solid var(--neon-blue);
-            transition: var(--transition-fast);
+            border-left: 4px solid var(--organic-green);
+            transition: var(--transition-smooth);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .command-item:hover {
-            background: rgba(0, 243, 255, 0.05);
+            background: rgba(42, 157, 143, 0.08);
             transform: translateX(5px);
         }
 
         .command-name {
             font-weight: 600;
             font-family: 'Courier New', monospace;
-            color: var(--neon-blue);
+            color: var(--deep-forest);
+            font-size: 1.05rem;
         }
 
         .command-desc {
-            color: var(--text-dim);
+            color: var(--text-light);
             text-align: right;
             max-width: 250px;
         }
 
-        /* Stats & Info */
+        /* Alternate Section Background */
+        .section-alt {
+            background-color: rgba(254, 250, 224, 0.5);
+            border-radius: 40px;
+            margin: 40px 0;
+            border: 1px solid rgba(233, 196, 106, 0.2);
+        }
+
+        /* Stats Section */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -424,43 +529,87 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05), rgba(185, 103, 255, 0.05));
+            background: white;
             border-radius: 20px;
             padding: 40px 30px;
             text-align: center;
-            border: 1px solid rgba(0, 243, 255, 0.1);
-            transition: var(--transition-fast);
+            border: 1px solid rgba(42, 157, 143, 0.1);
+            transition: var(--transition-bounce);
+            box-shadow: var(--shadow-soft);
         }
 
         .stat-card:hover {
             transform: translateY(-10px);
-            border-color: var(--neon-blue);
-            box-shadow: 0 15px 30px rgba(0, 243, 255, 0.1);
+            border-color: var(--organic-green);
         }
 
         .stat-icon {
             font-size: 3rem;
             margin-bottom: 20px;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--organic-green);
         }
 
         .stat-number {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--neon-green);
+            color: var(--leaf-green);
             margin-bottom: 10px;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Command Search & Filter */
+        .command-search {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 18px 25px;
+            border-radius: 50px;
+            border: 2px solid rgba(42, 157, 143, 0.2);
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--organic-green);
+            box-shadow: 0 15px 25px rgba(42, 157, 143, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--organic-green);
+            font-size: 1.2rem;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(to top, rgba(5, 5, 16, 0.95), rgba(10, 10, 20, 0.9));
+            background-color: var(--deep-forest);
+            color: white;
             padding: 80px 0 40px;
-            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
             position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--organic-green), var(--warm-yellow), var(--clay-orange));
         }
 
         .footer-content {
@@ -472,24 +621,21 @@
 
         .footer-logo {
             font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-weight: 700;
+            color: white;
             margin-bottom: 20px;
             display: inline-block;
         }
 
         .footer-about p {
-            color: var(--text-dim);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 25px;
         }
 
         .footer-links h4, .footer-contact h4 {
             font-size: 1.3rem;
             margin-bottom: 25px;
-            color: var(--neon-blue);
+            color: var(--warm-yellow);
         }
 
         .footer-links ul {
@@ -501,16 +647,16 @@
         }
 
         .footer-links a {
-            color: var(--text-dim);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: var(--transition-fast);
+            transition: var(--transition-smooth);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .footer-links a:hover {
-            color: var(--neon-blue);
+            color: var(--organic-green);
             transform: translateX(5px);
         }
 
@@ -524,49 +670,45 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--neon-blue);
+            color: white;
             font-size: 1.3rem;
-            transition: var(--transition-fast);
+            transition: var(--transition-bounce);
             text-decoration: none;
         }
 
         .social-icon:hover {
-            background: var(--neon-blue);
-            color: var(--dark-bg);
+            background: var(--organic-green);
+            color: var(--deep-forest);
             transform: translateY(-5px);
         }
 
         .copyright {
             text-align: center;
             padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-dim);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
 
         .copyright a {
-            color: var(--neon-green);
+            color: var(--warm-yellow);
             text-decoration: none;
         }
 
         /* Animations */
-        @keyframes float {
+        @keyframes gentle-float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--neon-blue); }
-            50% { box-shadow: 0 0 40px var(--neon-blue); }
+        @keyframes leaf-sway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
         }
 
         /* Responsive */
@@ -582,6 +724,10 @@
             
             .commands-container {
                 grid-template-columns: 1fr;
+            }
+            
+            .section-nav {
+                display: none;
             }
         }
 
@@ -616,52 +762,89 @@
                 display: block;
                 background: none;
                 border: none;
-                color: var(--neon-blue);
+                color: var(--organic-green);
                 font-size: 1.5rem;
                 cursor: pointer;
             }
         }
 
-        /* Particle background effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(233, 196, 106, 0.1);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--organic-green), var(--leaf-green));
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, var(--leaf-green), var(--deep-forest));
+        }
+
+        /* Natural Elements */
+        .leaf-decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .leaf-1 {
+            top: 10%;
+            left: 5%;
+            transform: rotate(45deg);
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--darker-bg);
+        .leaf-2 {
+            top: 20%;
+            right: 10%;
+            transform: rotate(-20deg);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple));
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, var(--neon-purple), var(--neon-pink));
+        .leaf-3 {
+            bottom: 20%;
+            left: 8%;
+            transform: rotate(120deg);
         }
     </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div class="particles" id="particles"></div>
+    <!-- Natural Decorations -->
+    <div class="leaf-decoration leaf-1">
+        <i class="fas fa-leaf" style="font-size: 100px; color: var(--organic-green);"></i>
+    </div>
+    <div class="leaf-decoration leaf-2">
+        <i class="fas fa-seedling" style="font-size: 80px; color: var(--leaf-green);"></i>
+    </div>
+    <div class="leaf-decoration leaf-3">
+        <i class="fas fa-leaf" style="font-size: 120px; color: var(--organic-green);"></i>
+    </div>
+
+    <!-- Section Navigation Arrow -->
+    <div class="section-nav">
+        <div class="section-indicator" id="sectionIndicator">Features</div>
+        <div class="nav-arrow" id="navArrowUp">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+        <div class="nav-arrow" id="navArrowDown">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
 
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">
-                    <i class="fas fa-robot logo-icon"></i>
+                    <i class="fas fa-brain logo-icon"></i>
                     <span>HumanGPT</span>
                 </a>
                 
@@ -670,6 +853,7 @@
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#commands">Commands</a></li>
+                        <li><a href="#stats">Stats</a></li>
                         <li><a href="#invite">Invite</a></li>
                     </ul>
                 </nav>
@@ -688,19 +872,19 @@
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>HumanGPT</h1>
-                    <p class="tagline">Your smart, human-like AI companion with free will</p>
+                    <p class="tagline">Your organic, human-like AI companion</p>
                     <p class="description">
-                        An advanced AI Discord bot that talks, thinks, and acts like a human. 
-                        With true free will, it can spontaneously join conversations, generate stunning images for free, 
-                        moderate your server, and remain active 24/7. Experience the future of AI interaction.
+                        Experience AI that feels genuinely human. HumanGPT engages in natural conversation, 
+                        exercises free will to join discussions spontaneously, creates beautiful artwork from 
+                        your imagination, and keeps your server thriving—all with the warmth of human interaction.
                     </p>
                     
                     <div class="btn-group">
                         <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-primary" target="_blank">
-                            <i class="fab fa-discord"></i> Invite to Discord
+                            <i class="fab fa-discord"></i> Add to Discord
                         </a>
                         <a href="https://discord.gg/eaXSK34vDt" class="btn btn-secondary" target="_blank">
-                            <i class="fas fa-headset"></i> Support Server
+                            <i class="fas fa-comments"></i> Join Community
                         </a>
                     </div>
                 </div>
@@ -715,105 +899,79 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features">
+    <section id="features" class="section-alt">
         <div class="container">
             <div class="section-title">
-                <h2>Advanced AI Capabilities</h2>
-                <p>HumanGPT combines cutting-edge AI technology with human-like interaction for a unique Discord experience</p>
+                <h2>Natural AI Capabilities</h2>
+                <p>HumanGPT combines advanced technology with organic interaction patterns</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-seedling"></i>
                     </div>
-                    <h3>True Free Will</h3>
-                    <p>Unlike traditional bots, HumanGPT can spontaneously join conversations, making interactions feel organic and human-like. It decides when to participate based on context.</p>
+                    <h3>Organic Free Will</h3>
+                    <p>Unlike scripted bots, HumanGPT grows into conversations naturally, deciding when to participate based on context and flow, just like a human would.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-comments"></i>
                     </div>
-                    <h3>Natural Conversations</h3>
-                    <p>Engages in fluid, contextual dialogue with human-like responses. No robotic patterns—just natural, flowing conversation that adapts to your server's vibe.</p>
+                    <h3>Natural Conversation</h3>
+                    <p>Engages in fluid, contextual dialogue that adapts to your community's personality. No robotic patterns—just genuine, flowing conversation.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-paint-brush"></i>
                     </div>
-                    <h3>Free Image Generation</h3>
-                    <p>Transform text into stunning visual artwork completely free. Powered by advanced AI image models with no usage limits or hidden costs.</p>
+                    <h3>Creative Expression</h3>
+                    <p>Transform thoughts into visual art with our free image generation. Watch your ideas bloom into beautiful, unique creations.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-hands-helping"></i>
                     </div>
-                    <h3>Smart Moderation</h3>
-                    <p>Comprehensive moderation tools that learn from your server's patterns. Auto-moderation, warning systems, and customizable filters to keep your community safe.</p>
+                    <h3>Community Gardening</h3>
+                    <p>Tend to your server with smart moderation tools that learn and adapt. Keep your community healthy, safe, and thriving.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Instant Commands</h3>
-                    <p>All commands register instantly as guild commands—no waiting for global registration. Fast, responsive, and always ready when you need it.</p>
+                    <h3>Instant Growth</h3>
+                    <p>Commands register instantly—no waiting period. See your bot capabilities expand immediately upon adding to your server.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-infinity"></i>
+                        <i class="fas fa-sun"></i>
                     </div>
-                    <h3>24/7 Active</h3>
-                    <p>Never sleeps, never takes breaks. HumanGPT is always online, ready to chat, moderate, and assist your community around the clock.</p>
-                </div>
-            </div>
-            
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="stat-number">Instant</div>
-                    <p>Command Registration</p>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <div class="stat-number">Unlimited</div>
-                    <p>Free Image Generation</p>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-number">24/7</div>
-                    <p>Uptime & Availability</p>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-comment-dots"></i>
-                    </div>
-                    <div class="stat-number">Human-like</div>
-                    <p>Conversation Quality</p>
+                    <h3>Always Blooming</h3>
+                    <p>Never dormant, always growing. HumanGPT is available 24/7 to nurture conversations and support your community.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Commands Section -->
-    <section id="commands" style="background: rgba(5, 5, 16, 0.7);">
+    <section id="commands">
         <div class="container">
             <div class="section-title">
-                <h2>Powerful Commands</h2>
-                <p>Control every aspect of HumanGPT with intuitive, powerful commands</p>
+                <h2>Command Garden</h2>
+                <p>Explore HumanGPT's extensive command ecosystem</p>
+            </div>
+
+            <!-- Command Search -->
+            <div class="command-search">
+                <input type="text" class="search-box" id="commandSearch" placeholder="Search commands...">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
             </div>
             
             <div class="commands-container">
@@ -832,8 +990,12 @@
                             <span class="command-desc">Deactivate in a channel</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/auto_join</span>
-                            <span class="command-desc">Set auto-join preferences</span>
+                            <span class="command-name">/channel_settings</span>
+                            <span class="command-desc">Configure channel preferences</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/auto_join_setup</span>
+                            <span class="command-desc">Set up automatic joining</span>
                         </li>
                     </ul>
                 </div>
@@ -841,7 +1003,7 @@
                 <div class="command-category">
                     <div class="category-title">
                         <i class="fas fa-magic"></i>
-                        <h3>AI Features</h3>
+                        <h3>AI & Conversation</h3>
                     </div>
                     <ul class="command-list">
                         <li class="command-item">
@@ -853,8 +1015,12 @@
                             <span class="command-desc">Create AI artwork from text</span>
                         </li>
                         <li class="command-item">
-                            <span class="command-name">/conversation_mode</span>
+                            <span class="command-name">/conversation_style</span>
                             <span class="command-desc">Set chat behavior style</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/ai_personality</span>
+                            <span class="command-desc">Adjust AI personality traits</span>
                         </li>
                     </ul>
                 </div>
@@ -877,12 +1043,41 @@
                             <span class="command-name">/server_stats</span>
                             <span class="command-desc">View server analytics</span>
                         </li>
+                        <li class="command-item">
+                            <span class="command-name">/role_management</span>
+                            <span class="command-desc">Manage user roles</span>
+                        </li>
                     </ul>
                 </div>
                 
                 <div class="command-category">
                     <div class="category-title">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-gamepad"></i>
+                        <h3>Fun & Entertainment</h3>
+                    </div>
+                    <ul class="command-list">
+                        <li class="command-item">
+                            <span class="command-name">/trivia</span>
+                            <span class="command-desc">Start a trivia game</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/story_time</span>
+                            <span class="command-desc">Generate collaborative stories</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/joke</span>
+                            <span class="command-desc">Tell a joke</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/quote</span>
+                            <span class="command-desc">Share inspirational quotes</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="command-category">
+                    <div class="category-title">
+                        <i class="fas fa-tools"></i>
                         <h3>Utility Commands</h3>
                     </div>
                     <ul class="command-list">
@@ -898,7 +1093,80 @@
                             <span class="command-name">/status</span>
                             <span class="command-desc">View bot status</span>
                         </li>
+                        <li class="command-item">
+                            <span class="command-name">/user_info</span>
+                            <span class="command-desc">Get user information</span>
+                        </li>
                     </ul>
+                </div>
+
+                <div class="command-category">
+                    <div class="category-title">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Moderation Tools</h3>
+                    </div>
+                    <ul class="command-list">
+                        <li class="command-item">
+                            <span class="command-name">/warn</span>
+                            <span class="command-desc">Issue a warning to user</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/mute</span>
+                            <span class="command-desc">Temporarily mute a user</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/kick</span>
+                            <span class="command-desc">Remove a user from server</span>
+                        </li>
+                        <li class="command-item">
+                            <span class="command-name">/ban</span>
+                            <span class="command-desc">Permanently ban a user</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section-alt">
+        <div class="container">
+            <div class="section-title">
+                <h2>Growing Strong</h2>
+                <p>HumanGPT's impact across Discord communities</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="stat-number">5000+</div>
+                    <p>Active Servers</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="stat-number">Unlimited</div>
+                    <p>Free Image Generation</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="stat-number">1M+</div>
+                    <p>Daily Conversations</p>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">24/7</div>
+                    <p>Uptime & Availability</p>
                 </div>
             </div>
         </div>
@@ -908,28 +1176,29 @@
     <section id="invite">
         <div class="container">
             <div class="section-title">
-                <h2>Add HumanGPT to Your Server</h2>
-                <p>Join thousands of servers already experiencing next-generation AI interaction</p>
+                <h2>Join Our Garden</h2>
+                <p>Add HumanGPT to your Discord community today</p>
             </div>
             
             <div style="text-align: center; max-width: 800px; margin: 0 auto;">
                 <div class="feature-card" style="margin-bottom: 40px;">
-                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--neon-green);">Why Choose HumanGPT?</h3>
+                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--leaf-green);">Why HumanGPT Stands Out</h3>
                     <p style="text-align: center; font-size: 1.1rem;">
-                        HumanGPT represents the next evolution of Discord bots. With true AI free will, 
-                        natural conversation capabilities, and powerful moderation tools—all completely free—it's 
-                        the perfect companion for any community looking to enhance engagement and management.
+                        In a world of mechanical bots, HumanGPT brings organic interaction to Discord. 
+                        With genuine free will, natural conversation flow, and creative capabilities, 
+                        it nurtures communities rather than just managing them. Experience AI that feels 
+                        less like a tool and more like a valued community member.
                     </p>
                 </div>
                 
                 <div class="btn-group" style="justify-content: center;">
                     <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="btn btn-accent" style="padding: 20px 50px; font-size: 1.2rem;" target="_blank">
-                        <i class="fab fa-discord"></i> Add HumanGPT to Discord
+                        <i class="fab fa-discord"></i> Add HumanGPT to Your Server
                     </a>
                 </div>
                 
-                <p style="margin-top: 30px; color: var(--text-dim);">
-                    Need help? Join our <a href="https://discord.gg/eaXSK34vDt" style="color: var(--neon-blue); text-decoration: none;" target="_blank">support server</a> for setup assistance and community.
+                <p style="margin-top: 30px; color: var(--text-light);">
+                    Have questions? Visit our <a href="https://discord.gg/eaXSK34vDt" style="color: var(--organic-green); text-decoration: none;" target="_blank">community garden</a> for support and discussions.
                 </p>
             </div>
         </div>
@@ -941,73 +1210,170 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">HumanGPT</div>
-                    <p>An advanced AI Discord bot with human-like conversation, free will, and powerful moderation capabilities. Always active, always free.</p>
+                    <p>An organic AI companion that brings human-like interaction to Discord communities. Always growing, always learning.</p>
                     
                     <div class="social-links">
                         <a href="https://discord.com/oauth2/authorize?client_id=1448701937431085310" class="social-icon" target="_blank">
                             <i class="fab fa-discord"></i>
                         </a>
                         <a href="https://discord.gg/eaXSK34vDt" class="social-icon" target="_blank">
-                            <i class="fas fa-headset"></i>
+                            <i class="fas fa-users"></i>
                         </a>
                         <a href="#" class="social-icon">
-                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-leaf"></i>
                         </a>
                     </div>
                 </div>
                 
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4>Explore</h4>
                     <ul>
                         <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
                         <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
                         <li><a href="#commands"><i class="fas fa-chevron-right"></i> Commands</a></li>
-                        <li><a href="#invite"><i class="fas fa-chevron-right"></i> Invite Bot</a></li>
+                        <li><a href="#invite"><i class="fas fa-chevron-right"></i> Add Bot</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-contact">
-                    <h4>Creator</h4>
-                    <p style="color: var(--text-dim); margin-bottom: 20px;">
-                        HumanGPT was created and is maintained by <strong style="color: var(--neon-green);">fwrobby</strong>.
+                    <h4>Cultivated By</h4>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">
+                        HumanGPT was carefully cultivated by <strong style="color: var(--warm-yellow);">fwrobby</strong>.
                     </p>
-                    <p style="color: var(--text-dim);">
-                        For inquiries, bug reports, or feature suggestions, please join our support server.
+                    <p style="color: rgba(255, 255, 255, 0.8);">
+                        For inquiries, feedback, or collaboration, please join our support server.
                     </p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 HumanGPT AI Bot. All rights reserved. | Created by <a href="#" target="_blank">fwrobby</a></p>
+                <p>&copy; 2023 HumanGPT Organic AI. All rights reserved. | Cultivated by <a href="#" target="_blank">fwrobby</a></p>
                 <p style="margin-top: 10px;">This bot is not affiliated with Discord Inc.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Particle Background
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+        // Section Navigation System
+        const sections = ['home', 'features', 'commands', 'stats', 'invite'];
+        let currentSectionIndex = 0;
+        const sectionIndicator = document.getElementById('sectionIndicator');
+        const navArrowUp = document.getElementById('navArrowUp');
+        const navArrowDown = document.getElementById('navArrowDown');
+        
+        function updateNavigation() {
+            // Update indicator text
+            const sectionNames = {
+                'home': 'Home',
+                'features': 'Features', 
+                'commands': 'Commands',
+                'stats': 'Stats',
+                'invite': 'Invite'
+            };
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = Math.random() * 3 + 1 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = Math.random() > 0.5 ? 'var(--neon-blue)' : 'var(--neon-purple)';
-                particle.style.borderRadius = '50%';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.opacity = Math.random() * 0.5 + 0.2;
-                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px currentColor`;
+            sectionIndicator.textContent = sectionNames[sections[currentSectionIndex]];
+            
+            // Enable/disable arrows
+            navArrowUp.classList.toggle('disabled', currentSectionIndex === 0);
+            navArrowDown.classList.toggle('disabled', currentSectionIndex === sections.length - 1);
+            
+            // Update active nav link
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sections[currentSectionIndex]}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        function navigateToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                currentSectionIndex = index;
+                const targetElement = document.getElementById(sections[index]);
                 
-                // Animation
-                const duration = Math.random() * 20 + 10;
-                particle.style.animation = `float ${duration}s linear infinite`;
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
                 
-                particlesContainer.appendChild(particle);
+                updateNavigation();
             }
+        }
+        
+        // Arrow click events
+        navArrowUp.addEventListener('click', () => {
+            if (currentSectionIndex > 0) {
+                navigateToSection(currentSectionIndex - 1);
+            }
+        });
+        
+        navArrowDown.addEventListener('click', () => {
+            if (currentSectionIndex < sections.length - 1) {
+                navigateToSection(currentSectionIndex + 1);
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                if (currentSectionIndex > 0) {
+                    navigateToSection(currentSectionIndex - 1);
+                    e.preventDefault();
+                }
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                if (currentSectionIndex < sections.length - 1) {
+                    navigateToSection(currentSectionIndex + 1);
+                    e.preventDefault();
+                }
+            }
+        });
+        
+        // Scroll detection for auto-updating section
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = document.getElementById(sections[i]);
+                if (section && scrollPosition >= section.offsetTop) {
+                    if (currentSectionIndex !== i) {
+                        currentSectionIndex = i;
+                        updateNavigation();
+                    }
+                    break;
+                }
+            }
+        });
+        
+        // Command search functionality
+        const commandSearch = document.getElementById('commandSearch');
+        if (commandSearch) {
+            commandSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const commandItems = document.querySelectorAll('.command-item');
+                
+                commandItems.forEach(item => {
+                    const commandName = item.querySelector('.command-name').textContent.toLowerCase();
+                    const commandDesc = item.querySelector('.command-desc').textContent.toLowerCase();
+                    
+                    if (commandName.includes(searchTerm) || commandDesc.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide categories based on visible items
+                document.querySelectorAll('.command-category').forEach(category => {
+                    const visibleItems = category.querySelectorAll('.command-item[style="display: flex"]').length;
+                    const totalItems = category.querySelectorAll('.command-item').length;
+                    
+                    if (visibleItems === 0 && searchTerm !== '') {
+                        category.style.display = 'none';
+                    } else {
+                        category.style.display = 'block';
+                    }
+                });
+            });
         }
         
         // Smooth scrolling for navigation
@@ -1017,34 +1383,12 @@
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
+                const targetElement = document.getElementById(targetId.substring(1));
                 if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Active nav link on scroll
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+                    const targetIndex = sections.indexOf(targetId.substring(1));
+                    if (targetIndex !== -1) {
+                        navigateToSection(targetIndex);
+                    }
                 }
             });
         });
@@ -1056,30 +1400,15 @@
             });
             
             btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-        
-        // Feature card glow effect
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const icon = this.querySelector('.feature-icon');
-                if (icon) {
-                    icon.style.textShadow = '0 0 15px currentColor';
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.feature-icon');
-                if (icon) {
-                    icon.style.textShadow = 'none';
+                if (!this.classList.contains('disabled')) {
+                    this.style.transform = 'translateY(0)';
                 }
             });
         });
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
+            updateNavigation();
             
             // Add floating animation to hero avatar
             const avatar = document.querySelector('.bot-avatar');
@@ -1087,18 +1416,27 @@
                 setInterval(() => {
                     avatar.style.animation = 'none';
                     setTimeout(() => {
-                        avatar.style.animation = 'float 6s ease-in-out infinite';
+                        avatar.style.animation = 'gentle-float 8s ease-in-out infinite';
                     }, 10);
-                }, 6000);
+                }, 8000);
             }
             
             // Mobile menu toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const nav = document.querySelector('nav ul');
             
-            if (mobileMenuBtn) {
+            if (mobileMenuBtn && nav) {
                 mobileMenuBtn.addEventListener('click', function() {
                     nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                });
+                
+                // Close menu when clicking a link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            nav.style.display = 'none';
+                        }
+                    });
                 });
             }
             
@@ -1108,16 +1446,37 @@
                 const currentYear = new Date().getFullYear();
                 yearElement.innerHTML = yearElement.innerHTML.replace('2023', currentYear);
             }
+            
+            // Parallax effect for hero background
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
         });
         
-        // Parallax effect for hero background
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const heroBg = document.querySelector('.hero-bg');
-            if (heroBg) {
-                heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        // Add some random leaf decorations
+        function addLeafDecorations() {
+            const leavesContainer = document.querySelector('.leaf-decoration.leaf-2');
+            if (leavesContainer) {
+                for (let i = 0; i < 3; i++) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf-decoration';
+                    leaf.style.position = 'absolute';
+                    leaf.style.top = `${Math.random() * 100}%`;
+                    leaf.style.left = `${Math.random() * 100}%`;
+                    leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    leaf.style.opacity = `${Math.random() * 0.1 + 0.05}`;
+                    leaf.innerHTML = `<i class="fas fa-leaf" style="font-size: ${Math.random() * 40 + 30}px; color: var(--leaf-green);"></i>`;
+                    document.body.appendChild(leaf);
+                }
             }
-        });
+        }
+        
+        // Add leaf decorations after page loads
+        setTimeout(addLeafDecorations, 500);
     </script>
 </body>
 </html>
