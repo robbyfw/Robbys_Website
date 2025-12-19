@@ -62,6 +62,7 @@
             align-items: center;
             flex-wrap: wrap;
             transition: var(--transition);
+            gap: 15px;
         }
 
         .logo {
@@ -83,7 +84,8 @@
         .header-controls {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .theme-selector {
@@ -102,6 +104,7 @@
             gap: 8px;
             color: var(--dark);
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .theme-btn:hover {
@@ -158,7 +161,7 @@
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -172,6 +175,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
+            font-size: 14px;
         }
 
         .nav-link:hover {
@@ -194,12 +199,12 @@
             display: grid;
             grid-template-columns: 1fr 1.5fr;
             gap: 30px;
-            margin-bottom: 30px;
         }
 
         @media (max-width: 992px) {
             .main-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
 
@@ -214,7 +219,7 @@
         }
 
         .stats-panel h2 {
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 20px;
             color: var(--primary);
             display: flex;
@@ -242,8 +247,8 @@
         }
 
         .stat-card i {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            margin-bottom: 8px;
         }
 
         .stat-card.total i { color: var(--primary); }
@@ -252,12 +257,12 @@
         .stat-card.overdue i { color: var(--danger); }
 
         .stat-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
         }
 
         .stat-label {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-light);
             margin-top: 5px;
         }
@@ -267,19 +272,22 @@
             background-color: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            padding: 30px;
+            padding: 25px;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
         }
 
         .todo-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .todo-header h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: var(--dark);
         }
 
@@ -288,14 +296,15 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .add-btn:hover {
@@ -306,19 +315,20 @@
         /* Input Section */
         .input-section {
             display: flex;
-            margin-bottom: 30px;
-            gap: 15px;
+            margin-bottom: 20px;
+            gap: 10px;
         }
 
         .todo-input {
             flex: 1;
-            padding: 15px 20px;
+            padding: 12px 18px;
             border: 2px solid var(--gray);
             border-radius: 30px;
-            font-size: 16px;
+            font-size: 15px;
             transition: var(--transition);
             background-color: var(--card-bg);
             color: var(--text-color);
+            min-width: 0;
         }
 
         .todo-input:focus {
@@ -330,11 +340,12 @@
             padding: 0 15px;
             border: 2px solid var(--gray);
             border-radius: 30px;
-            font-size: 16px;
+            font-size: 15px;
             background-color: var(--card-bg);
             color: var(--text-color);
             cursor: pointer;
             transition: var(--transition);
+            min-width: 120px;
         }
 
         .category-select:focus {
@@ -346,10 +357,19 @@
         .priority-selector {
             display: flex;
             gap: 5px;
+            margin-bottom: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .priority-selector span {
+            margin-right: 10px;
+            font-weight: 500;
+            font-size: 14px;
         }
 
         .priority-btn {
-            padding: 8px 12px;
+            padding: 6px 12px;
             background-color: var(--light);
             border: none;
             border-radius: 20px;
@@ -360,6 +380,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            white-space: nowrap;
         }
 
         .priority-btn:hover {
@@ -388,21 +409,22 @@
         /* Filter Section */
         .filter-section {
             display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 8px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 8px 20px;
+            padding: 6px 15px;
             background-color: var(--light);
             border: none;
             border-radius: 30px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
             color: var(--text-color);
+            white-space: nowrap;
         }
 
         .filter-btn:hover {
@@ -417,18 +439,38 @@
         /* To-Do Items */
         .todo-list {
             list-style: none;
+            flex: 1;
+            min-height: 300px;
+            overflow-y: auto;
+            max-height: 500px;
+            padding-right: 5px;
+        }
+
+        .todo-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .todo-list::-webkit-scrollbar-track {
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        .todo-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         .todo-item {
             display: flex;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 15px;
             border-radius: var(--radius);
             background-color: var(--light);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             transition: var(--transition);
             animation: fadeIn 0.5s ease;
             border-left: 4px solid var(--gray);
+            gap: 12px;
         }
 
         .todo-item:hover {
@@ -454,21 +496,24 @@
         }
 
         .todo-checkbox {
-            width: 24px;
-            height: 24px;
-            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
             cursor: pointer;
             accent-color: var(--success);
+            flex-shrink: 0;
         }
 
         .todo-content {
             flex: 1;
+            min-width: 0;
         }
 
         .todo-title {
             font-weight: 500;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             word-break: break-word;
+            font-size: 15px;
         }
 
         .todo-item.completed .todo-title {
@@ -478,18 +523,19 @@
 
         .todo-meta {
             display: flex;
-            gap: 15px;
-            font-size: 13px;
+            gap: 10px;
+            font-size: 12px;
             color: var(--text-light);
             flex-wrap: wrap;
         }
 
         .todo-category {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .category-work { background-color: #ffeaa7; color: #856c00; }
@@ -499,10 +545,11 @@
 
         .todo-priority {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .priority-label-low { background-color: #d4edda; color: #155724; }
@@ -517,16 +564,17 @@
 
         .todo-actions {
             display: flex;
-            gap: 10px;
+            gap: 5px;
+            flex-shrink: 0;
         }
 
         .todo-btn {
             background: none;
             border: none;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -553,64 +601,42 @@
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             color: var(--text-light);
         }
 
         .empty-state i {
-            font-size: 60px;
-            margin-bottom: 20px;
+            font-size: 50px;
+            margin-bottom: 15px;
             color: var(--gray);
         }
 
         .empty-state h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 8px;
             color: var(--dark);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-light);
+        .empty-state p {
             font-size: 14px;
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 15px;
-        }
-
-        .footer-link {
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link:hover {
-            text-decoration: underline;
         }
 
         /* Progress Bar */
         .progress-container {
             margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray);
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 8px;
+            font-size: 14px;
         }
 
         .progress-bar {
-            height: 8px;
+            height: 6px;
             background-color: var(--gray);
             border-radius: 4px;
             overflow: hidden;
@@ -622,6 +648,32 @@
             border-radius: 4px;
             width: 0%;
             transition: width 1s ease;
+        }
+
+        /* Priority Menu */
+        .priority-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            padding: 8px;
+            z-index: 10;
+            min-width: 100px;
+            display: none;
+        }
+
+        .priority-option {
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .priority-option:hover {
+            background-color: var(--light);
         }
 
         /* Animations */
@@ -727,59 +779,100 @@
         }
 
         /* Responsive adjustments */
-        @media (max-width: 992px) {
+        @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
+                align-items: stretch;
+                padding: 15px 20px;
             }
-
+            
             .header-controls {
                 flex-direction: column;
-                width: 100%;
+                align-items: stretch;
+                gap: 15px;
             }
-
+            
             nav {
                 justify-content: center;
             }
-
+            
+            .theme-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .theme-dropdown {
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
+            
             .input-section {
                 flex-direction: column;
             }
-
-            .todo-meta {
-                flex-direction: column;
-                gap: 5px;
+            
+            .category-select {
+                width: 100%;
             }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .theme-dropdown {
-                left: 0;
-                right: auto;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-link {
-                padding: 6px 12px;
-                font-size: 14px;
-            }
-
-            .todo-header h1 {
-                font-size: 24px;
-            }
-
-            .todo-item {
+            
+            .todo-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
+            
+            .todo-header h1 {
+                font-size: 22px;
+            }
+            
+            .add-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 100;
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
 
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .todo-container {
+                padding: 15px;
+            }
+            
+            .filter-section {
+                justify-content: center;
+            }
+            
+            .filter-btn {
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+            
+            .todo-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
             .todo-actions {
                 align-self: flex-end;
             }
@@ -903,7 +996,7 @@
                 </div>
                 
                 <div class="priority-selector">
-                    <span style="margin-right: 10px; font-weight: 500;">Priority:</span>
+                    <span>Priority:</span>
                     <button class="priority-btn priority-low active" data-priority="low">
                         <i class="fas fa-arrow-down"></i> Low
                     </button>
@@ -916,7 +1009,7 @@
                 </div>
 
                 <div class="filter-section">
-                    <button class="filter-btn active" data-filter="all">All Tasks</button>
+                    <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="pending">Pending</button>
                     <button class="filter-btn" data-filter="completed">Completed</button>
                     <button class="filter-btn" data-filter="priority-high">High Priority</button>
@@ -934,16 +1027,6 @@
                 </div>
             </div>
         </div>
-
-        <footer>
-            <p>© 2023 ElegantTasks. A beautiful and productive to-do list application.</p>
-            <div class="footer-links">
-                <a href="https://fwrobby.site" class="footer-link">Home</a>
-                <a href="https://fwrobby.site/about" class="footer-link">About</a>
-                <a href="https://fwrobby.site/contact" class="footer-link">Contact</a>
-                <a href="https://fwrobby.site/donate" class="footer-link">Donate</a>
-            </div>
-        </footer>
     </div>
 
     <script>
@@ -1117,7 +1200,6 @@
         function deleteTask(id) {
             const taskElement = document.querySelector(`[data-task-id="${id}"]`);
             if (taskElement) {
-                taskElement.classList.add('slide-in');
                 taskElement.style.opacity = '0';
                 taskElement.style.transform = 'translateX(20px)';
                 
@@ -1237,16 +1319,16 @@
                         <div class="todo-title">${task.title} ${isOverdue ? ' ⏰' : ''}</div>
                         <div class="todo-meta">
                             <span class="todo-category category-${task.category}">${task.category.charAt(0).toUpperCase() + task.category.slice(1)}</span>
-                            <span class="todo-priority priority-label-${task.priority}">${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority</span>
+                            <span class="todo-priority priority-label-${task.priority}">${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}</span>
                             <span class="todo-date"><i class="far fa-calendar"></i> ${formattedDate}</span>
                         </div>
                     </div>
                     <div class="todo-actions">
-                        <div class="priority-dropdown" style="position: relative;">
+                        <div style="position: relative;">
                             <button class="todo-btn priority-btn" title="Change priority">
                                 <i class="fas fa-flag"></i>
                             </button>
-                            <div class="priority-menu" style="display: none; position: absolute; top: 100%; right: 0; background: var(--card-bg); box-shadow: var(--shadow); border-radius: 8px; padding: 10px; z-index: 10; min-width: 120px;">
+                            <div class="priority-menu">
                                 <div class="priority-option" data-priority="low">Low</div>
                                 <div class="priority-option" data-priority="medium">Medium</div>
                                 <div class="priority-option" data-priority="high">High</div>
@@ -1276,6 +1358,10 @@
                 // Priority button event listeners
                 priorityBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    const menus = document.querySelectorAll('.priority-menu');
+                    menus.forEach(menu => {
+                        if (menu !== priorityMenu) menu.style.display = 'none';
+                    });
                     priorityMenu.style.display = priorityMenu.style.display === 'none' ? 'block' : 'none';
                 });
                 
@@ -1290,7 +1376,9 @@
                 
                 // Close priority menu when clicking outside
                 document.addEventListener('click', () => {
-                    if (priorityMenu) priorityMenu.style.display = 'none';
+                    document.querySelectorAll('.priority-menu').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
                 });
                 
                 todoList.appendChild(taskElement);
@@ -1327,8 +1415,8 @@
             const currentValue = parseInt(element.textContent) || 0;
             if (currentValue === targetValue) return;
             
-            const duration = 500; // Animation duration in ms
-            const step = Math.abs(targetValue - currentValue) / (duration / 16); // 60fps
+            const duration = 500;
+            const step = Math.abs(targetValue - currentValue) / (duration / 16);
             let current = currentValue;
             
             const timer = setInterval(() => {
