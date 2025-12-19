@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant To-Do List</title>
+    <title>Elegant To-Do List | Multiple Themes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -14,6 +14,7 @@
         }
 
         :root {
+            /* Default Theme (Purple) */
             --primary: #6c5ce7;
             --primary-dark: #5649c0;
             --secondary: #00cec9;
@@ -27,15 +28,21 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --radius: 12px;
             --transition: all 0.3s ease;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: white;
+            --text-color: #2d3436;
+            --text-light: #666;
+            --header-bg: white;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--dark);
+            background: var(--bg-gradient);
+            color: var(--text-color);
             min-height: 100vh;
             padding: 20px;
             line-height: 1.6;
+            transition: var(--transition);
         }
 
         .container {
@@ -45,7 +52,7 @@
 
         /* Header & Navigation */
         header {
-            background-color: white;
+            background-color: var(--header-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 20px 30px;
@@ -54,6 +61,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            transition: var(--transition);
         }
 
         .logo {
@@ -64,10 +72,88 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: var(--transition);
         }
 
         .logo i {
             color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-btn {
+            background-color: var(--light);
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .theme-btn:hover {
+            background-color: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 15px;
+            margin-top: 10px;
+            min-width: 200px;
+            display: none;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .theme-dropdown.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 8px;
+        }
+
+        .theme-option:hover {
+            background-color: var(--light);
+        }
+
+        .theme-option.active {
+            background-color: rgba(108, 92, 231, 0.1);
+            border-left: 3px solid var(--primary);
+        }
+
+        .theme-preview {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--gray);
         }
 
         nav {
@@ -119,11 +205,12 @@
 
         /* Stats Panel */
         .stats-panel {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 25px;
             height: fit-content;
+            transition: var(--transition);
         }
 
         .stats-panel h2 {
@@ -171,16 +258,17 @@
 
         .stat-label {
             font-size: 14px;
-            color: #666;
+            color: var(--text-light);
             margin-top: 5px;
         }
 
         /* To-Do List */
         .todo-container {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 30px;
+            transition: var(--transition);
         }
 
         .todo-header {
@@ -229,6 +317,8 @@
             border-radius: 30px;
             font-size: 16px;
             transition: var(--transition);
+            background-color: var(--card-bg);
+            color: var(--text-color);
         }
 
         .todo-input:focus {
@@ -241,7 +331,8 @@
             border: 2px solid var(--gray);
             border-radius: 30px;
             font-size: 16px;
-            background-color: white;
+            background-color: var(--card-bg);
+            color: var(--text-color);
             cursor: pointer;
             transition: var(--transition);
         }
@@ -249,6 +340,49 @@
         .category-select:focus {
             outline: none;
             border-color: var(--primary);
+        }
+
+        /* Priority Selector */
+        .priority-selector {
+            display: flex;
+            gap: 5px;
+        }
+
+        .priority-btn {
+            padding: 8px 12px;
+            background-color: var(--light);
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .priority-btn:hover {
+            opacity: 0.8;
+        }
+
+        .priority-btn.active {
+            transform: scale(1.05);
+        }
+
+        .priority-low {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .priority-medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .priority-high {
+            background-color: #f8d7da;
+            color: #721c24;
         }
 
         /* Filter Section */
@@ -268,6 +402,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
+            color: var(--text-color);
         }
 
         .filter-btn:hover {
@@ -293,6 +428,7 @@
             margin-bottom: 15px;
             transition: var(--transition);
             animation: fadeIn 0.5s ease;
+            border-left: 4px solid var(--gray);
         }
 
         .todo-item:hover {
@@ -302,7 +438,19 @@
 
         .todo-item.completed {
             opacity: 0.8;
-            background-color: #f0f9f7;
+            background-color: rgba(0, 184, 148, 0.1);
+        }
+
+        .todo-item.priority-low {
+            border-left-color: #28a745;
+        }
+
+        .todo-item.priority-medium {
+            border-left-color: #ffc107;
+        }
+
+        .todo-item.priority-high {
+            border-left-color: #dc3545;
         }
 
         .todo-checkbox {
@@ -332,7 +480,8 @@
             display: flex;
             gap: 15px;
             font-size: 13px;
-            color: #777;
+            color: var(--text-light);
+            flex-wrap: wrap;
         }
 
         .todo-category {
@@ -347,6 +496,24 @@
         .category-personal { background-color: #a29bfe; color: #2d246b; }
         .category-shopping { background-color: #55efc4; color: #00664e; }
         .category-other { background-color: #fd79a8; color: #7d0037; }
+
+        .todo-priority {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .priority-label-low { background-color: #d4edda; color: #155724; }
+        .priority-label-medium { background-color: #fff3cd; color: #856404; }
+        .priority-label-high { background-color: #f8d7da; color: #721c24; }
+
+        .todo-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
         .todo-actions {
             display: flex;
@@ -383,15 +550,35 @@
             background-color: rgba(225, 112, 85, 0.1);
         }
 
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+
+        .empty-state h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
         /* Footer */
         footer {
             text-align: center;
             padding: 25px;
-            color: #666;
+            color: var(--text-light);
             font-size: 14px;
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .footer-links {
@@ -411,6 +598,32 @@
             text-decoration: underline;
         }
 
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -423,16 +636,107 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         .pulse {
             animation: pulse 0.5s ease;
         }
 
+        .slide-in {
+            animation: slideIn 0.3s ease;
+        }
+
+        /* Dark Theme Variables - Will be applied via JS */
+        .theme-dark {
+            --primary: #8a7cff;
+            --primary-dark: #6c5ce7;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --light: #2d3436;
+            --dark: #f9f7fe;
+            --gray: #636e72;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --bg-gradient: linear-gradient(135deg, #1e1e2e 0%, #2d3436 100%);
+            --card-bg: #2d3436;
+            --text-color: #f9f7fe;
+            --text-light: #b2bec3;
+            --header-bg: #2d3436;
+        }
+
+        .theme-blue {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #bdc3c7;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #c0392b;
+            --shadow: 0 10px 30px rgba(52, 152, 219, 0.1);
+            --bg-gradient: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            --card-bg: white;
+            --text-color: #2c3e50;
+            --text-light: #7f8c8d;
+            --header-bg: white;
+        }
+
+        .theme-green {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf9f2;
+            --dark: #2c3e50;
+            --gray: #bdc3c7;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #c0392b;
+            --shadow: 0 10px 30px rgba(46, 204, 113, 0.1);
+            --bg-gradient: linear-gradient(135deg, #ecf9f2 0%, #d1f2e3 100%);
+            --card-bg: white;
+            --text-color: #2c3e50;
+            --text-light: #7f8c8d;
+            --header-bg: white;
+        }
+
+        .theme-sunset {
+            --primary: #e17055;
+            --primary-dark: #d35400;
+            --secondary: #fdcb6e;
+            --accent: #6c5ce7;
+            --light: #fff5f2;
+            --dark: #2d3436;
+            --gray: #dfe6e9;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --shadow: 0 10px 30px rgba(225, 112, 85, 0.1);
+            --bg-gradient: linear-gradient(135deg, #fff5f2 0%, #ffeaa7 100%);
+            --card-bg: white;
+            --text-color: #2d3436;
+            --text-light: #666;
+            --header-bg: white;
+        }
+
         /* Responsive adjustments */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             header {
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
+            }
+
+            .header-controls {
+                flex-direction: column;
+                width: 100%;
             }
 
             nav {
@@ -450,6 +754,13 @@
 
             .stats-container {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .theme-dropdown {
+                left: 0;
+                right: auto;
             }
         }
 
@@ -482,20 +793,58 @@
                 <i class="fas fa-check-circle"></i>
                 <span>ElegantTasks</span>
             </div>
-            <nav>
-                <a href="https://fwrobby.site" class="nav-link active">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="https://fwrobby.site/about" class="nav-link">
-                    <i class="fas fa-info-circle"></i> About
-                </a>
-                <a href="https://fwrobby.site/contact" class="nav-link">
-                    <i class="fas fa-envelope"></i> Contact
-                </a>
-                <a href="https://fwrobby.site/donate" class="nav-link">
-                    <i class="fas fa-heart"></i> Donate
-                </a>
-            </nav>
+            
+            <div class="header-controls">
+                <div class="theme-selector">
+                    <button class="theme-btn" id="themeToggle">
+                        <i class="fas fa-palette"></i>
+                        <span>Theme</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="theme-dropdown" id="themeDropdown">
+                        <div class="theme-option active" data-theme="default">
+                            <div class="theme-preview" style="background: #6c5ce7;"></div>
+                            <span>Purple</span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="theme-option" data-theme="dark">
+                            <div class="theme-preview" style="background: #2d3436;"></div>
+                            <span>Dark</span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="theme-option" data-theme="blue">
+                            <div class="theme-preview" style="background: #3498db;"></div>
+                            <span>Blue</span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="theme-option" data-theme="green">
+                            <div class="theme-preview" style="background: #2ecc71;"></div>
+                            <span>Green</span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="theme-option" data-theme="sunset">
+                            <div class="theme-preview" style="background: #e17055;"></div>
+                            <span>Sunset</span>
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav>
+                    <a href="https://fwrobby.site" class="nav-link active">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="https://fwrobby.site/about" class="nav-link">
+                        <i class="fas fa-info-circle"></i> About
+                    </a>
+                    <a href="https://fwrobby.site/contact" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                    <a href="https://fwrobby.site/donate" class="nav-link">
+                        <i class="fas fa-heart"></i> Donate
+                    </a>
+                </nav>
+            </div>
         </header>
 
         <div class="main-content">
@@ -523,6 +872,16 @@
                         <div class="stat-label">Overdue</div>
                     </div>
                 </div>
+                
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span>Completion Progress</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
             </div>
 
             <div class="todo-container">
@@ -542,18 +901,37 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
+                
+                <div class="priority-selector">
+                    <span style="margin-right: 10px; font-weight: 500;">Priority:</span>
+                    <button class="priority-btn priority-low active" data-priority="low">
+                        <i class="fas fa-arrow-down"></i> Low
+                    </button>
+                    <button class="priority-btn priority-medium" data-priority="medium">
+                        <i class="fas fa-minus"></i> Medium
+                    </button>
+                    <button class="priority-btn priority-high" data-priority="high">
+                        <i class="fas fa-arrow-up"></i> High
+                    </button>
+                </div>
 
                 <div class="filter-section">
                     <button class="filter-btn active" data-filter="all">All Tasks</button>
                     <button class="filter-btn" data-filter="pending">Pending</button>
                     <button class="filter-btn" data-filter="completed">Completed</button>
-                    <button class="filter-btn" data-filter="work">Work</button>
-                    <button class="filter-btn" data-filter="personal">Personal</button>
+                    <button class="filter-btn" data-filter="priority-high">High Priority</button>
+                    <button class="filter-btn" data-filter="today">Today</button>
                 </div>
 
                 <ul class="todo-list" id="todoList">
                     <!-- To-do items will be added here dynamically -->
                 </ul>
+                
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>No tasks to show</h3>
+                    <p>Add a new task using the input above or try changing your filter.</p>
+                </div>
             </div>
         </div>
 
@@ -576,6 +954,13 @@
         const addTaskBtn = document.getElementById('addTaskBtn');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const navLinks = document.querySelectorAll('.nav-link');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeDropdown = document.getElementById('themeDropdown');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const priorityButtons = document.querySelectorAll('.priority-btn');
+        const emptyState = document.getElementById('emptyState');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
         
         // Statistics elements
         const totalTasksEl = document.getElementById('total-tasks');
@@ -585,18 +970,23 @@
         
         // Initialize tasks from localStorage or with sample data
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [
-            { id: 1, title: 'Design homepage for fwrobby.site', completed: false, category: 'work', createdAt: new Date('2023-09-15') },
-            { id: 2, title: 'Buy groceries for the week', completed: true, category: 'shopping', createdAt: new Date('2023-09-14') },
-            { id: 3, title: 'Call mom for her birthday', completed: false, category: 'personal', createdAt: new Date('2023-09-13') },
-            { id: 4, title: 'Finish project documentation', completed: false, category: 'work', createdAt: new Date('2023-09-10') },
-            { id: 5, title: 'Donate to open source project', completed: false, category: 'other', createdAt: new Date('2023-09-12') },
-            { id: 6, title: 'Plan weekend trip with friends', completed: true, category: 'personal', createdAt: new Date('2023-09-11') }
+            { id: 1, title: 'Design homepage for fwrobby.site', completed: false, category: 'work', priority: 'high', createdAt: new Date() },
+            { id: 2, title: 'Buy groceries for the week', completed: true, category: 'shopping', priority: 'medium', createdAt: new Date('2023-09-14') },
+            { id: 3, title: 'Call mom for her birthday', completed: false, category: 'personal', priority: 'high', createdAt: new Date('2023-09-13') },
+            { id: 4, title: 'Finish project documentation', completed: false, category: 'work', priority: 'medium', createdAt: new Date('2023-09-10') },
+            { id: 5, title: 'Donate to open source project', completed: false, category: 'other', priority: 'low', createdAt: new Date('2023-09-12') },
+            { id: 6, title: 'Plan weekend trip with friends', completed: true, category: 'personal', priority: 'low', createdAt: new Date('2023-09-11') }
         ];
         
         let currentFilter = 'all';
+        let currentPriority = 'low';
+        let currentTheme = localStorage.getItem('theme') || 'default';
         
         // Initialize the app
         function init() {
+            // Set the saved theme
+            setTheme(currentTheme);
+            
             renderTasks();
             updateStats();
             
@@ -604,6 +994,39 @@
             addTaskBtn.addEventListener('click', addTask);
             todoInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') addTask();
+            });
+            
+            // Theme selector event listeners
+            themeToggle.addEventListener('click', toggleThemeDropdown);
+            
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const theme = option.getAttribute('data-theme');
+                    setTheme(theme);
+                    
+                    // Update active theme in dropdown
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    
+                    // Close dropdown
+                    themeDropdown.classList.remove('show');
+                });
+            });
+            
+            // Close theme dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!themeToggle.contains(e.target) && !themeDropdown.contains(e.target)) {
+                    themeDropdown.classList.remove('show');
+                }
+            });
+            
+            // Priority button event listeners
+            priorityButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    priorityButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentPriority = button.getAttribute('data-priority');
+                });
             });
             
             // Filter button event listeners
@@ -637,6 +1060,34 @@
             });
         }
         
+        // Toggle theme dropdown visibility
+        function toggleThemeDropdown() {
+            themeDropdown.classList.toggle('show');
+        }
+        
+        // Set the active theme
+        function setTheme(themeName) {
+            // Remove all theme classes
+            document.body.classList.remove('theme-dark', 'theme-blue', 'theme-green', 'theme-sunset');
+            
+            // Add the selected theme class
+            if (themeName !== 'default') {
+                document.body.classList.add(`theme-${themeName}`);
+            }
+            
+            // Update current theme and save to localStorage
+            currentTheme = themeName;
+            localStorage.setItem('theme', themeName);
+            
+            // Update the active theme in dropdown
+            themeOptions.forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-theme') === themeName) {
+                    option.classList.add('active');
+                }
+            });
+        }
+        
         // Add a new task
         function addTask() {
             const title = todoInput.value.trim();
@@ -647,6 +1098,7 @@
                 title: title,
                 completed: false,
                 category: categorySelect.value,
+                priority: currentPriority,
                 createdAt: new Date()
             };
             
@@ -663,17 +1115,33 @@
         
         // Delete a task
         function deleteTask(id) {
-            tasks = tasks.filter(task => task.id !== id);
-            saveTasks();
-            renderTasks();
-            updateStats();
+            const taskElement = document.querySelector(`[data-task-id="${id}"]`);
+            if (taskElement) {
+                taskElement.classList.add('slide-in');
+                taskElement.style.opacity = '0';
+                taskElement.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    tasks = tasks.filter(task => task.id !== id);
+                    saveTasks();
+                    renderTasks();
+                    updateStats();
+                }, 300);
+            }
         }
         
         // Toggle task completion
         function toggleTask(id) {
             tasks = tasks.map(task => {
                 if (task.id === id) {
-                    return { ...task, completed: !task.completed };
+                    const updatedTask = { ...task, completed: !task.completed };
+                    
+                    // If marking as completed, add completion date
+                    if (updatedTask.completed && !task.completedDate) {
+                        updatedTask.completedDate = new Date();
+                    }
+                    
+                    return updatedTask;
                 }
                 return task;
             });
@@ -696,6 +1164,19 @@
             }
         }
         
+        // Change task priority
+        function changePriority(id, priority) {
+            tasks = tasks.map(task => {
+                if (task.id === id) {
+                    return { ...task, priority: priority };
+                }
+                return task;
+            });
+            
+            saveTasks();
+            renderTasks();
+        }
+        
         // Save tasks to localStorage
         function saveTasks() {
             localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -710,18 +1191,26 @@
                 filteredTasks = tasks.filter(task => !task.completed);
             } else if (currentFilter === 'completed') {
                 filteredTasks = tasks.filter(task => task.completed);
+            } else if (currentFilter === 'priority-high') {
+                filteredTasks = tasks.filter(task => task.priority === 'high');
+            } else if (currentFilter === 'today') {
+                const today = new Date();
+                const todayStr = today.toDateString();
+                filteredTasks = tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt).toDateString();
+                    return taskDate === todayStr;
+                });
             } else if (['work', 'personal', 'shopping', 'other'].includes(currentFilter)) {
                 filteredTasks = tasks.filter(task => task.category === currentFilter);
             }
             
-            // If no tasks and we're not showing "all", show message
-            if (filteredTasks.length === 0 && currentFilter !== 'all') {
-                todoList.innerHTML = `
-                    <div class="no-tasks">
-                        <p>No ${currentFilter} tasks found. Add a new task or try another filter.</p>
-                    </div>
-                `;
-                return;
+            // Show/hide empty state
+            if (filteredTasks.length === 0) {
+                emptyState.style.display = 'block';
+                todoList.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                todoList.style.display = 'block';
             }
             
             // Clear the current list
@@ -730,22 +1219,39 @@
             // Render each task
             filteredTasks.forEach(task => {
                 const taskElement = document.createElement('li');
-                taskElement.className = `todo-item ${task.completed ? 'completed' : ''}`;
+                taskElement.className = `todo-item ${task.completed ? 'completed' : ''} priority-${task.priority}`;
+                taskElement.setAttribute('data-task-id', task.id);
                 
                 // Format date
                 const dateOptions = { month: 'short', day: 'numeric' };
-                const formattedDate = task.createdAt.toLocaleDateString('en-US', dateOptions);
+                const formattedDate = new Date(task.createdAt).toLocaleDateString('en-US', dateOptions);
+                
+                // Check if task is overdue (created more than 3 days ago and not completed)
+                const threeDaysAgo = new Date();
+                threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+                const isOverdue = !task.completed && new Date(task.createdAt) < threeDaysAgo;
                 
                 taskElement.innerHTML = `
                     <input type="checkbox" class="todo-checkbox" ${task.completed ? 'checked' : ''}>
                     <div class="todo-content">
-                        <div class="todo-title">${task.title}</div>
+                        <div class="todo-title">${task.title} ${isOverdue ? ' ⏰' : ''}</div>
                         <div class="todo-meta">
                             <span class="todo-category category-${task.category}">${task.category.charAt(0).toUpperCase() + task.category.slice(1)}</span>
+                            <span class="todo-priority priority-label-${task.priority}">${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority</span>
                             <span class="todo-date"><i class="far fa-calendar"></i> ${formattedDate}</span>
                         </div>
                     </div>
                     <div class="todo-actions">
+                        <div class="priority-dropdown" style="position: relative;">
+                            <button class="todo-btn priority-btn" title="Change priority">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                            <div class="priority-menu" style="display: none; position: absolute; top: 100%; right: 0; background: var(--card-bg); box-shadow: var(--shadow); border-radius: 8px; padding: 10px; z-index: 10; min-width: 120px;">
+                                <div class="priority-option" data-priority="low">Low</div>
+                                <div class="priority-option" data-priority="medium">Medium</div>
+                                <div class="priority-option" data-priority="high">High</div>
+                            </div>
+                        </div>
                         <button class="todo-btn edit-btn" title="Edit task">
                             <i class="fas fa-edit"></i>
                         </button>
@@ -759,16 +1265,39 @@
                 const checkbox = taskElement.querySelector('.todo-checkbox');
                 const editBtn = taskElement.querySelector('.edit-btn');
                 const deleteBtn = taskElement.querySelector('.delete-btn');
+                const priorityBtn = taskElement.querySelector('.priority-btn');
+                const priorityMenu = taskElement.querySelector('.priority-menu');
+                const priorityOptions = taskElement.querySelectorAll('.priority-option');
                 
                 checkbox.addEventListener('change', () => toggleTask(task.id));
                 editBtn.addEventListener('click', () => editTask(task.id));
                 deleteBtn.addEventListener('click', () => deleteTask(task.id));
                 
+                // Priority button event listeners
+                priorityBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    priorityMenu.style.display = priorityMenu.style.display === 'none' ? 'block' : 'none';
+                });
+                
+                priorityOptions.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const priority = option.getAttribute('data-priority');
+                        changePriority(task.id, priority);
+                        priorityMenu.style.display = 'none';
+                    });
+                });
+                
+                // Close priority menu when clicking outside
+                document.addEventListener('click', () => {
+                    if (priorityMenu) priorityMenu.style.display = 'none';
+                });
+                
                 todoList.appendChild(taskElement);
             });
         }
         
-        // Update statistics
+        // Update statistics and progress
         function updateStats() {
             const total = tasks.length;
             const completed = tasks.filter(task => task.completed).length;
@@ -786,11 +1315,18 @@
             animateCounter(pendingTasksEl, pending);
             animateCounter(completedTasksEl, completed);
             animateCounter(overdueTasksEl, overdue);
+            
+            // Update progress bar
+            const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+            progressFill.style.width = `${progress}%`;
+            progressPercent.textContent = `${progress}%`;
         }
         
         // Animate counter from current value to new value
         function animateCounter(element, targetValue) {
             const currentValue = parseInt(element.textContent) || 0;
+            if (currentValue === targetValue) return;
+            
             const duration = 500; // Animation duration in ms
             const step = Math.abs(targetValue - currentValue) / (duration / 16); // 60fps
             let current = currentValue;
