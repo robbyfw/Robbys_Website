@@ -21,7 +21,7 @@ function addTaskToDOM(task){
     li.textContent = task;
 
     const delBtn = document.createElement('button');
-    delBtn.textContent = 'Delete';
+    delBtn.innerHTML = '<i class="fas fa-trash"></i>';
     delBtn.classList.add('delete-btn');
     delBtn.onclick = () => {
         todoList.removeChild(li);

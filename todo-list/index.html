@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List | FW Robby</title>
+    <title>FW Robby | To-Do List</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
+        <div class="logo">FW Robby</div>
         <nav>
             <a href="https://fwrobby.site">Home</a>
             <a href="https://fwrobby.site/about">About</a>
@@ -17,15 +19,28 @@
     </header>
 
     <main>
-        <div class="todo-container">
-            <h1>My To-Do List</h1>
-            <div class="input-container">
-                <input type="text" id="todo-input" placeholder="Add a new task...">
-                <button id="add-btn">Add</button>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Manage Your Tasks Efficiently</h1>
+                <p>Beautiful, simple, and modern To-Do List web app.</p>
             </div>
-            <ul id="todo-list"></ul>
-        </div>
+        </section>
+
+        <section class="todo-section">
+            <div class="todo-container">
+                <h2>My To-Do List</h2>
+                <div class="input-container">
+                    <input type="text" id="todo-input" placeholder="Add a new task...">
+                    <button id="add-btn"><i class="fas fa-plus"></i> Add</button>
+                </div>
+                <ul id="todo-list"></ul>
+            </div>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2025 FW Robby. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
