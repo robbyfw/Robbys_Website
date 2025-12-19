@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant To-Do List | Multiple Themes</title>
+    <title>ElegantTasks - Beautiful To-Do List App with Multiple Themes</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A beautiful, responsive to-do list application with multiple themes. Organize tasks, set priorities, and track progress. Works perfectly on mobile and desktop.">
+    <meta name="keywords" content="to-do list, task manager, productivity app, task organizer, beautiful to-do list, responsive design, multiple themes">
+    <meta name="author" content="fwrobby">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ElegantTasks - Beautiful To-Do List App">
+    <meta property="og:description" content="Organize your tasks with this beautiful, responsive to-do list app featuring multiple themes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fwrobby.site">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://fwrobby.site/images/Studio-Project.png">
+    <link rel="apple-touch-icon" href="https://fwrobby.site/images/Studio-Project.png">
+    
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -701,7 +718,7 @@
             animation: slideIn 0.3s ease;
         }
 
-        /* Dark Theme Variables - Will be applied via JS */
+        /* Dark Theme Variables */
         .theme-dark {
             --primary: #8a7cff;
             --primary-dark: #6c5ce7;
@@ -986,8 +1003,8 @@
                 </div>
 
                 <div class="input-section">
-                    <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task...">
-                    <select class="category-select" id="categorySelect">
+                    <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task..." aria-label="Task input">
+                    <select class="category-select" id="categorySelect" aria-label="Task category">
                         <option value="work">Work</option>
                         <option value="personal">Personal</option>
                         <option value="shopping">Shopping</option>
@@ -997,30 +1014,30 @@
                 
                 <div class="priority-selector">
                     <span>Priority:</span>
-                    <button class="priority-btn priority-low active" data-priority="low">
+                    <button class="priority-btn priority-low active" data-priority="low" aria-label="Low priority">
                         <i class="fas fa-arrow-down"></i> Low
                     </button>
-                    <button class="priority-btn priority-medium" data-priority="medium">
+                    <button class="priority-btn priority-medium" data-priority="medium" aria-label="Medium priority">
                         <i class="fas fa-minus"></i> Medium
                     </button>
-                    <button class="priority-btn priority-high" data-priority="high">
+                    <button class="priority-btn priority-high" data-priority="high" aria-label="High priority">
                         <i class="fas fa-arrow-up"></i> High
                     </button>
                 </div>
 
                 <div class="filter-section">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="pending">Pending</button>
-                    <button class="filter-btn" data-filter="completed">Completed</button>
-                    <button class="filter-btn" data-filter="priority-high">High Priority</button>
-                    <button class="filter-btn" data-filter="today">Today</button>
+                    <button class="filter-btn active" data-filter="all" aria-label="Show all tasks">All</button>
+                    <button class="filter-btn" data-filter="pending" aria-label="Show pending tasks">Pending</button>
+                    <button class="filter-btn" data-filter="completed" aria-label="Show completed tasks">Completed</button>
+                    <button class="filter-btn" data-filter="priority-high" aria-label="Show high priority tasks">High Priority</button>
+                    <button class="filter-btn" data-filter="today" aria-label="Show today's tasks">Today</button>
                 </div>
 
-                <ul class="todo-list" id="todoList">
+                <ul class="todo-list" id="todoList" aria-label="Task list">
                     <!-- To-do items will be added here dynamically -->
                 </ul>
                 
-                <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-state" id="emptyState" style="display: none;" aria-hidden="true">
                     <i class="fas fa-clipboard-list"></i>
                     <h3>No tasks to show</h3>
                     <p>Add a new task using the input above or try changing your filter.</p>
@@ -1134,9 +1151,8 @@
                         link.classList.add('active');
                         
                         // In a real app, this would navigate to the page
-                        // For demo, we'll just show an alert
                         const pageName = link.textContent.trim();
-                        alert(`Navigating to ${pageName} page (demo mode)`);
+                        console.log(`Navigating to ${pageName} page`);
                         e.preventDefault();
                     }
                 });
@@ -1314,7 +1330,7 @@
                 const isOverdue = !task.completed && new Date(task.createdAt) < threeDaysAgo;
                 
                 taskElement.innerHTML = `
-                    <input type="checkbox" class="todo-checkbox" ${task.completed ? 'checked' : ''}>
+                    <input type="checkbox" class="todo-checkbox" ${task.completed ? 'checked' : ''} aria-label="Mark task as ${task.completed ? 'incomplete' : 'complete'}">
                     <div class="todo-content">
                         <div class="todo-title">${task.title} ${isOverdue ? ' ⏰' : ''}</div>
                         <div class="todo-meta">
@@ -1325,7 +1341,7 @@
                     </div>
                     <div class="todo-actions">
                         <div style="position: relative;">
-                            <button class="todo-btn priority-btn" title="Change priority">
+                            <button class="todo-btn priority-btn" title="Change priority" aria-label="Change task priority">
                                 <i class="fas fa-flag"></i>
                             </button>
                             <div class="priority-menu">
@@ -1334,10 +1350,10 @@
                                 <div class="priority-option" data-priority="high">High</div>
                             </div>
                         </div>
-                        <button class="todo-btn edit-btn" title="Edit task">
+                        <button class="todo-btn edit-btn" title="Edit task" aria-label="Edit task">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="todo-btn delete-btn" title="Delete task">
+                        <button class="todo-btn delete-btn" title="Delete task" aria-label="Delete task">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
