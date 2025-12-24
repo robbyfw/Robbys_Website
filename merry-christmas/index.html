@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merry Christmas!</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Merry Christmas | Festive Holiday Greetings</title>
+    <meta name="description" content="Warm Christmas greetings and festive wishes for the holiday season. May this Christmas bring you peace, joy, and happiness.">
+    <meta name="keywords" content="Christmas, Merry Christmas, holiday greetings, festive season, Christmas wishes">
+    <meta name="author" content="Robby">
+    <meta property="og:title" content="Merry Christmas Greetings">
+    <meta property="og:description" content="Warm Christmas greetings for the holiday season">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://fwrobby.site/merry-christmas/picture.png">
+    <link rel="apple-touch-icon" href="https://fwrobby.site/merry-christmas/picture.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -11,285 +27,624 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --christmas-red: #C41E3A;
+            --christmas-green: #165B33;
+            --christmas-gold: #FFD700;
+            --christmas-blue: #0D3B66;
+            --snow-white: #F8F9FA;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: #0a3d62;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0D3B66 0%, #1E5F8A 50%, #0D3B66 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            color: var(--snow-white);
+        }
+
+        /* Animated Background */
+        .christmas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(196, 30, 58, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(22, 91, 51, 0.1) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite alternate;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
+            z-index: 1;
         }
 
-        .container {
+        /* Header */
+        .header {
             text-align: center;
-            z-index: 2;
-            padding: 20px;
+            margin-bottom: 40px;
+            animation: slideDown 1s ease-out;
         }
 
-        #greetingButton {
-            background: #c0392b;
+        .christmas-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4.5rem;
+            color: var(--christmas-gold);
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.5),
+                0 0 20px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 215, 0, 0.2);
+            margin-bottom: 10px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--snow-white);
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* Main Button */
+        .magic-button {
+            background: linear-gradient(45deg, var(--christmas-red), var(--christmas-green));
             color: white;
             border: none;
-            padding: 20px 50px;
-            font-size: 28px;
+            padding: 25px 60px;
+            font-size: 1.8rem;
+            font-family: 'Mountains of Christmas', cursive;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 10px 30px rgba(196, 30, 58, 0.4),
+                0 0 0 0 rgba(255, 215, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+            animation: buttonPulse 2s infinite;
         }
 
-        #greetingButton:hover {
-            background: #e74c3c;
-            transform: scale(1.05);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        .magic-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(196, 30, 58, 0.6),
+                0 0 20px 5px rgba(255, 215, 0, 0.5);
         }
 
-        #greetingButton:active {
-            transform: scale(0.98);
+        .magic-button:active {
+            transform: translateY(0) scale(0.98);
         }
 
-        .message {
+        .magic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s;
+        }
+
+        .magic-button:hover::before {
+            left: 100%;
+        }
+
+        /* Greeting Card */
+        .greeting-card {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
             width: 90%;
-            z-index: 10;
-            text-align: center;
+            max-width: 700px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.98));
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(255, 215, 0, 0.3),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            z-index: 1000;
             opacity: 0;
-            transition: all 0.5s ease;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--christmas-gold);
         }
 
-        .message.active {
+        .greeting-card.active {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .message h1 {
-            color: #c0392b;
-            font-size: 36px;
-            margin-bottom: 20px;
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .message p {
-            color: #2c3e50;
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 15px;
+        .card-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 3.5rem;
+            color: var(--christmas-red);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .santa {
-            font-size: 60px;
-            animation: bounce 2s infinite;
+        .card-subtitle {
+            color: var(--christmas-green);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .message-content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #2C3E50;
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 15px;
+            border-left: 5px solid var(--christmas-green);
+        }
+
+        .signature {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--christmas-red);
+            font-family: 'Mountains of Christmas', cursive;
+            margin-top: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--christmas-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(196, 30, 58, 0.3);
+        }
+
+        .close-btn:hover {
+            background: #A81830;
+            transform: rotate(90deg);
+        }
+
+        /* Christmas Decorations */
+        .decoration {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 20s infinite linear;
         }
 
         .snowflake {
             position: absolute;
             background: white;
             border-radius: 50%;
-            pointer-events: none;
+            box-shadow: 0 0 10px white;
             opacity: 0.8;
         }
 
-        .close-btn {
+        .christmas-light {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #c0392b;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
             border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 0 15px currentColor;
+            animation: lightTwinkle 2s infinite alternate;
         }
 
-        .music-info {
+        /* Footer */
+        .footer {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            z-index: 1;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
             padding: 10px 20px;
-            border-radius: 20px;
-            display: none;
-            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .music-info.show {
-            display: block;
-            animation: fadeIn 1s;
+        .music-player.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        .music-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .music-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes bgPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 0 10px rgba(255, 215, 0, 0.5),
+                    0 0 20px rgba(255, 215, 0, 0.3),
+                    0 0 30px rgba(255, 215, 0, 0.2);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.8),
+                    0 0 30px rgba(255, 215, 0, 0.5),
+                    0 0 40px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 10px 30px rgba(196, 30, 58, 0.4),
+                    0 0 0 0 rgba(255, 215, 0, 0.7);
+            }
+            50% {
+                box-shadow: 
+                    0 10px 30px rgba(196, 30, 58, 0.4),
+                    0 0 0 10px rgba(255, 215, 0, 0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, 100px) rotate(90deg); }
+            50% { transform: translate(0, 200px) rotate(180deg); }
+            75% { transform: translate(-100px, 100px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        @keyframes lightTwinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .christmas-title {
+                font-size: 3rem;
+            }
+            
+            .magic-button {
+                padding: 20px 40px;
+                font-size: 1.5rem;
+            }
+            
+            .greeting-card {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            .card-title {
+                font-size: 2.5rem;
+            }
+            
+            .message-content {
+                font-size: 1.1rem;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .christmas-title {
+                font-size: 2.5rem;
+            }
+            
+            .magic-button {
+                padding: 15px 30px;
+                font-size: 1.3rem;
+            }
+            
+            .card-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="christmas-bg"></div>
+
+    <!-- Christmas Decorations -->
+    <div id="decorations"></div>
+
+    <!-- Main Container -->
     <div class="container">
-        <button id="greetingButton">🎄 Click for Christmas Magic! 🎅</button>
+        <header class="header">
+            <h1 class="christmas-title">Merry Christmas</h1>
+            <p class="subtitle">Click the button for a special holiday greeting</p>
+        </header>
+
+        <button class="magic-button" id="magicButton">
+            🎄 Open Christmas Greeting 🎅
+        </button>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Wishing you a wonderful holiday season filled with joy and peace</p>
+        </footer>
     </div>
 
-    <div class="message" id="greetingMessage">
+    <!-- Greeting Card -->
+    <div class="greeting-card" id="greetingCard">
         <button class="close-btn" id="closeBtn">×</button>
-        <div class="santa">🎅</div>
-        <h1>Merry Christmas!</h1>
-        <p>From: <strong>Robby</strong></p>
-        <p>Wishing you a holiday season filled with joy, peace, and happiness!</p>
-        <p>May your days be merry and bright, and may all your Christmases be white!</p>
-        <div style="margin-top: 20px; font-size: 30px;">
-            🎄 🎁 ✨ ❄️
+        
+        <div class="card-header">
+            <h2 class="card-title">Merry Christmas!</h2>
+            <p class="card-subtitle">A Special Holiday Message</p>
+        </div>
+        
+        <div class="message-content">
+            <p>May this season bring you peace, warmth, and genuine happiness. May your heart feel light, your home feel joyful, and the coming year open doors to better days and new opportunities. Wishing you love, laughter, and good moments that last beyond the holidays.</p>
+        </div>
+        
+        <div class="signature">
+            <p>— With warm wishes, Robby 🎄</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; font-size: 2rem;">
+            ❄️ 🎁 ✨ 🦌
         </div>
     </div>
 
-    <div class="music-info" id="musicInfo">
-        Christmas music is playing! 🎵
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-btn" id="playBtn">▶️</button>
+        <button class="music-btn" id="pauseBtn">⏸️</button>
+        <button class="music-btn" id="volumeUp">🔊</button>
+        <button class="music-btn" id="volumeDown">🔉</button>
     </div>
 
+    <!-- Audio Element -->
     <audio id="christmasMusic" loop>
-        <!-- Fallback music source - replace with your actual file -->
-        <source src="https://assets.mixkit.co/music/preview/mixkit-christmas-time-209.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+        <source src="https://fwrobby.site/merry-christmas/christmas_music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Get DOM elements
-        const greetingButton = document.getElementById('greetingButton');
-        const greetingMessage = document.getElementById('greetingMessage');
+        // DOM Elements
+        const magicButton = document.getElementById('magicButton');
+        const greetingCard = document.getElementById('greetingCard');
         const closeBtn = document.getElementById('closeBtn');
         const christmasMusic = document.getElementById('christmasMusic');
-        const musicInfo = document.getElementById('musicInfo');
-        const body = document.body;
+        const musicPlayer = document.getElementById('musicPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const volumeUp = document.getElementById('volumeUp');
+        const volumeDown = document.getElementById('volumeDown');
+        const decorations = document.getElementById('decorations');
 
-        // Function to create snowflakes
-        function createSnowflakes(count = 100) {
-            for (let i = 0; i < count; i++) {
+        // Create snowflakes
+        function createSnowflakes() {
+            const snowflakeCount = 150;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
+                snowflake.className = 'snowflake';
                 
-                // Random size between 3px and 10px
-                const size = Math.random() * 7 + 3;
+                // Random size
+                const size = Math.random() * 8 + 2;
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
                 
                 // Random position
                 snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.top = `${Math.random() * 100}vh`;
                 
                 // Random opacity
                 snowflake.style.opacity = Math.random() * 0.7 + 0.3;
                 
                 // Random animation
-                const duration = Math.random() * 10 + 10;
+                const duration = Math.random() * 20 + 10;
                 const delay = Math.random() * 5;
+                const endX = (Math.random() - 0.5) * 200;
                 
                 snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
                 
-                // Add to body
-                body.appendChild(snowflake);
-                
-                // Create falling animation
+                // Add falling animation
                 const style = document.createElement('style');
                 style.textContent = `
                     @keyframes fall {
                         0% {
-                            transform: translateY(-100px) rotate(0deg);
+                            transform: translate(0, 0) rotate(0deg);
+                            opacity: ${snowflake.style.opacity};
                         }
                         100% {
-                            transform: translateY(100vh) rotate(360deg);
+                            transform: translate(${endX}px, 100vh) rotate(360deg);
+                            opacity: 0;
                         }
                     }
                 `;
                 document.head.appendChild(style);
+                
+                document.body.appendChild(snowflake);
             }
         }
 
-        // Function to start effects
+        // Create Christmas lights
+        function createChristmasLights() {
+            const lightColors = ['#C41E3A', '#165B33', '#FFD700', '#0D3B66', '#FFFFFF'];
+            const lightCount = 20;
+            
+            for (let i = 0; i < lightCount; i++) {
+                const light = document.createElement('div');
+                light.className = 'decoration christmas-light';
+                
+                // Random size
+                const size = Math.random() * 30 + 15;
+                light.style.width = `${size}px`;
+                light.style.height = `${size}px`;
+                
+                // Random position
+                light.style.left = `${Math.random() * 100}vw`;
+                light.style.top = `${Math.random() * 100}vh`;
+                
+                // Random color
+                const color = lightColors[Math.floor(Math.random() * lightColors.length)];
+                light.style.backgroundColor = color;
+                light.style.color = color;
+                
+                // Random animation delay
+                const delay = Math.random() * 2;
+                light.style.animationDelay = `${delay}s`;
+                
+                decorations.appendChild(light);
+            }
+        }
+
+        // Start Christmas Magic
         function startChristmasMagic() {
+            // Show greeting card
+            greetingCard.classList.add('active');
+            
+            // Hide main button
+            magicButton.style.display = 'none';
+            
             // Play music
-            christmasMusic.volume = 0.5;
+            christmasMusic.volume = 0.4;
             christmasMusic.play().then(() => {
-                musicInfo.classList.add('show');
+                musicPlayer.classList.add('show');
             }).catch(error => {
-                console.log("Autoplay prevented, user interaction required");
-                // Show button to start music
-                greetingButton.textContent = "🎄 Click to Play Music & See Message 🎅";
+                console.log("Music play failed, user interaction required");
+                magicButton.textContent = "🎄 Click to Play Music & Show Message 🎅";
             });
             
-            // Show message
-            greetingMessage.classList.add('active');
+            // Create decorations
+            createSnowflakes();
+            createChristmasLights();
             
-            // Hide the button
-            greetingButton.style.display = 'none';
-            
-            // Create snowflakes
-            createSnowflakes(150);
-            
-            // Add some Christmas lights effect to background
-            body.style.background = 'linear-gradient(45deg, #0a3d62, #1a5276, #0a3d62)';
-            
-            // Add pulsing animation to background
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes pulse {
-                    0%, 100% { background-size: 100% 100%; }
-                    50% { background-size: 150% 150%; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            body.style.animation = 'pulse 10s infinite alternate';
+            // Add background animation
+            document.querySelector('.christmas-bg').style.animation = 'bgPulse 8s ease-in-out infinite alternate';
         }
 
-        // Function to close message
-        function closeMessage() {
-            greetingMessage.classList.remove('active');
-            greetingButton.style.display = 'block';
+        // Close greeting card
+        function closeGreeting() {
+            greetingCard.classList.remove('active');
+            magicButton.style.display = 'block';
         }
 
-        // Event listeners
-        greetingButton.addEventListener('click', startChristmasMagic);
-        closeBtn.addEventListener('click', closeMessage);
+        // Music controls
+        playBtn.addEventListener('click', () => {
+            christmasMusic.play();
+        });
 
-        // Optional: Close message by clicking outside
-        greetingMessage.addEventListener('click', (e) => {
-            if (e.target === greetingMessage) {
-                closeMessage();
+        pauseBtn.addEventListener('click', () => {
+            christmasMusic.pause();
+        });
+
+        volumeUp.addEventListener('click', () => {
+            if (christmasMusic.volume < 1) {
+                christmasMusic.volume = Math.min(1, christmasMusic.volume + 0.1);
             }
         });
 
-        // Add some initial styling to button to make it more attractive
+        volumeDown.addEventListener('click', () => {
+            if (christmasMusic.volume > 0) {
+                christmasMusic.volume = Math.max(0, christmasMusic.volume - 0.1);
+            }
+        });
+
+        // Event Listeners
+        magicButton.addEventListener('click', startChristmasMagic);
+        closeBtn.addEventListener('click', closeGreeting);
+
+        // Close card when clicking outside
+        greetingCard.addEventListener('click', (e) => {
+            if (e.target === greetingCard) {
+                closeGreeting();
+            }
+        });
+
+        // Initialize decorations on load
         window.addEventListener('DOMContentLoaded', () => {
-            greetingButton.style.animation = 'pulse 2s infinite alternate';
+            createChristmasLights();
             
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    100% { transform: scale(1.05); }
+            // Add some initial snowflakes
+            createSnowflakes(50);
+            
+            // Preload music
+            christmasMusic.load();
+        });
+
+        // Add keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeGreeting();
+            }
+            if (e.key === ' ') {
+                if (christmasMusic.paused) {
+                    christmasMusic.play();
+                } else {
+                    christmasMusic.pause();
                 }
-            `;
-            document.head.appendChild(style);
+            }
         });
     </script>
 </body>
