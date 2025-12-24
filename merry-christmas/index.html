@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merry Christmas!</title>
+    <title>Merry Christmas 2023 | Festive Greetings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,551 +15,888 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --christmas-red: #c41e3a;
+            --christmas-green: #165b33;
+            --christmas-gold: #ffcc00;
+            --snow-white: #f8f9fa;
+            --dark-blue: #0a2949;
+        }
+
         body {
-            font-family: 'Mountains of Christmas', cursive, Arial, sans-serif;
-            background: linear-gradient(to bottom, #0a3d62, #1e5f8a, #0a3d62);
-            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a2949 0%, #123c6d 50%, #0a2949 100%);
+            color: var(--snow-white);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-            animation: fadeIn 2s ease-out;
-        }
-
-        h1 {
-            font-size: 4rem;
-            color: #ff4d4d;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-        }
-
-        .subtitle {
-            font-size: 1.8rem;
-            color: #4cd137;
-            margin-bottom: 20px;
-        }
-
-        .santa-container {
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-        }
-
-        .santa {
-            width: 200px;
-            height: 250px;
-            position: relative;
-            animation: bounce 3s infinite alternate;
-        }
-
-        .santa-hat {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 120px;
-            background-color: #ff4d4d;
-            border-radius: 50% 50% 0 0;
-            z-index: 2;
-        }
-
-        .santa-hat::before {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 20px;
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        .santa-hat::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            border-radius: 50%;
-        }
-
-        .santa-face {
-            position: absolute;
-            top: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-            height: 140px;
-            background-color: #ffccbc;
-            border-radius: 50%;
+        /* Snowfall Container */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 1;
         }
 
-        .santa-beard {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 100px;
-            background-color: white;
-            border-radius: 50%;
+        /* Main Container */
+        .main-container {
+            position: relative;
             z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .santa-eyes {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
+        /* Header */
+        header {
+            text-align: center;
+            padding: 30px 0 40px;
+            position: relative;
+        }
+
+        .header-content {
+            background: rgba(10, 41, 73, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .christmas-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            color: var(--christmas-gold);
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .christmas-subtitle {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .decorative-border {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--christmas-gold), var(--christmas-red), var(--christmas-gold), transparent);
+            width: 80%;
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Santa Section */
+        .santa-section {
+            background: rgba(22, 91, 51, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
         }
 
-        .eye {
-            width: 20px;
-            height: 20px;
-            background-color: #333;
-            border-radius: 50%;
+        .santa-title {
+            font-size: 2.2rem;
+            color: var(--christmas-gold);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        .santa-nose {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 25px;
-            height: 25px;
-            background-color: #ff8a65;
-            border-radius: 50%;
-            z-index: 3;
+        .santa-image-container {
+            position: relative;
+            margin: 20px 0;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .message-box {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+        .santa-img {
+            max-width: 100%;
+            max-height: 350px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+            transition: transform 0.5s ease;
+        }
+
+        .santa-img:hover {
+            transform: scale(1.05);
+        }
+
+        .santa-quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid var(--christmas-gold);
+        }
+
+        /* Greetings Section */
+        .greetings-section {
+            background: rgba(196, 30, 58, 0.85);
+            border-radius: 20px;
             padding: 30px;
-            max-width: 800px;
-            margin: 30px auto;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: slideUp 1.5s ease-out;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .message-box h2 {
-            font-size: 2.5rem;
-            color: #ffcc00;
-            margin-bottom: 20px;
+        .greetings-title {
+            font-size: 2.2rem;
+            color: var(--christmas-gold);
+            margin-bottom: 25px;
+            font-weight: 700;
         }
 
-        .message-box p {
+        .greeting-message {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .greeting-message p {
+            margin-bottom: 15px;
+        }
+
+        /* Music Player */
+        .music-player {
+            background: rgba(10, 41, 73, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid var(--christmas-gold);
+        }
+
+        .music-title {
             font-size: 1.5rem;
-            line-height: 1.6;
+            color: var(--christmas-gold);
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .music-controls {
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
             align-items: center;
-            margin-top: 20px;
             gap: 15px;
         }
 
         .music-btn {
-            background-color: #ff4d4d;
+            background: var(--christmas-red);
             color: white;
             border: none;
             border-radius: 50px;
             padding: 12px 25px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
         }
 
         .music-btn:hover {
-            background-color: #ff3333;
+            background: #a01830;
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.6);
+        }
+
+        .music-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .music-btn.playing {
+            background: var(--christmas-green);
+            box-shadow: 0 5px 15px rgba(22, 91, 51, 0.4);
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+            min-width: 200px;
         }
 
         .volume-slider {
-            width: 150px;
-            cursor: pointer;
+            flex-grow: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
         }
 
-        .greeting-form {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .greeting-form h3 {
-            font-size: 1.8rem;
-            color: #ffcc00;
-            margin-bottom: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 2px solid #ffcc00;
-            background-color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            font-family: Arial, sans-serif;
-        }
-
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background-color: #4cd137;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background-color: #44bd32;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 40px;
-            font-size: 1.2rem;
-            color: #ffcc00;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .snowflake {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            z-index: 1;
-        }
-
-        .lights {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 30px;
-            overflow: hidden;
-            z-index: 5;
-        }
-
-        .light {
-            position: absolute;
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            top: 5px;
-            animation: twinkle 1.5s infinite alternate;
+            background: var(--christmas-gold);
+            cursor: pointer;
         }
 
-        .light:nth-child(1) { left: 5%; background-color: #ff4d4d; animation-delay: 0s; }
-        .light:nth-child(2) { left: 15%; background-color: #4cd137; animation-delay: 0.2s; }
-        .light:nth-child(3) { left: 25%; background-color: #ffcc00; animation-delay: 0.4s; }
-        .light:nth-child(4) { left: 35%; background-color: #3498db; animation-delay: 0.6s; }
-        .light:nth-child(5) { left: 45%; background-color: #9b59b6; animation-delay: 0.8s; }
-        .light:nth-child(6) { left: 55%; background-color: #ff4d4d; animation-delay: 1s; }
-        .light:nth-child(7) { left: 65%; background-color: #4cd137; animation-delay: 1.2s; }
-        .light:nth-child(8) { left: 75%; background-color: #ffcc00; animation-delay: 1.4s; }
-        .light:nth-child(9) { left: 85%; background-color: #3498db; animation-delay: 1.6s; }
-        .light:nth-child(10) { left: 95%; background-color: #9b59b6; animation-delay: 1.8s; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .volume-text {
+            font-size: 1rem;
+            color: var(--christmas-gold);
+            min-width: 80px;
         }
 
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
+        /* Interactive Section */
+        .interactive-section {
+            background: rgba(10, 41, 73, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 3px solid var(--christmas-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .interactive-title {
+            font-size: 2.2rem;
+            color: var(--christmas-gold);
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-align: center;
         }
 
-        @keyframes twinkle {
-            from { opacity: 0.3; }
-            to { opacity: 1; }
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
+        .countdown-container, .greeting-form-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .countdown-title, .form-title {
+            font-size: 1.5rem;
+            color: var(--christmas-gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--christmas-gold);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #fff;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .countdown-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--christmas-gold);
+            background: white;
+        }
+
+        .submit-btn {
+            background: var(--christmas-green);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #124d28;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(22, 91, 51, 0.4);
+        }
+
+        .greeting-output {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255, 204, 0, 0.15);
+            border-radius: 10px;
+            border-left: 4px solid var(--christmas-gold);
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            margin-top: 50px;
+            border-top: 2px solid rgba(255, 204, 0, 0.3);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--christmas-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--christmas-gold);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .main-container {
+                padding: 15px;
             }
             
-            .subtitle {
-                font-size: 1.3rem;
+            .header-content {
+                padding: 20px;
             }
             
-            .message-box h2 {
-                font-size: 1.8rem;
+            .christmas-title {
+                font-size: 3rem;
             }
             
-            .message-box p {
+            .christmas-subtitle {
                 font-size: 1.2rem;
             }
             
-            .santa {
-                width: 150px;
-                height: 200px;
+            .santa-title, .greetings-title, .interactive-title {
+                font-size: 1.8rem;
+            }
+            
+            .santa-section, .greetings-section, .interactive-section {
+                padding: 20px;
+            }
+            
+            .music-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .christmas-title {
+                font-size: 2.5rem;
+            }
+            
+            .santa-title, .greetings-title, .interactive-title {
+                font-size: 1.6rem;
+            }
+            
+            .greeting-message {
+                font-size: 1.1rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Christmas Lights -->
-    <div class="lights">
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-        <div class="light"></div>
-    </div>
+    <!-- Snowfall Container -->
+    <div id="snow-container"></div>
 
-    <div class="container">
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Header -->
         <header>
-            <h1>Merry Christmas!</h1>
-            <p class="subtitle">Wishing you joy, peace, and happiness this holiday season</p>
+            <div class="header-content">
+                <h1 class="christmas-title">Merry Christmas! 🎄</h1>
+                <p class="christmas-subtitle">Wishing you a season filled with joy, peace, and happiness</p>
+                <div class="decorative-border"></div>
+                <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto;">May the magic of Christmas fill your heart and home with warmth and laughter throughout the holiday season and the coming year.</p>
+            </div>
         </header>
 
-        <div class="santa-container">
-            <div class="santa">
-                <div class="santa-hat"></div>
-                <div class="santa-face"></div>
-                <div class="santa-beard"></div>
-                <div class="santa-eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Santa Section -->
+            <div class="santa-section">
+                <h2 class="santa-title">Santa's Workshop 🎅</h2>
+                <div class="santa-image-container">
+                    <img src="https://images.unsplash.com/photo-1603484477859-abe6a73f9366?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Santa Claus" class="santa-img">
                 </div>
-                <div class="santa-nose"></div>
+                <div class="santa-quote">
+                    "Ho ho ho! Merry Christmas to all, and to all a good night! Remember, the best gift you can give is kindness."
+                </div>
+                
+                <!-- Music Player -->
+                <div class="music-player">
+                    <h3 class="music-title"><i class="fas fa-music"></i> Christmas Music</h3>
+                    <div class="music-controls">
+                        <button id="playBtn" class="music-btn">
+                            <i class="fas fa-play"></i> Play Music
+                        </button>
+                        <button id="pauseBtn" class="music-btn">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
+                        <div class="volume-container">
+                            <i class="fas fa-volume-up" style="color: var(--christmas-gold);"></i>
+                            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+                            <span id="volumeText" class="volume-text">50%</span>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: rgba(255,255,255,0.7);">Christmas music will start playing automatically. You can control it with the buttons above.</p>
+                </div>
+            </div>
+
+            <!-- Greetings Section -->
+            <div class="greetings-section">
+                <h2 class="greetings-title">Christmas Greetings ✨</h2>
+                <div class="greeting-message">
+                    <p>As we celebrate this magical season, may your home be filled with laughter, your heart with love, and your holidays with endless joy.</p>
+                    
+                    <p>Christmas is not just a day, it's a frame of mind. May the spirit of Christmas bring you peace, the gladness of Christmas give you hope, and the warmth of Christmas fill your heart.</p>
+                    
+                    <p>Wishing you and your loved ones a wonderful Christmas and a New Year filled with prosperity, good health, and happiness.</p>
+                    
+                    <p>May the Christmas season fill your home with joy, your heart with love, and your life with laughter.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <div style="display: inline-flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; font-size: 1.1rem;">🎁 Joy</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; font-size: 1.1rem;">❤️ Love</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; font-size: 1.1rem;">☮️ Peace</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 50px; font-size: 1.1rem;">✨ Hope</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="message-box">
-            <h2>Season's Greetings!</h2>
-            <p>May your home be filled with laughter, your heart with love, and your holidays with endless joy. As we celebrate this magical season, may the spirit of Christmas bring peace to your soul and happiness to your heart.</p>
-            <p>Wishing you and your loved ones a wonderful Christmas and a prosperous New Year!</p>
-            
-            <div class="music-controls">
-                <button id="playBtn" class="music-btn">
-                    <i class="fas fa-play"></i> Play Christmas Music
-                </button>
-                <button id="pauseBtn" class="music-btn">
-                    <i class="fas fa-pause"></i> Pause Music
-                </button>
-                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
-                <span id="volumeText">Volume: 50%</span>
+        <!-- Interactive Section -->
+        <div class="interactive-section">
+            <h2 class="interactive-title">Christmas Countdown & Greetings 🎄</h2>
+            <div class="interactive-grid">
+                <!-- Countdown -->
+                <div class="countdown-container">
+                    <h3 class="countdown-title"><i class="far fa-clock"></i> Countdown to Christmas</h3>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="days">0</div>
+                            <div class="countdown-label">Days</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="hours">0</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="minutes">0</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="seconds">0</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                    <div class="countdown-message" id="countdownMessage">Counting down to Christmas Day!</div>
+                </div>
+
+                <!-- Greeting Form -->
+                <div class="greeting-form-container">
+                    <h3 class="form-title"><i class="fas fa-gift"></i> Send Christmas Greeting</h3>
+                    <form id="greetingForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient">Recipient Name</label>
+                            <input type="text" id="recipient" class="form-control" placeholder="Who is this greeting for?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Christmas Message</label>
+                            <textarea id="message" class="form-control" rows="4" placeholder="Write your Christmas message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Christmas Greeting
+                        </button>
+                    </form>
+                    <div id="greetingOutput" class="greeting-output"></div>
+                </div>
             </div>
         </div>
 
-        <div class="greeting-form">
-            <h3>Send Your Christmas Greetings</h3>
-            <form id="greetingForm">
-                <div class="form-group">
-                    <input type="text" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="message" placeholder="Your Christmas Message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Send Christmas Greeting
-                </button>
-            </form>
-            <div id="greetingOutput" style="margin-top: 20px; font-size: 1.2rem; display: none;"></div>
-        </div>
-
+        <!-- Footer -->
         <footer>
-            <p>Made with <i class="fas fa-heart" style="color: #ff4d4d;"></i> for Christmas 2023</p>
-            <p>May the magic of Christmas fill every corner of your heart and home</p>
+            <div class="footer-content">
+                <p class="footer-text">May the magic of Christmas fill every corner of your heart and home with happiness and peace.</p>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+                
+                <p class="copyright">© 2023 Merry Christmas Greetings. Made with ❤️ and ☕ for the holiday season.</p>
+            </div>
         </footer>
     </div>
 
-    <!-- Audio element for Christmas music -->
-    <audio id="christmasMusic" loop>
+    <!-- Christmas Music -->
+    <audio id="christmasMusic" loop preload="auto">
+        <!-- Using a reliable Christmas music source -->
         <source src="https://assets.mixkit.co/music/preview/mixkit-christmas-time-209.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <script>
-        // Create snowfall
-        function createSnowflakes() {
-            const snowflakeCount = 150;
-            const container = document.body;
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create snowfall effect
+            createSnowfall();
+            
+            // Initialize music player
+            initMusicPlayer();
+            
+            // Initialize countdown
+            initCountdown();
+            
+            // Initialize greeting form
+            initGreetingForm();
+            
+            // Add some decorative elements
+            addDecorations();
+        });
+        
+        // Snowfall effect
+        function createSnowfall() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowflakeCount = 120;
             
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
                 
-                // Random size between 2px and 8px
-                const size = Math.random() * 6 + 2;
+                // Random size
+                const size = Math.random() * 10 + 5;
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
-                
-                // Random position
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                
-                // Random opacity
+                snowflake.style.backgroundColor = 'white';
+                snowflake.style.borderRadius = '50%';
+                snowflake.style.position = 'absolute';
+                snowflake.style.top = `${-size}px`;
+                snowflake.style.left = `${Math.random() * 100}%`;
                 snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflake.style.pointerEvents = 'none';
                 
-                // Random animation duration
-                const duration = Math.random() * 10 + 10;
-                snowflake.style.animation = `fall ${duration}s linear infinite`;
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const endLeft = Math.random() * 100;
                 
-                // Random animation delay
-                snowflake.style.animationDelay = `${Math.random() * 10}s`;
+                snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
                 
-                container.appendChild(snowflake);
-                
-                // Add CSS for falling animation
+                // Create keyframes for falling animation
                 const style = document.createElement('style');
                 style.textContent = `
                     @keyframes fall {
                         0% {
-                            transform: translateY(-10vh) rotate(0deg);
+                            transform: translateY(0) translateX(0) rotate(0deg);
+                            opacity: ${snowflake.style.opacity};
                         }
                         100% {
-                            transform: translateY(100vh) rotate(360deg);
+                            transform: translateY(100vh) translateX(${endLeft}px) rotate(360deg);
+                            opacity: 0;
                         }
                     }
                 `;
                 document.head.appendChild(style);
+                
+                snowContainer.appendChild(snowflake);
             }
         }
-
-        // Music controls
-        const music = document.getElementById('christmasMusic');
-        const playBtn = document.getElementById('playBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeText = document.getElementById('volumeText');
         
-        // Set initial volume
-        music.volume = volumeSlider.value;
-        
-        playBtn.addEventListener('click', () => {
-            music.play();
-            playBtn.innerHTML = '<i class="fas fa-play"></i> Playing...';
-            playBtn.style.backgroundColor = '#4cd137';
-        });
-        
-        pauseBtn.addEventListener('click', () => {
-            music.pause();
-            playBtn.innerHTML = '<i class="fas fa-play"></i> Play Christmas Music';
-            playBtn.style.backgroundColor = '#ff4d4d';
-        });
-        
-        volumeSlider.addEventListener('input', () => {
+        // Music Player
+        function initMusicPlayer() {
+            const music = document.getElementById('christmasMusic');
+            const playBtn = document.getElementById('playBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeText = document.getElementById('volumeText');
+            
+            // Set initial volume
             music.volume = volumeSlider.value;
-            volumeText.textContent = `Volume: ${Math.round(volumeSlider.value * 100)}%`;
-        });
-        
-        // Greeting form
-        const greetingForm = document.getElementById('greetingForm');
-        const greetingOutput = document.getElementById('greetingOutput');
-        
-        greetingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
             
-            const name = document.getElementById('name').value;
-            const message = document.getElementById('message').value;
+            // Play button click
+            playBtn.addEventListener('click', function() {
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="fas fa-play"></i> Playing';
+                    playBtn.classList.add('playing');
+                    pauseBtn.classList.remove('playing');
+                }).catch(e => {
+                    console.log("Playback failed:", e);
+                    // If autoplay is blocked, show a message
+                    alert("Please click the play button to start the music. Some browsers require user interaction for audio playback.");
+                });
+            });
             
-            if (name && message) {
+            // Pause button click
+            pauseBtn.addEventListener('click', function() {
+                music.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i> Play Music';
+                playBtn.classList.remove('playing');
+                pauseBtn.classList.add('playing');
+            });
+            
+            // Volume slider
+            volumeSlider.addEventListener('input', function() {
+                music.volume = volumeSlider.value;
+                volumeText.textContent = `${Math.round(volumeSlider.value * 100)}%`;
+            });
+            
+            // Auto-play music after a short delay
+            setTimeout(() => {
+                music.play().then(() => {
+                    playBtn.innerHTML = '<i class="fas fa-play"></i> Playing';
+                    playBtn.classList.add('playing');
+                }).catch(e => {
+                    console.log("Autoplay was prevented:", e);
+                    // Show instruction if autoplay is blocked
+                    playBtn.innerHTML = '<i class="fas fa-play"></i> Click to Play';
+                    playBtn.style.backgroundColor = '#ffcc00';
+                    playBtn.style.color = '#0a2949';
+                });
+            }, 1000);
+        }
+        
+        // Countdown to Christmas
+        function initCountdown() {
+            function updateCountdown() {
+                const now = new Date();
+                const currentYear = now.getFullYear();
+                let christmas = new Date(currentYear, 11, 25); // December 25th
+                
+                // If Christmas has passed this year, set to next year
+                if (now > christmas) {
+                    christmas = new Date(currentYear + 1, 11, 25);
+                }
+                
+                const timeDifference = christmas - now;
+                
+                // Calculate days, hours, minutes, seconds
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                
+                // Update DOM
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                
+                // Update message based on time until Christmas
+                const countdownMessage = document.getElementById('countdownMessage');
+                if (days === 0) {
+                    countdownMessage.textContent = "It's Christmas Day! 🎄🎅";
+                } else if (days === 1) {
+                    countdownMessage.textContent = "Christmas is tomorrow! Get ready!";
+                } else if (days < 7) {
+                    countdownMessage.textContent = "Christmas is almost here! The excitement is building!";
+                } else {
+                    countdownMessage.textContent = "Counting down to Christmas Day!";
+                }
+            }
+            
+            // Update countdown immediately and then every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Greeting Form
+        function initGreetingForm() {
+            const form = document.getElementById('greetingForm');
+            const greetingOutput = document.getElementById('greetingOutput');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const recipient = document.getElementById('recipient').value;
+                const message = document.getElementById('message').value;
+                
+                // Create greeting card
                 greetingOutput.innerHTML = `
-                    <h3>🎄 Your Christmas Greeting:</h3>
+                    <h4 style="color: var(--christmas-gold); margin-bottom: 15px;">🎄 Your Christmas Greeting Card 🎄</h4>
                     <p><strong>From:</strong> ${name}</p>
+                    <p><strong>To:</strong> ${recipient}</p>
                     <p><strong>Message:</strong> ${message}</p>
-                    <p style="color: #ffcc00; margin-top: 10px;">Your Christmas greeting has been sent to the North Pole! 🎅</p>
+                    <p style="margin-top: 15px; color: var(--christmas-gold); font-style: italic;">
+                        Your Christmas greeting has been sent to the North Pole! Santa will deliver it on Christmas Eve! 🎅
+                    </p>
                 `;
+                
                 greetingOutput.style.display = 'block';
                 
                 // Reset form
-                greetingForm.reset();
+                form.reset();
                 
-                // Scroll to the output
+                // Scroll to output
                 greetingOutput.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-        
-        // Initialize the page
-        window.addEventListener('DOMContentLoaded', () => {
-            createSnowflakes();
-            
-            // Auto-play music after a short delay (with user interaction)
-            document.body.addEventListener('click', function initMusic() {
-                if (music.paused) {
-                    music.volume = 0.3;
-                    music.play().then(() => {
-                        playBtn.innerHTML = '<i class="fas fa-play"></i> Playing...';
-                        playBtn.style.backgroundColor = '#4cd137';
-                    }).catch(e => {
-                        console.log("Autoplay prevented:", e);
-                    });
-                    document.body.removeEventListener('click', initMusic);
-                }
-            }, { once: true });
-            
-            // Add some Christmas tree emojis randomly
-            const titles = document.querySelectorAll('h1, h2, h3');
-            titles.forEach(title => {
-                const emojis = ['🎄', '🎅', '🎁', '⭐', '❄️', '🔔'];
-                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-                title.innerHTML += ` ${randomEmoji}`;
+                
+                // Add some visual feedback
+                greetingOutput.style.animation = 'none';
+                setTimeout(() => {
+                    greetingOutput.style.animation = 'fadeIn 0.5s ease';
+                }, 10);
             });
-        });
+        }
+        
+        // Add some decorative elements
+        function addDecorations() {
+            // Add some random Christmas emojis to titles
+            const titles = document.querySelectorAll('h1, h2, h3');
+            const emojis = ['🎄', '🎅', '🎁', '❄️', '✨', '⭐', '🔔', '🦌'];
+            
+            titles.forEach(title => {
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                if (!title.textContent.includes('🎄') && !title.textContent.includes('🎅')) {
+                    title.textContent += ` ${randomEmoji}`;
+                }
+            });
+            
+            // Add a CSS animation for fadeIn
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                
+                .header-content, .santa-section, .greetings-section, .interactive-section {
+                    animation: fadeIn 1s ease-out;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     </script>
 </body>
 </html>
